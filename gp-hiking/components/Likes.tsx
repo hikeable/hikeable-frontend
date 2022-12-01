@@ -1,4 +1,4 @@
-export const Landing = () => {
+export const Likes = () => {
     return (
         <div>
             Enter

@@ -1,4 +1,4 @@
-export const Landing = () => {
+export const UserAuth = () => {
     return (
         <div>
             Enter

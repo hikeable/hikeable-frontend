@@ -1,4 +1,4 @@
-export const Landing = () => {
+export const Filter = () => {
     return (
         <div>
             Enter
