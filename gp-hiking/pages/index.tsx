@@ -9,7 +9,7 @@ import { Navbar } from '../components'
 export default function Home() {
 
   function goToDashboard () {
-    
+
   }
 
   return (

@@ -1,7 +1,3 @@
-import dashboard from "../pages/dashboard";
-import Link from 'next/link';
-
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -82,7 +78,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -105,7 +101,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
@@ -126,7 +122,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -136,56 +132,62 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
                 {page}
               </Button>
             ))}
-          </Box>
-          <Typography>
-            Welcome {user}!
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none'}}}>
-            User
+          </Box> */}
+             
+          
+            {isLoggedIn === true? (
             
-          </Box>
+              <>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-              >
-               {/* <Link href={setting}>Dashboard</Link> */}
-              {settings.map((setting) => (
-                
+                <Typography>
+                  Welcome {user}!
+                </Typography>
+                <Box sx={{ flexGrow: 1, display: { xs: 'none'}}}>
+                  User    
+                </Box>
+    
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+               
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
 
-                <MenuItem 
-                  component='a'
-                  href={"/"+ setting}
-                  key={setting} 
-                  onClick={handleCloseUserMenu}
-                  >
-                  <Typography textAlign="center">{setting}</Typography>
-                  
-                </MenuItem>
-                  
-                
-                 
-              ))}
-            </Menu>
-          </Box>
+                    <MenuItem
+                      component='a'
+                      href={"/" + setting}
+                      key={setting}
+                      onClick={handleCloseUserMenu}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+
+                    </MenuItem>
+                  ))}
+              </Menu>
+            </>
+            ):
+              <Button variant="contained">Log In</Button>
+
+            }
         </Toolbar>
       </Container>
     </AppBar>
