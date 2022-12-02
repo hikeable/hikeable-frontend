@@ -1,7 +1,25 @@
-export const Navbar = () => {
+export interface INavbar {
+    navActive: boolean;
+}
+
+export const Navbar: React.FC<INavbar> = ({navActive}) => {
+    // let isLoggedIn = true;
     return (
         <div>
-            Enter
+            <span>
+                Logo
+            </span>
+
+
+
+            {navActive === true? 
+                (<span>
+                    Username
+                </span>)
+                :(<></>) 
+
+            }
+            <button> Register/ Login</button>
         </div>
     );
 }
