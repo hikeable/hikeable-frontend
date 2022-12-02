@@ -1,7 +1,7 @@
 const dashboard = () => {
     return (
         <div>
-            Enter
+            Dashboard
         </div>
     );
 }
