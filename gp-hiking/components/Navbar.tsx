@@ -26,7 +26,7 @@ export interface INavbar {
 
 
 const pages = [''];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['profile', 'dashboard', 'logout'];
 
 export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
 
@@ -137,6 +137,13 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
               </Button>
             ))}
           </Box>
+          <Typography>
+            Welcome {user}!
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none'}}}>
+            User
+            
+          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -159,11 +166,23 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
+              >
+               {/* <Link href={setting}>Dashboard</Link> */}
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                
+
+                <MenuItem 
+                  component='a'
+                  href={"/"+ setting}
+                  key={setting} 
+                  onClick={handleCloseUserMenu}
+                  >
                   <Typography textAlign="center">{setting}</Typography>
+                  
                 </MenuItem>
+                  
+                
+                 
               ))}
             </Menu>
           </Box>
@@ -191,7 +210,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
 //                 (
 //                     <>  
 
-//                         <Link href="/Dashboard">Dashboard</Link>
+                        // <Link href="/Dashboard">Dashboard</Link>
 //                         {/* <Dashboard href="/">Dashboard</Dashboard> */}
 
 //                         {/* <button onClick={goToDashboard}>Dashboard</button> */}
