@@ -7,14 +7,19 @@ import { Navbar } from '../components'
 
 
 export default function Home() {
+
+  function goToDashboard () {
+    
+  }
+
   return (
     <div className={styles.container}>
-<Head>
+      <Head>
         <title>Aruku</title>
         <meta name="description" content="hiking japan" />
         <link rel="icon" href="/boots.png" />
       </Head>
-      <Navbar navActive={true}/>
+      <Navbar isLoggedIn={true} navActive={true} user={''}/>
       <Landing/>
 
     </div>
