@@ -10,7 +10,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Navbar isLoggedIn={true} navActive={true} user={''} />
         <Component {...pageProps} />
-      {/* </Navbar> */}
     </>
   ) 
 
