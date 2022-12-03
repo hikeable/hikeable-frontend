@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Script from "next/script";
 
 const engPrefNames = {
@@ -28,7 +29,7 @@ const engPrefNames = {
   滋賀県: "Shiga",
   京都府: "Kyoto",
   大阪府: "Osaka",
-  兵庫県: "Hyougo",
+  兵庫県: "Hyogo",
   奈良県: "Nara",
   和歌山県: "Wakayama",
   鳥取県: "Tottori",
@@ -50,9 +51,12 @@ const engPrefNames = {
   沖縄県: "Okinawa",
 };
 
-const searchbypref = () => {
+const prefectures = () => {
+  const router = useRouter();
+
   return (
-    <>
+    <div className="bg__map">
+      <h1>Where do you want to walk next?</h1>
       <div id="my-map-container"></div>
       <Script
         src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js"
@@ -124,15 +128,25 @@ const searchbypref = () => {
               },
             ],
           });
+
           const allPaths = document.querySelectorAll(".prefecture-map");
+
           allPaths.forEach((path) => {
-            const jpName = path.getAttribute("data-name");
-            path.setAttributeNS(null, "data-name", engPrefNames[jpName]);
+            const jpName = path.getAttribute(
+              "data-name"
+            ) as keyof typeof engPrefNames;
+            const engName = engPrefNames[jpName];
+            path.setAttributeNS(null, "data-name", engName);
+
+            path.addEventListener("click", function () {
+              const trailPageURL = `trails/${engName.toLowerCase()}`;
+              router.push(trailPageURL);
+            });
           });
         }}
       />
-    </>
+    </div>
   );
 };
 
-export default searchbypref;
+export default prefectures;
