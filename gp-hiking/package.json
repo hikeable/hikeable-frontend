@@ -16,6 +16,7 @@
     "@types/node": "18.11.10",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "babel": "^6.23.0",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "next": "13.0.5",
@@ -24,5 +25,8 @@
     "sass": "^1.56.1",
     "sass-google-fonts": "^1.0.1",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
   }
 }
