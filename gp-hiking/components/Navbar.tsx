@@ -18,14 +18,14 @@ import Link from 'next/link';
 export interface INavbar {
     navActive: boolean;
     isLoggedIn: boolean;
-    user: string;
+    userName: string;
 }
 
 
 const pages = [''];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
-export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
+export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName}) => {
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -150,7 +150,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
                 <>
 
                   <Typography>
-                    Welcome {user}!
+                    Welcome {userName}!
                   </Typography>
                   <Box sx={{ flexGrow: 1, display: { xs: 'none'}}}>
                     User    
@@ -159,7 +159,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, user}) => {
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt={user} src="/static/images/avatar/2.jpg" />
+                        <Avatar alt={userName} src="/static/images/avatar/2.jpg" />
                       </IconButton>
                     </Tooltip>
                   </Box>

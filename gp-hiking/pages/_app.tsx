@@ -7,7 +7,6 @@ export default function App({ Component, pageProps }: AppProps) {
   return(
 
     <>
-      <Navbar isLoggedIn={true} navActive={true} user={'Matt'} />
         <Component {...pageProps} />
     </>
   ) 
