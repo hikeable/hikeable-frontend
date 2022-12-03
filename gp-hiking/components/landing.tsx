@@ -18,15 +18,19 @@ export const Landing = ({}) => {
                 objectFit='cover'
                 />
             </div>
+           
             <h1
             className={styles.h1}
              >Hiking.Simplified
-             </h1>
-             <h2>
-                <Link href="/searchbypref">
-                    Start Walking
-                </Link>
-             </h2>
+            </h1>
+
+            <p
+            className={styles.p}
+            > 
+            <Link href="/searchbypref">
+                Start Walking
+            </Link>
+            </p>
         
         
         </>
