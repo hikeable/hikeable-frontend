@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { TrailCard } from "../../components";
 
 const searchresults = () => {
   const router = useRouter();
@@ -14,7 +15,12 @@ const searchresults = () => {
     // console.log("PREF", pref);
   }, [pref]);
 
-  return <div>{pref}</div>;
+  return (
+    <>
+      <h1>Trails in {pref}</h1>
+      <TrailCard />
+    </>
+  );
 };
 
 export default searchresults;
