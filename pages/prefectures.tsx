@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 
@@ -51,7 +52,7 @@ const engPrefNames = {
   沖縄県: "Okinawa",
 };
 
-const Prefectures = () => {
+const prefectures = () => {
   const router = useRouter();
   const loadingLog = useRef(false);
 
@@ -152,4 +153,4 @@ const Prefectures = () => {
   );
 };
 
-export default Prefectures;
+export default prefectures;
