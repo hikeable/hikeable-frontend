@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-const searchresults = () => {
+const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
 
@@ -17,4 +17,4 @@ const searchresults = () => {
   return <div>{pref}</div>;
 };
 
-export default searchresults;
+export default ResultList;
