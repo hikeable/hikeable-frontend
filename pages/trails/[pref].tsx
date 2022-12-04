@@ -10,6 +10,7 @@ const searchresults = () => {
       return;
     }
 
+    router.prefetch("/prefectures");
     // console.log("PREF", pref);
   }, [pref]);
 
