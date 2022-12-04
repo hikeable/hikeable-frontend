@@ -19,13 +19,14 @@ export interface INavbar {
     navActive: boolean;
     isLoggedIn: boolean;
     userName: string;
+    logOff: (val: boolean) => void;
 }
 
 
 const pages = [''];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
-export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName}) => {
+export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -46,8 +47,11 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName}) => 
   };
 
   const updateState = (changeSetting: string) => {
-    if (changeSetting === 'logout')
-      isLoggedIn = false;
+    if (changeSetting === 'Logout'){
+      console.log("inside logout if");
+      logOff(false);
+    }
+    //  isLoggedIn = false;
   }
 
   return (

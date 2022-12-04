@@ -8,11 +8,12 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function Home() {
 
-  const [navActive, setNavStatus] = useState("true");
+  const [navActive, setNavStatus] = useState(true);
   const [userName, setName] = useState("");
 
 
   useEffect(() => {
+
 
   }, [navActive])
 
@@ -27,12 +28,15 @@ export default function Home() {
         <link rel="icon" href="/boots.png" />
       </Head>
       <Landing/>
-      
-      {
+
+      {/* {
         Boolean(navActive) === true? (
-            <Navbar navActive={true} isLoggedIn={false} userName={userName}/>
-        ): <Navbar navActive={false} isLoggedIn={false} userName={''}/>
-      }
+          <Navbar navActive={true} isLoggedIn={false} userName={userName}/>
+          ): 
+          <><Navbar navActive={false} isLoggedIn={false} userName={''} />
+            <div>Test</div>
+          </>
+      } */}
       
       
 
