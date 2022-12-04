@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Script from "next/script";
 import { useState, useEffect, useRef } from "react";
 
 const engPrefNames = {
@@ -59,7 +58,7 @@ const prefectures = () => {
   useEffect(() => {
     if (loadingLog.current === false) {
       loadingLog.current = true;
-      // window.svgJapan &&
+
       window.svgJapan({
         element: "#my-map-container",
         uniformly: false,
@@ -129,7 +128,6 @@ const prefectures = () => {
       });
 
       const allPaths = document.querySelectorAll(".prefecture-map");
-      console.log(allPaths);
 
       allPaths.forEach((path) => {
         const jpName = path.getAttribute(
@@ -150,7 +148,6 @@ const prefectures = () => {
     <div className="bg__map">
       <h1>Where do you want to walk next?</h1>
       <div id="my-map-container"></div>
-      <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
     </div>
   );
 };
