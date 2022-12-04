@@ -51,7 +51,7 @@ const engPrefNames = {
   沖縄県: "Okinawa",
 };
 
-const prefectures = () => {
+const Prefectures = () => {
   const router = useRouter();
   const loadingLog = useRef(false);
 
@@ -152,4 +152,4 @@ const prefectures = () => {
   );
 };
 
-export default prefectures;
+export default Prefectures;
