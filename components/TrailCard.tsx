@@ -16,7 +16,13 @@ interface TrailCardProps {
 }
 
 export const TrailCard = ({ trail }: TrailCardProps) => {
-  const { length, name, prefecture, difficulty } = trail;
+  const { id, length, name, prefecture, difficulty, photo_url } = trail;
+
+  const difficultyObj = {
+    1: "Easy",
+    2: "Intermediate",
+    3: "Advanced",
+  };
 
   return (
     <Card
@@ -48,10 +54,10 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
       >
         <div>
           <img
-            src="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
-            srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90&dpr=2 2x"
+            srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
+            src={photo_url}
             loading="lazy"
-            alt=""
+            alt={`${name} photo`}
           />
         </div>
       </AspectRatio>
@@ -66,14 +72,20 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
           mb={1}
           startDecorator={<LocationOn />}
         >
-          <MuiLink
-            overlay
-            underline="none"
-            href=""
-            sx={{ color: "text.tertiary" }}
+          {prefecture}
+
+          <Link
+            href={{
+              pathname: "/singletrail",
+              query: { id: id },
+            }}
           >
-            {prefecture}
-          </MuiLink>
+            <MuiLink
+              overlay
+              underline="none"
+              sx={{ color: "text.tertiary" }}
+            ></MuiLink>
+          </Link>
         </Typography>
         <Typography
           fontSize="lg"
@@ -81,7 +93,7 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
           mb={1}
           startDecorator={<Straighten />}
         >
-          {length}
+          {`${length} km`}
         </Typography>
         <Typography
           fontSize="lg"
@@ -89,7 +101,7 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
           mb={1}
           startDecorator={<Speed />}
         >
-          {difficulty}
+          {difficultyObj[difficulty]}
         </Typography>
         <Chip
           variant="outlined"

@@ -21,7 +21,7 @@ declare function svgJapan(options: {
 
 export interface Trail {
   id: number;
-  difficulty: number;
+  difficulty: 1 | 2 | 3;
   latitude: number;
   length: number;
   longitude: number;
