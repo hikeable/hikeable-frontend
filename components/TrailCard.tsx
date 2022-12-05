@@ -1,6 +1,8 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Trail } from "../global";
+
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Link as MuiLink } from "@mui/joy";
 import Card from "@mui/joy/Card";
@@ -9,7 +11,13 @@ import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import styles from "../styles/trailcard.module.css";
 
-export const TrailCard = () => {
+interface TrailCardProps {
+  trail: Trail;
+}
+
+export const TrailCard = ({ trail }: TrailCardProps) => {
+  const { length, name, prefecture, difficulty } = trail;
+
   return (
     <Card
       variant="outlined"
@@ -49,7 +57,7 @@ export const TrailCard = () => {
       </AspectRatio>
       <div>
         <Typography level="h2" fontSize="lg" id="card-description" mb={3}>
-          Yosemite Park
+          {name}
         </Typography>
 
         <Typography
@@ -64,7 +72,7 @@ export const TrailCard = () => {
             href=""
             sx={{ color: "text.tertiary" }}
           >
-            California, USA
+            {prefecture}
           </MuiLink>
         </Typography>
         <Typography
@@ -73,7 +81,7 @@ export const TrailCard = () => {
           mb={1}
           startDecorator={<Straighten />}
         >
-          10km
+          {length}
         </Typography>
         <Typography
           fontSize="lg"
@@ -81,7 +89,7 @@ export const TrailCard = () => {
           mb={1}
           startDecorator={<Speed />}
         >
-          Easy
+          {difficulty}
         </Typography>
         <Chip
           variant="outlined"
