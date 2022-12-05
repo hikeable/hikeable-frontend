@@ -1,3 +1,5 @@
+import { Interface } from "readline";
+
 type RegionType = {
   id: number;
   name: string;
@@ -16,3 +18,15 @@ declare function svgJapan(options: {
   type: string;
   regions: RegionType[];
 }): HTMLCollection;
+
+export interface Trail {
+  id: number;
+  difficulty: number;
+  latitude: number;
+  length: number;
+  longitude: number;
+  map_url: string;
+  name: string;
+  photo_url: string;
+  prefecture: string;
+}

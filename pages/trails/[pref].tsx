@@ -3,27 +3,24 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { TrailCard } from "../../components";
+import { Trail } from "../../global";
 
 const _ = require("lodash");
-
-interface Trail {
-  id: number;
-}
 
 async function fetcher(url: string) {
   const result = await axios.get(url).then((res) => res.data);
   return result;
 }
 
-const searchresults = () => {
+const searchresults = (props) => {
   const router = useRouter();
   const { pref } = router.query;
-  const { data: trail, error } = useSWR(
+
+  const { data, error } = useSWR(
     "https://hikeable-backend.herokuapp.com/api/trail",
     fetcher
   );
-
-  console.log(trail);
+  console.log(data);
 
   const capitalizePref = _.capitalize(pref as string);
 
@@ -38,7 +35,7 @@ const searchresults = () => {
   return (
     <>
       <h1>Trails in {capitalizePref}</h1>
-      <TrailCard />
+      <TrailCard data={data} />
     </>
   );
 };
