@@ -7,48 +7,63 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Slider from '@mui/material/Slider';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 
-
-// export interface trailData {
-//     id: number;
-//     name: string;
-//     prefecture: string;
-//     latitude: number;
-//     longitude: number;
-//     difficulty: number;
-//     photo_url: string;
-//     map_url: string;
-
-// }
+function valuetext(value: number) {
+    return `${value} KM`;
+  }
 
 
+function startFilter<trailProps>(trailArray : trailProps[], lengthVal : number [], difficultyVal : string, locationVal : string) {
+    const retTrails = trailArray.filter((trail) => {
 
-  
+
+    })
 
 
-export interface trailData {
+}
 
-    trail: {
-        id: number,
-        name: string,
-        prefecture: string;
-        latitude: string;
-        longitude: string;
-        length: string;
-        difficulty: number;
-        photo_url: string;
-        map_url: string;
-    }[]
+type trailData = {
+
+    id: number,
+    name: string,
+    prefecture: string;
+    latitude: string;
+    longitude: string;
+    length: string;
+    difficulty: number;
+    photo_url: string;
+    map_url: string;
 
 }
 
 
 
-export const Filter : React.FC<trailData> = (trail) => {
 
+
+export interface trailProps {
+     
+     trails: trailData
+   
+}
+
+export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
     
-
+    const [lengthVal, setLength] = React.useState<number[]>([10, 22]);
+    const [difficultyVal, setDifficulty] = React.useState<string>("0");
+    const [locationVal, setLocation] = React.useState<string>("");
+    
+    const handleLenChange = (event: Event, newValue: number | number[]) => {
+        setLength(newValue as number[]);
+      };
+    const handleDiffChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDifficulty(event.target.value as string);
+    };
+    const handleLocChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLocation(event.target.value as string);
+    };
     
 
 
@@ -60,22 +75,34 @@ export const Filter : React.FC<trailData> = (trail) => {
             <FormLabel id="demo-radio-buttons-group-label">Difficulty</FormLabel>
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="female"
+                defaultValue="Easy"
                 name="radio-buttons-group"
+                onChange={handleDiffChange}
             >
-                <FormControlLabel value="Easy" control={<Radio />} label="Easy" />
-                <FormControlLabel value="Moderate" control={<Radio />} label="Moderate" />
-                <FormControlLabel value="Hard" control={<Radio />} label="Hard" />
+                <FormControlLabel value="0" control={<Radio />} label="Easy" />
+                <FormControlLabel value="1" control={<Radio />} label="Moderate" />
+                <FormControlLabel value="2" control={<Radio />} label="Hard" />
             </RadioGroup>
         </FormControl>
 
-        <Box width={300}>
-            <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+
+        <Typography id="length-slider" gutterBottom>
+            Length
+        </Typography>
+        <Box width={300} id = "length-slider">
+            <Slider 
+                getAriaLabel={() => 'Length'}
+                defaultValue={30} 
+                value={lengthVal}
+                onChange={handleLenChange}
+                aria-label="Default" 
+                valueLabelDisplay="auto" 
+                getAriaValueText={valuetext}
+                min={0.0} 
+                max={50.0}
+            />
         </Box>
 
-       
-
-        
 
         <Box
             sx={{
@@ -88,8 +115,10 @@ export const Filter : React.FC<trailData> = (trail) => {
             helperText="Select a Location"
             id="demo-helper-text-aligned"
             label="Location"
+            onChange={handleLocChange}
         />
 
+        {/* <Button variant="contained" onClick={startFilter}>Filter</Button> */}
 
         <div>
             Enter
