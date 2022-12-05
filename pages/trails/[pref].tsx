@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
+import axios from "axios";
 import { TrailCard } from "../../components";
 
 const _ = require("lodash");
@@ -9,8 +10,9 @@ interface Trail {
   id: number;
 }
 
-async function fetcher(key: string, init?: RequestInit) {
-  return fetch(key, init).then((res) => res.json() as Promise<Trail | null>);
+async function fetcher(url: string) {
+  const result = await axios.get(url).then((res) => res.data);
+  return result;
 }
 
 const searchresults = () => {
