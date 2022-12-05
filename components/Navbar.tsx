@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
+import { useAuthContext } from './context/UseAuthContext';
+
+
 
 
 export interface INavbar {
@@ -27,6 +30,8 @@ const pages = [''];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
+
+  const {currentUser} = useAuthContext()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);

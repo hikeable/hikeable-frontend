@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import router from "next/router";
 import { Navbar } from "../components/Navbar";
 import { useState } from "react";
+import { AuthProvider } from "../components/context/UserAuth";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   
@@ -14,12 +15,12 @@ export default function App({ Component, pageProps, router }: AppProps) {
   
   if (router.pathname === "/" ){
     return (
-      <>
+      <AuthProvider>
         <Navbar navActive={false} isLoggedIn={false} userName={''} logOff = {setLoggedStatus} />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
 
-      </>
+      </AuthProvider>
     )
   }
 
