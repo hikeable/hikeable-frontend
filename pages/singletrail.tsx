@@ -1,7 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { borderRadius } from "@mui/system";
 import Image from "next/image";
-import styles from "../styles/singletrail.module.css";
+import { Likes } from "../components";
 
 const singletrail = () => {
   return (
@@ -31,6 +30,7 @@ const singletrail = () => {
             <Typography>Prefecture Name</Typography>
             <Typography>Length</Typography>
             <Typography>Difficulty</Typography>
+            <Likes></Likes>
           </Box>
         </Box>
         <Box>
