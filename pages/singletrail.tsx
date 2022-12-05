@@ -3,6 +3,7 @@ import styles from "../styles/singletrail.module.css";
 
 const singletrail = () => {
   return (
+    // Change to MUI
     <>
       <div className={styles.container}>
         <div className={styles["container-header"]}>
