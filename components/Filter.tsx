@@ -16,8 +16,10 @@ function valuetext(value: number) {
   }
 
 
-function startFilter<trailProps>(trailArray : trailProps[], lengthVal : number [], difficultyVal : string, locationVal : string) {
+function startFilter<trailProps>(trailArray : trailProps[], lengthVal? : number [], difficultyVal? : string, locationVal? : string) {
+    console.log(trailArray);
     const retTrails = trailArray.filter((trail) => {
+        console.log(trail);
 
 
     })
@@ -39,13 +41,9 @@ type trailData = {
 
 }
 
-
-
-
-
 export interface trailProps {
      
-     trails: trailData
+     trails: trailData[]
    
 }
 
@@ -118,7 +116,7 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
             onChange={handleLocChange}
         />
 
-        {/* <Button variant="contained" onClick={startFilter}>Filter</Button> */}
+        <Button variant="contained" onClick={() => startFilter(trails )}>Filter</Button>
 
         <div>
             Enter
