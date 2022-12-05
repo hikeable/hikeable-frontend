@@ -7,6 +7,7 @@ import Card from "@mui/joy/Card";
 import Chip from "@mui/joy/Chip";
 import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+import styles from "../styles/trailcard.module.css";
 
 export const TrailCard = () => {
   return (
@@ -16,14 +17,14 @@ export const TrailCard = () => {
       sx={{
         borderRadius: "25px",
         backgroundColor: "white",
-        boxShadow: "lg",
+        boxShadow: "8px 5px 20px 0px rgba(172,172,172,0.43)",
         borderColor: "#9e9e9e",
         m: "3rem",
         width: "50%",
         minHeight: "50%",
         gap: 2,
         "&:hover": {
-          boxShadow: "lg",
+          boxShadow: "8px 5px 20px 0px rgba(152,152,152,0.43)",
           borderColor: "#9e9e9e",
         },
       }}
