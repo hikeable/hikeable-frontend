@@ -15,7 +15,6 @@
     "@mui/material": "^5.10.16",
     "@next/font": "^13.0.6",
     "@types/node": "18.11.10",
-    "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
@@ -25,5 +24,8 @@
     "saas": "^1.0.0",
     "sass-google-fonts": "^1.0.1",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26"
   }
 }
