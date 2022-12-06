@@ -9,7 +9,7 @@ type trailCompletionObject = {
   user: number;
   trail_id: number;
   completion: true;
-  date: Date;
+  date: string;
 };
 
 export const CompletedTrails = () => {
@@ -26,7 +26,8 @@ export const CompletedTrails = () => {
         data: {
           user: 2, // update this later
           trail_id: 1, // update this later
-          like: true,
+          completion: true,
+          date: "2022-12-6"
         },
       });
       //   setFavorited(true);
@@ -40,7 +41,8 @@ export const CompletedTrails = () => {
           //   id: recordID,
           user: 2, // update this later
           trail_id: 1, // update this later
-          like: false,
+          completion: false,
+          date: "2022-12-6"
         },
       });
       setCompleted(false);
@@ -52,7 +54,8 @@ export const CompletedTrails = () => {
           //   id: recordID,
           user: 2, // update this later
           trail_id: 1, // update this later
-          like: true,
+          completion: true,
+          date: "2022-12-6"
         },
       });
       setCompleted(true);
@@ -62,7 +65,7 @@ export const CompletedTrails = () => {
   const fetchCompletionData = async () => {
     const fetchedCompletionData = await axios.get(
       // trail id needs to be implemented in url here
-      "https://hikeable-backend.herokuapp.com/api/trails/1/completions/"
+      "https://hikeable-backend.herokuapp.com/api/trails/1/completions"
     );
     setData(fetchedCompletionData.data);
   };
