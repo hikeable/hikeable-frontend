@@ -1,0 +1,32 @@
+
+.container-weather {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    width: 40vw;
+    align-items: flex-start;
+}
+
+.container-map {
+    width: 40vw;
+    align-items: flex-start;
+}
+
+.container-tips {
+    margin-top: 8vh;
+    border: solid;
+    border-radius: 8px;
+    padding: 20px;
+    width: 40vw;
+}
+
+.container-tips--header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-tips--content {
+    margin-top: 4vh;
+    border: solid;
+    border-radius: 8px;
+    padding: 10px;
+}
