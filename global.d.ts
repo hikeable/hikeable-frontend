@@ -34,9 +34,3 @@ export interface Trail {
   photo_url: string;
   prefecture: string;
 }
-
-export const difficultyObj = {
-  1: "Easy",
-  2: "Moderate",
-  3: "Hard",
-};
