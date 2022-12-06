@@ -1,54 +1,90 @@
-import React, { createContext, useState, useEffect} from 'react'
+import React, {ReactNode, useEffect, useState, useContext, createContext } from 'react'
 import { auth} from '../../firebase'
-import { GoogleAuthProvider, signInWithRedirect, signOut, onAuthStateChanged } from 'firebase/auth'
+import { Auth, UserCredential, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,GoogleAuthProvider,signInWithPopup, getAuth } from 'firebase/auth'
 
+export interface AuthProviderProps {
+  children?: ReactNode
+};
 
+export interface UserContextState {
+  isAuthenticated: boolean
+  isLoading: boolean
+  id?: string
+};
 
-export interface IuserAuthProps {
-    children: React.ReactNode
-}
+export const UserStateContext = createContext<UserContextState>(
+  {} as UserContextState,
+);
+export interface AuthContextModel {
+  auth: Auth
+  user: User | null
+  signIn: (email: string, password: string) => Promise<UserCredential>
+  signUp: (email: string, password: string) => Promise<UserCredential>
+  sendPasswordResetEmail?: (email: string) => Promise<void>
+  loginWithGoogle: () => void
+};
 
-export interface IauthProps {
+export const AuthContext = React.createContext<AuthContextModel>(
+  {} as AuthContextModel,
+);
 
-}
+export function useAuth(): AuthContextModel {
+  return useContext(AuthContext)
+};
 
-export const AuthContext = createContext({currentUser:"5",setCurrentUser:(currentUser:string) =>{}});
+export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
+  const [user, setUser] = useState<User | null>(null);
+  const provider = new GoogleAuthProvider();
 
-export const AuthProvider = ({children}:IuserAuthProps) => {
-    const [currentUser, setCurrentUser] = useState(null)
+  function signUp(email: string, password: string): Promise<UserCredential> {;
+    return createUserWithEmailAndPassword(auth, email, password)
+  };
+  function signIn(email: string, password: string): Promise<UserCredential> {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+  function resetPassword(email: string): Promise<void> {
+    return sendPasswordResetEmail(auth, email);
+  };   
+  function loginWithGoogle() { 
+    const auth = getAuth();
 
-    const provider = new GoogleAuthProvider()
-    
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async user => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            setCurrentUser(user)  
-        })
-        return unsubscribe
-    }, [])
+    signInWithPopup(auth, provider).then(result => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential?.accessToken;
+        const user = result.user;
 
+        console.log("google auth sucesss", {result, user})
+        
+    }).catch(error => {
+        const erroCode = error.code;
+        const errMessage = error.message;
 
-    function logout(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            signOut(auth)
-            .then(() => resolve())
-            .catch((error) => reject(error));
-        });
-    };
-    
-    
-    function login():void {
-        signInWithRedirect(auth,provider)
-    }
+        console.log("google auth error", erroCode, errMessage);
+    } )
+  };
 
+  useEffect(() => {
+    //function that firebase notifies you if a user is set
+    const unsubsrcibe = auth.onAuthStateChanged((user) => {
+      setUser(user)
+    })
+    return unsubsrcibe
+  }, []);
 
+  const values = {
+    signUp,
+    user,
+    signIn,
+    resetPassword,
+    auth,
+    loginWithGoogle,
+  }
+  
+  return <AuthContext.Provider value={values}>
+    {children}
+    </AuthContext.Provider>
+};
 
-    return (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        <AuthContext.Provider value={{ currentUser, setCurrentUser, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+export const useUserContext = (): UserContextState => {
+  return useContext(UserStateContext)
+};

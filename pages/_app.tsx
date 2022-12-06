@@ -14,22 +14,24 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   
   if (router.pathname === "/" ){
+    console.log("path--", router.pathname)
     return (
       <AuthProvider>
         <Navbar navActive={false} isLoggedIn={false} userName={''} logOff = {setLoggedStatus} />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
-
       </AuthProvider>
     )
   }
-
+console.log("router.pathname =======", router.pathname )
   return(
     <>
-        <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
-        <Component {...pageProps} />
+        <AuthProvider>
 
-        <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+          <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
+          <Component {...pageProps} />
+          <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+        </AuthProvider>
     </>
   ) 
   
