@@ -14,7 +14,7 @@ const difficultyObj = {
   3: "Hard",
 };
 
-const singletrail = () => {
+const SingleTrail = () => {
   const router = useRouter();
   const trail: Trail = JSON.parse(router.query.trail as string);
 
@@ -92,4 +92,4 @@ const singletrail = () => {
   );
 };
 
-export default singletrail;
+export default SingleTrail;
