@@ -75,7 +75,7 @@ export const Likes = () => {
   useEffect(() => {
     for (let object of data) {
       // user id needs to be implemented here
-      if (object.user === 2) {
+      if (object.user === 1) {
         setRecordExists(true);
         setRecordID(object.id);
 
