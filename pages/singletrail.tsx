@@ -1,8 +1,25 @@
+import { useRouter } from "next/router";
+import { Trail } from "../global";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import { Likes } from "../components";
+import styles from "../styles/singletrail.module.css";
+
+interface TrailData {
+  trail: Trail;
+}
+
+const difficultyObj = {
+  1: "Easy",
+  2: "Moderate",
+  3: "Hard",
+};
 
 const singletrail = () => {
+  const router = useRouter();
+  const trail: Trail = JSON.parse(router.query.trail as string);
+
+  console.log(trail);
+
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -26,11 +43,10 @@ const singletrail = () => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h1">Trail Name</Typography>
-            <Typography>Prefecture Name</Typography>
-            <Typography>Length</Typography>
-            <Typography>Difficulty</Typography>
-            <Likes></Likes>
+            <Typography variant="h1">{trail.name}</Typography>
+            <Typography>{trail.prefecture}</Typography>
+            <Typography>{trail.length}</Typography>
+            <Typography>{difficultyObj[trail.difficulty]}</Typography>
           </Box>
         </Box>
         <Box>
