@@ -12,39 +12,57 @@ type TrailLike = {
 };
 
 export const Likes = () => {
-  const [favorite, setFavorite] = useState<boolean>(false);
+  const [favorited, setFavorited] = useState<boolean>(false);
+  const [recordExists, setRecordExists] = useState<boolean>(false);
+  const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<TrailLike[]>([]);
 
+  // note: trail id, user id need to be passed down as props
+
   const handleFavorite = async () => {
-    if (favorite) {
+    if (!recordExists) {
       await axios({
-        method: "put",
-        url: "https://hikeable-backend.herokuapp.com/api/trails/likes/1",
+        method: "post",
+        url: "https://hikeable-backend.herokuapp.com/api/trails/likes",
         data: {
-          id: 1,
-          user: 1,
-          trail_id: 1,
-          like: false,
-        },
-      });
-      setFavorite(false);
-    } else if (!favorite) {
-      await axios({
-        method: "put",
-        url: "https://hikeable-backend.herokuapp.com/api/trails/likes/1",
-        data: {
-          id: 1,
-          user: 1,
-          trail_id: 1,
+          user: 1, // update this later
+          trail_id: 1, // update this later
           like: true,
         },
       });
-      setFavorite(true);
+      setFavorited(true);
+      setRecordExists(true);
+      fetchLikeData();
+    } else if (favorited && recordExists) {
+      await axios({
+        method: "put",
+        url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
+        data: {
+          id: recordID,
+          user: 1, // update this later
+          trail_id: 1, // update this later
+          like: false,
+        },
+      });
+      setFavorited(false);
+    } else if (!favorited && recordExists) {
+      await axios({
+        method: "put",
+        url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
+        data: {
+          id: recordID,
+          user: 1, // update this later
+          trail_id: 1, // update this later
+          like: true,
+        },
+      });
+      setFavorited(true);
     }
   };
 
   const fetchLikeData = async () => {
     const fetchedLikeData = await axios.get(
+      // trail id needs to be implemented in url here
       "https://hikeable-backend.herokuapp.com/api/trails/1/likes"
     );
     setData(fetchedLikeData.data);
@@ -56,13 +74,19 @@ export const Likes = () => {
 
   useEffect(() => {
     for (let object of data) {
-      if (object.user === 1 && object.like === true) setFavorite(true);
+      // user id needs to be implemented here
+      if (object.user === 2) {
+        setRecordExists(true);
+        setRecordID(object.id);
+
+        if (object.like === true) setFavorited(true);
+      }
     }
   }, [data]);
 
   return (
     <>
-      {favorite === true ? (
+      {favorited === true ? (
         <>
           <IconButton aria-label="favorite" onClick={handleFavorite}>
             <FavoriteIcon></FavoriteIcon>
