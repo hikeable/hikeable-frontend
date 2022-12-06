@@ -1,9 +1,34 @@
 import { Box, Typography } from "@mui/material";
 import { borderRadius } from "@mui/system";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Trail } from "../global";
 import styles from "../styles/singletrail.module.css";
 
-const singletrail = () => {
+interface TrailData {
+  trail: Trail;
+}
+
+const difficultyObj = {
+  1: "Easy",
+  2: "Moderate",
+  3: "Hard",
+};
+
+const Singletrail = () => {
+  const router = useRouter();
+  const [trail, setTrail] = useState<Trail | undefined>(undefined);
+  console.log(router.query.trail);
+
+  useEffect(() => {
+    if (router.query.trail !== undefined) {
+      setTrail(JSON.parse(router.query.trail as string));
+    } else {
+      return;
+    }
+  }, []);
+
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -76,4 +101,4 @@ const singletrail = () => {
   );
 };
 
-export default singletrail;
+export default Singletrail;

@@ -19,23 +19,18 @@ function valuetext(value: number) {
 
 
 function startFilter<trailProps>(trailArray : trailData[], lengthVal? : number [], difficultyVal? : string, locationVal? : string) {
-
+    console.log("🌏 ",trailArray)
     const retTrails = trailArray.filter(isRequested);
   
     function isRequested (trail : trailData) {
 
-                return ( 
-
-                    (!locationVal ||  trail.name.toLowerCase().includes(locationVal.toLowerCase())) &&
-                    (!lengthVal || parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]) &&
-                    (!difficultyVal || parseInt(difficultyVal) === trail.difficulty)          
-                )
-
-    }
-        
+      return ( 
+            (!locationVal ||  trail.name.toLowerCase().includes(locationVal.toLowerCase())) &&
+            (!lengthVal || parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]) &&
+            (!difficultyVal || parseInt(difficultyVal) === trail.difficulty)          
+        )
+    }      
     console.log(retTrails);
-
-
 }
 
 interface trailData {
@@ -133,6 +128,15 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
         </List>
         </RadioGroup> */}
 
+            <Typography
+              fontSize="xs2"
+              textTransform="uppercase"
+              letterSpacing="md"
+              fontWeight="lg"
+            >
+              Filter by
+            </Typography>
+
         <TextField
             helperText="Select a Trail"
             id="demo-helper-text-aligned"
@@ -168,6 +172,7 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
         <Box width= {300} id = "length-slider"> 
             <Slider 
                 getAriaLabel={() => 'Length'}
+                valueLabelFormat = {(value) => `${value} km`}
                 defaultValue={30} 
                 value={lengthVal}
                 onChange={handleLenChange}
