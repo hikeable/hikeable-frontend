@@ -142,7 +142,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
               LOGO
             </Typography>
 
-            <Button variant="contained" href='/searchbypref'>Map</Button>
+            <Button variant="contained" href='/prefectures'>Map</Button>
 
             {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (

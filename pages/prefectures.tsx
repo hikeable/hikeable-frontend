@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const engPrefNames = {
   北海道: "Hokkaido",

@@ -4,6 +4,10 @@ export * from "./Likes";
 export * from "./Navbar";
 export * from "./TrailCard";
 export * from "./context/UserAuth";
-export * from "./landing"
+export * from "./CompletedTrails";
+export * from "./Filter";
+export * from "./Likes";
+export * from "./Navbar";
+export * from "./TrailCard";
 export * from "./Navbar"
 export * from "./login"
