@@ -11,7 +11,7 @@ async function fetcher(url: string) {
   return data;
 }
 
-function getTrailData() {
+function GetTrailData() {
   const { data, error } = useSWR(
     "https://hikeable-backend.herokuapp.com/api/trails",
     fetcher
@@ -22,7 +22,7 @@ function getTrailData() {
 const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
-  const allTrails = getTrailData() || [];
+  const allTrails = GetTrailData() || [];
 
   const capitalizePref = _.capitalize(pref);
 
