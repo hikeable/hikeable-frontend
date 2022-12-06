@@ -40,9 +40,17 @@ const searchresults = () => {
   return (
     <>
       <h1>Trails in {capitalizePref}</h1>
-      {allTrails.map((trail: Trail) => (
+      {allTrails
+        .filter((trail: Trail) => {
+          return pref === trail.prefecture;
+        })
+        .map((filteredTrail: Trail) => (
+          <TrailCard key={filteredTrail.id} trail={filteredTrail} />
+        ))}
+
+      {/* {allTrails.map((trail: Trail) => (
         <TrailCard key={trail.id} trail={trail} />
-      ))}
+      ))} */}
     </>
   );
 };

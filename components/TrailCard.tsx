@@ -1,6 +1,5 @@
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { Trail } from "../global";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -8,14 +7,8 @@ import { Link as MuiLink } from "@mui/joy";
 import Card from "@mui/joy/Card";
 import Chip from "@mui/joy/Chip";
 import Typography from "@mui/joy/Typography";
-import {
-  LocationOn,
-  Straighten,
-  Speed,
-  TramOutlined,
-} from "@mui/icons-material";
+import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import styles from "../styles/trailcard.module.css";
-import { json } from "stream/consumers";
 
 interface TrailCardProps {
   trail: Trail;

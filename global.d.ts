@@ -1,4 +1,8 @@
-import { Interface } from "readline";
+declare global {
+  interface Window {
+    svgJapan: function;
+  }
+}
 
 type RegionType = {
   id: number;

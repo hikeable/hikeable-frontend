@@ -7,12 +7,13 @@ interface TrailData {
 
 const singletrail = () => {
   const router = useRouter();
-  const trail = JSON.parse(router.query.trail);
+  const trail = JSON.parse(router.query.trail as string);
 
   console.log(trail);
   return (
     <>
-      <h1>Test</h1>
+      <h1>Show Trail Data Test</h1>
+      <h2>{trail.name}</h2>
     </>
   );
 };
