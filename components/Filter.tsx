@@ -16,18 +16,35 @@ function valuetext(value: number) {
   }
 
 
-function startFilter<trailProps>(trailArray : trailProps[], lengthVal? : number [], difficultyVal? : string, locationVal? : string) {
+function startFilter<trailProps>(trailArray : trailData[], lengthVal? : number [], difficultyVal? : string, locationVal? : string) {
     console.log(trailArray);
-    const retTrails = trailArray.filter((trail) => {
-        console.log(trail);
+    console.log(difficultyVal);
+    console.log(lengthVal);
+    const retTrails = trailArray.filter(isRequested);
+
+  
+    function isRequested (trail : trailData) {
 
 
-    })
+        
+                return ( 
+                    // difficultyVal? (trail.difficulty === parseInt(difficultyVal)) &&
+        
+                    locationVal? (trail.name === locationVal):trail &&
+                    lengthVal?(parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]):
+                    trail
+                    
+                
+                )
+
+    }
+        
+    console.log(retTrails);
 
 
 }
 
-type trailData = {
+interface trailData {
 
     id: number,
     name: string,
@@ -77,9 +94,9 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
                 name="radio-buttons-group"
                 onChange={handleDiffChange}
             >
-                <FormControlLabel value="0" control={<Radio />} label="Easy" />
-                <FormControlLabel value="1" control={<Radio />} label="Moderate" />
-                <FormControlLabel value="2" control={<Radio />} label="Hard" />
+                <FormControlLabel value="1" control={<Radio />} label="Easy" />
+                <FormControlLabel value="2" control={<Radio />} label="Moderate" />
+                <FormControlLabel value="3" control={<Radio />} label="Hard" />
             </RadioGroup>
         </FormControl>
 
@@ -116,7 +133,7 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
             onChange={handleLocChange}
         />
 
-        <Button variant="contained" onClick={() => startFilter(trails )}>Filter</Button>
+        <Button variant="contained" onClick={() => startFilter(trails, lengthVal, difficultyVal, locationVal )}>Filter</Button>
 
         <div>
             Enter
