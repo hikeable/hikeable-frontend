@@ -4,7 +4,7 @@ import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-type TrailLike = {
+type trailLikeObject = {
   id: number;
   user: number;
   trail_id: number;
@@ -15,7 +15,7 @@ export const Likes = () => {
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
-  const [data, setData] = useState<TrailLike[]>([]);
+  const [data, setData] = useState<trailLikeObject[]>([]);
 
   // note: trail id, user id need to be passed down as props
 
@@ -25,21 +25,21 @@ export const Likes = () => {
         method: "post",
         url: "https://hikeable-backend.herokuapp.com/api/trails/likes",
         data: {
-          user: 1, // update this later
+          user: 2, // update this later
           trail_id: 1, // update this later
           like: true,
         },
       });
-      setFavorited(true);
-      setRecordExists(true);
+      //   setFavorited(true);
+      //   setRecordExists(true);
       fetchLikeData();
     } else if (favorited && recordExists) {
       await axios({
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
         data: {
-          id: recordID,
-          user: 1, // update this later
+          //   id: recordID,
+          user: 2, // update this later
           trail_id: 1, // update this later
           like: false,
         },
@@ -50,8 +50,8 @@ export const Likes = () => {
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
         data: {
-          id: recordID,
-          user: 1, // update this later
+          //   id: recordID,
+          user: 2, // update this later
           trail_id: 1, // update this later
           like: true,
         },
@@ -75,7 +75,7 @@ export const Likes = () => {
   useEffect(() => {
     for (let object of data) {
       // user id needs to be implemented here
-      if (object.user === 1) {
+      if (object.user === 2) {
         setRecordExists(true);
         setRecordID(object.id);
 
