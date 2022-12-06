@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { Trail } from "../global";
 import { Box, Typography } from "@mui/material";
-import { borderRadius } from "@mui/system";
 import Image from "next/image";
 import styles from "../styles/singletrail.module.css";
 
