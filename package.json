@@ -18,10 +18,7 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "babel": "^6.23.0",
-<<<<<<< Updated upstream
-=======
     "axios": "^1.2.0",
->>>>>>> Stashed changes
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "firebase": "^9.14.0",
@@ -31,11 +28,8 @@
     "saas": "^1.0.0",
     "sass-google-fonts": "^1.0.1",
     "typescript": "4.9.3"
-<<<<<<< Updated upstream
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0"
-=======
->>>>>>> Stashed changes
   }
 }
