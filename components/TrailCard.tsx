@@ -14,14 +14,14 @@ interface TrailCardProps {
   trail: Trail;
 }
 
+const difficultyObj = {
+  1: "Easy",
+  2: "Moderate",
+  3: "Hard",
+};
+
 export const TrailCard = ({ trail }: TrailCardProps) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
-
-  const difficultyObj = {
-    1: "Easy",
-    2: "Moderate",
-    3: "Hard",
-  };
 
   return (
     <Card

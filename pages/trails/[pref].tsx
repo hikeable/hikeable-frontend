@@ -19,7 +19,7 @@ function getTrailData() {
   return data;
 }
 
-const searchresults = () => {
+const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
   const allTrails = getTrailData() || [];
@@ -50,4 +50,4 @@ const searchresults = () => {
   );
 };
 
-export default searchresults;
+export default ResultList;
