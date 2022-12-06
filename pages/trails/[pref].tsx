@@ -24,17 +24,7 @@ const ResultList = () => {
   const { pref } = router.query;
   const allTrails = getTrailData() || [];
 
-  console.log(allTrails);
-
   const capitalizePref = _.capitalize(pref);
-
-  // useEffect(() => {
-  //   if (!pref) {
-  //     return;
-  //   }
-
-  //   router.prefetch("/prefectures");
-  // }, [pref]);
 
   return (
     <>

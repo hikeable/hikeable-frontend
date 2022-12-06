@@ -1,6 +1,5 @@
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Trail } from "../global";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Link as MuiLink } from "@mui/joy";
