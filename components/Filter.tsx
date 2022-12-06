@@ -17,22 +17,48 @@ function valuetext(value: number) {
 
 
 function startFilter<trailProps>(trailArray : trailData[], lengthVal? : number [], difficultyVal? : string, locationVal? : string) {
-    console.log(trailArray);
-    console.log(difficultyVal);
-    console.log(lengthVal);
+    // console.log(trailArray);
+    // console.log(difficultyVal);
+    // console.log(lengthVal);
+
+    let lookup = {
+        length: lengthVal,
+        difficulty: difficultyVal,
+        name: locationVal,
+
+    }
+
     const retTrails = trailArray.filter(isRequested);
+
+    
+
 
   
     function isRequested (trail : trailData) {
 
+            
+                // for (let key in lookup) {
+                //     console.log(key)
+                //     if (lookup.length){
 
-        
+                //         (lookup.length)
+
+                //     }
+                // }
+                
+     
                 return ( 
-                    // difficultyVal? (trail.difficulty === parseInt(difficultyVal)) &&
-        
-                    locationVal? (trail.name === locationVal):trail &&
-                    lengthVal?(parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]):
-                    trail
+
+                    (!locationVal ||  trail.name.toLowerCase().includes(locationVal.toLowerCase())) &&
+                    (!lengthVal || parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]) &&
+                    (!difficultyVal || parseInt(difficultyVal) === trail.difficulty)
+
+
+
+                    
+                    // locationVal? (trail.name === locationVal):trail &&
+                    // lengthVal?(parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]):
+                    // trail
                     
                 
                 )
@@ -66,8 +92,8 @@ export interface trailProps {
 
 export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
     
-    const [lengthVal, setLength] = React.useState<number[]>([10, 22]);
-    const [difficultyVal, setDifficulty] = React.useState<string>("0");
+    const [lengthVal, setLength] = React.useState<number[]>([1, 20]);
+    const [difficultyVal, setDifficulty] = React.useState<string>("");
     const [locationVal, setLocation] = React.useState<string>("");
     
     const handleLenChange = (event: Event, newValue: number | number[]) => {
@@ -127,9 +153,9 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
             }}
          ></Box>
          <TextField
-            helperText="Select a Location"
+            helperText="Select a Trail"
             id="demo-helper-text-aligned"
-            label="Location"
+            label="Trail"
             onChange={handleLocChange}
         />
 
