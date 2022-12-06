@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { TrailCard } from "../../components";
@@ -47,10 +46,6 @@ const searchresults = () => {
         .map((filteredTrail: Trail) => (
           <TrailCard key={filteredTrail.id} trail={filteredTrail} />
         ))}
-
-      {/* {allTrails.map((trail: Trail) => (
-        <TrailCard key={trail.id} trail={trail} />
-      ))} */}
     </>
   );
 };

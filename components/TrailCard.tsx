@@ -19,8 +19,8 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
 
   const difficultyObj = {
     1: "Easy",
-    2: "Intermediate",
-    3: "Advanced",
+    2: "Moderate",
+    3: "Hard",
   };
 
   return (
