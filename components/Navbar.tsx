@@ -31,7 +31,7 @@ const settings = ['Profile', 'Dashboard', 'Logout'];
 
 export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
 
-  const {user, loginWithGoogle} = useAuthContext()
+  const {user, loginWithGoogle, logout} = useAuthContext()
 
   console.log (user);
   // console.log("usecontext", navActive, useAuthContext())
@@ -207,7 +207,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                 </Menu>
               </>
               ):
-                <Button variant="contained" onClick={() => loginWithGoogle()}>Log In</Button>
+                <Button variant="contained" onClick={() => logout}>Log In</Button>
 
               }
           </Toolbar>
