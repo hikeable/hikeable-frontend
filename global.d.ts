@@ -26,11 +26,13 @@ declare function svgJapan(options: {
 export interface Trail {
   id: number;
   difficulty: 1 | 2 | 3;
-  latitude: number;
+  latitude: string;
   length: number;
-  longitude: number;
+  longitude: string;
   map_url: string;
   name: string;
   photo_url: string;
   prefecture: string;
 }
+
+declare module "react-open-weather";
