@@ -21,7 +21,6 @@ function valuetext(value: number) {
 
 
 function startFilter<trailProps>(trailArray : Trail[], lengthVal? : number [], difficultyVal? : string, locationVal? : string, setTrail?: Dispatch<SetStateAction<[] | Trail[]>>) {
-    console.log("🌏 ",trailArray)
     const retTrails = trailArray.filter(isRequested);
   
     function isRequested (trail : Trail) {
@@ -34,23 +33,24 @@ function startFilter<trailProps>(trailArray : Trail[], lengthVal? : number [], d
     }      
     console.log(retTrails);
     setTrail?.(retTrails);
+
+
     
 }
 
 export interface trailProps {
-     
      trails: Trail[]
-   
 }
 
 type filterProps = ({
     trails : Trail[];
     setTrail? : Dispatch<SetStateAction<[] | Trail[]>>;
+    trailSetter? : any
 })
 
 
 
-export const Filter : React.FC<filterProps> = ({trails}, {setTrail}) => {
+export const Filter : React.FC<filterProps> = ({ trails, setTrail }) => {
     
     const [lengthVal, setLength] = React.useState<number[]>([1, 20]);
     const [difficultyVal, setDifficulty] = React.useState<string>("");
@@ -75,56 +75,8 @@ export const Filter : React.FC<filterProps> = ({trails}, {setTrail}) => {
         height: '5rem',
     };
     
-
-
     return (
-
-
         <>
-
-
-
-    {/* <RadioGroup aria-label="Difficulty levels" name="radio-buttons-group" defaultValue="Easy">
-        <List
-            sx={{
-            minWidth: 240,
-            '--List-gap': '0.5rem',
-            '--List-item-paddingY': '1rem',
-            '--List-item-radius': '8px',
-            '--List-decorator-size': '32px',
-            }}
-        >
-            {['Easy', 'Moderate', 'Hard'].map((item, index) => (
-            <ListItem
-                variant="outlined"
-                key={item}
-                sx={{ boxShadow: 'sm', bgcolor: 'background.body' }}
-            >
-                <ListItemDecorator>
-                {[index]}
-                </ListItemDecorator>
-                <Radio
-                    overlay
-                    value={index + 1}
-                    label={item}
-                    sx={{ flexGrow: 1, flexDirection: 'row-reverse' }}
-                    componentsProps={{
-                        action: ({ checked }) => ({
-                        sx: (theme) => ({
-                            ...(checked && {
-                            inset: -1,
-                            border: '2px solid',
-                            borderColor: theme.vars.palette.primary[500],
-                            }),
-                        }),
-                        }),
-                    }}
-                />
-            </ListItem>
-            ))}
-        </List>
-        </RadioGroup> */}
-
             <Typography
               fontSize="xs2"
               textTransform="uppercase"

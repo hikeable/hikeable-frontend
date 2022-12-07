@@ -4,9 +4,11 @@ import axios from "axios";
 import { Filter, TrailCard } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
+import styles from "../../styles/prefTrails.scss";
+
+
 
 const _ = require("lodash");
-
 
 async function fetcher(url: string) {
   const { data } = await axios.get(url);
@@ -26,37 +28,37 @@ const ResultList = () => {
   const { pref } = router.query;
   const allTrails = GetTrailData() || [];
   
-  useEffect(() => { 
-    setTrail(filteredTrails);
-  },[])
-  
-  
   const capitalizePref = _.capitalize(pref);
   const filteredTrails = allTrails
   .filter((trail: Trail) => {
     return pref === trail.prefecture;
   });
+
+  const [trailsArr, setTrail] = useState<Trail[] | []>(filteredTrails);
   
-  const [trails, setTrail] = useState<Trail[] | []>(filteredTrails);
-
-  console.log("🐓 ", trails);
-
+  useEffect(() => { 
+    setTrail(filteredTrails);
+  },[allTrails])
 
   return (
     <>
       <h1>Trails in {capitalizePref}</h1>
-      { 
-      // allTrails
-      //   .filter((trail: Trail) => {
-        
-        trails.map((filteredTrail: Trail) => {
-          return (
-            <TrailCard key={filteredTrail.id} trail={filteredTrail} />
-          )}
-      //     return pref === trail.prefecture;
-      //   })
-        )}
-        <Filter trails={filteredTrails} setTrail = {setTrail} />
+      <div className="flexContainer">
+
+        <div className="cardsFeed">
+          { 
+            trailsArr.map((filteredTrail: Trail) => {
+              return (
+                <TrailCard key={filteredTrail.id} trail={filteredTrail} />
+              )}
+            )}
+        </div>
+        <div className="filterCard">
+          <Filter trails={filteredTrails} setTrail = {setTrail}  />
+        </div>
+
+
+      </div>
     </>
   );
 };
