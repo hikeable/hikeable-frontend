@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import router from "next/router";
 import { Navbar } from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { User } from "firebase/auth";
+
+import router from "next/router";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   
