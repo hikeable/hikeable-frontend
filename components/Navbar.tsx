@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
 import { useAuthContext } from './context/UseAuthContext';
+import { Dispatch, SetStateAction } from 'react';
 
 
 
@@ -21,20 +22,27 @@ import { useAuthContext } from './context/UseAuthContext';
 export interface INavbar {
     navActive: boolean;
     isLoggedIn: boolean;
-    userName: string;
+    userName: string | null;
     logOff: (val: boolean) => void;
+    setLoggedStatus:Dispatch<SetStateAction<boolean>>
 }
 
 
 const pages = [''];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
-export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
+export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff, setLoggedStatus}) => {
 
-  const {user, loginWithGoogle, logout} = useAuthContext()
-
-  console.log (user);
+  const {user, loginWithGoogle, logout,auth} = useAuthContext()
+  userName= user?.displayName
+  console.log (user, userName, user?.displayName);
   // console.log("usecontext", navActive, useAuthContext())
+
+  React.useEffect(()=>{
+    setLoggedStatus(true)
+  },[userName])
+
+  console.log (userName,isLoggedIn, "🍒🍒🍒")
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -57,10 +65,16 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
   const updateState = (changeSetting: string) => {
     if (changeSetting === 'Logout'){
       console.log("inside logout if");
+      logout(auth)
       logOff(false);
     }
+
     //  isLoggedIn = false;
   }
+
+    React.useEffect(() => {
+      
+    })
 
   return (
     navActive == true? (
@@ -157,7 +171,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
             </Box> */}
               
             
-              {isLoggedIn === true? (
+              {user? (
               
                 <>
               
@@ -207,7 +221,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                 </Menu>
               </>
               ):
-                <Button variant="contained" onClick={() => logout}>Log In</Button>
+                <Button variant="contained" onClick={() => loginWithGoogle()}>Log In</Button>
 
               }
           </Toolbar>

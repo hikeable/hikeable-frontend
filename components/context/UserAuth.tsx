@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState, useContext, createContext } from 'react'
+import React, {ReactNode, useEffect, useState, useContext, createContext, use } from 'react'
 import { auth} from '../../firebase'
 import { Auth, UserCredential, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,GoogleAuthProvider,signInWithPopup, getAuth, signOut } from 'firebase/auth'
 
@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   function logout() {
     const auth = getAuth()
     signOut(auth)
+    console.log(user)
   }
 
   useEffect(() => {
