@@ -4,6 +4,8 @@ import { Trail } from "../global";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import styles from "../styles/singletrail.module.css";
+import { Likes } from "../components/Likes";
+import { CompletedTrails } from "../components/CompletedTrails";
 
 interface TrailData {
   trail: Trail;
@@ -56,6 +58,8 @@ const SingleTrail = () => {
               <Typography>{trail.prefecture}</Typography>
               <Typography>{trail.length}</Typography>
               <Typography>{difficultyObj[trail.difficulty]}</Typography>
+              <><Likes></Likes></>
+              <><CompletedTrails></CompletedTrails></>
             </Box>
           </Box>
           <Box>

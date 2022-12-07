@@ -13,20 +13,36 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
+import { useAuthContext } from './context/UseAuthContext';
+import { Dispatch, SetStateAction } from 'react';
+
+
 
 
 export interface INavbar {
     navActive: boolean;
     isLoggedIn: boolean;
-    userName: string;
+    userName: string | null | undefined;
     logOff: (val: boolean) => void;
+    setLoggedStatus:Dispatch<SetStateAction<boolean>>
 }
 
 
 const pages = [''];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
-export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
+export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff, setLoggedStatus}) => {
+
+  const {user, loginWithGoogle, logout,auth} = useAuthContext()
+  userName= user?.displayName
+  console.log (user, userName, user?.displayName);
+  // console.log("usecontext", navActive, useAuthContext())
+
+  React.useEffect(()=>{
+    setLoggedStatus(true)
+  },[userName])
+
+  console.log (userName,isLoggedIn, "🍒🍒🍒")
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -49,13 +65,19 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
   const updateState = (changeSetting: string) => {
     if (changeSetting === 'Logout'){
       console.log("inside logout if");
+      logout(auth)
       logOff(false);
     }
+
     //  isLoggedIn = false;
   }
 
+    React.useEffect(() => {
+      
+    })
+
   return (
-    navActive === true? (
+    navActive == true? (
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -81,7 +103,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
-                aria-label="account of current user"
+                aria-label="a   r"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
@@ -149,10 +171,10 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
             </Box> */}
               
             
-              {isLoggedIn === true? (
+              {user? (
               
                 <>
-
+              
                   <Typography>
                     Welcome {userName}!
                   </Typography>
@@ -163,7 +185,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt={userName} src="/static/images/avatar/2.jpg" />
+                        <Avatar alt={userName as string} src="/static/images/avatar/2.jpg" />
                       </IconButton>
                     </Tooltip>
                   </Box>
@@ -199,7 +221,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                 </Menu>
               </>
               ):
-                <Button variant="contained">Log In</Button>
+                <Button variant="contained" onClick={() => loginWithGoogle()}>Log In</Button>
 
               }
           </Toolbar>
