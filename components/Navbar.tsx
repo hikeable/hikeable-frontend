@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
+import { useAuthContext } from './context/UseAuthContext';
+
+
 
 
 export interface INavbar {
@@ -27,6 +30,11 @@ const pages = [''];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
+
+  const {user, loginWithGoogle} = useAuthContext()
+
+  console.log (user);
+  // console.log("usecontext", navActive, useAuthContext())
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -55,7 +63,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
   }
 
   return (
-    navActive === true? (
+    navActive == true? (
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -152,7 +160,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
               {isLoggedIn === true? (
               
                 <>
-
+              
                   <Typography>
                     Welcome {userName}!
                   </Typography>
@@ -199,7 +207,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                 </Menu>
               </>
               ):
-                <Button variant="contained">Log In</Button>
+                <Button variant="contained" onClick={() => loginWithGoogle()}>Log In</Button>
 
               }
           </Toolbar>
