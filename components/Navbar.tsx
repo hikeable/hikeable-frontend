@@ -22,7 +22,7 @@ import { Dispatch, SetStateAction } from 'react';
 export interface INavbar {
     navActive: boolean;
     isLoggedIn: boolean;
-    userName: string | null;
+    userName: string | null | undefined;
     logOff: (val: boolean) => void;
     setLoggedStatus:Dispatch<SetStateAction<boolean>>
 }
@@ -185,7 +185,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt={userName} src="/static/images/avatar/2.jpg" />
+                        <Avatar alt={userName as string} src="/static/images/avatar/2.jpg" />
                       </IconButton>
                     </Tooltip>
                   </Box>
