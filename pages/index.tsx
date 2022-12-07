@@ -27,9 +27,9 @@ export default function Home() {
       </Head>
       <Landing/>
       {
-        Boolean(navActive) === true? (
-            <Navbar navActive={true} isLoggedIn={false} userName={userName} logOff={()=>{}}/>
-        ): <Navbar navActive={false} isLoggedIn={false} userName={''} logOff={()=>{}}/>
+        // Boolean(navActive) === true? (
+        //     <Navbar navActive={true} isLoggedIn={false} userName={userName} logOff={()=>{}}/>
+        // ): <Navbar navActive={false} isLoggedIn={false} userName={''} logOff={()=>{}}/>
       }
 
 
