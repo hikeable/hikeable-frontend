@@ -50,10 +50,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
         {/* getLayout(<Component {...pageProps} />) */}
         <Component {...pageProps}/>
-
-          <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
-          <Component {...pageProps} />
-          <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+        <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
         </AuthProvider>
     </>
   ) 
