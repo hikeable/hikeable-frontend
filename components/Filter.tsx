@@ -11,6 +11,8 @@ import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Divider, List, ListItem } from '@mui/material';
+import { Trail } from "../global";
+import { Dispatch, SetStateAction } from 'react';
 
 
 function valuetext(value: number) {
@@ -18,42 +20,37 @@ function valuetext(value: number) {
   }
 
 
-function startFilter<trailProps>(trailArray : trailData[], lengthVal? : number [], difficultyVal? : string, locationVal? : string) {
+function startFilter<trailProps>(trailArray : Trail[], lengthVal? : number [], difficultyVal? : string, locationVal? : string, setTrail?: Dispatch<SetStateAction<[] | Trail[]>>) {
     console.log("🌏 ",trailArray)
     const retTrails = trailArray.filter(isRequested);
   
-    function isRequested (trail : trailData) {
+    function isRequested (trail : Trail) {
 
       return ( 
             (!locationVal ||  trail.name.toLowerCase().includes(locationVal.toLowerCase())) &&
-            (!lengthVal || parseInt(trail.length) >= lengthVal[0] && parseInt(trail.length) <= lengthVal[1]) &&
+            (!lengthVal || trail.length >= lengthVal[0] && trail.length <= lengthVal[1]) &&
             (!difficultyVal || parseInt(difficultyVal) === trail.difficulty)          
         )
     }      
     console.log(retTrails);
-}
-
-interface trailData {
-
-    id: number,
-    name: string,
-    prefecture: string;
-    latitude: string;
-    longitude: string;
-    length: string;
-    difficulty: number;
-    photo_url: string;
-    map_url: string;
-
+    setTrail?.(retTrails);
+    
 }
 
 export interface trailProps {
      
-     trails: trailData[]
+     trails: Trail[]
    
 }
 
-export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
+type filterProps = ({
+    trails : Trail[];
+    setTrail? : Dispatch<SetStateAction<[] | Trail[]>>;
+})
+
+
+
+export const Filter : React.FC<filterProps> = ({trails}, {setTrail}) => {
     
     const [lengthVal, setLength] = React.useState<number[]>([1, 20]);
     const [difficultyVal, setDifficulty] = React.useState<string>("");
@@ -76,7 +73,7 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
         border: 1,
         width: '5rem',
         height: '5rem',
-      };
+    };
     
 
 
@@ -195,10 +192,8 @@ export const Filter : React.FC<trailProps> = ({trails}:trailProps) => {
          ></Box>
          
 
-        <Button variant="contained" onClick={() => startFilter(trails, lengthVal, difficultyVal, locationVal )}>Filter</Button>
+        <Button variant="contained" onClick={() => startFilter(trails, lengthVal, difficultyVal, locationVal , setTrail)}>Filter</Button>
 
-        <div>
-            Enter
-        </div></>
+        </>
     );
 }

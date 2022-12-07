@@ -3,7 +3,7 @@ import useSWR from "swr";
 import axios from "axios";
 import { Filter, TrailCard } from "../../components";
 import { Trail } from "../../global";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const _ = require("lodash");
 
@@ -25,24 +25,38 @@ const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
   const allTrails = GetTrailData() || [];
-  const [trails, setTrail] = useState<Trail | null>(allTrails);
-
-
+  
+  useEffect(() => { 
+    setTrail(filteredTrails);
+  },[])
+  
+  
   const capitalizePref = _.capitalize(pref);
+  const filteredTrails = allTrails
+  .filter((trail: Trail) => {
+    return pref === trail.prefecture;
+  });
+  
+  const [trails, setTrail] = useState<Trail[] | []>(filteredTrails);
+
+  console.log("🐓 ", trails);
+
 
   return (
     <>
       <h1>Trails in {capitalizePref}</h1>
-      {allTrails
-        .filter((trail: Trail) => {
-          return pref === trail.prefecture;
-        })
-        .map((filteredTrail: Trail) => {
+      { 
+      // allTrails
+      //   .filter((trail: Trail) => {
+        
+        trails.map((filteredTrail: Trail) => {
           return (
             <TrailCard key={filteredTrail.id} trail={filteredTrail} />
+          )}
+      //     return pref === trail.prefecture;
+      //   })
         )}
-        )}
-        <Filter trails={allTrails}/>
+        <Filter trails={filteredTrails} setTrail = {setTrail} />
     </>
   );
 };
