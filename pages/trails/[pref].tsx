@@ -1,10 +1,11 @@
+
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
 import { Filter, TrailCard } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
-import styles from "../../styles/prefTrails.scss";
+import styles from "../../styles/pref_trails.module.css";
 
 
 
@@ -43,9 +44,9 @@ const ResultList = () => {
   return (
     <>
       <h1>Trails in {capitalizePref}</h1>
-      <div className="flexContainer">
+      <div className= {styles.flex_container}>
 
-        <div className="cardsFeed">
+        <div className= {styles.cards_feed}>
           { 
             trailsArr.map((filteredTrail: Trail) => {
               return (
@@ -53,7 +54,7 @@ const ResultList = () => {
               )}
             )}
         </div>
-        <div className="filterCard">
+        <div className={styles.filter_card}>
           <Filter trails={filteredTrails} setTrail = {setTrail}  />
         </div>
 
