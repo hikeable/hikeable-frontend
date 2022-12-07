@@ -1,6 +1,6 @@
-import React, {ReactNode, useEffect, useState, useContext, createContext } from 'react'
+import React, {ReactNode, useEffect, useState, useContext, createContext, use } from 'react'
 import { auth} from '../../firebase'
-import { Auth, UserCredential, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,GoogleAuthProvider,signInWithPopup, getAuth } from 'firebase/auth'
+import { Auth, UserCredential, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,GoogleAuthProvider,signInWithPopup, getAuth, signOut } from 'firebase/auth'
 
 export interface AuthProviderProps {
   children?: ReactNode
@@ -22,6 +22,7 @@ export interface AuthContextModel {
   signUp: (email: string, password: string) => Promise<UserCredential>
   sendPasswordResetEmail?: (email: string) => Promise<void>
   loginWithGoogle: () => void
+  logout: (auth:Auth) =>void
 };
 
 export const AuthContext = React.createContext<AuthContextModel>(
@@ -35,6 +36,8 @@ export function useAuth(): AuthContextModel {
 export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
   const provider = new GoogleAuthProvider();
+
+  
 
   function signUp(email: string, password: string): Promise<UserCredential> {;
     return createUserWithEmailAndPassword(auth, email, password)
@@ -63,6 +66,12 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     } )
   };
 
+  function logout() {
+    const auth = getAuth()
+    signOut(auth)
+    console.log(user)
+  }
+
   useEffect(() => {
     //function that firebase notifies you if a user is set
     const unsubsrcibe = auth.onAuthStateChanged((user) => {
@@ -78,6 +87,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     resetPassword,
     auth,
     loginWithGoogle,
+    logout
   }
   
   return <AuthContext.Provider value={values}>
