@@ -1,19 +1,11 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import router from "next/router";
 import { Navbar } from "../components/Navbar";
-import { useState, ReactElement, ReactNode } from "react";
-import { NextPage } from 'next'
+import { AuthProvider } from "../components/context/UserAuth";
 
-
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout,
-
-}
+import { useState } from "react";
+import router from "next/router";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   
@@ -41,25 +33,28 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   
   if (router.pathname === "/" ){
-    console.log("in root");
+    console.log("path--", router.pathname)
     return (
-      <>
+      <AuthProvider>
         <Navbar navActive={false} isLoggedIn={false} userName={''} logOff = {setLoggedStatus} />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
-
-      </>
+      </AuthProvider>
     )
   }
 
   console.log("not in root");
   return(
     <>
+      <AuthProvider>
         <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
         {/* getLayout(<Component {...pageProps} />) */}
         <Component {...pageProps}/>
 
-        <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+          <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
+          <Component {...pageProps} />
+          <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+        </AuthProvider>
     </>
   ) 
   

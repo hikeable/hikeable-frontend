@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import type { NextPageWithLayout } from './_app'
+// import type { NextPageWithLayout } from './_app'
 import LoggedIn from '../layouts/loggedIn';
 
 
-const dashboard : NextPageWithLayout = () => {
+const dashboard  = () => {
     return (
         <div>
             On Dashboard
@@ -11,11 +11,12 @@ const dashboard : NextPageWithLayout = () => {
     );
 }
 
-dashboard.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <LoggedIn/>        
-    )
-}
+
+// dashboard.getLayout = function getLayout(page: ReactElement) {
+//     return (
+//         <LoggedIn/>        
+//     )
+// }
 
 
 
