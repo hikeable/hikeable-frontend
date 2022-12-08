@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
+import { Weather } from "../components/Weather";
 
 interface TrailData {
   trail: Trail;
@@ -48,7 +49,7 @@ const SingleTrail = () => {
               display: "flex",
             }}
           >
-            <Image src={""} alt="Placeholder" width={250} height={200} />
+            {/* <Image src={""} alt="Placeholder" width={250} height={200} /> */}
             <Box
               sx={{
                 flexDirection: "column",
@@ -58,12 +59,21 @@ const SingleTrail = () => {
               <Typography>{trail.prefecture}</Typography>
               <Typography>{trail.length}</Typography>
               <Typography>{difficultyObj[trail.difficulty]}</Typography>
-              <><Likes></Likes></>
-              <><CompletedTrails></CompletedTrails></>
+              <>
+                <Likes></Likes>
+              </>
+              <>
+                <CompletedTrails></CompletedTrails>
+              </>
             </Box>
           </Box>
           <Box>
-            <Typography>5 Day Weather at Trail Name</Typography>
+            <Typography>5 Day Weather at {trail.name}</Typography>
+            <Weather
+              lat={trail.latitude}
+              lon={trail.longitude}
+              name={trail.name}
+            />
           </Box>
           <Box>
             <Typography>Around Map at Trail Name</Typography>
