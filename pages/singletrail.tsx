@@ -68,8 +68,12 @@ const SingleTrail = () => {
             </Box>
           </Box>
           <Box>
-            <Typography>5 Day Weather at Trail Name</Typography>
-            <Weather lat={trail.latitude} lon={trail.longitude} />
+            <Typography>5 Day Weather at {trail.name}</Typography>
+            <Weather
+              lat={trail.latitude}
+              lon={trail.longitude}
+              name={trail.name}
+            />
           </Box>
           <Box>
             <Typography>Around Map at Trail Name</Typography>
