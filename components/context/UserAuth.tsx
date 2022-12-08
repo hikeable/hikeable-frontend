@@ -1,20 +1,22 @@
-import React, {ReactNode, useEffect, useState, useContext, createContext, use } from 'react'
+import React, {ReactNode, useEffect, useState, useContext, createContext, use, useRef } from 'react'
 import { auth} from '../../firebase'
 import { Auth, UserCredential, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,GoogleAuthProvider,signInWithPopup, getAuth, signOut } from 'firebase/auth'
+import axios from 'axios'
 
 export interface AuthProviderProps {
   children?: ReactNode
 };
 
-export interface UserContextState {
-  isAuthenticated: boolean
-  isLoading: boolean
-  id?: string
-};
+// export interface UserContextState {
+//   isAuthenticated: boolean
+//   isLoading: boolean
+//   id?: string
+// };
 
-export const UserStateContext = createContext<UserContextState>(
-  {} as UserContextState,
-);
+// export const UserStateContext = createContext<UserContextState>(
+//   {} as UserContextState,
+// );
+
 export interface AuthContextModel {
   auth: Auth
   user: User | null
@@ -23,6 +25,7 @@ export interface AuthContextModel {
   sendPasswordResetEmail?: (email: string) => Promise<void>
   loginWithGoogle: () => void
   logout: (auth:Auth) =>void
+  // userDbReference: (React.MutableRefObject)
 };
 
 export const AuthContext = React.createContext<AuthContextModel>(
@@ -37,7 +40,8 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
   const provider = new GoogleAuthProvider();
 
-  
+  let userDbReference = useRef
+
 
   function signUp(email: string, password: string): Promise<UserCredential> {;
     return createUserWithEmailAndPassword(auth, email, password)
@@ -57,8 +61,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
         const user = result.user;
 
         console.log("google auth sucesss", {result, user})
-        
-    }).catch(error => {
+    }) .catch(error => {
         const erroCode = error.code;
         const errMessage = error.message;
 
@@ -69,16 +72,36 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   function logout() {
     const auth = getAuth()
     signOut(auth)
-    console.log(user)
+    // console.log(user)
   }
 
+ 
+  const postUid = async () => {
+    console.log("🌍🌍🌍", user?.uid);
+    const payload = {firebase_uid:user?.uid}
+    try {
+        const resp = await axios.post("https://hikeable-backend.herokuapp.com/api/users", payload);
+        userDbReference = resp.data
+    } catch (err) {
+        console.error(err);
+    }
+  };
+
+  postUid()
+  console.log (userDbReference)
+
+  
   useEffect(() => {
     //function that firebase notifies you if a user is set
     const unsubsrcibe = auth.onAuthStateChanged((user) => {
       setUser(user)
+      
     })
     return unsubsrcibe
   }, []);
+
+
+
 
   const values = {
     signUp,
@@ -95,6 +118,6 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     </AuthContext.Provider>
 };
 
-export const useUserContext = (): UserContextState => {
-  return useContext(UserStateContext)
-};
+// export const useUserContext = (): UserContextState => {
+//   return useContext(UserStateContext)
+// };
