@@ -7,9 +7,9 @@ import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
 
-interface TrailData {
-  trail: Trail;
-}
+// interface TrailData {
+//   trail: Trail;
+// }
 
 const difficultyObj = {
   1: "Easy",
@@ -58,8 +58,8 @@ const SingleTrail = () => {
               <Typography>{trail.prefecture}</Typography>
               <Typography>{trail.length}</Typography>
               <Typography>{difficultyObj[trail.difficulty]}</Typography>
-              <><Likes></Likes></>
-              <><CompletedTrails></CompletedTrails></>
+              <Likes trailID={trail.id}/>
+              <CompletedTrails trailID={trail.id}/>
             </Box>
           </Box>
           <Box>

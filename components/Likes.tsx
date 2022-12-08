@@ -4,6 +4,10 @@ import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+interface LikesProps {
+  trailID: number;
+}
+
 type trailLikeObject = {
   id: number;
   user: number;
@@ -11,13 +15,13 @@ type trailLikeObject = {
   like: boolean;
 };
 
-export const Likes = () => {
+export const Likes = ({ trailID }: LikesProps) => {
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailLikeObject[]>([]);
 
-  // note: trail id, user id need to be passed down as props
+  // note: user id need to be passed down as props
 
   const handleFavorite = async () => {
     if (!recordExists) {
@@ -26,7 +30,7 @@ export const Likes = () => {
         url: "https://hikeable-backend.herokuapp.com/api/trails/likes",
         data: {
           user: 2, // update this later
-          trail_id: 1, // update this later
+          trail_id: trailID,
           like: true,
         },
       });
@@ -40,7 +44,7 @@ export const Likes = () => {
         data: {
           //   id: recordID,
           user: 2, // update this later
-          trail_id: 1, // update this later
+          trail_id: trailID,
           like: false,
         },
       });
@@ -52,7 +56,7 @@ export const Likes = () => {
         data: {
           //   id: recordID,
           user: 2, // update this later
-          trail_id: 1, // update this later
+          trail_id: trailID,
           like: true,
         },
       });
@@ -62,8 +66,8 @@ export const Likes = () => {
 
   const fetchLikeData = async () => {
     const fetchedLikeData = await axios.get(
-      // trail id needs to be implemented in url here
-      "https://hikeable-backend.herokuapp.com/api/trails/1/likes"
+      
+      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/likes`
     );
     setData(fetchedLikeData.data);
   };

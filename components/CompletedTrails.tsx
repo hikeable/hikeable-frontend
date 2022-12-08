@@ -4,6 +4,10 @@ import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+interface CompletedTrailsProps {
+  trailID: number;
+}
+
 type trailCompletionObject = {
   id: number;
   user: number;
@@ -12,7 +16,7 @@ type trailCompletionObject = {
   date: string;
 };
 
-export const CompletedTrails = () => {
+export const CompletedTrails = ({trailID}: CompletedTrailsProps) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
@@ -27,7 +31,7 @@ export const CompletedTrails = () => {
           user: 2, // update this later
           trail_id: 1, // update this later
           completion: true,
-          date: "2022-12-6"
+          date: "2022-12-6",
         },
       });
       //   setFavorited(true);
@@ -42,7 +46,7 @@ export const CompletedTrails = () => {
           user: 2, // update this later
           trail_id: 1, // update this later
           completion: false,
-          date: "2022-12-6"
+          date: "2022-12-6",
         },
       });
       setCompleted(false);
@@ -55,7 +59,7 @@ export const CompletedTrails = () => {
           user: 2, // update this later
           trail_id: 1, // update this later
           completion: true,
-          date: "2022-12-6"
+          date: "2022-12-6",
         },
       });
       setCompleted(true);
