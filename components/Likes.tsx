@@ -3,6 +3,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuthContext } from "./context/UseAuthContext";
 
 type trailLikeObject = {
   id: number;
@@ -17,7 +18,10 @@ export const Likes = () => {
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailLikeObject[]>([]);
 
-  // note: trail id, user id need to be passed down as props
+  const {user, userId} = useAuthContext()
+  // console.log ("🍋🍋🍋" , userId) uncomment to check if userID works
+
+  // note: trail id, user id need to be passed down as props. => userId present
 
   const handleFavorite = async () => {
     if (!recordExists) {
