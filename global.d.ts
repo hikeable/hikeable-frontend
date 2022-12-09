@@ -2,7 +2,7 @@ declare global {
   interface Window {
     svgJapan: function;
   }
-}
+};
 
 type RegionType = {
   id: number;
@@ -33,6 +33,6 @@ export interface Trail {
   name: string;
   photo_url: string;
   prefecture: string;
-}
+};
 
 declare module "react-open-weather";
