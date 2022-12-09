@@ -10,6 +10,7 @@ import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { async } from "@firebase/util";
 import axios from "axios";
+import UploadWidget from "../components/UploadWidget";
 
 interface TrailData {
   trail: Trail;
@@ -118,6 +119,7 @@ const SingleTrail = () => {
             </Box>
           </Box>
         </Box>
+        <UploadWidget></UploadWidget>
       </div>
     )
   );
