@@ -7,6 +7,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 
 interface LikesProps {
   trailID: number;
+  userID: number | undefined;
 }
 
 type trailLikeObject = {
@@ -16,16 +17,11 @@ type trailLikeObject = {
   like: boolean;
 };
 
-export const Likes = ({ trailID }: LikesProps) => {
+export const Likes = ({ userID, trailID }: LikesProps) => {
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailLikeObject[]>([]);
-
-  const {user, userId} = useAuthContext()
-  // console.log ("🍋🍋🍋" , userId) uncomment to check if userID works
-
-  // note: user id need to be passed down as props. => userId present
 
   const handleFavorite = async () => {
     if (!recordExists) {
@@ -33,21 +29,19 @@ export const Likes = ({ trailID }: LikesProps) => {
         method: "post",
         url: "https://hikeable-backend.herokuapp.com/api/trails/likes",
         data: {
-          user: 2, // update this later
+          user: userID,
           trail_id: trailID,
           like: true,
         },
       });
-      //   setFavorited(true);
-      //   setRecordExists(true);
+
       fetchLikeData();
     } else if (favorited && recordExists) {
       await axios({
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
         data: {
-          //   id: recordID,
-          user: 2, // update this later
+          user: userID,
           trail_id: trailID,
           like: false,
         },
@@ -58,8 +52,7 @@ export const Likes = ({ trailID }: LikesProps) => {
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
         data: {
-          //   id: recordID,
-          user: 2, // update this later
+          user: userID,
           trail_id: trailID,
           like: true,
         },
@@ -70,7 +63,6 @@ export const Likes = ({ trailID }: LikesProps) => {
 
   const fetchLikeData = async () => {
     const fetchedLikeData = await axios.get(
-      
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/likes`
     );
     setData(fetchedLikeData.data);
@@ -82,8 +74,7 @@ export const Likes = ({ trailID }: LikesProps) => {
 
   useEffect(() => {
     for (let object of data) {
-      // user id needs to be implemented here
-      if (object.user === 2) {
+      if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
 

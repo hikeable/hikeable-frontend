@@ -7,6 +7,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 
 interface CompletedTrailsProps {
   trailID: number;
+  userID: number | undefined;
 }
 
 type trailCompletionObject = {
@@ -17,14 +18,13 @@ type trailCompletionObject = {
   date: string;
 };
 
-export const CompletedTrails = ({trailID}: CompletedTrailsProps) => {
+export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailCompletionObject[]>([]);
 
-  const {user, userId} = useAuthContext()
-  // console.log ("🍋🍋🍋" , userId)   uncomment to check if userID works
+  const { user, userId } = useAuthContext();
 
   const handleCompletion = async () => {
     if (!recordExists) {
@@ -32,26 +32,22 @@ export const CompletedTrails = ({trailID}: CompletedTrailsProps) => {
         method: "post",
         url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
         data: {
-          user: 2, // update this later
+          user: userID,
           trail_id: trailID,
           completion: true,
-          // implement date logic
           date: "2022-12-6",
         },
       });
-      //   setFavorited(true);
-      //   setRecordExists(true);
+
       fetchCompletionData();
     } else if (completed && recordExists) {
       await axios({
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/completions/${recordID}`,
         data: {
-          //   id: recordID,
-          user: 2, // update this later
+          user: userID,
           trail_id: trailID,
           completion: false,
-          // implement date logic
           date: "2022-12-6",
         },
       });
@@ -61,11 +57,9 @@ export const CompletedTrails = ({trailID}: CompletedTrailsProps) => {
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/completions/${recordID}`,
         data: {
-          //   id: recordID,
-          user: 2, // update this later
+          user: userID,
           trail_id: trailID,
           completion: true,
-          // implement date logic
           date: "2022-12-6",
         },
       });
@@ -86,8 +80,7 @@ export const CompletedTrails = ({trailID}: CompletedTrailsProps) => {
 
   useEffect(() => {
     for (let object of data) {
-      // user id needs to be implemented here
-      if (object.user === 2) {
+      if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
 
