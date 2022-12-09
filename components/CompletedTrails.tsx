@@ -28,6 +28,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
 
   const handleCompletion = async () => {
     const current = new Date();
+
     if (!recordExists) {
       await axios({
         method: "post",
@@ -36,9 +37,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: `${current.getDate()}/${
-            current.getMonth() + 1
-          }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`,
+          date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
         },
       });
 
@@ -51,9 +50,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: false,
-          date: `${current.getDate()}/${
-            current.getMonth() + 1
-          }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`,
+          date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
         },
       });
       setCompleted(false);
@@ -65,9 +62,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: `${current.getDate()}/${
-            current.getMonth() + 1
-          }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`,
+          date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
         },
       });
       setCompleted(true);
@@ -94,7 +89,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
         if (object.completion === true) setCompleted(true);
       }
     }
-  }, [data]);
+  }, [data, userID]);
 
   return (
     <>
