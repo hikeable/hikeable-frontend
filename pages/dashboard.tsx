@@ -2,7 +2,7 @@ import { ReactElement, useRef, useState } from 'react';
 import { useAuthContext } from '../components/context/UseAuthContext';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, Paper, Typography } from "@mui/material";
 import {  Link as MuiLink } from "@mui/joy"
-import Link, { NextLinkComposed } from "../src/Link";
+import Link, { NextLinkComposed } from "../src/Link"
 import { Trail } from '../global';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { LocationOn } from "@mui/icons-material";
@@ -142,19 +142,12 @@ const Dashboard  = () => {
                     data.map((trail: dummy) => {
                     return (  
                         <>
-                         {/* <Card sx={{ 
-                            minWidth: 275,
-                            bgcolor: 'background.body',
-                            '&:hover, &:focus-within': {
-                            bgcolor: '#e1f5fe',
-                            },
-                            boxShadow: 'inset 0 1px 0 0 rgb(255 255 255 / 5%)',
-                            }}
-                        > */}
+
                             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
        
                                 <Button
                                     variant='outlined'
+                                    
                                     component={NextLinkComposed}
                                     to={{
                                         pathname: "/singletrail",
@@ -169,7 +162,6 @@ const Dashboard  = () => {
                                     </CardContent>
                                 </Button>
                             </Box>
-                        {/* </Card> */}
                         
 
 
