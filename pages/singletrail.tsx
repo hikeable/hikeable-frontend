@@ -8,9 +8,8 @@ import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import { async } from "@firebase/util";
 import axios from "axios";
-import UploadWidget from "../components/UploadWidget";
+import { CldImage, CldUploadButton } from 'next-cloudinary';
 
 interface TrailData {
   trail: Trail;
@@ -119,7 +118,9 @@ const SingleTrail = () => {
             </Box>
           </Box>
         </Box>
-        <UploadWidget></UploadWidget>
+        {/* <UploadWidget></UploadWidget> */}
+        <CldUploadButton uploadPreset="n4mabogz" 
+        onUpload={function (error, result, widget) { console.log("error =",error,"result =",result, "widget =", widget)}} />
       </div>
     )
   );
