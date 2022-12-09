@@ -11,10 +11,6 @@ import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
 import { CldImage, CldUploadButton } from 'next-cloudinary';
 
-interface TrailData {
-  trail: Trail;
-}
-
 const difficultyObj = {
   1: "Easy",
   2: "Moderate",
@@ -24,11 +20,7 @@ const difficultyObj = {
 const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
-  console.log(router.query.trail);
-
-  const {user, userId} = useAuthContext()
-  // console.log ("🍋🍋🍋" , userId)  /*uncomment to check if userID works*/
-  
+  const { user, userId } = useAuthContext();
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -66,12 +58,8 @@ const SingleTrail = () => {
               <Typography>{trail.prefecture}</Typography>
               <Typography>{trail.length}</Typography>
               <Typography>{difficultyObj[trail.difficulty]}</Typography>
-              <>
-                <Likes></Likes>
-              </>
-              <>
-                <CompletedTrails></CompletedTrails>
-              </>
+              <Likes userID={userId} trailID={trail.id} />
+              <CompletedTrails userID={userId} trailID={trail.id} />
             </Box>
           </Box>
           <Box>
