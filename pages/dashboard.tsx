@@ -6,8 +6,6 @@ import Link, { NextLinkComposed } from "../src/Link";
 import { Trail } from '../global';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { LocationOn } from "@mui/icons-material";
-
-
 import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
 import {
@@ -41,14 +39,12 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     height: 60,
-    maxWidth: '15rem',
+    maxWidth: '20rem',
+    minWidth: '15rem',
     lineHeight: '60px',
   }));
 
 const Dashboard  = () => {
-
-    // if (!completedTrails)
-
 
    let data =  [
         {
@@ -126,13 +122,15 @@ const Dashboard  = () => {
                 flexDirection: "column",
               }}
             >
+                <div className= {styles.page_header}>
+
 
                 <Typography>Hi {user?.displayName} !</Typography>
-                <Paper elevation={3}>
+                  
                     <Item key={7} elevation={7} >
-                        {`You hiked a distance of ${hikedDistance} Km` }
+                        {`You've hiked a distance of ${hikedDistance} km` }
                     </Item>
-                </Paper>
+                </div>
                 <Typography>You have completed the following trails: !</Typography>
                 <Typography>You favourite trails are  !</Typography>
                 <Typography>You favourite trails are  !</Typography>
@@ -144,7 +142,7 @@ const Dashboard  = () => {
                     data.map((trail: dummy) => {
                     return (  
                         <>
-                         <Card sx={{ 
+                         {/* <Card sx={{ 
                             minWidth: 275,
                             bgcolor: 'background.body',
                             '&:hover, &:focus-within': {
@@ -152,10 +150,11 @@ const Dashboard  = () => {
                             },
                             boxShadow: 'inset 0 1px 0 0 rgb(255 255 255 / 5%)',
                             }}
-                        >
+                        > */}
                             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
        
                                 <Button
+                                    variant='outlined'
                                     component={NextLinkComposed}
                                     to={{
                                         pathname: "/singletrail",
@@ -170,7 +169,7 @@ const Dashboard  = () => {
                                     </CardContent>
                                 </Button>
                             </Box>
-                        </Card>
+                        {/* </Card> */}
                         
 
 
