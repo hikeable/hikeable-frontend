@@ -1,6 +1,6 @@
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
@@ -27,6 +27,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
   const { user, userId } = useAuthContext();
 
   const handleCompletion = async () => {
+    const current = new Date();
     if (!recordExists) {
       await axios({
         method: "post",
@@ -35,7 +36,9 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: "2022-12-6",
+          date: `${current.getDate()}/${
+            current.getMonth() + 1
+          }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`,
         },
       });
 
@@ -48,7 +51,9 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: false,
-          date: "2022-12-6",
+          date: `${current.getDate()}/${
+            current.getMonth() + 1
+          }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`,
         },
       });
       setCompleted(false);
@@ -60,7 +65,9 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: "2022-12-6",
+          date: `${current.getDate()}/${
+            current.getMonth() + 1
+          }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`,
         },
       });
       setCompleted(true);
@@ -91,18 +98,29 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
 
   return (
     <>
-      {completed === true ? (
-        <>
-          <IconButton aria-label="favorite" onClick={handleCompletion}>
-            <CheckBoxIcon></CheckBoxIcon>
-          </IconButton>
-        </>
+      {userID !== undefined ? (
+        completed === true ? (
+          <>
+            <Tooltip title="Mark as incomplete">
+              <IconButton aria-label="favorite" onClick={handleCompletion}>
+                <CheckBoxIcon></CheckBoxIcon>
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : (
+          <>
+            <Tooltip title="Mark as complete">
+              <IconButton
+                aria-label="favorite-outline"
+                onClick={handleCompletion}
+              >
+                <CheckBoxOutlineBlankIcon></CheckBoxOutlineBlankIcon>
+              </IconButton>
+            </Tooltip>
+          </>
+        )
       ) : (
-        <>
-          <IconButton aria-label="favorite-outline" onClick={handleCompletion}>
-            <CheckBoxOutlineBlankIcon></CheckBoxOutlineBlankIcon>
-          </IconButton>
-        </>
+        <></>
       )}
     </>
   );
