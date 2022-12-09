@@ -1,13 +1,34 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import { useAuthContext } from '../components/context/UseAuthContext';
-import { Box, Typography } from "@mui/material";
-
-// import type { NextPageWithLayout } from './_app'
-import LoggedIn from '../layouts/loggedIn';
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import {  Link as MuiLink } from "@mui/joy";
 import { Trail } from '../global';
-import { TrailCard } from '../components';
+import styles from "../styles/dashboard.module.css"
+import Link from 'next/link';
 
-const Dashboard  = () => {
+export interface IDashboard {
+    completedTrails : Trail[]
+}
+
+type dummy = {
+
+    "id": number,
+    "name": string,
+    "prefecture": string,
+    "latitude": string,
+    "longitude": string,
+    "length": number,
+    "difficulty": number,
+    "photo_url": string,
+    "map_url": string
+
+
+}
+
+const Dashboard  = ({completedTrails}: IDashboard) => {
+
+    // if (!completedTrails)
+
 
    let data =  [
         {
@@ -38,20 +59,19 @@ const Dashboard  = () => {
 
     //list of favourited trails
     const [favorited, setFavorited] = useState<Trail[]>([]);
+    // let completed = useRef<Trail[]>(data);
+    let completed = data;
     // const [completed, setCompleted] = useState<Trail[]>(data);
 
 
-    // const hikedDistance = completed.reduce( (total, trail) = > {
-        
-    //     total + trail.length});
-     
-
-
-
+    let hikedDistance = completed.reduce( (total, trail) => {   
+      return   total + trail.length}, 0);
+    
 
     return (
         
         <>
+            <Typography> You hiked a distance of {hikedDistance}</Typography>
             <Box
               sx={{
                 flexDirection: "column",
@@ -63,10 +83,70 @@ const Dashboard  = () => {
                 <Typography>You favourite trails are  !</Typography>
                 <Typography>You favourite trails are  !</Typography>
 
-
-
-
             </Box>
+
+            <div className={styles.completed_trails}>
+                {
+                    data.map((trail: dummy) => {
+                    return ( 
+                        <>
+                       
+                        <Card sx={{ 
+                            minWidth: 275,
+                            bgcolor: 'background.body',
+                            '&:hover, &:focus-within': {
+                            bgcolor: '#e1f5fe',
+                            },
+                            boxShadow: 'inset 0 1px 0 0 rgb(255 255 255 / 5%)',
+                        
+                            }}
+                        >
+                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                <div>
+
+
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                    {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
+                                </Typography>
+
+
+                            </CardContent>
+
+                            <Link
+                                
+                                href={{
+                                    pathname: '/singletrail',
+                                    query: { trail: JSON.stringify(trail) },
+                                }}
+                                as={`/singletrail/${trail.id}`}
+                                >
+                                <MuiLink
+                                    overlay
+                                    underline="none"
+                                    sx={{ color: "text.tertiary" }}
+                                ></MuiLink> 
+                            </Link>
+                            </div>
+
+                            {/* <CardActions>
+                                <Button size="small">Learn More</Button>
+                            </CardActions> */}
+                            </Box>
+
+                        </Card>
+                        </>
+                        // <Card>
+
+                        // </Card>
+                    
+                  
+                    )
+                    })
+
+                }
+
+            </div>
 
 
             
@@ -82,6 +162,8 @@ const Dashboard  = () => {
 //         <LoggedIn/>        
 //     )
 // }
+
+
 
 
 
