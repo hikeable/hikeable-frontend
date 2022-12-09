@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import { useAuthContext } from '../components/context/UseAuthContext';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, Paper, Typography } from "@mui/material";
 import {  Link as MuiLink } from "@mui/joy"
@@ -15,9 +15,9 @@ import {
     LineSeries,
   } from '@devexpress/dx-react-chart-material-ui';
 
-export interface IDashboard {
-    completedTrails : Trail[]
-}
+// export interface IDashboard {
+//     completedTrails : Trail[]
+// }
 
 type dummy = {
 
@@ -73,29 +73,58 @@ const Dashboard  = () => {
     const {user, userId} = useAuthContext()
 
 
+    const [completedTrails, setCompleted] = useState<Trail[] >([]);
+    const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([])
+
+    useEffect( () => {
+        getCompleted();
+        getTrails();
+
+    },[])
+
     const getCompleted = async () => {
 
-        let res = await axios({
+         await axios({
             method: "get",
             url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
-          });
-
-        return res.data.map((completions) => completions.user = userId);
+          }).then( (response) => setCompleted(response.data) )
+          console.log(completedTrails); 
+        // return res.data.map((completions) => completions.user = userId);
     }
+    // console.log(getCompleted());
 
-    const getTrails =  (completedTrails) => {
+    const getTrails =  () => {
         
-        completedTrails.forEach( async (completed) => {
+        return completedTrails.map( async (singleCompletedTrail) => {
 
-            let res = await axios ({
+            const response = await axios ({
                 method: "get",
-                url: `https://hikeable-backend.herokuapp.com/api/trails/${completed.trail_id}`
+                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.id}`
             })
 
+            const trail = response.data;
+            console.log(trail);
+
             return (
-                <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                {/* {res.name}  {res.prefecture}  Difficulty: {res.difficulty}  */}
-                </Typography>
+              <>
+                
+                <Button
+                    variant='outlined'
+                    
+                    component={NextLinkComposed}
+                    to={{
+                        pathname: "/singletrail",
+                        query: { trail: JSON.stringify(trail) },
+                    }}
+                    linkAs = {`/singletrail/${trail.id}`}
+                 >
+                    <CardContent>
+                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
+                        </Typography>
+                    </CardContent>
+                </Button>
+             </>
 
             )
         })
@@ -132,10 +161,14 @@ const Dashboard  = () => {
                     </Item>
                 </div>
                 <Typography>You have completed the following trails: !</Typography>
-                <Typography>You favourite trails are  !</Typography>
-                <Typography>You favourite trails are  !</Typography>
+ 
+                {/* <Typography>You favourite trails are  !</Typography> */}
+                {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
+            {
+                // getTrails( getCompleted())
+            }
 
              <div className={styles.completed_trails}>
                 {
