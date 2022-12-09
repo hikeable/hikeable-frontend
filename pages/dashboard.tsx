@@ -1,10 +1,21 @@
 import { ReactElement, useRef, useState } from 'react';
 import { useAuthContext } from '../components/context/UseAuthContext';
-import { Box, Card, CardContent, Typography } from "@mui/material";
-import {  Link as MuiLink } from "@mui/joy";
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, Paper, Typography } from "@mui/material";
+import {  Link as MuiLink } from "@mui/joy"
+import Link, { NextLinkComposed } from "../src/Link";
 import { Trail } from '../global';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { LocationOn } from "@mui/icons-material";
+
+
 import styles from "../styles/dashboard.module.css"
-import Link from 'next/link';
+import axios from 'axios';
+import {
+    ArgumentAxis,
+    ValueAxis,
+    Chart,
+    LineSeries,
+  } from '@devexpress/dx-react-chart-material-ui';
 
 export interface IDashboard {
     completedTrails : Trail[]
@@ -25,7 +36,16 @@ type dummy = {
 
 }
 
-const Dashboard  = ({completedTrails}: IDashboard) => {
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height: 60,
+    maxWidth: '15rem',
+    lineHeight: '60px',
+  }));
+
+const Dashboard  = () => {
 
     // if (!completedTrails)
 
@@ -54,11 +74,40 @@ const Dashboard  = ({completedTrails}: IDashboard) => {
             "map_url": "test3"
         }
     ]
+    const {user, userId} = useAuthContext()
 
-    const {user, loginWithGoogle, logout,auth} = useAuthContext();
+
+    const getCompleted = async () => {
+
+        let res = await axios({
+            method: "get",
+            url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
+          });
+
+        return res.data.map((completions) => completions.user = userId);
+    }
+
+    const getTrails =  (completedTrails) => {
+        
+        completedTrails.forEach( async (completed) => {
+
+            let res = await axios ({
+                method: "get",
+                url: `https://hikeable-backend.herokuapp.com/api/trails/${completed.trail_id}`
+            })
+
+            return (
+                <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                {/* {res.name}  {res.prefecture}  Difficulty: {res.difficulty}  */}
+                </Typography>
+
+            )
+        })
+    }
+
 
     //list of favourited trails
-    const [favorited, setFavorited] = useState<Trail[]>([]);
+    // const [favorited, setFavorited] = useState<Trail[]>([]);
     // let completed = useRef<Trail[]>(data);
     let completed = data;
     // const [completed, setCompleted] = useState<Trail[]>(data);
@@ -71,7 +120,7 @@ const Dashboard  = ({completedTrails}: IDashboard) => {
     return (
         
         <>
-            <Typography> You hiked a distance of {hikedDistance}</Typography>
+            {/* <Typography> You hiked a distance of {hikedDistance}</Typography> */}
             <Box
               sx={{
                 flexDirection: "column",
@@ -79,74 +128,60 @@ const Dashboard  = ({completedTrails}: IDashboard) => {
             >
 
                 <Typography>Hi {user?.displayName} !</Typography>
+                <Paper elevation={3}>
+                    <Item key={7} elevation={7} >
+                        {`You hiked a distance of ${hikedDistance} Km` }
+                    </Item>
+                </Paper>
                 <Typography>You have completed the following trails: !</Typography>
                 <Typography>You favourite trails are  !</Typography>
                 <Typography>You favourite trails are  !</Typography>
 
             </Box>
 
-            <div className={styles.completed_trails}>
+             <div className={styles.completed_trails}>
                 {
                     data.map((trail: dummy) => {
-                    return ( 
+                    return (  
                         <>
-                       
-                        <Card sx={{ 
+                         <Card sx={{ 
                             minWidth: 275,
                             bgcolor: 'background.body',
                             '&:hover, &:focus-within': {
                             bgcolor: '#e1f5fe',
                             },
                             boxShadow: 'inset 0 1px 0 0 rgb(255 255 255 / 5%)',
-                        
                             }}
                         >
                             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                                <div>
-
-
-                            <CardContent>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                    {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
-                                </Typography>
-
-
-                            </CardContent>
-
-                            <Link
-                                
-                                href={{
-                                    pathname: '/singletrail',
-                                    query: { trail: JSON.stringify(trail) },
-                                }}
-                                as={`/singletrail/${trail.id}`}
+       
+                                <Button
+                                    component={NextLinkComposed}
+                                    to={{
+                                        pathname: "/singletrail",
+                                        query: { trail: JSON.stringify(trail) },
+                                    }}
+                                    linkAs = {`/singletrail/${trail.id}`}
                                 >
-                                <MuiLink
-                                    overlay
-                                    underline="none"
-                                    sx={{ color: "text.tertiary" }}
-                                ></MuiLink> 
-                            </Link>
-                            </div>
-
-                            {/* <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions> */}
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
+                                        </Typography>
+                                    </CardContent>
+                                </Button>
                             </Box>
-
                         </Card>
+                        
+
+
                         </>
-                        // <Card>
-
-                        // </Card>
-                    
-                  
-                    )
+                     
+                     )
                     })
+                } 
 
-                }
 
-            </div>
+             </div> 
 
 
             
