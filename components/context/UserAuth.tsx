@@ -26,7 +26,7 @@ export interface AuthContextModel {
   sendPasswordResetEmail?: (email: string) => Promise<void>
   loginWithGoogle: () => void
   logout: (auth:Auth) =>void
-  // uid:UserInfo
+  uid: string | undefined
 };
 
 export const AuthContext = React.createContext<AuthContextModel>(
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
   const provider = new GoogleAuthProvider();
 
-  let userDbReference = useRef
+  let uid:string | undefined;
 
 
   function signUp(email: string, password: string): Promise<UserCredential> {;
@@ -89,10 +89,9 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     }
   };
 
-  postUid()
-  console.log (userDbReference)
+  postUid();
 
-  
+
   useEffect(() => {
     //function that firebase notifies you if a user is set
     const unsubsrcibe = auth.onAuthStateChanged((user) => {
@@ -110,7 +109,8 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     resetPassword,
     auth,
     loginWithGoogle,
-    logout
+    logout,
+    uid
   };
   
   return <AuthContext.Provider value={values}>

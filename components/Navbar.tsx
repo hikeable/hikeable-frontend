@@ -33,9 +33,9 @@ const settings = ['Profile', 'Dashboard', 'Logout'];
 
 export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff, setLoggedStatus}) => {
 
-  const {user, loginWithGoogle, logout,auth} = useAuthContext()
+  const {user, loginWithGoogle, logout, auth } = useAuthContext()
   userName= user?.displayName
-  console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
+  // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
   // console.log("usecontext", navActive, useAuthContext())
 
   React.useEffect(()=>{

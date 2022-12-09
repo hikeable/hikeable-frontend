@@ -7,6 +7,7 @@ import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
+import { useAuthContext } from "../components/context/UseAuthContext";
 
 interface TrailData {
   trail: Trail;
@@ -22,6 +23,11 @@ const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   console.log(router.query.trail);
+
+  const {user} = useAuthContext()
+
+   let uid = user?.uid
+  console.log ("🍋🍋🍋" , uid)
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
