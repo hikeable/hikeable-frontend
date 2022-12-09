@@ -6,6 +6,10 @@ import Image from "next/image";
 import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
+import { Weather } from "../components/Weather";
+import { useAuthContext } from "../components/context/UseAuthContext";
+import { async } from "@firebase/util";
+import axios from "axios";
 
 // interface TrailData {
 //   trail: Trail;
@@ -21,6 +25,10 @@ const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   console.log(router.query.trail);
+
+  const {user, userId} = useAuthContext()
+  // console.log ("🍋🍋🍋" , userId)  /*uncomment to check if userID works*/
+  
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -48,7 +56,7 @@ const SingleTrail = () => {
               display: "flex",
             }}
           >
-            <Image src={""} alt="Placeholder" width={250} height={200} />
+            {/* <Image src={""} alt="Placeholder" width={250} height={200} /> */}
             <Box
               sx={{
                 flexDirection: "column",
@@ -63,7 +71,12 @@ const SingleTrail = () => {
             </Box>
           </Box>
           <Box>
-            <Typography>5 Day Weather at Trail Name</Typography>
+            <Typography>5 Day Weather at {trail.name}</Typography>
+            <Weather
+              lat={trail.latitude}
+              lon={trail.longitude}
+              name={trail.name}
+            />
           </Box>
           <Box>
             <Typography>Around Map at Trail Name</Typography>

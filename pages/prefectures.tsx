@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
+import { useAuthContext } from "../components/context/UseAuthContext";
 
 const engPrefNames = {
   北海道: "Hokkaido",
@@ -55,6 +56,7 @@ const engPrefNames = {
 const prefectures = () => {
   const router = useRouter();
   const loadingLog = useRef(false);
+
 
   useEffect(() => {
     if (loadingLog.current === false) {

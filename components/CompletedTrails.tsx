@@ -3,6 +3,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface CompletedTrailsProps {
   trailID: number;
@@ -21,6 +22,9 @@ export const CompletedTrails = ({trailID}: CompletedTrailsProps) => {
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailCompletionObject[]>([]);
+
+  const {user, userId} = useAuthContext()
+  // console.log ("🍋🍋🍋" , userId)   uncomment to check if userID works
 
   const handleCompletion = async () => {
     if (!recordExists) {
