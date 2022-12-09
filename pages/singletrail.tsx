@@ -7,6 +7,9 @@ import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
+import { useAuthContext } from "../components/context/UseAuthContext";
+import { async } from "@firebase/util";
+import axios from "axios";
 
 interface TrailData {
   trail: Trail;
@@ -22,6 +25,10 @@ const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   console.log(router.query.trail);
+
+  const {user, userId} = useAuthContext()
+  // console.log ("🍋🍋🍋" , userId)  /*uncomment to check if userID works*/
+  
 
   useEffect(() => {
     if (router.query.trail !== undefined) {

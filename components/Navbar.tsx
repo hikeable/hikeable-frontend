@@ -33,16 +33,16 @@ const settings = ['Profile', 'Dashboard', 'Logout'];
 
 export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff, setLoggedStatus}) => {
 
-  const {user, loginWithGoogle, logout,auth} = useAuthContext()
+  const {user, loginWithGoogle, logout, auth } = useAuthContext()
   userName= user?.displayName
-  console.log (user, userName, user?.displayName);
+  // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
   // console.log("usecontext", navActive, useAuthContext())
 
   React.useEffect(()=>{
     setLoggedStatus(true)
-  },[userName])
+  },[userName]);
+  
 
-  console.log (userName,isLoggedIn, "🍒🍒🍒")
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -68,13 +68,8 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
       logout(auth)
       logOff(false);
     }
+  };
 
-    //  isLoggedIn = false;
-  }
-
-    React.useEffect(() => {
-      
-    })
 
   return (
     navActive == true? (
