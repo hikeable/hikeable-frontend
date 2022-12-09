@@ -2,6 +2,7 @@ import React, {ReactNode, useEffect, useState, useContext, createContext, use, u
 import { auth} from '../../firebase'
 import { Auth, UserCredential, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,GoogleAuthProvider,signInWithPopup, getAuth, signOut } from 'firebase/auth'
 import axios from 'axios'
+import { UserInfo } from 'os'
 
 export interface AuthProviderProps {
   children?: ReactNode
@@ -25,7 +26,7 @@ export interface AuthContextModel {
   sendPasswordResetEmail?: (email: string) => Promise<void>
   loginWithGoogle: () => void
   logout: (auth:Auth) =>void
-  // userDbReference: (React.MutableRefObject)
+  // uid:UserInfo
 };
 
 export const AuthContext = React.createContext<AuthContextModel>(
@@ -73,15 +74,16 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     const auth = getAuth()
     signOut(auth)
     // console.log(user)
-  }
+  };
 
  
   const postUid = async () => {
     console.log("🌍🌍🌍", user?.uid);
     const payload = {firebase_uid:user?.uid}
+    console.log(payload,"✳️✳️✳️")
     try {
         const resp = await axios.post("https://hikeable-backend.herokuapp.com/api/users", payload);
-        userDbReference = resp.data
+        console.log (resp,"🙄🙄🙄")
     } catch (err) {
         console.error(err);
     }
@@ -101,8 +103,6 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   }, []);
 
 
-
-
   const values = {
     signUp,
     user,
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     auth,
     loginWithGoogle,
     logout
-  }
+  };
   
   return <AuthContext.Provider value={values}>
     {children}
