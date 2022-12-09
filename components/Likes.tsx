@@ -1,6 +1,6 @@
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
@@ -81,22 +81,33 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
         if (object.like === true) setFavorited(true);
       }
     }
-  }, [data]);
+  }, [data, userID]);
 
   return (
     <>
-      {favorited === true ? (
-        <>
-          <IconButton aria-label="favorite" onClick={handleFavorite}>
-            <FavoriteIcon></FavoriteIcon>
-          </IconButton>
-        </>
+      {userID !== undefined ? (
+        favorited === true ? (
+          <>
+            <Tooltip title="Unlike">
+              <IconButton aria-label="favorite" onClick={handleFavorite}>
+                <FavoriteIcon></FavoriteIcon>
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : (
+          <>
+            <Tooltip title="I like this trail">
+              <IconButton
+                aria-label="favorite-outline"
+                onClick={handleFavorite}
+              >
+                <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
+              </IconButton>
+            </Tooltip>
+          </>
+        )
       ) : (
-        <>
-          <IconButton aria-label="favorite-outline" onClick={handleFavorite}>
-            <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
-          </IconButton>
-        </>
+        <></>
       )}
     </>
   );
