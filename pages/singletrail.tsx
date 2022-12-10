@@ -107,7 +107,7 @@ const SingleTrail = () => {
           </Box>
         </Box>
         {/* <UploadWidget></UploadWidget> */}
-        <CldUploadButton uploadPreset="n4mabogz" 
+        <CldUploadButton uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
         onUpload={function (error, result, widget) { console.log("error =",error,"result =",result, "widget =", widget)}} />
       </div>
     )
