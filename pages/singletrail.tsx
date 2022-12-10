@@ -10,7 +10,7 @@ import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { async } from "@firebase/util";
 import axios from "axios";
-import Map from "../components";
+import { Map } from "../components";
 
 const difficultyObj = {
   1: "Easy",

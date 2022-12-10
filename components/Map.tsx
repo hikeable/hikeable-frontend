@@ -8,16 +8,18 @@ interface MapProps {
 }
 
 const Map = ({ lat, lon }: MapProps) => {
-  const latNumber = parseInt(lat);
-  const lonNumber = parseInt(lon);
+  const latNumber = parseFloat(lat);
+  const lonNumber = parseFloat(lon);
+
+//   console.log(latNumber, lonNumber)
 
   return (
     <>
       <MapContainer
         className={style.map}
-        center={[51.505, -0.09]}
+        center={[latNumber, lonNumber]}
         zoom={13}
-        scrollWheelZoom={true}
+        scrollWheelZoom={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
