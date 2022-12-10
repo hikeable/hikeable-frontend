@@ -72,7 +72,10 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <Map />
+            <Map 
+            lat={trail.latitude}
+            lon={trail.longitude}
+            />
           </Box>
           <Box
             sx={{
