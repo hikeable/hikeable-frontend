@@ -11,6 +11,8 @@ import { useAuthContext } from "../components/context/UseAuthContext";
 import { async } from "@firebase/util";
 import axios from "axios";
 import { Map } from "../components";
+import MessageForm from "../components/MessageForm";
+import { Message } from "@mui/icons-material";
 
 const difficultyObj = {
   1: "Easy",
@@ -71,9 +73,10 @@ const SingleTrail = () => {
               name={trail.name}
             />
           </Box>
-          
-          <Map lat={trail.latitude} lon={trail.longitude} />
-          
+          <Box>
+            <Map lat={trail.latitude} lon={trail.longitude} />
+            <MessageForm />
+          </Box>
           <Box
             sx={{
               flexDirection: "column",
