@@ -10,6 +10,7 @@ import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { async } from "@firebase/util";
 import axios from "axios";
+import { Map } from "../components/Map";
 
 const difficultyObj = {
   1: "Easy",
@@ -71,7 +72,7 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <Typography>Around Map at Trail Name</Typography>
+            <Map />
           </Box>
           <Box
             sx={{
