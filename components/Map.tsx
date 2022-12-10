@@ -1,27 +1,31 @@
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import style from "../styles/singletrail.module.css";
+
 interface MapProps {
-  lat: number;
-  lon: number;
+  lat: string;
+  lon: string;
 }
 
-export const Map = ({ lat, lon }) => {
+const Map = ({ lat, lon }: MapProps) => {
+  const latNumber = parseInt(lat);
+  const lonNumber = parseInt(lon);
+
   return (
     <>
-      <iframe
-        width="425"
-        height="350"
-        // frameborder="0"
-        // scrolling="no"
-        // marginheight="0"
-        // marginwidth="0"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=139.23997163772586%2C35.623256366178985%2C139.25273895263675%2C35.62943937920216&amp;layer=mapnik"
-        // style="border: 1px solid black"
-      ></iframe>
-      <br />
-      <small>
-        <a href={`https://www.openstreetmap.org/#map=17/${lat}/${lon}`}>
-          View Larger Map
-        </a>
-      </small>
+      <MapContainer
+        className={style.map}
+        center={[51.505, -0.09]}
+        zoom={13}
+        scrollWheelZoom={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+      </MapContainer>
     </>
   );
 };
+
+export default Map;
