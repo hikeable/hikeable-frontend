@@ -120,10 +120,6 @@ const Dashboard  = () => {
         else{
             if (usersCompletedTrails.length === 0)
                 getTrails();
-            setCount(count + 1);
-            console.log("😇 count is :", count);
-            
-            console.log(completedTrails);
         }
             
         if (usersCompletedTrails.length !== 0 ){
