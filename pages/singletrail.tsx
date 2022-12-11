@@ -73,7 +73,7 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <Map lat={trail.latitude} lon={trail.longitude} />
+            <Map lat={trail.latitude} lon={trail.longitude} trailID={trail.id}/>
             <MessageForm userID={userId} trailID={trail.id} />
           </Box>
           <Box

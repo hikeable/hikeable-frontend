@@ -1,17 +1,45 @@
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/singletrail.module.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface MapProps {
   lat: string;
   lon: string;
+  trailID: number;
 }
 
-const Map = ({ lat, lon }: MapProps) => {
+type MessageDataObject = {
+  user: number;
+  trail_id: number;
+  latitude: string;
+  longitude: string;
+  message: string;
+  likes: number;
+  dislikes: number;
+  date: string;
+};
+
+const Map = ({ lat, lon, trailID }: MapProps) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
+  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
 
-//   console.log(latNumber, lonNumber)
+  const fetchMessageData = async () => {
+    const fetchedMessageData = await axios.get(
+      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
+    );
+    setMessageData(fetchedMessageData.data);
+  };
+
+  useEffect(() => {
+    fetchMessageData();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(messageData);
+  // }, [messageData]);
 
   return (
     <>
