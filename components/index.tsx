@@ -6,4 +6,11 @@ export * from "./TrailCard";
 export * from "./Navbar";
 export * from "./login";
 export * from "./Landing";
+
+import dynamic from "next/dynamic";
+
+export const Map = dynamic(() => import("./Map"), {
+  ssr: false,
+});
+
 export * from "./photoGallery";

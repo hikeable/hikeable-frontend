@@ -9,6 +9,7 @@ import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
+import { Map } from "../components";
 import { CldImage, CldUploadButton } from 'next-cloudinary';
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
@@ -84,9 +85,9 @@ const SingleTrail = () => {
               name={trail.name}
             />
           </Box>
-          <Box>
-            <Typography>Around Map at Trail Name</Typography>
-          </Box>
+          
+          <Map lat={trail.latitude} lon={trail.longitude} />
+          
           <Box
             sx={{
               flexDirection: "column",
