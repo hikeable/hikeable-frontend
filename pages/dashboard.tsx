@@ -3,7 +3,7 @@ import { useAuthContext } from '../components/context/UseAuthContext';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, Paper, Typography } from "@mui/material";
 import {  Link as MuiLink } from "@mui/joy"
 import Link, { NextLinkComposed } from "../src/Link"
-import { Trail } from '../global';
+import { Trail , trailCompletionObject} from '../global';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { LocationOn } from "@mui/icons-material";
 import styles from "../styles/dashboard.module.css"
@@ -14,6 +14,7 @@ import {
     Chart,
     LineSeries,
   } from '@devexpress/dx-react-chart-material-ui';
+import useSWR from 'swr';
 
 // export interface IDashboard {
 //     completedTrails : Trail[]
@@ -31,7 +32,6 @@ type dummy = {
     "photo_url": string,
     "map_url": string
 
-
 }
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -44,108 +44,185 @@ const Item = styled(Paper)(({ theme }) => ({
     lineHeight: '60px',
   }));
 
+
+
+//   function GetCompletedUserTrails(compTrails) {
+
+//     compTrails.map ((trail) => {
+
+
+//         const { data, error } = useSWR(
+//             "https://hikeable-backend.herokuapp.com/api/trails/completions",
+//             fetcher
+//           ); 
+//     }
+
+
+//     )
+
+//   }
+ 
+
+ 
+
 const Dashboard  = () => {
 
-   let data =  [
-        {
-            "id": 1,
-            "name": "test1",
-            "prefecture": "tokyo",
-            "latitude": "1.00000000",
-            "longitude": "1.00000000",
-            "length": 1.00,
-            "difficulty": 1,
-            "photo_url": "test1",
-            "map_url": "test1"
-        },
-        {
-            "id": 2,
-            "name": "test3",
-            "prefecture": "hokkaidou",
-            "latitude": "1.50000000",
-            "longitude": "1.50000000",
-            "length": 2.50,
-            "difficulty": 3,
-            "photo_url": "test3",
-            "map_url": "test3"
-        }
-    ]
     const {user, userId} = useAuthContext()
+    const [user_id, setUser] = useState();
+    const [completedTrails, setCompleted] = useState<trailCompletionObject[] >([]);
+    const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
+    const [count, setCount] = useState<number>(0)
+
+    console.log(userId);
+
+    async function fetcher(url: string) {
+        const { data } = await axios.get(url);
+        return data;
+      }
+      
+      function GetCompletedData(userId: number | undefined) {
+        const { data, error } = useSWR(
+          "https://hikeable-backend.herokuapp.com/api/trails/completions",
+          fetcher
+        )
+        console.log(data);
+        const retArr = data.filter((completions) => completions.user === userId);
+        console.log(retArr);
+        // return ret;
+        // return [];
+      }
 
 
-    const [completedTrails, setCompleted] = useState<Trail[] >([]);
-    const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([])
-
-    useEffect( () => {
-        getCompleted();
-        getTrails();
-
-    },[])
 
     const getCompleted = async () => {
 
-         await axios({
-            method: "get",
-            url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
-          }).then( (response) => setCompleted(response.data) )
-          console.log(completedTrails); 
-        // return res.data.map((completions) => completions.user = userId);
-    }
-    // console.log(getCompleted());
+        const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
+        await axios.get(url).then( (response) => {
+            console.log('pending...');
+            console.log("👻", response);
+            const result = response.data.filter((completions) => completions.user === userId)  
+            console.log(result);
+            setCompleted(result); 
+        });
+         console.log(completedTrails); 
+   }
+    
+
+
+
+
+    useEffect(  () => {
+
+
+        if (completedTrails.length === 0)
+            getCompleted();
+        
+        else{
+            if (usersCompletedTrails.length === 0)
+                getTrails();
+            setCount(count + 1);
+            console.log("😇 count is :", count);
+            
+            console.log(completedTrails);
+        }
+            
+        if (usersCompletedTrails.length !== 0 ){
+            console.log("😄")
+            console.log(usersCompletedTrails)
+        }
+
+      
+
+        // setCompleted(allTr);
+        // if (userId !== undefined){
+            // setCompleted(allTr);
+            // getTrails();
+        //}
+        // let allTr = GetCompletedData(userId);
+        // (async()=> {
+
+            //  axios({
+            //     method: "get",
+            //     url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
+            //   }).then( (response) => {
+     
+            //       const result = response.data.filter((completions) => completions.user === userId)  
+            //       setCompleted(result); 
+            //             console.log(completedTrails); 
+            //   });
+
+        // })();
+
+    },[userId, completedTrails])
+
+
+
+
 
     const getTrails =  () => {
+
+        // function getArr(...args: Trail[]) {
+        //     console.log("args are: ")
+        //     console.log(args);
+        //     return args;
+        // }
         
         return completedTrails.map( async (singleCompletedTrail) => {
 
             const response = await axios ({
                 method: "get",
-                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.id}`
+                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.trail_id}`
             })
 
             const trail = response.data;
+
+       
+
+            console.log("🌏");
             console.log(trail);
 
-            return (
-              <>
+            if (usersCompletedTrails.length >= 0)
+                setUsersCompletedTrails( usersCompletedTrails =>  [ ...trail, ...usersCompletedTrails] );
+            // return (
+            //   <>
                 
-                <Button
-                    variant='outlined'
+            //     <Button
+            //         variant='outlined'
                     
-                    component={NextLinkComposed}
-                    to={{
-                        pathname: "/singletrail",
-                        query: { trail: JSON.stringify(trail) },
-                    }}
-                    linkAs = {`/singletrail/${trail.id}`}
-                 >
-                    <CardContent>
-                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
-                        </Typography>
-                    </CardContent>
-                </Button>
-             </>
+            //         component={NextLinkComposed}
+            //         to={{
+            //             pathname: "/singletrail",
+            //             query: { trail: JSON.stringify(trail) },
+            //         }}
+            //         linkAs = {`/singletrail/${trail.id}`}
+            //      >
+            //         <CardContent>
+            //             <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+            //                 {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
+            //             </Typography>
+            //         </CardContent>
+            //     </Button>
+            //  </>
 
-            )
+            // )
         })
     }
-
+    console.log("users completed trails");
+    console.log(usersCompletedTrails);
 
     //list of favourited trails
     // const [favorited, setFavorited] = useState<Trail[]>([]);
     // let completed = useRef<Trail[]>(data);
-    let completed = data;
-    // const [completed, setCompleted] = useState<Trail[]>(data);
 
 
-    let hikedDistance = completed.reduce( (total, trail) => {   
-      return   total + trail.length}, 0);
+    // let hikedDistance = completed.reduce( (total, trail) => {   
+    //   return   total + trail.length}, 0);
+    let hikedDistance = 4;
     
 
     return (
         
         <>
-            {/* <Typography> You hiked a distance of {hikedDistance}</Typography> */}
             <Box
               sx={{
                 flexDirection: "column",
@@ -166,13 +243,11 @@ const Dashboard  = () => {
                 {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
-            {
-                // getTrails( getCompleted())
-            }
+          
 
              <div className={styles.completed_trails}>
                 {
-                    data.map((trail: dummy) => {
+                    usersCompletedTrails.map((trail: dummy) => {
                     return (  
                         <>
 
