@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button, Typography } from "@mui/material";
+import { Logo } from "../components";
 import styles from "../styles/landing.module.css";
 
 const Theme = createTheme({
@@ -32,6 +33,9 @@ transition: ${theme.transitions.create(["letter-spacing", "transform"], {
 export const Landing = ({}) => {
   return (
     <>
+      <div className={styles.logo__wrapper}>
+        <Logo />
+      </div>
       <div className={styles.landing__background}>
         <Image
           src="/michael-chiara-QlY4oiFbT9o-unsplash.webp"

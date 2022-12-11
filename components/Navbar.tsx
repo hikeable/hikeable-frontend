@@ -1,51 +1,55 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Link from 'next/link';
-import { useAuthContext } from './context/UseAuthContext';
-import { Dispatch, SetStateAction } from 'react';
-
-
-
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import Link from "next/link";
+import { useAuthContext } from "./context/UseAuthContext";
+import { Dispatch, SetStateAction } from "react";
+import { Logo } from "./Logo";
 
 export interface INavbar {
-    navActive: boolean;
-    isLoggedIn: boolean;
-    userName: string | null | undefined;
-    logOff: (val: boolean) => void;
-    setLoggedStatus:Dispatch<SetStateAction<boolean>>
+  navActive: boolean;
+  isLoggedIn: boolean;
+  userName: string | null | undefined;
+  logOff: (val: boolean) => void;
+  setLoggedStatus: Dispatch<SetStateAction<boolean>>;
 }
 
+const pages = [""];
+const settings = ["Profile", "Dashboard", "Logout"];
 
-const pages = [''];
-const settings = ['Profile', 'Dashboard', 'Logout'];
-
-export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff, setLoggedStatus}) => {
-
-  const {user, loginWithGoogle, logout, auth } = useAuthContext()
-  userName= user?.displayName
+export const Navbar: React.FC<INavbar> = ({
+  navActive,
+  isLoggedIn,
+  userName,
+  logOff,
+  setLoggedStatus,
+}) => {
+  const { user, loginWithGoogle, logout, auth } = useAuthContext();
+  userName = user?.displayName;
   // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
   // console.log("usecontext", navActive, useAuthContext())
 
-  React.useEffect(()=>{
-    setLoggedStatus(true)
-  },[userName]);
-  
+  React.useEffect(() => {
+    setLoggedStatus(true);
+  }, [userName]);
 
-
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -63,21 +67,19 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
   };
 
   const updateState = (changeSetting: string) => {
-    if (changeSetting === 'Logout'){
+    if (changeSetting === "Logout") {
       console.log("inside logout if");
-      logout(auth)
+      logout(auth);
       logOff(false);
     }
   };
 
-
-  return (
-    navActive == true? (
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Typography
+  return navActive == true ? (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          {/* <Typography
               variant="h6"
               noWrap
               component="a"
@@ -93,20 +95,21 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
               }}
             >
               LOGO
-            </Typography>
+            </Typography> */}
+          <Logo />
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="a   r"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              {/* <Menu
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="a   r"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            {/* <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
@@ -130,30 +133,32 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                   </MenuItem>
                 ))}
               </Menu> */}
-            </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
+          </Box>
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
 
-            <Button variant="contained" href='/prefectures'>Map</Button>
+          <Button variant="contained" href="/prefectures">
+            Map
+          </Button>
 
-            {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
                   key={page}
@@ -164,64 +169,60 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
                 </Button>
               ))}
             </Box> */}
-              
-            
-              {user? (
-              
-                <>
-              
-                  <Typography>
-                    Welcome {userName}!
-                  </Typography>
-                  <Box sx={{ flexGrow: 1, display: { xs: 'none'}}}>
-                    User    
-                  </Box>
-      
-                  <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt={userName as string} src="/static/images/avatar/2.jpg" />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
+
+          {user ? (
+            <>
+              <Typography>Welcome {userName}!</Typography>
+              <Box sx={{ flexGrow: 1, display: { xs: "none" } }}>User</Box>
+
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt={userName as string}
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    component="a"
+                    href={"/" + setting.toLowerCase()}
+                    key={setting}
+                    onClick={() => updateState(setting)}
                   >
-                    {settings.map((setting) => (
-
-                      <MenuItem
-                        component='a'
-                        href={"/" + setting.toLowerCase()}
-                        key={setting}
-                        onClick={() => updateState(setting)}
-                      >
-                        <Typography textAlign="center">{setting}</Typography>
-
-                      </MenuItem>
-                    ))}
-                </Menu>
-              </>
-              ):
-                <Button variant="contained" onClick={() => loginWithGoogle()}>Log In</Button>
-
-              }
-          </Toolbar>
-        </Container>
-      </AppBar>
-    ):<></>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          ) : (
+            <Button variant="contained" onClick={() => loginWithGoogle()}>
+              Log In
+            </Button>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
+  ) : (
+    <></>
   );
-}
+};
