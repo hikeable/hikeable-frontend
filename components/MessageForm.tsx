@@ -52,18 +52,21 @@ const MessageForm = ({ userID, trailID }: MessageFormProps) => {
   };
 
   const handleSubmit = async () => {
+    let recentPositionIndex = currentPosition.length - 1;
+    let current = new Date();
     await axios({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
       data: {
-        user: 1,
-        trail_id: 1,
-        latitude: 1,
-        longitude: 1,
-        message: "test",
-        date: "date",
+        user: userID,
+        trail_id: trailID,
+        latitude: currentPosition[recentPositionIndex]["latitude"],
+        longitude: currentPosition[recentPositionIndex]["longitude"],
+        message: value,
+        date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
       },
     });
+    setIsOpen(false);
   };
 
   return (
