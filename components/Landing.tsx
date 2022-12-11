@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import styles from "../styles/landing.module.css";
 
 const Theme = createTheme({
@@ -38,13 +38,13 @@ export const Landing = ({}) => {
           alt="Background Image of some people walking a trail"
           fill
           objectFit="cover"
-          sizes="(max-width: 768px) 100vw,
-          (max-width: 1200px) 50vw,
-          33vw"
         />
       </div>
+
       <div className={styles.txt__wrapper}>
-        <h1 className={styles.landing__title}>Hiking.Simplified</h1>
+        <Typography variant="h1" className={styles.landing__title}>
+          Hiking.Simplified
+        </Typography>
       </div>
       <div className={styles.btn__wrapper}>
         <ThemeProvider theme={Theme}>
