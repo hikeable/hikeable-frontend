@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import StickyNote2 from "@mui/icons-material/StickyNote2";
 import TextField from "@mui/material/TextField";
+import axios from "axios";
+
+interface MessageFormProps {
+  trailID: number;
+  userID: number | undefined;
+}
 
 type CurrentPositionObject = {
   latitude: number;
   longitude: number;
 };
 
-const MessageForm = () => {
+const MessageForm = ({ userID, trailID }: MessageFormProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("Write your message here");
   const [currentPosition, setCurrentPosition] = useState<
@@ -24,10 +30,6 @@ const MessageForm = () => {
       },
     ]);
   };
-
-  useEffect(() => {
-    console.log(currentPosition);
-  }, [currentPosition]);
 
   const errorCallback = (error: object) => {
     console.error(error);
@@ -49,8 +51,19 @@ const MessageForm = () => {
     setValue(event.target.value);
   };
 
-  const handleSubmit = () => {
-    // post request to back-end
+  const handleSubmit = async () => {
+    await axios({
+      method: "post",
+      url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
+      data: {
+        user: 1,
+        trail_id: 1,
+        latitude: 1,
+        longitude: 1,
+        message: "test",
+        date: "date",
+      },
+    });
   };
 
   return (
