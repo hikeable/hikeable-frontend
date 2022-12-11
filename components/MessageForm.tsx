@@ -65,7 +65,7 @@ const MessageForm = ({ userID, trailID }: MessageFormProps) => {
         likes: 0,
         dislikes: 0,
         message: value,
-        date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
+        date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
       },
     });
     setIsOpen(false);
