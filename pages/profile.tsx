@@ -1,4 +1,5 @@
 import { Filter } from "../components";
+import { LineChart } from "../components/LineChart";
 
 
 const profile = () => {
@@ -28,9 +29,26 @@ const profile = () => {
 //         }
 //     ]; 
 
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+ const data = {
+  labels,
+  datasets: [
+    {
+      fill: true,
+      label: 'Dataset 2',
+      data: [23, 50, 18, 0 , 100, 50, 100],
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
+
+
 
     return (
         <>
+            <LineChart data={data}></LineChart>
           <div>
             User Profile
           </div>
