@@ -62,6 +62,8 @@ const MessageForm = ({ userID, trailID }: MessageFormProps) => {
         trail_id: trailID,
         latitude: currentPosition[recentPositionIndex]["latitude"],
         longitude: currentPosition[recentPositionIndex]["longitude"],
+        likes: 0,
+        dislikes: 0,
         message: value,
         date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
       },
