@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
 import { useAuthContext } from "./context/UseAuthContext";
 import { Dispatch, SetStateAction } from "react";
@@ -96,12 +95,10 @@ export const Navbar: React.FC<INavbar> = ({
             >
               LOGO
             </Typography> */}
-          <Logo />
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", sm: "none", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="a   r"
+              aria-label="appbar"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -109,6 +106,7 @@ export const Navbar: React.FC<INavbar> = ({
             >
               <MenuIcon />
             </IconButton>
+
             {/* <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
@@ -134,8 +132,12 @@ export const Navbar: React.FC<INavbar> = ({
                 ))}
               </Menu> */}
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
+          <Button variant="text" href="/" sx={{ mr: "auto" }}>
+            <Logo />
+          </Button>
+
+          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -152,10 +154,10 @@ export const Navbar: React.FC<INavbar> = ({
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
 
-          <Button variant="contained" href="/prefectures">
-            Map
+          <Button variant="outlined" href="/prefectures">
+            Japan Map
           </Button>
 
           {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -172,7 +174,7 @@ export const Navbar: React.FC<INavbar> = ({
 
           {user ? (
             <>
-              <Typography>Welcome {userName}!</Typography>
+              <Typography>Welcome {userName}! </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none" } }}>User</Box>
 
               <Box sx={{ flexGrow: 0 }}>

@@ -7,12 +7,12 @@
 
 .logo {
   fill: whitesmoke;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   z-index: 1;
 }
 
 .logo__name {
-  font-size: 40px;
+  font-size: 35px;
   color: white;
   position: relative;
   z-index: 1;
