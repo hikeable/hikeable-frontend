@@ -9,7 +9,9 @@ import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
+
 import { Map } from "../components";
+import MessageForm from "../components/MessageForm";
 import { CldImage, CldUploadButton } from 'next-cloudinary';
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
@@ -85,9 +87,10 @@ const SingleTrail = () => {
               name={trail.name}
             />
           </Box>
-          
-          <Map lat={trail.latitude} lon={trail.longitude} />
-          
+          <Box>
+            <Map lat={trail.latitude} lon={trail.longitude} trailID={trail.id}/>
+            <MessageForm userID={userId} trailID={trail.id} />
+          </Box>
           <Box
             sx={{
               flexDirection: "column",
