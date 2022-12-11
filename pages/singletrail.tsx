@@ -29,19 +29,12 @@ const SingleTrail = () => {
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName
-  const testId = trail?.id
-  console.log ("testId =",testId)
+  const trailName = trail?.name
+  // console.log ("testId =",trailName)
   // const trailId =useRef(trail?.id)
   const trailId = trail?.id.toString()
-  console.log ("trail = ",trail, "trailId =",trailId)
-  console.log (userNameTag)
-
-  const clicked =() => {
-    console.log("clicked", trailId)
-    let passprop = trailId
-
-  }
-
+  // console.log ("trail = ",trail, "trailId =",trailId)
+  // console.log (userNameTag)
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -127,7 +120,6 @@ const SingleTrail = () => {
             </Box>
           </Box>
         </Box>
-        {/* <UploadWidget></UploadWidget> */}
         <CldUploadButton 
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
         onUpload={function (error, result, widget) { console.log("error =",error,"result =",result, "widget =", widget)}}
@@ -137,7 +129,8 @@ const SingleTrail = () => {
         <Link href={{
           pathname: '/trailphotos',
           query: {
-            passed: trailId
+            id: trailId,
+            name:trailName
           }
         }}
   >check all photos in this trail</Link>

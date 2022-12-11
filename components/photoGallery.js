@@ -2,10 +2,10 @@ import React, { useRef,useState,useEffect } from 'react';
 
 
 
-const PhotoGallery = ({ userIdTag}) => {
+const PhotoGallery = ({ trailId, trailName}) => {
   const [loaded, setLoaded] = useState(false);
 
-  console.log ("first =",userIdTag, "😅😅😅")
+  // console.log ("first =",trailId, "😅😅😅")
 
   useEffect(() => {
     const scriptTag = document.createElement('script');
@@ -21,23 +21,34 @@ const PhotoGallery = ({ userIdTag}) => {
     const myGallery = window.cloudinary.galleryWidget({
       container: '#my-gallery',
       cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-      carouselStyle: 'thumbnails', // default value: included for clarity
+      carouselStyle: 'thumbnails',
+      // borderWidth:1,
+      // borderColor:"black",
+      displayProps:{
+        mode:"expanded",
+        topOffset: 70
+      },
       thumbnailProps: {
         width: 75,
         height: 75,
         spacing: 4,
         navigationColor: 'green',
+        borderColor:"black",
+        borderWidth:1
       },
-      mediaAssets: [{ tag: userIdTag }],
+      zoomProps: {
+        type:"inline"
+      },
+      mediaAssets: [{ tag: trailId }],
     });
-    console.log (typeof userIdTag, userIdTag, "🍒🍒🍒")
+    // console.log (typeof trailId, trailId, "🍒🍒🍒")
     if (!cloudnaryGalleryRef.current && typeof window !== 'undefined') {
       cloudnaryGalleryRef.current = myGallery.render();
     }
     return () => {
-      cloudnaryGalleryRef.current = myGallery.destroy(); // Important To avoid memory leaks and performance issues, make sure to use the destroy method before removing the Product Gallery widget container element from your DOM.
+      cloudnaryGalleryRef.current = myGallery.destroy(); 
     };
-  }, [loaded, userIdTag]);
+  }, [loaded, trailId]);
 
   return <div id="my-gallery" />;
 };

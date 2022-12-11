@@ -6,20 +6,19 @@ import { useSearchParams } from 'next/navigation'
 
 const TrailPhotos = () => {
   const searchParams = useSearchParams()
-  console.log (searchParams.get("passed"))
-
-  
-
-  
+  const trailId = searchParams.get("id");
+  const trailName = searchParams.get("name");
+  // console.log (trailId )
+  // console.log (trailName)
 
   
   return (
     <>
-    <h1> Test</h1>
-     <PhotoGallery userIdTag={ searchParams.get("passed") /*userIdTag.current*/}></PhotoGallery>
+    <p> {`All photos of ${trailName} trail`}</p>
+     <PhotoGallery trailId={trailId} trailName={trailName}  ></PhotoGallery>
     </>
       
   );
 };
 
-export default TrailPhotos
+export default TrailPhotos;
