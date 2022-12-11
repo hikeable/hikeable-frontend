@@ -11,6 +11,7 @@ interface MapProps {
 }
 
 type MessageDataObject = {
+  id: number;
   user: number;
   trail_id: number;
   latitude: string;
@@ -53,7 +54,10 @@ const Map = ({ lat, lon, trailID }: MapProps) => {
           const messageLatNumber = parseFloat(message.latitude);
           const messageLonNumber = parseFloat(message.longitude);
           return (
-            <Marker position={[messageLatNumber, messageLonNumber]}>
+            <Marker
+              key={message.id}
+              position={[messageLatNumber, messageLonNumber]}
+            >
               <Popup>{message.message}</Popup>
             </Marker>
           );
