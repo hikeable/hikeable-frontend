@@ -1,7 +1,11 @@
 import { Button } from "@mui/joy";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import React from "react";
 import { useState } from "react";
 import { Filter } from "../components";
 import { LineChart } from "../components/LineChart";
+import getLastNDays from "../src/GetLastNDays";
 
 
 const Profile = () => {
@@ -14,13 +18,17 @@ const data = [23, 50, 18, 0 , 100, 50, 100];
 
 
 
+
+
     return (
         <>  
         <div> Testing</div>
-        <Button onClick={() => setLabel("monthly")}>
+        {/* <Button onClick={() => setLabel("monthly")}>
             Monthly
-        </Button>
-            <LineChart dataSet={data} labelType={label}></LineChart>
+        </Button> */}
+
+
+            <LineChart dataSet={data} ></LineChart>
           <div>
             User Profile
           </div>

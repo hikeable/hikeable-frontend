@@ -10,5 +10,5 @@ export default function getLastNDays(num) {
     let date = new Date(today.getFullYear(), month, day - i);
     dates.push(`${date.getDate()}/${date.getMonth() + 1}`);
     }
-    return dates;
+    return dates.reverse();
   }
