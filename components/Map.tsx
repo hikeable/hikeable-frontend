@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/singletrail.module.css";
 import { useState, useEffect } from "react";
@@ -37,10 +37,6 @@ const Map = ({ lat, lon, trailID }: MapProps) => {
     fetchMessageData();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(messageData);
-  // }, [messageData]);
-
   return (
     <>
       <MapContainer
@@ -53,6 +49,15 @@ const Map = ({ lat, lon, trailID }: MapProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {messageData.map((message) => {
+          const messageLatNumber = parseFloat(message.latitude);
+          const messageLonNumber = parseFloat(message.longitude);
+          return (
+            <Marker position={[messageLatNumber, messageLonNumber]}>
+              <Popup>{message.message}</Popup>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </>
   );
