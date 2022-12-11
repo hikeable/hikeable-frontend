@@ -6,11 +6,23 @@ import TextField from "@mui/material/TextField";
 const MessageForm = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("Write your message here");
+  const [currentPosition, setCurrentPosition] = useState<number[]>([0, 0]);
+
+  const successCallback = (position: object) => {
+    console.log(position);
+  };
+
+  const errorCallback = (error: object) => {
+    console.error(error);
+  };
 
   const handleForm = () => {
     if (!isOpen) {
       setIsOpen(true);
-      // get GPS coordinates at this point
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+      });
     } else {
       setIsOpen(false);
     }
@@ -22,7 +34,7 @@ const MessageForm = () => {
 
   const handleSubmit = () => {
     // post request to back-end
-  }
+  };
 
   return (
     <>
@@ -36,7 +48,9 @@ const MessageForm = () => {
             placeholder={value}
             onChange={handleChange}
           />
-          <Button variant="outlined" onClick={handleSubmit}>OK</Button>
+          <Button variant="outlined" onClick={handleSubmit}>
+            OK
+          </Button>
           <Button variant="outlined" onClick={handleForm}>
             Back
           </Button>

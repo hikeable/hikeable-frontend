@@ -12,7 +12,6 @@ import { async } from "@firebase/util";
 import axios from "axios";
 import { Map } from "../components";
 import MessageForm from "../components/MessageForm";
-import { Message } from "@mui/icons-material";
 
 const difficultyObj = {
   1: "Easy",
