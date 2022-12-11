@@ -13,7 +13,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
-import getLastNDays from '../src/GetLastNDays';
+import {getLastNDays} from '../src/DateFunctions';
 
 ChartJS.register(
   CategoryScale,
@@ -39,31 +39,16 @@ export const options = {
   },
 };
 
-
-
-// export const data = {
-//   labels,
-//   datasets: [
-//     {
-//       fill: true,
-//       label: 'Dataset 2',
-//       data: [23, 50, 18, 0 , 100, 50, 100],
-//       borderColor: 'rgb(53, 162, 235)',
-//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-//     },
-//   ],
-// };
-
 export function LineChart( {dataSet}) {
 
     const [period, setPeriod] = React.useState<number>(30);
     const [label, setLabel] = useState<string>(`Last ${period} days`)
+    const [dataOnLine, setData] = useState<number[]>([]);
 
     const handlePeriod = (event: React.MouseEvent<HTMLElement>, newPeriod: number) => {
       setPeriod(newPeriod);
       setLabel(`Last ${period} days`);
       getLastNDays(period);
-
     };
 
     let labels = getLastNDays(period);
