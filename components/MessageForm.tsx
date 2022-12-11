@@ -3,14 +3,31 @@ import { Button } from "@mui/material";
 import StickyNote2 from "@mui/icons-material/StickyNote2";
 import TextField from "@mui/material/TextField";
 
+type CurrentPositionObject = {
+  latitude: number;
+  longitude: number;
+};
+
 const MessageForm = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("Write your message here");
-  const [currentPosition, setCurrentPosition] = useState<number[]>([0, 0]);
+  const [currentPosition, setCurrentPosition] = useState<
+    CurrentPositionObject[]
+  >([]);
 
   const successCallback = (position: object) => {
-    console.log(position);
+    setCurrentPosition([
+      ...currentPosition,
+      {
+        latitude: position["coords"]["latitude"],
+        longitude: position["coords"]["longitude"],
+      },
+    ]);
   };
+
+  useEffect(() => {
+    console.log(currentPosition);
+  }, [currentPosition]);
 
   const errorCallback = (error: object) => {
     console.error(error);
