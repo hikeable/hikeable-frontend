@@ -16,10 +16,6 @@ import {
   } from '@devexpress/dx-react-chart-material-ui';
 import useSWR from 'swr';
 
-// export interface IDashboard {
-//     completedTrails : Trail[]
-// }
-
 type dummy = {
 
     "id": number,
@@ -88,8 +84,6 @@ const Dashboard  = () => {
         console.log(data);
         const retArr = data.filter((completions) => completions.user === userId);
         console.log(retArr);
-        // return ret;
-        // return [];
       }
 
 

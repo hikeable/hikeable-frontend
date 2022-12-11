@@ -56,12 +56,12 @@ export const options = {
 
 export function LineChart( {dataSet}) {
 
-    const [label, setLabel] = useState<string>("daily")
-    const [period, setPeriod] = React.useState<number | null>(30);
+    const [period, setPeriod] = React.useState<number>(30);
+    const [label, setLabel] = useState<string>(`Last ${period} days`)
 
-    const handlePeriod = (event: React.MouseEvent<HTMLElement>, newPeriod: number | null) => {
+    const handlePeriod = (event: React.MouseEvent<HTMLElement>, newPeriod: number) => {
       setPeriod(newPeriod);
-      setLabel(`last ${period} days`);
+      setLabel(`Last ${period} days`);
       getLastNDays(period);
 
     };
