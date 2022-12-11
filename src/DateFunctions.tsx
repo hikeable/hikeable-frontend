@@ -1,4 +1,4 @@
-export function getLastNDays(num) {
+ function getLastNDays(num) {
     let dates : string[] = [];
     let today = new Date();
     let day = today.getDate();
@@ -13,7 +13,9 @@ export function getLastNDays(num) {
     return dates.reverse();
   }
 
- export function getDayAndMonth(date: string): string {
+function getDayAndMonth(date: string): string {
     const [year, month, day] = date.split("-");
     return `${day}/${month}`;
 }
+
+export  {getDayAndMonth, getLastNDays}

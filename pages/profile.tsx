@@ -5,7 +5,6 @@ import React from "react";
 import { useState } from "react";
 import { Filter } from "../components";
 import { LineChart } from "../components/LineChart";
-import getLastNDays from "../src/GetLastNDays";
 
 
 const Profile = () => {
@@ -15,6 +14,11 @@ const [label, setLabel] = useState<string>("daily")
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 const data = [23, 50, 18, 0 , 100, 50, 100];
 
+const dataFormatted = [{data: 23, date: 11/12},
+{data: 50, date: 10/12}, {data: 18, date: 8/12},
+{data: 10, date: 5/12}
+]
+
 
 
 
@@ -23,9 +27,6 @@ const data = [23, 50, 18, 0 , 100, 50, 100];
     return (
         <>  
         <div> Testing</div>
-        {/* <Button onClick={() => setLabel("monthly")}>
-            Monthly
-        </Button> */}
 
 
             <LineChart dataSet={data} ></LineChart>
