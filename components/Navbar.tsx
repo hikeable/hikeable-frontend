@@ -15,6 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
 import { useAuthContext } from './context/UseAuthContext';
 import { Dispatch, SetStateAction } from 'react';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -46,6 +47,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const router = useRouter()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -152,6 +154,7 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
             </Typography>
 
             <Button variant="contained" href='/prefectures'>Map</Button>
+            <Button variant="contained" onClick={() => {router.back()}}>Back</Button>
 
             {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
