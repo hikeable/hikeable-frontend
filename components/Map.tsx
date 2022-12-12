@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import style from "../styles/singletrail.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import L from "leaflet";
 
 interface MapProps {
   lat: string;
@@ -26,6 +27,13 @@ const Map = ({ lat, lon, trailID }: MapProps) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
+  const leafletIcon = L.icon({
+    iconUrl: "https://leafletjs.com/examples/custom-icons/leaf-red.png",
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor: [12, -90],
+  });
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(
@@ -50,12 +58,13 @@ const Map = ({ lat, lon, trailID }: MapProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {messageData.map((message) => {
+        {messageData.map((message, index) => {
           const messageLatNumber = parseFloat(message.latitude);
           const messageLonNumber = parseFloat(message.longitude);
           return (
             <Marker
-              key={message.id}
+              key={index}
+              icon={leafletIcon}
               position={[messageLatNumber, messageLonNumber]}
             >
               <Popup>{message.message}</Popup>
