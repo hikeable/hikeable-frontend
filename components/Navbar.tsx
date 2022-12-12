@@ -96,11 +96,11 @@ export const Navbar: React.FC<INavbar> = ({
             </Link>
 
             <Button
-              sx={{ ml: 6, mr: "auto" }}
+              sx={{ ml: 6, ml: "auto" }}
               variant="contained"
               href="/prefectures"
             >
-              Explore by Map
+              Explore
             </Button>
 
             {user ? (
@@ -109,6 +109,7 @@ export const Navbar: React.FC<INavbar> = ({
                   sx={{
                     fontWeight: "600",
                     display: { xs: "none", sm: "block" },
+                    ml: 5,
                   }}
                 >
                   Welcome {userName?.split(" ")[0]}&nbsp;!
@@ -154,7 +155,11 @@ export const Navbar: React.FC<INavbar> = ({
                 </Menu>
               </>
             ) : (
-              <Button variant="contained" onClick={() => loginWithGoogle()}>
+              <Button
+                variant="contained"
+                sx={{ ml: 3 }}
+                onClick={() => loginWithGoogle()}
+              >
                 Log In
               </Button>
             )}
