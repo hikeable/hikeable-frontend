@@ -1,6 +1,4 @@
 .flexContainer {
-    display: flex;
-    flex-direction: row;
-}
-
-/*# sourceMappingURL=pref_trails.css.map */
+  display: flex;
+  flex-direction: row;
+}/*# sourceMappingURL=pref_trails.module.css.map */
