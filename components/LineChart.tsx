@@ -43,7 +43,6 @@ export function LineChart( {dataSet}) {
 
     const [period, setPeriod] = React.useState<number>(40);
     const [label, setLabel] = useState<string>(`Last ${period} days`)
-    const [dataOnLine, setData] = useState<number[]>([]);
 
     const handlePeriod = (event: React.MouseEvent<HTMLElement>, newPeriod: number) => {
       setPeriod(newPeriod);
@@ -67,22 +66,7 @@ export function LineChart( {dataSet}) {
                 res[i] += parseFloat(dataSet[j].length);
             }
         }
-
     }
-    console.log("🐓");
-    console.log(res);
-    
-    // for (let pair of dataSet){
-    //     console.log(typeof pair.date);
-
-    //     if (label.includes(pair.date)){
-
-    //         res.push(pair.length)
-    //     }
-    //     else
-    //     res.push(0)
-    // }
-    // console.log(res);
 
     const data = {
         labels,

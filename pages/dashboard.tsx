@@ -11,14 +11,6 @@ import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
 
-import {
-    ArgumentAxis,
-    ValueAxis,
-    Chart,
-    LineSeries,
-  } from '@devexpress/dx-react-chart-material-ui';
-import useSWR from 'swr';
-
 type dummy = {
 
     "id": number,
@@ -43,72 +35,39 @@ const Item = styled(Paper)(({ theme }) => ({
     lineHeight: '60px',
   }));
 
-
-
-//   function GetCompletedUserTrails(compTrails) {
-
-//     compTrails.map ((trail) => {
-
-
-//         const { data, error } = useSWR(
-//             "https://hikeable-backend.herokuapp.com/api/trails/completions",
-//             fetcher
-//           ); 
-//     }
-
-
-//     )
-
-//   }
- 
-
- 
-
 const Dashboard  = () => {
 
     const {user, userId} = useAuthContext()
-    const [user_id, setUser] = useState();
+    const [hiked, setHiked] = useState(0);
     const [completedTrails, setCompleted] = useState<trailCompletionObject[] >([]);
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
-    const [count, setCount] = useState<number>(0)
     const [data, setData] = useState<{date: string, length: number}[]>([]);
-
-    console.log(userId);
-
-    async function fetcher(url: string) {
-        const { data } = await axios.get(url);
-        return data;
-      }
-      
-      function GetCompletedData(userId: number | undefined) {
-        const { data, error } = useSWR(
-          "https://hikeable-backend.herokuapp.com/api/trails/completions",
-          fetcher
-        )
-        console.log(data);
-        const retArr = data.filter((completions) => completions.user === userId);
-        console.log(retArr);
-      }
-
-
 
     const getCompleted = async () => {
 
         const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
         await axios.get(url).then( (response) => {
-            console.log('pending...');
-            console.log("👻", response);
             const result = response.data.filter((completions) => completions.user === userId)  
-            console.log(result);
             setCompleted(result); 
         });
-         console.log(completedTrails); 
    }
+
+   const getTrails =  () => {
+        
+        return completedTrails.map( async (singleCompletedTrail) => {
+
+            const response = await axios ({
+                method: "get",
+                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.trail_id}`
+            })
+
+            const trail = response.data;
+
+            if (usersCompletedTrails.length >= 0)
+                setUsersCompletedTrails( usersCompletedTrails =>  [ ...trail, ...usersCompletedTrails] );
+        });
+    }
     
-
-
-
-
     useEffect(  () => {
         if (completedTrails.length === 0)
             getCompleted();
@@ -125,66 +84,11 @@ const Dashboard  = () => {
         let tupleArray = getValues(completedTrails, trailUserCompletions );
         setData([...tupleArray]);
 
+        let hikedDistance =  trailUserCompletions.reduce( (total, trail) => {  
+            return   total + parseFloat(`${trail.length}`)}, 0.0);
+        setHiked(hikedDistance);
+
     },[usersCompletedTrails])
-
-
-
-
-
-    const getTrails =  () => {
-        
-        return completedTrails.map( async (singleCompletedTrail) => {
-
-            const response = await axios ({
-                method: "get",
-                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.trail_id}`
-            })
-
-            const trail = response.data;
-
-       
-
-            console.log("🌏");
-            console.log(trail);
-
-            if (usersCompletedTrails.length >= 0)
-                setUsersCompletedTrails( usersCompletedTrails =>  [ ...trail, ...usersCompletedTrails] );
-            // return (
-            //   <>
-                
-            //     <Button
-            //         variant='outlined'
-                    
-            //         component={NextLinkComposed}
-            //         to={{
-            //             pathname: "/singletrail",
-            //             query: { trail: JSON.stringify(trail) },
-            //         }}
-            //         linkAs = {`/singletrail/${trail.id}`}
-            //      >
-            //         <CardContent>
-            //             <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-            //                 {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
-            //             </Typography>
-            //         </CardContent>
-            //     </Button>
-            //  </>
-
-            // )
-        })
-    }
-    console.log("users completed trails");
-    console.log(usersCompletedTrails);
-
-    //list of favourited trails
-    // const [favorited, setFavorited] = useState<Trail[]>([]);
-    // let completed = useRef<Trail[]>(data);
-
-
-    // let hikedDistance = completed.reduce( (total, trail) => {   
-    //   return   total + trail.length}, 0);
-    let hikedDistance = 4;
-    
 
     return (
         
@@ -200,12 +104,10 @@ const Dashboard  = () => {
                 <Typography>Hi {user?.displayName} !</Typography>
                   
                     <Item key={7} elevation={7} >
-                        {`You've hiked a distance of ${hikedDistance} km` }
+                        {`You've hiked a distance of ${hiked} km` }
                     </Item>
                 </div>
 
-
- 
                 {/* <Typography>You favourite trails are  !</Typography> */}
                 {/* <Typography>You favourite trails are  !</Typography> */}
 
@@ -242,16 +144,11 @@ const Dashboard  = () => {
                                     </CardContent>
                                 </Button>
                             </Box>
-                        
-
-
                         </>
                      
                      )
                     })
                 } 
-
-
              </div> 
 
 
@@ -259,19 +156,5 @@ const Dashboard  = () => {
         </>
     );
 }
-
-
-
-
-// dashboard.getLayout = function getLayout(page: ReactElement) {
-//     return (
-//         <LoggedIn/>        
-//     )
-// }
-
-
-
-
-
 
 export default Dashboard;
