@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import StickyNote2 from "@mui/icons-material/StickyNote2";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { Box, Modal } from "@mui/material";
@@ -55,7 +54,10 @@ const MessageForm = ({
     setOpen(true);
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setValue("Write your message here");
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
