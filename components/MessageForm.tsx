@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import StickyNote2 from "@mui/icons-material/StickyNote2";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { Box, Modal } from "@mui/material";
 
 interface MessageFormProps {
   trailID: number;
@@ -11,8 +12,25 @@ interface MessageFormProps {
   setCurrentPosition: Function;
 }
 
-const MessageForm = ({ userID, trailID, currentPosition, setCurrentPosition }: MessageFormProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const MessageForm = ({
+  userID,
+  trailID,
+  currentPosition,
+  setCurrentPosition,
+}: MessageFormProps) => {
+  const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("Write your message here");
 
   const successCallback = (position: object) => {
@@ -29,17 +47,15 @@ const MessageForm = ({ userID, trailID, currentPosition, setCurrentPosition }: M
     console.error(error);
   };
 
-  const handleForm = () => {
-    if (!isOpen) {
-      setIsOpen(true);
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
-        enableHighAccuracy: true,
-        timeout: 10000,
-      });
-    } else {
-      setIsOpen(false);
-    }
+  const handleOpen = () => {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
+      enableHighAccuracy: true,
+      timeout: 10000,
+    });
+    setOpen(true);
   };
+
+  const handleClose = () => setOpen(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -64,13 +80,19 @@ const MessageForm = ({ userID, trailID, currentPosition, setCurrentPosition }: M
         }-${current.getDate()}`,
       },
     });
-    setIsOpen(false);
+    handleClose();
   };
 
   return (
     <>
-      {isOpen === true ? (
-        <>
+      <Button onClick={handleOpen}>Write Message</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
           <TextField
             id="outlined-multiline-static"
             label="Message"
@@ -80,21 +102,10 @@ const MessageForm = ({ userID, trailID, currentPosition, setCurrentPosition }: M
             onChange={handleChange}
           />
           <Button variant="outlined" onClick={handleSubmit}>
-            OK
+            Submit
           </Button>
-          <Button variant="outlined" onClick={handleForm}>
-            Back
-          </Button>
-        </>
-      ) : (
-        <Button
-          variant="outlined"
-          startIcon={<StickyNote2 />}
-          onClick={handleForm}
-        >
-          Write Message
-        </Button>
-      )}
+        </Box>
+      </Modal>
     </>
   );
 };
