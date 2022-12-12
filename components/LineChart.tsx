@@ -54,59 +54,18 @@ export function LineChart( {dataSet}) {
     let lastFullDays = getLastNDays(period);
     let labels = getDayAndMonth(lastFullDays);
 
-    console.log(dataSet);
-
-    // function getValues(a, b) {
-    //     let result = [];
-    //     for (let i = 0; i < a.length; i++) {
-    //       for (let j = 0; j < b.length; j++) {
-    //         if (a[i].trail_id == b[j].id) {
-    //           result.push({
-    //             date: a[i].date,
-    //             length: b[j].length
-    //           })
-    //         }
-    //       }
-    //     }
-    //     return result;
-    //   }
-    console.log("🌏");
-    console.log(lastFullDays);
-    console.log(dataSet);
-    // let res : number[] = new Array(lastFullDays.length).fill(0);
-
     let res : number[] =[];
-    // for (let i = 0; i < 10; i++){
-    //     res[i] = 0;
-    // }
-    
 
 
     for (let i = 0; i < lastFullDays.length; i++){
-        // console.log("index i is : ", i);
         if (i === 0)
             res[i] = 0;
         else res[i] = res[i-1];
         for (let j = 0; j < dataSet.length; j ++){
-            // console.log("index j is : ", j);
+            
             if (compareDate(lastFullDays[i], dataSet[j].date)){
-                // console.log("🥶 ", dataSet[j].length);
-                // console.log(res[i]);
-                if (i >= 1){
-
-                    // console.log("total is : ", parseInt(dataSet[j].length) + (res[i - 1]));
-                    // console.log("res[i-1] is: ", res[i-1]);
-                    // console.log("dataset[j] is ", parseInt(dataSet[j].length))
-                    res[i] = parseInt(dataSet[j].length) + (res[i - 1]);
-                }
-                else {
-                    // console.log("else condition entered");
-                    res[i] += parseInt(dataSet[j].length);
-                }
-
-                // console.log("res[i] now is : ", res[i]);
+                res[i] += parseFloat(dataSet[j].length);
             }
-            // console.log("res[i] now is : ", res[i]);
         }
 
     }

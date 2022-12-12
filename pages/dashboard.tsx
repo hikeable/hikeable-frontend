@@ -168,12 +168,6 @@ const Dashboard  = () => {
 
 
     const getTrails =  () => {
-
-        // function getArr(...args: Trail[]) {
-        //     console.log("args are: ")
-        //     console.log(args);
-        //     return args;
-        // }
         
         return completedTrails.map( async (singleCompletedTrail) => {
 
