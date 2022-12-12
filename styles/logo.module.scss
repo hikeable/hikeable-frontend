@@ -19,9 +19,4 @@
   color: whitesmoke;
   position: relative;
   z-index: 1;
-
-  @include mq(sm) {
-    display: none;
-    // font-size: 20px;
-  }
 }
