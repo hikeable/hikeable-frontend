@@ -1,53 +1,57 @@
 @import url("https://fonts.googleapis.com/css?family=Shadows+Into+Light");
-.landing_background {
+.landing__background {
   z-index: -1;
   position: "fixed";
   width: "100vw";
   height: "100vh";
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 
-.h1 {
+.logo__wrapper {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.landing__title {
   color: whitesmoke;
   text-transform: uppercase;
-  font-size: 40px;
-  line-height: 50px;
+  font-size: 9vw;
   font-weight: 600;
-  margin-top: 30px;
-  margin-left: 700px;
-  position: fixed;
+  text-align: center;
   z-index: 1;
   font-family: "Shadows Into Light";
 }
 
-.p {
+.txt__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 3rem;
+}
+
+.btn__wrapper {
+  margin-top: 10rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.txt__btn {
   color: whitesmoke;
+  font-size: 4.5vw;
   text-transform: uppercase;
-  font-size: 20px;
-  line-height: 50px;
-  margin-top: 60px;
-  margin-left: 600px;
-  position: fixed;
+  text-decoration: none;
   z-index: 1;
   font-family: "Shadows Into Light";
 }
 
-@media only screen and (max-width: 340px) {
-  .landing_background {
-    position: relative;
-    display: block;
-    float: left;
-    margin: 0 auto;
-    padding: 80px 0 0 0;
-  }
-  .h1 {
-    margin-left: 10px;
-    font-size: 20px;
-  }
-  .p {
-    font-size: 10px;
-    margin-left: 20px;
-  }
+.btn__line {
+  color: #fff !important;
+  padding: 0.5rem !important;
+  border: solid 2px transparent !important;
+  border-radius: 1rem;
+}
+
+.btn__line:hover {
+  border: solid 2px #fff !important;
 }/*# sourceMappingURL=landing.module.css.map */

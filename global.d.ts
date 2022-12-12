@@ -48,3 +48,7 @@ declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";
 declare module "leaflet-geosearch";
 declare module "react-leaflet";
+
+declare module "@mui/styles/defaultTheme" {
+  interface DefaultTheme extends Theme {}
+}

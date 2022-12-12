@@ -19,7 +19,12 @@
     "@mui/joy": "^5.0.0-alpha.56",
     "@mui/material": "^5.10.16",
     "@next/font": "^13.0.6",
+<<<<<<< HEAD
     "@types/chart.js": "^2.9.37",
+=======
+    "@types/google.geolocation": "^0.4.31",
+    "@svgr/webpack": "^6.5.1",
+>>>>>>> development
     "@types/node": "18.11.10",
     "@types/react-dom": "18.0.9",
     "axios": "^1.2.1",
