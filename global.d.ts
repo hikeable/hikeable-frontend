@@ -26,11 +26,22 @@ declare function svgJapan(options: {
 export interface Trail {
   id: number;
   difficulty: 1 | 2 | 3;
-  latitude: number;
+  latitude: string;
   length: number;
-  longitude: number;
+  longitude: string;
   map_url: string;
   name: string;
   photo_url: string;
   prefecture: string;
+}
+
+declare module "react-open-weather";
+declare module "leaflet";
+declare module "leaflet-defaulticon-compatibility";
+declare module "leaflet-geosearch";
+declare module "react-leaflet";
+
+declare module "@mui/styles/defaultTheme" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface (remove this line if you don't have the rule enabled)
+  interface DefaultTheme extends Theme {}
 }
