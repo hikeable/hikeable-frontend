@@ -42,11 +42,11 @@ const TrailMap = ({
   const lonNumber = parseFloat(lon);
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const leafletIcon = L.icon({
-    iconUrl: "https://leafletjs.com/examples/custom-icons/leaf-red.png",
-    iconSize: [38, 95],
-    iconAnchor: [22, 94],
-    shadowAnchor: [4, 62],
-    popupAnchor: [12, -90],
+    iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
+    iconSize: [25, 41],
+    iconAnchor: [10, 41],
+    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
+    popupAnchor: [2, -40],
   });
 
   const fetchMessageData = async () => {
