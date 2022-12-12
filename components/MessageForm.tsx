@@ -7,19 +7,13 @@ import axios from "axios";
 interface MessageFormProps {
   trailID: number;
   userID: number | undefined;
+  currentPosition: Array<Object>;
+  setCurrentPosition: Function;
 }
 
-type CurrentPositionObject = {
-  latitude: number;
-  longitude: number;
-};
-
-const MessageForm = ({ userID, trailID }: MessageFormProps) => {
+const MessageForm = ({ userID, trailID, currentPosition, setCurrentPosition }: MessageFormProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("Write your message here");
-  const [currentPosition, setCurrentPosition] = useState<
-    CurrentPositionObject[]
-  >([]);
 
   const successCallback = (position: object) => {
     setCurrentPosition([
@@ -65,7 +59,9 @@ const MessageForm = ({ userID, trailID }: MessageFormProps) => {
         likes: 0,
         dislikes: 0,
         message: value,
-        date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
+        date: `${current.getFullYear()}-${
+          current.getMonth() + 1
+        }-${current.getDate()}`,
       },
     });
     setIsOpen(false);

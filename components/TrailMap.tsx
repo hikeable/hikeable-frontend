@@ -1,4 +1,10 @@
-import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/singletrail.module.css";
 import { useState, useEffect } from "react";
@@ -9,6 +15,8 @@ interface TrailMapProps {
   lat: string;
   lon: string;
   trailID: number;
+  currentPosition: Array<Object>;
+  setCurrentPosition: Function;
 }
 
 type MessageDataObject = {
@@ -23,7 +31,13 @@ type MessageDataObject = {
   date: string;
 };
 
-const TrailMap = ({ lat, lon, trailID }: TrailMapProps) => {
+const TrailMap = ({
+  lat,
+  lon,
+  trailID,
+  currentPosition,
+  setCurrentPosition,
+}: TrailMapProps) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
@@ -34,13 +48,6 @@ const TrailMap = ({ lat, lon, trailID }: TrailMapProps) => {
     shadowAnchor: [4, 62],
     popupAnchor: [12, -90],
   });
-  const locateOptions = {
-    position: "topright",
-    strings: {
-      title: "Show me where I am, yo!",
-    },
-    onActivate: () => {}, // callback before engine starts retrieving locations
-  };
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(
