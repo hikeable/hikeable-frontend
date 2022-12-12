@@ -110,56 +110,20 @@ const Dashboard  = () => {
 
 
     useEffect(  () => {
-
-
         if (completedTrails.length === 0)
             getCompleted();
-        
-        else{
-            if (usersCompletedTrails.length === 0)
-                getTrails();
-        }
-            
-        if (usersCompletedTrails.length !== 0 ){
-            console.log("😄")
-            console.log(usersCompletedTrails)
-        }
+    },[userId])
 
-      
-
-        // setCompleted(allTr);
-        // if (userId !== undefined){
-            // setCompleted(allTr);
-            // getTrails();
-        //}
-        // let allTr = GetCompletedData(userId);
-        // (async()=> {
-
-            //  axios({
-            //     method: "get",
-            //     url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
-            //   }).then( (response) => {
-     
-            //       const result = response.data.filter((completions) => completions.user === userId)  
-            //       setCompleted(result); 
-            //             console.log(completedTrails); 
-            //   });
-
-        // })();
-
-    },[userId, completedTrails])
+    useEffect( () => {
+        if (usersCompletedTrails.length === 0)
+            getTrails();
+    }, [completedTrails])
 
     useEffect( () => {
 
-        console.log("🤪🤪🤪")
         let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
         let tupleArray = getValues(completedTrails, trailUserCompletions );
-
-        console.log(tupleArray);
         setData([...tupleArray]);
-
-        console.log(data);
-
 
     },[usersCompletedTrails])
 
