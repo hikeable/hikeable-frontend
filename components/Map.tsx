@@ -1,17 +1,42 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/singletrail.module.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface MapProps {
   lat: string;
   lon: string;
+  trailID: number;
 }
 
-const Map = ({ lat, lon }: MapProps) => {
+type MessageDataObject = {
+  id: number;
+  user: number;
+  trail_id: number;
+  latitude: string;
+  longitude: string;
+  message: string;
+  likes: number;
+  dislikes: number;
+  date: string;
+};
+
+const Map = ({ lat, lon, trailID }: MapProps) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
+  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
 
-//   console.log(latNumber, lonNumber)
+  const fetchMessageData = async () => {
+    const fetchedMessageData = await axios.get(
+      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
+    );
+    setMessageData(fetchedMessageData.data);
+  };
+
+  useEffect(() => {
+    fetchMessageData();
+  }, []);
 
   return (
     <>
@@ -25,6 +50,18 @@ const Map = ({ lat, lon }: MapProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {messageData.map((message) => {
+          const messageLatNumber = parseFloat(message.latitude);
+          const messageLonNumber = parseFloat(message.longitude);
+          return (
+            <Marker
+              key={message.id}
+              position={[messageLatNumber, messageLonNumber]}
+            >
+              <Popup>{message.message}</Popup>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </>
   );

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState,forwardRef } from "react";
 import { Trail } from "../global";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
@@ -8,9 +8,15 @@ import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import { async } from "@firebase/util";
 import axios from "axios";
+
 import { Map } from "../components";
+import MessageForm from "../components/MessageForm";
+import { CldImage, CldUploadButton } from 'next-cloudinary';
+import SingleProduct from "../components/photoGallery";
+import PhotoGallery from "../components/photoGallery";
+import Link from "next/link";
+
 
 const difficultyObj = {
   1: "Easy",
@@ -22,6 +28,16 @@ const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
+
+
+  // const userNameTag =useRef(JSON.stringify(user?.displayName))
+  const userNameTag = user?.displayName
+  const trailName = trail?.name
+  // console.log ("testId =",trailName)
+  // const trailId =useRef(trail?.id)
+  const trailId = trail?.id.toString()
+  // console.log ("trail = ",trail, "trailId =",trailId)
+  // console.log (userNameTag)
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -71,9 +87,10 @@ const SingleTrail = () => {
               name={trail.name}
             />
           </Box>
-          
-          <Map lat={trail.latitude} lon={trail.longitude} />
-          
+          <Box>
+            <Map lat={trail.latitude} lon={trail.longitude} trailID={trail.id}/>
+            <MessageForm userID={userId} trailID={trail.id} />
+          </Box>
           <Box
             sx={{
               flexDirection: "column",
@@ -107,6 +124,21 @@ const SingleTrail = () => {
             </Box>
           </Box>
         </Box>
+        <CldUploadButton 
+        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
+        onUpload={function (error, result, widget) { console.log("error =",error,"result =",result, "widget =", widget)}}
+        options={{folder:trail.name, tags:[trail.id, userNameTag]}}
+        />
+        <p className={styles.p}>
+        <Link href={{
+          pathname: '/trailphotos',
+          query: {
+            id: trailId,
+            name:trailName
+          }
+        }}
+  >check all photos in this trail</Link>
+      </p>
       </div>
     )
   );
