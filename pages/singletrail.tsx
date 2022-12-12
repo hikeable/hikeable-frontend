@@ -10,7 +10,7 @@ import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
 
-import { Map } from "../components";
+import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import { CldImage, CldUploadButton } from 'next-cloudinary';
 import SingleProduct from "../components/photoGallery";
@@ -88,7 +88,7 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <Map lat={trail.latitude} lon={trail.longitude} trailID={trail.id}/>
+            <TrailMap lat={trail.latitude} lon={trail.longitude} trailID={trail.id}/>
             <MessageForm userID={userId} trailID={trail.id} />
           </Box>
           <Box
