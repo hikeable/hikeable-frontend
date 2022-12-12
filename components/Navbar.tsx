@@ -76,87 +76,92 @@ export const Navbar: React.FC<INavbar> = ({
   };
 
   return navActive == true ? (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
-            <Mountain className={styles.logo} />
-            <Typography
-              sx={{
-                color: "whitesmoke",
-                fontSize: "35px",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                display: { xs: "none", sm: "block" },
-              }}
-            >
-              Hikeable
-            </Typography>
-          </Link>
-
-          <Button
-            sx={{ ml: 6, mr: "auto" }}
-            variant="contained"
-            href="/prefectures"
-          >
-            Explore by Map
-          </Button>
-
-          {user ? (
-            <>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
+              <Mountain className={styles.logo} />
               <Typography
-                sx={{ fontWeight: "600", display: { xs: "none", sm: "block" } }}
+                sx={{
+                  color: "whitesmoke",
+                  fontSize: "35px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "600",
+                  display: { xs: "none", sm: "block" },
+                }}
               >
-                Welcome {userName?.split(" ")[0]}&nbsp;!
+                Hikeable
               </Typography>
+            </Link>
 
-              <Box sx={{ flexGrow: 0, ml: 1, mr: 1 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt={userName as string}
-                      src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem
-                    component="a"
-                    href={"/" + setting.toLowerCase()}
-                    key={setting}
-                    onClick={() => updateState(setting)}
-                  >
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </>
-          ) : (
-            <Button variant="contained" onClick={() => loginWithGoogle()}>
-              Log In
+            <Button
+              sx={{ ml: 6, mr: "auto" }}
+              variant="contained"
+              href="/prefectures"
+            >
+              Explore by Map
             </Button>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+
+            {user ? (
+              <>
+                <Typography
+                  sx={{
+                    fontWeight: "600",
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  Welcome {userName?.split(" ")[0]}&nbsp;!
+                </Typography>
+
+                <Box sx={{ flexGrow: 0, ml: 1, mr: 1 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt={userName as string}
+                        src="/static/images/avatar/2.jpg"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem
+                      component="a"
+                      href={"/" + setting.toLowerCase()}
+                      key={setting}
+                      onClick={() => updateState(setting)}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            ) : (
+              <Button variant="contained" onClick={() => loginWithGoogle()}>
+                Log In
+              </Button>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </Box>
   ) : (
     <></>
   );
