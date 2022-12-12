@@ -14,7 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import { useAuthContext } from "./context/UseAuthContext";
 import { Dispatch, SetStateAction } from "react";
-// import { Logo } from "./Logo";
 import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
 
@@ -95,11 +94,7 @@ export const Navbar: React.FC<INavbar> = ({
               </Typography>
             </Link>
 
-            <Button
-              sx={{ ml: 6, ml: "auto" }}
-              variant="contained"
-              href="/prefectures"
-            >
+            <Button sx={{ ml: "auto" }} variant="contained" href="/prefectures">
               Explore
             </Button>
 

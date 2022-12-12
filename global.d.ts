@@ -45,8 +45,3 @@ declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface (remove this line if you don't have the rule enabled)
   interface DefaultTheme extends Theme {}
 }
-
-declare module "*.svg" {
-  const content: React.FC<React.SVGProps<SVGElement>>;
-  export default content;
-}
