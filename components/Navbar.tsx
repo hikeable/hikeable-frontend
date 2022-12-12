@@ -14,7 +14,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import { useAuthContext } from "./context/UseAuthContext";
 import { Dispatch, SetStateAction } from "react";
-import { Logo } from "./Logo";
+// import { Logo } from "./Logo";
+import Mountain from "../public/mountain.svg";
+import styles from "../styles/logo.module.css";
 
 export interface INavbar {
   navActive: boolean;
@@ -77,107 +79,38 @@ export const Navbar: React.FC<INavbar> = ({
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          {/* <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
+          <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
+            <Mountain className={styles.logo} />
+            <Typography
               sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+                color: "whitesmoke",
+                fontSize: "35px",
+                fontFamily: "Montserrat",
+                fontWeight: "600",
+                display: { xs: "none", sm: "block" },
               }}
             >
-              LOGO
-            </Typography> */}
-          <Box sx={{ display: { xs: "flex", sm: "none", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="appbar"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+              Hikeable
+            </Typography>
+          </Link>
 
-            {/* <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu> */}
-          </Box>
-          <Button variant="text" href="/" sx={{ mr: "auto" }}>
-            <Logo />
-          </Button>
-
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+          <Button
+            sx={{ ml: 6, mr: "auto" }}
+            variant="contained"
+            href="/prefectures"
           >
-            LOGO
-          </Typography> */}
-
-          <Button variant="outlined" href="/prefectures">
-            Japan Map
+            Explore by Map
           </Button>
-
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))}
-            </Box> */}
 
           {user ? (
             <>
-              <Typography>Welcome {userName}! </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: "none" } }}>User</Box>
+              <Typography
+                sx={{ fontWeight: "600", display: { xs: "none", sm: "block" } }}
+              >
+                Welcome {userName?.split(" ")[0]}&nbsp;!
+              </Typography>
 
-              <Box sx={{ flexGrow: 0 }}>
+              <Box sx={{ flexGrow: 0, ml: 1, mr: 1 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar

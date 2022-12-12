@@ -6,7 +6,7 @@ export const Logo = () => {
     <>
       <div className={styles.logo__wrapper}>
         <Mountain className={styles.logo} />
-        <p className={styles.logo__name}>Hikeable</p>
+        <div className={styles.logo__name}>Hikeable</div>
       </div>
     </>
   );

@@ -1,3 +1,6 @@
+@import "_breakpoint";
+@import "_mixin";
+
 .logo__wrapper {
   display: flex;
   flex-direction: row;
@@ -13,7 +16,12 @@
 
 .logo__name {
   font-size: 35px;
-  color: white;
+  color: whitesmoke;
   position: relative;
   z-index: 1;
+
+  @include mq(sm) {
+    display: none;
+    // font-size: 20px;
+  }
 }
