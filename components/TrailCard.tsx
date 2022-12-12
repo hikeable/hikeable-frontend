@@ -29,7 +29,6 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
       sx={{
         borderRadius: "25px",
         backgroundColor: "white",
-        boxShadow: "8px 5px 20px 0px rgba(172,172,172,0.43)",
         borderColor: "#9e9e9e",
         m: "3rem",
         minWidth: "20rem",
@@ -38,7 +37,6 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
         maxHeight: "4rem",
         gap: 2,
         "&:hover": {
-          boxShadow: "8px 5px 20px 0px rgba(152,152,152,0.43)",
           borderColor: "#9e9e9e",
         },
       }}
@@ -54,8 +52,8 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
       >
         <div>
           <img
-            srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
-            src={photo_url}
+            src="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
+            srcSet={photo_url}
             loading="lazy"
             alt={`${name} photo`}
           />
