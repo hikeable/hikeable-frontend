@@ -8,6 +8,9 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { LocationOn } from "@mui/icons-material";
 import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
+import { LineChart } from '../components/LineChart';
+import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
+
 import {
     ArgumentAxis,
     ValueAxis,
@@ -68,6 +71,7 @@ const Dashboard  = () => {
     const [completedTrails, setCompleted] = useState<trailCompletionObject[] >([]);
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
     const [count, setCount] = useState<number>(0)
+    const [data, setData] = useState<{date: string, length: number}[]>([]);
 
     console.log(userId);
 
@@ -144,6 +148,20 @@ const Dashboard  = () => {
         // })();
 
     },[userId, completedTrails])
+
+    useEffect( () => {
+
+        console.log("🤪🤪🤪")
+        let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
+        let tupleArray = getValues(completedTrails, trailUserCompletions );
+
+        console.log(tupleArray);
+        setData([...tupleArray]);
+
+        console.log(data);
+
+
+    },[usersCompletedTrails])
 
 
 
@@ -227,13 +245,19 @@ const Dashboard  = () => {
                         {`You've hiked a distance of ${hikedDistance} km` }
                     </Item>
                 </div>
-                <Typography>You have completed the following trails: !</Typography>
+
+
  
                 {/* <Typography>You favourite trails are  !</Typography> */}
                 {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
-          
+             {data.length > 1 ?(
+                <LineChart dataSet={data}></LineChart>
+                ): <>Loading...</>
+             }   
+
+            <Typography>You have completed the following trails: !</Typography>
 
              <div className={styles.completed_trails}>
                 {

@@ -52,15 +52,8 @@ export function LineChart( {dataSet}) {
     };
 
     let lastFullDays = getLastNDays(period);
-
-
-
     let labels = getDayAndMonth(lastFullDays);
 
-    // let labels = getLastNDays(period);
-    // if (labelType === "monthly"){
-    //     labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    // }
     console.log(dataSet);
 
     // function getValues(a, b) {
@@ -88,75 +81,49 @@ export function LineChart( {dataSet}) {
     // }
     
 
-    console.log(res);
-    // console.log("😡 ", res[8]);
-    // console.log(typeof res[8]);
-    // console.log(res[15] == 0 );
-    let realData : number[] = [];
+
     for (let i = 0; i < lastFullDays.length; i++){
-        console.log("index i is : ", i);
-        res[i] = 0;
+        // console.log("index i is : ", i);
+        if (i === 0)
+            res[i] = 0;
+        else res[i] = res[i-1];
         for (let j = 0; j < dataSet.length; j ++){
-            console.log("index j is : ", j);
-            if (compareDate(lastFullDays[i],dataSet[j].date)){
-                // console.log(lastFullDays[i]);
-                console.log("🥶 ", dataSet[j].data);
-                console.log(res[i]);
+            // console.log("index j is : ", j);
+            if (compareDate(lastFullDays[i], dataSet[j].date)){
+                // console.log("🥶 ", dataSet[j].length);
+                // console.log(res[i]);
                 if (i >= 1){
 
-                    console.log("total is : ", parseInt(dataSet[j].data) + (res[i - 1]));
-                    console.log("res[i-1] is: ", res[i-1]);
-                    console.log("dataset[j] is ", parseInt(dataSet[j].data))
-                    res[i] = parseInt(dataSet[j].data) + (res[i - 1]);
-                    
+                    // console.log("total is : ", parseInt(dataSet[j].length) + (res[i - 1]));
+                    // console.log("res[i-1] is: ", res[i-1]);
+                    // console.log("dataset[j] is ", parseInt(dataSet[j].length))
+                    res[i] = parseInt(dataSet[j].length) + (res[i - 1]);
                 }
                 else {
-                    console.log("else condition entered");
-                    res[i] += parseInt(dataSet[j].data);
+                    // console.log("else condition entered");
+                    res[i] += parseInt(dataSet[j].length);
                 }
 
-                console.log("res[i] now is : ", res[i]);
+                // console.log("res[i] now is : ", res[i]);
             }
-            else 
-            {
-                if (i >= 1){
-                    console.log("🥵 are we here instead?")
-                    res[i] = (res[i - 1]);
-                }
-                // else 
-                //     res[i] = 0;
-            }
-            console.log("res[i] now is : ", res[i]);
-
-
-
+            // console.log("res[i] now is : ", res[i]);
         }
 
     }
     console.log("🐓");
     console.log(res);
-
-
-    // console.log( String(labels[0]));
-    // console.log(String('13\/11'))
-    // console.log('3/11' === '3/11');
-    // console.log(labels[0].split('/'));
-    // console.log(labels[0].split('/')[0] === '13');
-
-
-
     
-    for (let pair of dataSet){
-        console.log(typeof pair.date);
+    // for (let pair of dataSet){
+    //     console.log(typeof pair.date);
 
-        if (label.includes(pair.date)){
+    //     if (label.includes(pair.date)){
 
-            res.push(pair.data)
-        }
-        else
-        res.push(0)
-    }
-    console.log(res);
+    //         res.push(pair.length)
+    //     }
+    //     else
+    //     res.push(0)
+    // }
+    // console.log(res);
 
     const data = {
         labels,

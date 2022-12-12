@@ -1,3 +1,5 @@
+import moment from "moment";
+
  function getLastNDays(num) {
     let dates : string[] = [];
     let today = new Date();
@@ -26,12 +28,18 @@ function getDayAndMonth(dates: string[]): string[] {
 
 //compare two date strings with one another
 function compareDate(input: string, a: string): boolean {
-  let inputDate = new Date(input);
-  let aDate = new Date(a);
+  // let inputDate = new Date(input);
+  // let aDate = new Date(a);
 
-  if (inputDate.getFullYear() === aDate.getFullYear() &&
-      inputDate.getMonth() === aDate.getMonth() &&
-      inputDate.getDay() === aDate.getDay()) {
+  let inputDate = moment(input,'DD-MM-YYYY');
+  let aDate = moment(a, 'YYYY-MM-DD');
+
+
+  // console.log("🥹 ", aDate);
+  // console.log("🥹 ", inputDate);
+  if (inputDate.year() === aDate.year() &&
+      inputDate.month() === aDate.month() &&
+      inputDate.date() === aDate.date()) {
       return true;
   }
 
