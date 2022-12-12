@@ -9,6 +9,8 @@ import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import styles from "../styles/trailcard.module.css";
 
+const _ = require("lodash");
+
 interface TrailCardProps {
   trail: Trail;
 }
@@ -60,7 +62,13 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
         </div>
       </AspectRatio>
       <div>
-        <Typography level="h2" fontSize="lg" id="card-description" mb={3}>
+        <Typography
+          level="h2"
+          fontSize="lg"
+          id="card-description"
+          mb={3}
+          sx={{ fontWeight: "600" }}
+        >
           {name}
         </Typography>
 
