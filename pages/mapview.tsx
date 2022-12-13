@@ -43,6 +43,7 @@ const MapView = () => {
     }
   );
   const [open, setOpen] = useState<boolean>(false);
+  const [findMe, setFindMe] = useState<boolean>(false);
 
   const successCallback = (position: object) => {
     setCurrentPosition({
@@ -77,7 +78,11 @@ const MapView = () => {
       onclick: () => setOpen(true),
     },
 
-    { name: "My Location", icon: <NearMeIcon /> },
+    {
+      name: "My Location",
+      icon: <NearMeIcon />,
+      onclick: () => setFindMe(true),
+    },
   ];
 
   return (
@@ -100,7 +105,14 @@ const MapView = () => {
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <LargeMap lat={lat} lon={lon} trailID={trailID} />
+      <LargeMap
+        lat={lat}
+        lon={lon}
+        trailID={trailID}
+        currentPosition={currentPosition}
+        findMe={findMe}
+        setFindMe={setFindMe}
+      />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
         sx={{ position: "absolute", bottom: 16, right: 16 }}

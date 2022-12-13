@@ -1,4 +1,4 @@
-import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
@@ -17,10 +17,21 @@ type MessageDataObject = {
   date: string;
 };
 
-const LargeMap = ({ lat, lon, trailID }) => {
+const LargeMap = ({
+  lat,
+  lon,
+  trailID,
+  currentPosition,
+  findMe,
+  setFindMe,
+}) => {
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
+  const currentPositionLatLng = {
+    lat: currentPosition["coordinates"]["latitude"],
+    lon: currentPosition["coordinates"]["longitude"],
+  };
   const leafletIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
     iconSize: [25, 41],
@@ -36,9 +47,22 @@ const LargeMap = ({ lat, lon, trailID }) => {
     setMessageData(fetchedMessageData.data);
   };
 
+  const FlyToButton = ({ latlng }) => {
+    const map = useMap(); // available when component nested inside MapContainer
+    const fly = () => {
+      map.flyTo(latlng, 14, { duration: 2 });
+    };
+    return <button onClick={fly}>Test</button>;
+  };
+
   useEffect(() => {
     fetchMessageData();
   }, []);
+
+  useEffect(() => {
+    if (findMe) FlyToButton;
+    setFindMe(false);
+  }, [findMe]);
 
   return (
     <>
@@ -65,6 +89,7 @@ const LargeMap = ({ lat, lon, trailID }) => {
             </Marker>
           );
         })}
+        <FlyToButton latlng={currentPositionLatLng}/>
       </MapContainer>
     </>
   );
