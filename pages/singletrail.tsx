@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState, forwardRef } from "react";
 import { Trail } from "../global";
-import { Box, Typography } from "@mui/material";
+import { Box, Container, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
@@ -9,13 +9,13 @@ import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
-import { Button } from "@mui/material";
 import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
 import Link from "next/link";
+import Mountain2 from "../public/mountain_2.svg";
 
 const difficultyObj = {
   1: "Easy",
@@ -54,11 +54,16 @@ const SingleTrail = () => {
   }, []);
 
   return (
-
     trail && (
-  
-      <div style={{ width: "100%" }}>
-          <Button variant="contained" onClick={() => {router.back()}}>Back</Button>
+      <Container>
+        <Button
+          variant="contained"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          Back
+        </Button>
 
         <Box
           sx={{
@@ -75,13 +80,21 @@ const SingleTrail = () => {
               display: "flex",
             }}
           >
-            {/* <Image src={""} alt="Placeholder" width={250} height={200} /> */}
+            <Image
+              src={trail.photo_url}
+              alt={trail.name}
+              width={250}
+              height={200}
+            />
             <Box
               sx={{
                 flexDirection: "column",
               }}
             >
-              <Typography variant="h1">{trail.name}</Typography>
+              <div className={styles.container__name}>
+                <Mountain2 />
+                <Typography variant="h1">{trail.name}</Typography>
+              </div>
               <Typography>{trail.prefecture}</Typography>
               <Typography>{trail.length}</Typography>
               <Typography>{difficultyObj[trail.difficulty]}</Typography>
@@ -90,7 +103,7 @@ const SingleTrail = () => {
             </Box>
           </Box>
           <Box>
-            <Typography>5 Day Weather at {trail.name}</Typography>
+            {/* <Typography>5 Day Weather at {trail.name}</Typography> */}
             <Weather
               lat={trail.latitude}
               lon={trail.longitude}
@@ -99,13 +112,18 @@ const SingleTrail = () => {
           </Box>
           <Box>
             <TrailMap
-            currentPosition={currentPosition}
-            setCurrentPosition={setCurrentPosition}
+              currentPosition={currentPosition}
+              setCurrentPosition={setCurrentPosition}
               lat={trail.latitude}
               lon={trail.longitude}
               trailID={trail.id}
             />
-            <MessageForm currentPosition={currentPosition} setCurrentPosition={setCurrentPosition} userID={userId} trailID={trail.id} />
+            <MessageForm
+              currentPosition={currentPosition}
+              setCurrentPosition={setCurrentPosition}
+              userID={userId}
+              trailID={trail.id}
+            />
           </Box>
           <Box
             sx={{
@@ -167,7 +185,7 @@ const SingleTrail = () => {
             check all photos in this trail
           </Link>
         </p>
-      </div>
+      </Container>
     )
   );
 };
