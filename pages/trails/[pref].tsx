@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import { BrowserView, MobileView, isMobile } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
 import { Filter, TrailCard, TrailCardMobile } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
@@ -45,18 +45,20 @@ const ResultList = () => {
       <Container maxWidth="lg">
         <h1>Trails in {capitalizePref}</h1>
         <BrowserView>
-          <div className={styles.flex_container}>
-            <div className={styles.cards_feed}>
-              {trailsArr.map((filteredTrail: Trail) => {
-                return (
-                  <TrailCard key={filteredTrail.id} trail={filteredTrail} />
-                );
-              })}
+          <Container>
+            <div className={styles.flex_container}>
+              <div className={styles.cards_feed}>
+                {trailsArr.map((filteredTrail: Trail) => {
+                  return (
+                    <TrailCard key={filteredTrail.id} trail={filteredTrail} />
+                  );
+                })}
+              </div>
+              <div className={styles.filter_card}>
+                <Filter trails={filteredTrails} setTrail={setTrail} />
+              </div>
             </div>
-            <div className={styles.filter_card}>
-              <Filter trails={filteredTrails} setTrail={setTrail} />
-            </div>
-          </div>
+          </Container>
         </BrowserView>
 
         <MobileView>
