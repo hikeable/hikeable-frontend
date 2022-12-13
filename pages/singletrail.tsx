@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState,forwardRef } from "react";
+import { useEffect, useRef, useState, forwardRef } from "react";
 import { Trail } from "../global";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
@@ -9,14 +9,13 @@ import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
-
-import { Map } from "../components";
+import { Button } from "@mui/material";
+import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
-import { CldImage, CldUploadButton } from 'next-cloudinary';
+import { CldImage, CldUploadButton } from "next-cloudinary";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
 import Link from "next/link";
-
 
 const difficultyObj = {
   1: "Easy",
@@ -24,18 +23,25 @@ const difficultyObj = {
   3: "Hard",
 };
 
+type CurrentPositionObject = {
+  latitude: number;
+  longitude: number;
+};
+
 const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
-
+  const [currentPosition, setCurrentPosition] = useState<
+    CurrentPositionObject[]
+  >([]);
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
-  const userNameTag = user?.displayName
-  const trailName = trail?.name
+  const userNameTag = user?.displayName;
+  const trailName = trail?.name;
   // console.log ("testId =",trailName)
   // const trailId =useRef(trail?.id)
-  const trailId = trail?.id.toString()
+  const trailId = trail?.id.toString();
   // console.log ("trail = ",trail, "trailId =",trailId)
   // console.log (userNameTag)
 
@@ -48,8 +54,12 @@ const SingleTrail = () => {
   }, []);
 
   return (
+
     trail && (
+  
       <div style={{ width: "100%" }}>
+          <Button variant="contained" onClick={() => {router.back()}}>Back</Button>
+
         <Box
           sx={{
             display: "flex",
@@ -88,8 +98,14 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <Map lat={trail.latitude} lon={trail.longitude} trailID={trail.id}/>
-            <MessageForm userID={userId} trailID={trail.id} />
+            <TrailMap
+            currentPosition={currentPosition}
+            setCurrentPosition={setCurrentPosition}
+              lat={trail.latitude}
+              lon={trail.longitude}
+              trailID={trail.id}
+            />
+            <MessageForm currentPosition={currentPosition} setCurrentPosition={setCurrentPosition} userID={userId} trailID={trail.id} />
           </Box>
           <Box
             sx={{
@@ -124,21 +140,33 @@ const SingleTrail = () => {
             </Box>
           </Box>
         </Box>
-        <CldUploadButton 
-        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
-        onUpload={function (error, result, widget) { console.log("error =",error,"result =",result, "widget =", widget)}}
-        options={{folder:trail.name, tags:[trail.id, userNameTag]}}
+        <CldUploadButton
+          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
+          onUpload={function (error, result, widget) {
+            console.log(
+              "error =",
+              error,
+              "result =",
+              result,
+              "widget =",
+              widget
+            );
+          }}
+          options={{ folder: trail.name, tags: [trail.id, userNameTag] }}
         />
         <p className={styles.p}>
-        <Link href={{
-          pathname: '/trailphotos',
-          query: {
-            id: trailId,
-            name:trailName
-          }
-        }}
-  >check all photos in this trail</Link>
-      </p>
+          <Link
+            href={{
+              pathname: "/trailphotos",
+              query: {
+                id: trailId,
+                name: trailName,
+              },
+            }}
+          >
+            check all photos in this trail
+          </Link>
+        </p>
       </div>
     )
   );

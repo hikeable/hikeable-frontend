@@ -1,0 +1,19 @@
+.logo__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  fill: whitesmoke;
+  margin-right: 0.5rem;
+  z-index: 1;
+}
+
+.logo__name {
+  font-size: 35px;
+  color: whitesmoke;
+  position: relative;
+  z-index: 1;
+}/*# sourceMappingURL=logo.module.css.map */
