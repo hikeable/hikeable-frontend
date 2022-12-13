@@ -6,6 +6,10 @@ import { Filter, TrailCard } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
 import styles from "../../styles/pref_trails.module.css";
+// import Toolbar from "@material-ui/core/Toolbar";
+import Toolbar from '@mui/material/Toolbar';
+
+
 
 
 
@@ -55,7 +59,8 @@ const ResultList = () => {
             )}
         </div>
         <div className={styles.filter_card}>
-          <Filter trails={filteredTrails} setTrail = {setTrail}  />
+            <Filter trails={filteredTrails} setTrail = {setTrail}  />
+
         </div>
 
 

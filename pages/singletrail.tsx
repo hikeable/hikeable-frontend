@@ -9,7 +9,7 @@ import { CompletedTrails } from "../components/CompletedTrails";
 import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
-
+import { Button } from "@mui/material";
 import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import { CldImage, CldUploadButton } from "next-cloudinary";
@@ -54,8 +54,12 @@ const SingleTrail = () => {
   }, []);
 
   return (
+
     trail && (
+  
       <div style={{ width: "100%" }}>
+          <Button variant="contained" onClick={() => {router.back()}}>Back</Button>
+
         <Box
           sx={{
             display: "flex",
