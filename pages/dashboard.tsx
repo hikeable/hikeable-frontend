@@ -80,7 +80,6 @@ const Dashboard  = () => {
 
     useEffect( () => {
 
-        console.log(completedTrails);
         let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
         let tupleArray = getValues(completedTrails, trailUserCompletions );
         setData([...data,...tupleArray]);
