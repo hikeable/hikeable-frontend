@@ -80,6 +80,7 @@ const Dashboard  = () => {
 
     useEffect( () => {
 
+        console.log(completedTrails);
         let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
         let tupleArray = getValues(completedTrails, trailUserCompletions );
         setData([...data,...tupleArray]);
@@ -112,7 +113,7 @@ const Dashboard  = () => {
                 {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
-             {data.length > 1 ?(
+             {data.length >= 0 ?(
                 <LineChart dataSet={data}></LineChart>
                 ): <>Loading...</>
              }   
