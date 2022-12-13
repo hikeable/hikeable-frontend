@@ -7,8 +7,6 @@ export * from "./Navbar";
 export * from "./login";
 export * from "./Landing";
 export * from "./Logo";
-export * from "./photoGallery";
-export * from "./TrailMap"
 
 import dynamic from "next/dynamic";
 
@@ -16,3 +14,4 @@ export const TrailMap = dynamic(() => import("./TrailMap"), {
   ssr: false,
 });
 
+export * from "./photoGallery";
