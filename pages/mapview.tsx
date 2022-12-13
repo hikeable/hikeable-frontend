@@ -7,7 +7,13 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  SpeedDial,
+  SpeedDialIcon,
+  SpeedDialAction,
 } from "@mui/material";
+import NearMeIcon from "@mui/icons-material/NearMe";
+import MessageIcon from "@mui/icons-material/Message";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 
 const MapView = () => {
@@ -17,6 +23,17 @@ const MapView = () => {
   const lon = searchParams.get("lon");
   const trailID = searchParams.get("trailID");
   const [agree, setAgree] = useState(false);
+
+  const actions = [
+    {
+      name: "Leave Map",
+      icon: <ExitToAppIcon />,
+      onclick: () => router.back(),
+    },
+    { name: "Write Message", icon: <MessageIcon /> },
+
+    { name: "My Location", icon: <NearMeIcon /> },
+  ];
 
   return (
     <>
@@ -39,6 +56,20 @@ const MapView = () => {
         </DialogContent>
       </Dialog>
       <LargeMap lat={lat} lon={lon} trailID={trailID} />
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: "absolute", bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            tooltipTitle={action.name}
+            icon={action.icon}
+            onClick={action.onclick}
+          />
+        ))}
+      </SpeedDial>
     </>
   );
 };

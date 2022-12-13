@@ -1,16 +1,9 @@
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Popup,
-  useMapEvents,
-  useMapEvent,
-} from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import L, { icon } from "leaflet";
+import L from "leaflet";
 
 type MessageDataObject = {
   id: number;
