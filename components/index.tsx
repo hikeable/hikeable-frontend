@@ -9,7 +9,8 @@ export * from "./Landing";
 
 import dynamic from "next/dynamic";
 
-export const Map = dynamic(() => import("./Map"), {
+export const TrailMap = dynamic(() => import("./TrailMap"), {
   ssr: false,
 });
 
+export * from "./photoGallery";

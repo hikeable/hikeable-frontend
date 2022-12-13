@@ -23,7 +23,7 @@ export default function Home() {
         <title>Hikable</title>
         <meta name="description" content="hiking japan" />
         <link rel="icon" href="/boots.png" />
-        
+
       </Head>
       <Landing/>
       {
@@ -38,3 +38,4 @@ export default function Home() {
 
   )
 }
+

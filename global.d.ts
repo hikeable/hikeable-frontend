@@ -40,3 +40,4 @@ declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";
 declare module "leaflet-geosearch";
 declare module "react-leaflet";
+declare module "react-leaflet-locate-control";

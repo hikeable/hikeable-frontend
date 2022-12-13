@@ -46,6 +46,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+
       </AuthProvider>
     </>
   );

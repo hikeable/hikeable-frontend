@@ -22,7 +22,7 @@ export const Weather = ({ lon, lat, name }: WeatherProps) => {
 
   // data?.forecast.unshift(data.forecast[0]);
 
-  console.log(data);
+  // console.log(data);
 
   const customStyles = {
     fontFamily: "Helvetica, sans-serif",

@@ -11,6 +11,10 @@ export default function Document() {
         />
       </Head>
       <body>
+      <script
+        src="https://product-gallery.cloudinary.com/all.js" async
+        type="text/javascript"
+        ></script>
         <Main />
         <NextScript />
       </body>
