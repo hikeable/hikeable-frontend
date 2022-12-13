@@ -44,7 +44,7 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
       }}
     >
       <AspectRatio
-        ratio="16/9"
+        // ratio="16/9"
         sx={{
           width: "350px",
           objectFit: "cover",
