@@ -1,15 +1,21 @@
-.flex_container {
+.flex_container_mobile {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 
   .cards_feed {
     flex-grow: 4;
+    margin-top: 2rem;
   }
+
   .filter_card {
     position: sticky;
     flex-grow: 1;
     margin-right: 6px;
     margin-left: 6px;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
     border-radius: 25px;
     border-color: "#9e9e9e";
     max-width: 30rem;

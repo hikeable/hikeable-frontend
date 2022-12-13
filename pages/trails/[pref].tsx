@@ -44,8 +44,8 @@ const ResultList = () => {
     <>
       <Container maxWidth="lg">
         <h1>Trails in {capitalizePref}</h1>
-        <div className={styles.flex_container}>
-          <BrowserView>
+        <BrowserView>
+          <div className={styles.flex_container}>
             <div className={styles.cards_feed}>
               {trailsArr.map((filteredTrail: Trail) => {
                 return (
@@ -56,24 +56,28 @@ const ResultList = () => {
             <div className={styles.filter_card}>
               <Filter trails={filteredTrails} setTrail={setTrail} />
             </div>
-          </BrowserView>
+          </div>
+        </BrowserView>
 
-          <MobileView>
-            <div className={styles.filter_card}>
-              <Filter trails={filteredTrails} setTrail={setTrail} />
+        <MobileView>
+          <Container>
+            <div className={styles.flex_container_mobile}>
+              <div className={styles.filter_card_mobile}>
+                <Filter trails={filteredTrails} setTrail={setTrail} />
+              </div>
+              <div className={styles.cards_feed}>
+                {trailsArr.map((filteredTrail: Trail) => {
+                  return (
+                    <TrailCardMobile
+                      key={filteredTrail.id}
+                      trail={filteredTrail}
+                    />
+                  );
+                })}
+              </div>
             </div>
-            <div className={styles.cards_feed}>
-              {trailsArr.map((filteredTrail: Trail) => {
-                return (
-                  <TrailCardMobile
-                    key={filteredTrail.id}
-                    trail={filteredTrail}
-                  />
-                );
-              })}
-            </div>
-          </MobileView>
-        </div>
+          </Container>
+        </MobileView>
       </Container>
     </>
   );

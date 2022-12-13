@@ -7,6 +7,7 @@ import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+import styles from "../styles/trailcardmobile.module.css";
 
 const _ = require("lodash");
 
@@ -23,27 +24,17 @@ const difficultyObj = {
 export const TrailCardMobile = ({ trail }: TrailCardProps) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
   return (
-    <Card variant="outlined" sx={{ width: 320 }}>
-      <Typography level="h2" fontSize="md" sx={{ mb: 0.5 }}>
+    <Card variant="outlined" sx={{ width: 320, mb: 3 }}>
+      <Typography level="h2" fontSize="md" sx={{ mb: 0.5, fontWeight: 600 }}>
         {name}
       </Typography>
-      {/* <Typography level="body2">April 24 to May 02, 2021</Typography> */}
-      {/* <IconButton
-        aria-label="bookmark Bahamas Islands"
-        variant="plain"
-        color="neutral"
-        size="sm"
-        sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
-      >
-        <BookmarkAdd />
-      </IconButton> */}
       <Typography
         fontSize="lg"
         aria-describedby="card-description"
         mb={1}
         startDecorator={<LocationOn />}
       >
-        {prefecture}
+        {_.capitalize(prefecture)}
       </Typography>
       <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
         <img
@@ -61,7 +52,7 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
             mb={1}
             startDecorator={<Straighten />}
           >
-            {`${length} km`}
+            {`${Number(length).toString()} km`}
           </Typography>
           <Typography
             fontSize="lg"
@@ -73,6 +64,7 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
           </Typography>
         </div>
         <Link
+          className={styles.card__link}
           href={{
             pathname: "/singletrail",
             query: { trail: JSON.stringify(trail) },
@@ -81,11 +73,11 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
           passHref
         >
           <Button
-            variant="solid"
+            variant="soft"
             size="sm"
-            color="primary"
             aria-label={`View ${name} trail`}
-            sx={{ ml: "auto", fontWeight: 600 }}
+            sx={{ fontWeight: 600, backgroundColor: "pink" }}
+            component="a"
           >
             View
           </Button>
