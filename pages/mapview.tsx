@@ -18,14 +18,6 @@ const MapView = () => {
   const trailID = searchParams.get("trailID");
   const [agree, setAgree] = useState(false);
 
-  const handleDisagree = () => {
-    router.back();
-  };
-
-  const handleAgree = () => {
-    setAgree(true);
-  };
-
   return (
     <>
       <Dialog
@@ -39,8 +31,8 @@ const MapView = () => {
             Disclaimer
           </DialogContentText>
           <DialogActions>
-            <Button onClick={handleDisagree}>Disagree</Button>
-            <Button onClick={handleAgree} autoFocus>
+            <Button onClick={() => router.back()}>Disagree</Button>
+            <Button onClick={() => setAgree(true)} autoFocus>
               Agree
             </Button>
           </DialogActions>

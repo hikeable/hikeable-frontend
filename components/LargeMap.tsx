@@ -10,8 +10,7 @@ import "leaflet/dist/leaflet.css";
 import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import L from "leaflet";
-import Link from "next/link";
+import L, { icon } from "leaflet";
 
 type MessageDataObject = {
   id: number;
@@ -67,6 +66,7 @@ const LargeMap = ({ lat, lon, trailID }) => {
             <Marker
               key={message.id}
               position={[messageLatNumber, messageLonNumber]}
+              icon={leafletIcon}
             >
               <Popup>{message.message}</Popup>
             </Marker>
