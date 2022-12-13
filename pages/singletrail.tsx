@@ -111,7 +111,7 @@ const SingleTrail = () => {
             <Link
               href={{
                 pathname: "/mapview",
-                query: { lat: trail.latitude, lon: trail.longitude },
+                query: { lat: trail.latitude, lon: trail.longitude, trailId: trail.id },
               }}
             >
               Interactive Mode
