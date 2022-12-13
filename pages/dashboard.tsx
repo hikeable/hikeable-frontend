@@ -112,7 +112,7 @@ const Dashboard  = () => {
                 {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
-             {data.length > 1 ?(
+             {data.length >= 0 ?(
                 <LineChart dataSet={data}></LineChart>
                 ): <>Loading...</>
              }   
