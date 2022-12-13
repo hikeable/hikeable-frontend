@@ -4,19 +4,13 @@ import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
+import { trailCompletionObject } from "../global";
 
 interface CompletedTrailsProps {
   trailID: number;
   userID: number | undefined;
 }
 
-type trailCompletionObject = {
-  id: number;
-  user: number;
-  trail_id: number;
-  completion: true;
-  date: string;
-};
 
 export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
   const [completed, setCompleted] = useState<boolean>(false);

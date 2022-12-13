@@ -1,36 +1,35 @@
+import { Button } from "@mui/joy";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import React from "react";
+import { useState } from "react";
 import { Filter } from "../components";
+import { LineChart } from "../components/LineChart";
 
 
-const profile = () => {
+const Profile = () => {
 
-//     let data = [
-//         {
-//             "id": 1,
-//             "name": "test1",
-//             "prefecture": "tokyo",
-//             "latitude": "1.00000000",
-//             "longitude": "1.00000000",
-//             "length": "1.00",
-//             "difficulty": 1,
-//             "photo_url": "test1",
-//             "map_url": "test1"
-//         },
-//         {
-//             "id": 2,
-//             "name": "test3",
-//             "prefecture": "hokkaidou",
-//             "latitude": "1.50000000",
-//             "longitude": "1.50000000",
-//             "length": "2.50",
-//             "difficulty": 3,
-//             "photo_url": "test3",
-//             "map_url": "test3"
-//         }
-//     ]; 
+const [label, setLabel] = useState<string>("daily")
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const data = [23, 50, 18, 0 , 100, 50, 100];
+
+const dataFormatted = [{data: 23, date: `11/12/2022`},
+{data: 50, date: `10/12/2022`}, {data: 18, date: `8/12/2022`},
+{data: 10, date: `5/12/2022`}
+]
+
+
+
+
 
 
     return (
-        <>
+        <>  
+        <div> Testing</div>
+
+
+            <LineChart dataSet={dataFormatted} ></LineChart>
           <div>
             User Profile
           </div>
@@ -53,4 +52,4 @@ const profile = () => {
     );
 }
 
-export default profile;
+export default Profile;
