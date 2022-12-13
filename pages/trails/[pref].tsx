@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import { Filter, TrailCard } from "../../components";
+import { BrowserView, MobileView, isMobile } from "react-device-detect";
+import { Filter, TrailCard, TrailCardMobile } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
 import styles from "../../styles/pref_trails.module.css";
@@ -44,14 +45,34 @@ const ResultList = () => {
       <Container maxWidth="lg">
         <h1>Trails in {capitalizePref}</h1>
         <div className={styles.flex_container}>
-          <div className={styles.cards_feed}>
-            {trailsArr.map((filteredTrail: Trail) => {
-              return <TrailCard key={filteredTrail.id} trail={filteredTrail} />;
-            })}
-          </div>
-          <div className={styles.filter_card}>
-            <Filter trails={filteredTrails} setTrail={setTrail} />
-          </div>
+          <BrowserView>
+            <div className={styles.cards_feed}>
+              {trailsArr.map((filteredTrail: Trail) => {
+                return (
+                  <TrailCard key={filteredTrail.id} trail={filteredTrail} />
+                );
+              })}
+            </div>
+            <div className={styles.filter_card}>
+              <Filter trails={filteredTrails} setTrail={setTrail} />
+            </div>
+          </BrowserView>
+
+          <MobileView>
+            <div className={styles.filter_card}>
+              <Filter trails={filteredTrails} setTrail={setTrail} />
+            </div>
+            <div className={styles.cards_feed}>
+              {trailsArr.map((filteredTrail: Trail) => {
+                return (
+                  <TrailCardMobile
+                    key={filteredTrail.id}
+                    trail={filteredTrail}
+                  />
+                );
+              })}
+            </div>
+          </MobileView>
         </div>
       </Container>
     </>
