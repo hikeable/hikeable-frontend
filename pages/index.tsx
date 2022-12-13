@@ -23,13 +23,13 @@ export default function Home() {
         <title>Hikable</title>
         <meta name="description" content="hiking japan" />
         <link rel="icon" href="/boots.png" />
-        
+
       </Head>
       <Landing/>
       {
-        Boolean(navActive) === true? (
-            <Navbar navActive={true} isLoggedIn={false} userName={userName} logOff={()=>{}}/>
-        ): <Navbar navActive={false} isLoggedIn={false} userName={''} logOff={()=>{}}/>
+        // Boolean(navActive) === true? (
+        //     <Navbar navActive={true} isLoggedIn={false} userName={userName} logOff={()=>{}}/>
+        // ): <Navbar navActive={false} isLoggedIn={false} userName={''} logOff={()=>{}}/>
       }
 
 
@@ -38,3 +38,4 @@ export default function Home() {
 
   )
 }
+

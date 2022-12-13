@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useAuthContext } from "../components/context/UseAuthContext";
+import { Container } from "@mui/system";
 
 const engPrefNames = {
   北海道: "Hokkaido",

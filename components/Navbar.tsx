@@ -1,43 +1,55 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Link from 'next/link';
-import { useAuthContext } from './context/UseAuthContext';
-
-
-
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Link from "next/link";
+import { useAuthContext } from "./context/UseAuthContext";
+import { Dispatch, SetStateAction } from "react";
+import Mountain from "../public/mountain.svg";
+import styles from "../styles/logo.module.css";
 
 export interface INavbar {
-    navActive: boolean;
-    isLoggedIn: boolean;
-    userName: string;
-    logOff: (val: boolean) => void;
+  navActive: boolean;
+  isLoggedIn: boolean;
+  userName: string | null | undefined;
+  logOff: (val: boolean) => void;
+  setLoggedStatus: Dispatch<SetStateAction<boolean>>;
 }
 
+const pages = [""];
+const settings = ["Profile", "Dashboard", "Logout"];
 
-const pages = [''];
-const settings = ['Profile', 'Dashboard', 'Logout'];
-
-export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logOff}) => {
-
-  const {user, loginWithGoogle} = useAuthContext()
-
-  console.log (user);
+export const Navbar: React.FC<INavbar> = ({
+  navActive,
+  isLoggedIn,
+  userName,
+  logOff,
+  setLoggedStatus,
+}) => {
+  const { user, loginWithGoogle, logout, auth } = useAuthContext();
+  userName = user?.displayName;
+  // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
   // console.log("usecontext", navActive, useAuthContext())
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  React.useEffect(() => {
+    setLoggedStatus(true);
+  }, [userName]);
+
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -55,164 +67,102 @@ export const Navbar: React.FC<INavbar> = ({navActive, isLoggedIn, userName, logO
   };
 
   const updateState = (changeSetting: string) => {
-    if (changeSetting === 'Logout'){
+    if (changeSetting === "Logout") {
       console.log("inside logout if");
+      logout(auth);
       logOff(false);
     }
-    //  isLoggedIn = false;
-  }
+  };
 
-  return (
-    navActive == true? (
+  return navActive == true ? (
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              {/* <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
+            <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
+              <Mountain className={styles.logo} />
+              <Typography
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  color: "whitesmoke",
+                  fontSize: "35px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "600",
+                  display: { xs: "none", sm: "block" },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu> */}
-            </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
+                Hikeable
+              </Typography>
+            </Link>
 
-            <Button variant="contained" href='/prefectures'>Map</Button>
+            <Button sx={{ ml: "auto" }} variant="contained" href="/prefectures">
+              Explore
+            </Button>
 
-            {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+            {user ? (
+              <>
+                <Typography
+                  sx={{
+                    fontWeight: "600",
+                    display: { xs: "none", sm: "block" },
+                    ml: 5,
+                  }}
                 >
-                  {page}
-                </Button>
-              ))}
-            </Box> */}
-              
-            
-              {isLoggedIn === true? (
-              
-                <>
-              
-                  <Typography>
-                    Welcome {userName}!
-                  </Typography>
-                  <Box sx={{ flexGrow: 1, display: { xs: 'none'}}}>
-                    User    
-                  </Box>
-      
-                  <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt={userName} src="/static/images/avatar/2.jpg" />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {settings.map((setting) => (
+                  Welcome {userName?.split(" ")[0]}&nbsp;!
+                </Typography>
 
-                      <MenuItem
-                        component='a'
-                        href={"/" + setting.toLowerCase()}
-                        key={setting}
-                        onClick={() => updateState(setting)}
-                      >
-                        <Typography textAlign="center">{setting}</Typography>
+                <Box sx={{ flexGrow: 0, ml: 1, mr: 1 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt={userName as string}
+                        src="/static/images/avatar/2.jpg"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
 
-                      </MenuItem>
-                    ))}
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem
+                      component="a"
+                      href={"/" + setting.toLowerCase()}
+                      key={setting}
+                      onClick={() => updateState(setting)}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
                 </Menu>
               </>
-              ):
-                <Button variant="contained" onClick={() => loginWithGoogle()}>Log In</Button>
-
-              }
+            ) : (
+              <Button
+                variant="contained"
+                sx={{ ml: 3 }}
+                onClick={() => loginWithGoogle()}
+              >
+                Log In
+              </Button>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
-    ):<></>
+    </Box>
+  ) : (
+    <></>
   );
-}
+};

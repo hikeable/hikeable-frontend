@@ -1,38 +1,53 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import router from "next/router";
 import { Navbar } from "../components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
+import { useAuthContext } from "../components/context/UseAuthContext";
+import { User } from "firebase/auth";
+
+import router from "next/router";
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  
+  const { user } = useAuthContext();
+
+  console.log(user);
 
   const [navActive, setNavStatus] = useState(true);
-  const [isLoggedIn, setLoggedStatus] = useState(true);
+  const [isLoggedIn, setLoggedStatus] = useState(false);
 
-  
-  if (router.pathname === "/" ){
-    console.log("path--", router.pathname)
+  if (router.pathname === "/") {
+    console.log("path--", router.pathname);
     return (
       <AuthProvider>
-        <Navbar navActive={false} isLoggedIn={false} userName={''} logOff = {setLoggedStatus} />
+        <Navbar
+          navActive={false}
+          isLoggedIn={false}
+          setLoggedStatus={setLoggedStatus}
+          userName={""}
+          logOff={setLoggedStatus}
+        />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
       </AuthProvider>
-    )
+    );
   }
-console.log("router.pathname =======", router.pathname )
-  return(
+  console.log("router.pathname =======", router.pathname, user); // just to clarify which route is on display.
+  return (
     <>
-        <AuthProvider>
+      <AuthProvider>
+        <Navbar
+          navActive={true}
+          isLoggedIn={false}
+          setLoggedStatus={setLoggedStatus}
+          userName={""}
+          logOff={setLoggedStatus}
+        />
+        <Component {...pageProps} />
+        <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
 
-          <Navbar navActive={true} isLoggedIn={isLoggedIn} userName={'Matt'} logOff = {setLoggedStatus} />
-          <Component {...pageProps} />
-          <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
-        </AuthProvider>
+      </AuthProvider>
     </>
-  ) 
-  
+  );
 }

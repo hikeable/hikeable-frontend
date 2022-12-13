@@ -1,8 +1,14 @@
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuthContext } from "./context/UseAuthContext";
+
+interface LikesProps {
+  trailID: number;
+  userID: number | undefined;
+}
 
 type trailLikeObject = {
   id: number;
@@ -11,13 +17,11 @@ type trailLikeObject = {
   like: boolean;
 };
 
-export const Likes = () => {
+export const Likes = ({ userID, trailID }: LikesProps) => {
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailLikeObject[]>([]);
-
-  // note: trail id, user id need to be passed down as props
 
   const handleFavorite = async () => {
     if (!recordExists) {
@@ -25,22 +29,20 @@ export const Likes = () => {
         method: "post",
         url: "https://hikeable-backend.herokuapp.com/api/trails/likes",
         data: {
-          user: 2, // update this later
-          trail_id: 1, // update this later
+          user: userID,
+          trail_id: trailID,
           like: true,
         },
       });
-      //   setFavorited(true);
-      //   setRecordExists(true);
+
       fetchLikeData();
     } else if (favorited && recordExists) {
       await axios({
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
         data: {
-          //   id: recordID,
-          user: 2, // update this later
-          trail_id: 1, // update this later
+          user: userID,
+          trail_id: trailID,
           like: false,
         },
       });
@@ -50,9 +52,8 @@ export const Likes = () => {
         method: "put",
         url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
         data: {
-          //   id: recordID,
-          user: 2, // update this later
-          trail_id: 1, // update this later
+          user: userID,
+          trail_id: trailID,
           like: true,
         },
       });
@@ -62,8 +63,7 @@ export const Likes = () => {
 
   const fetchLikeData = async () => {
     const fetchedLikeData = await axios.get(
-      // trail id needs to be implemented in url here
-      "https://hikeable-backend.herokuapp.com/api/trails/1/likes"
+      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/likes`
     );
     setData(fetchedLikeData.data);
   };
@@ -74,30 +74,40 @@ export const Likes = () => {
 
   useEffect(() => {
     for (let object of data) {
-      // user id needs to be implemented here
-      if (object.user === 2) {
+      if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
 
         if (object.like === true) setFavorited(true);
       }
     }
-  }, [data]);
+  }, [data, userID]);
 
   return (
     <>
-      {favorited === true ? (
-        <>
-          <IconButton aria-label="favorite" onClick={handleFavorite}>
-            <FavoriteIcon></FavoriteIcon>
-          </IconButton>
-        </>
+      {userID !== undefined ? (
+        favorited === true ? (
+          <>
+            <Tooltip title="Unlike">
+              <IconButton aria-label="favorite" onClick={handleFavorite}>
+                <FavoriteIcon></FavoriteIcon>
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : (
+          <>
+            <Tooltip title="I like this trail">
+              <IconButton
+                aria-label="favorite-outline"
+                onClick={handleFavorite}
+              >
+                <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
+              </IconButton>
+            </Tooltip>
+          </>
+        )
       ) : (
-        <>
-          <IconButton aria-label="favorite-outline" onClick={handleFavorite}>
-            <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
-          </IconButton>
-        </>
+        <></>
       )}
     </>
   );
