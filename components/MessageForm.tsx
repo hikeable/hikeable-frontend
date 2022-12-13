@@ -5,10 +5,11 @@ import axios from "axios";
 import { Box, Modal } from "@mui/material";
 
 interface MessageFormProps {
+  userID: number;
   trailID: number;
-  userID: number | undefined;
-  currentPosition: Array<Object>;
-  setCurrentPosition: Function;
+  currentPosition: Object;
+  open: boolean;
+  setOpen: Function;
 }
 
 const style = {
@@ -27,32 +28,11 @@ const MessageForm = ({
   userID,
   trailID,
   currentPosition,
-  setCurrentPosition,
+  open,
+  setOpen,
 }: MessageFormProps) => {
-  const [open, setOpen] = useState<boolean>(false);
+
   const [value, setValue] = useState<string>("Write your message here");
-
-  const successCallback = (position: object) => {
-    setCurrentPosition([
-      ...currentPosition,
-      {
-        latitude: position["coords"]["latitude"],
-        longitude: position["coords"]["longitude"],
-      },
-    ]);
-  };
-
-  const errorCallback = (error: object) => {
-    console.error(error);
-  };
-
-  const handleOpen = () => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
-      enableHighAccuracy: true,
-      timeout: 10000,
-    });
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -64,7 +44,6 @@ const MessageForm = ({
   };
 
   const handleSubmit = async () => {
-    let recentPositionIndex = currentPosition.length - 1;
     let current = new Date();
     await axios({
       method: "post",
@@ -72,8 +51,8 @@ const MessageForm = ({
       data: {
         user: userID,
         trail_id: trailID,
-        latitude: currentPosition[recentPositionIndex]["latitude"],
-        longitude: currentPosition[recentPositionIndex]["longitude"],
+        latitude: currentPosition["coordinates"]["latitude"],
+        longitude: currentPosition["coordinates"]["longitude"],
         likes: 0,
         dislikes: 0,
         message: value,
@@ -87,7 +66,6 @@ const MessageForm = ({
 
   return (
     <>
-      <Button onClick={handleOpen}>Write Message</Button>
       <Modal
         open={open}
         onClose={handleClose}

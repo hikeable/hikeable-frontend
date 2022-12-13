@@ -36,6 +36,7 @@ const SingleTrail = () => {
   const trailId = trail?.id.toString();
   // console.log ("trail = ",trail, "trailId =",trailId)
   // console.log (userNameTag)
+  const userID = userId?.toString();
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -95,10 +96,7 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <SmallMap
-              lat={trail.latitude}
-              lon={trail.longitude}
-            />
+            <SmallMap lat={trail.latitude} lon={trail.longitude} />
             <Link
               href={{
                 pathname: "/mapview",
@@ -106,6 +104,7 @@ const SingleTrail = () => {
                   lat: trail.latitude,
                   lon: trail.longitude,
                   trailID: trail.id,
+                  userID: userId,
                 },
               }}
             >

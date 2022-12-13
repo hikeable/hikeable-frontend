@@ -1,5 +1,5 @@
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -15,14 +15,55 @@ import NearMeIcon from "@mui/icons-material/NearMe";
 import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
+import MessageForm from "../components/MessageForm";
+
+type CurrentPositionObject = {
+  loaded: boolean;
+  coordinates: {
+    latitude: number | null;
+    longitude: number | null;
+  };
+};
 
 const MapView = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
-  const trailID = searchParams.get("trailID");
+  const trailID = Number(searchParams.get("trailID"));
+  const userID = Number(searchParams.get("userID"));
   const [agree, setAgree] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState<CurrentPositionObject>(
+    {
+      loaded: false,
+      coordinates: {
+        latitude: null,
+        longitude: null,
+      },
+    }
+  );
+  const [open, setOpen] = useState<boolean>(false);
+
+  const successCallback = (position: object) => {
+    setCurrentPosition({
+      loaded: true,
+      coordinates: {
+        latitude: position["coords"]["latitude"],
+        longitude: position["coords"]["longitude"],
+      },
+    });
+  };
+
+  const errorCallback = (error: object) => {
+    console.error(error);
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
+      enableHighAccuracy: true,
+      timeout: 5000,
+    });
+  }, []);
 
   const actions = [
     {
@@ -30,7 +71,11 @@ const MapView = () => {
       icon: <ExitToAppIcon />,
       onclick: () => router.back(),
     },
-    { name: "Write Message", icon: <MessageIcon /> },
+    {
+      name: "Write Message",
+      icon: <MessageIcon />,
+      onclick: () => setOpen(true),
+    },
 
     { name: "My Location", icon: <NearMeIcon /> },
   ];
@@ -70,6 +115,13 @@ const MapView = () => {
           />
         ))}
       </SpeedDial>
+      <MessageForm
+        userID={userID}
+        trailID={trailID}
+        currentPosition={currentPosition}
+        open={open}
+        setOpen={setOpen}
+      />
     </>
   );
 };
