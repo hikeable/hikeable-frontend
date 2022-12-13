@@ -54,11 +54,16 @@ const SingleTrail = () => {
   }, []);
 
   return (
-
     trail && (
-  
       <div style={{ width: "100%" }}>
-          <Button variant="contained" onClick={() => {router.back()}}>Back</Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          Back
+        </Button>
 
         <Box
           sx={{
@@ -99,13 +104,18 @@ const SingleTrail = () => {
           </Box>
           <Box>
             <TrailMap
-            currentPosition={currentPosition}
-            setCurrentPosition={setCurrentPosition}
               lat={trail.latitude}
               lon={trail.longitude}
               trailID={trail.id}
             />
-            <MessageForm currentPosition={currentPosition} setCurrentPosition={setCurrentPosition} userID={userId} trailID={trail.id} />
+            <Link
+              href={{
+                pathname: "/mapview",
+                query: { lat: trail.latitude, lon: trail.longitude },
+              }}
+            >
+              Interactive Mode
+            </Link>
           </Box>
           <Box
             sx={{

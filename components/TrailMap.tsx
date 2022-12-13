@@ -4,19 +4,19 @@ import {
   TileLayer,
   Popup,
   useMapEvents,
+  useMapEvent,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/singletrail.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import L from "leaflet";
+import Link from "next/link";
 
 interface TrailMapProps {
   lat: string;
   lon: string;
   trailID: number;
-  currentPosition: Array<Object>;
-  setCurrentPosition: Function;
 }
 
 type MessageDataObject = {
@@ -35,8 +35,6 @@ const TrailMap = ({
   lat,
   lon,
   trailID,
-  currentPosition,
-  setCurrentPosition,
 }: TrailMapProps) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
