@@ -35,6 +35,14 @@ export interface Trail {
   prefecture: string;
 }
 
+export interface trailCompletionObject {
+  id: number;
+  user: number;
+  trail_id: number;
+  completion: true;
+  date: string;
+};
+
 declare module "react-open-weather";
 declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";
@@ -42,6 +50,7 @@ declare module "leaflet-geosearch";
 declare module "react-leaflet";
 
 declare module "@mui/styles/defaultTheme" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface (remove this line if you don't have the rule enabled)
   interface DefaultTheme extends Theme {}
 }
+
+declare module "react-leaflet-locate-control";

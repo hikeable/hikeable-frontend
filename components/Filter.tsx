@@ -34,8 +34,6 @@ function startFilter<trailProps>(trailArray : Trail[], lengthVal? : number [], d
     console.log(retTrails);
     setTrail?.(retTrails);
 
-
-    
 }
 
 export interface trailProps {
