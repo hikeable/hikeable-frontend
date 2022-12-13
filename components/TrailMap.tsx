@@ -91,3 +91,5 @@ const TrailMap = ({
 };
 
 export default TrailMap;
+
+// consider renaming variables
