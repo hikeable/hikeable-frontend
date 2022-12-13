@@ -10,7 +10,11 @@ export * from "./Logo";
 
 import dynamic from "next/dynamic";
 
-export const TrailMap = dynamic(() => import("./TrailMap"), {
+export const SmallMap = dynamic(() => import("./SmallMap"), {
+  ssr: false,
+});
+
+export const LargeMap = dynamic(() => import("./LargeMap"), {
   ssr: false,
 });
 

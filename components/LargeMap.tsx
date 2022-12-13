@@ -7,17 +7,11 @@ import {
   useMapEvent,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import style from "../styles/singletrail.module.css";
+import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import L from "leaflet";
 import Link from "next/link";
-
-interface TrailMapProps {
-  lat: string;
-  lon: string;
-  trailID: number;
-}
 
 type MessageDataObject = {
   id: number;
@@ -31,14 +25,10 @@ type MessageDataObject = {
   date: string;
 };
 
-const TrailMap = ({
-  lat,
-  lon,
-  trailID,
-}: TrailMapProps) => {
+const LargeMap = ({ lat, lon, trailID }) => {
+  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
-  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const leafletIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
     iconSize: [25, 41],
@@ -70,13 +60,12 @@ const TrailMap = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {messageData.map((message, index) => {
+        {messageData.map((message) => {
           const messageLatNumber = parseFloat(message.latitude);
           const messageLonNumber = parseFloat(message.longitude);
           return (
             <Marker
-              key={index}
-              icon={leafletIcon}
+              key={message.id}
               position={[messageLatNumber, messageLonNumber]}
             >
               <Popup>{message.message}</Popup>
@@ -88,4 +77,4 @@ const TrailMap = ({
   );
 };
 
-export default TrailMap;
+export default LargeMap;

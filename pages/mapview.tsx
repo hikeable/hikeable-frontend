@@ -1,4 +1,4 @@
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import {
   Dialog,
@@ -8,8 +8,9 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { LargeMap } from "../components";
 
-const mapview = () => {
+const MapView = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const lat = searchParams.get("lat");
@@ -35,14 +36,7 @@ const mapview = () => {
         <DialogTitle id="alert-dialog-title">Terms and Conditions</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            You are now using Hikeable's interactive map mode. Here, you can
-            read and write helpful messages for other Hikeable users to interact
-            with using your device's GPS coordinates. For your and others'
-            safety, please refrain from using Hikeable while walking. Hikeable
-            is not responsible for any accidents that may occur while using its
-            products. Messages that condone violence, hate speech, harmful
-            misinformation, or criminal acts will be deleted, and the offending
-            user will be banned.
+            Disclaimer
           </DialogContentText>
           <DialogActions>
             <Button onClick={handleDisagree}>Disagree</Button>
@@ -52,8 +46,9 @@ const mapview = () => {
           </DialogActions>
         </DialogContent>
       </Dialog>
+      <LargeMap lat={lat} lon={lon} trailID={trailID} />
     </>
   );
 };
 
-export default mapview;
+export default MapView;

@@ -10,7 +10,7 @@ import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { TrailMap } from "../components";
+import { SmallMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import SingleProduct from "../components/photoGallery";
@@ -23,18 +23,10 @@ const difficultyObj = {
   3: "Hard",
 };
 
-type CurrentPositionObject = {
-  latitude: number;
-  longitude: number;
-};
-
 const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
-  const [currentPosition, setCurrentPosition] = useState<
-    CurrentPositionObject[]
-  >([]);
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
@@ -103,15 +95,18 @@ const SingleTrail = () => {
             />
           </Box>
           <Box>
-            <TrailMap
+            <SmallMap
               lat={trail.latitude}
               lon={trail.longitude}
-              trailID={trail.id}
             />
             <Link
               href={{
                 pathname: "/mapview",
-                query: { lat: trail.latitude, lon: trail.longitude, trailId: trail.id },
+                query: {
+                  lat: trail.latitude,
+                  lon: trail.longitude,
+                  trailID: trail.id,
+                },
               }}
             >
               Interactive Mode
