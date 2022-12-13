@@ -52,3 +52,5 @@ declare module "react-leaflet";
 declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
+
+declare module "react-leaflet-locate-control";
