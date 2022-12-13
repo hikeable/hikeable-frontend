@@ -32,8 +32,10 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
         boxShadow: "8px 5px 20px 0px rgba(172,172,172,0.43)",
         borderColor: "#9e9e9e",
         m: "3rem",
+        minWidth: "20rem",
         width: "50%",
         minHeight: "50%",
+        maxHeight: "4rem",
         gap: 2,
         "&:hover": {
           boxShadow: "8px 5px 20px 0px rgba(152,152,152,0.43)",
