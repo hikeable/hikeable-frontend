@@ -87,7 +87,7 @@ const MessageForm = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} style={{cursor: "pointer"}}>
           <TextField
             id="outlined-multiline-static"
             label="Message"
@@ -96,16 +96,14 @@ const MessageForm = ({
             placeholder={value}
             onChange={handleChange}
           />
-          <form>
-            <button
-              type="button"
-              style={{ cursor: "pointer", zIndex: 99 }}
-              onClick={handleSubmit}
-              onTouchStart={handleSubmit}
-            >
-              Submit
-            </button>
-          </form>
+          <button
+            type="button"
+            style={{ cursor: "pointer", zIndex: 99 }}
+            onClick={handleSubmit}
+            onTouchStart={handleSubmit}
+          >
+            Submit
+          </button>
         </Box>
       </Modal>
     </>
