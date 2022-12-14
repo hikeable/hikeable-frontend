@@ -3,12 +3,14 @@ import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { Box, Modal } from "@mui/material";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface MessageFormProps {
+  userID: number;
   trailID: number;
-  userID: number | undefined;
-  currentPosition: Array<Object>;
-  setCurrentPosition: Function;
+  currentPosition: Object;
+  open: boolean;
+  setOpen: Function;
 }
 
 const style = {
@@ -27,32 +29,14 @@ const MessageForm = ({
   userID,
   trailID,
   currentPosition,
-  setCurrentPosition,
-}: MessageFormProps) => {
-  const [open, setOpen] = useState<boolean>(false);
+  open,
+  setOpen,
+ }: MessageFormProps) => {
+
   const [value, setValue] = useState<string>("Write your message here");
+  const { userId } = useAuthContext();
 
-  const successCallback = (position: object) => {
-    setCurrentPosition([
-      ...currentPosition,
-      {
-        latitude: position["coords"]["latitude"],
-        longitude: position["coords"]["longitude"],
-      },
-    ]);
-  };
-
-  const errorCallback = (error: object) => {
-    console.error(error);
-  };
-
-  const handleOpen = () => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
-      enableHighAccuracy: true,
-      timeout: 10000,
-    });
-    setOpen(true);
-  };
+  const newID = userId
 
   const handleClose = () => {
     setOpen(false);
@@ -62,18 +46,29 @@ const MessageForm = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+  let testdate = new Date()
+
+  console.log (currentPosition, "🍒🍒🍒")
+  console.log ("userId =",newID)
+  console.log ("trailID =",trailID)
+  console.log ("latitude =",currentPosition["coordinates"]["latitude"])
+  console.log ("longitude =",currentPosition["coordinates"]["longitude"])
+  console.log ("msg =",value)
+  console.log ("date =",`${testdate.getFullYear()}-${
+    testdate.getMonth() + 1
+  }-${testdate.getDate()}`)
+
 
   const handleSubmit = async () => {
-    let recentPositionIndex = currentPosition.length - 1;
     let current = new Date();
     await axios({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
       data: {
-        user: userID,
+        user: newID,
         trail_id: trailID,
-        latitude: currentPosition[recentPositionIndex]["latitude"],
-        longitude: currentPosition[recentPositionIndex]["longitude"],
+        latitude: currentPosition["coordinates"]["latitude"],
+        longitude: currentPosition["coordinates"]["longitude"],
         likes: 0,
         dislikes: 0,
         message: value,
@@ -87,7 +82,6 @@ const MessageForm = ({
 
   return (
     <>
-      <Button onClick={handleOpen}>Write Message</Button>
       <Modal
         open={open}
         onClose={handleClose}

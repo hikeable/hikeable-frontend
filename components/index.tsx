@@ -7,10 +7,15 @@ export * from "./Navbar";
 export * from "./login";
 export * from "./Landing";
 export * from "./Logo";
+export * from "./TrailCardMobile";
 
 import dynamic from "next/dynamic";
 
-export const TrailMap = dynamic(() => import("./TrailMap"), {
+export const SmallMap = dynamic(() => import("./SmallMap"), {
+  ssr: false,
+});
+
+export const LargeMap = dynamic(() => import("./LargeMap"), {
   ssr: false,
 });
 
