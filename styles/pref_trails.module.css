@@ -2,11 +2,9 @@
   display: flex;
   flex-direction: row;
 }
-
 .flex_container .cards_feed {
   flex-grow: 4;
 }
-
 .flex_container .filter_card {
   position: -webkit-sticky;
   position: sticky;
@@ -16,6 +14,4 @@
   border-radius: 25px;
   border-color: "#9e9e9e";
   max-width: 30rem;
-}
-
-/*# sourceMappingURL=pref_trails.module.css.map */
+}/*# sourceMappingURL=pref_trails.module.css.map */
