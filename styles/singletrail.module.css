@@ -1,20 +1,18 @@
+.container__top {
+  display: flex;
+  flex-direction: row;
+}
+
+.container__top__mobile {
+  display: flex;
+  flex-direction: column;
+}
+
 .container__name {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-
-.container-weather {
-  margin-top: 4vh;
-  margin-bottom: 4vh;
-  width: 40vw;
-  align-items: flex-start;
-}
-
-.container-map {
-  width: 40vw;
-  align-items: flex-start;
 }
 
 .container-tips {
@@ -38,6 +36,5 @@
 }
 
 .map {
-  width: 44vw;
-  height: 36vh;
+  height: 50vh;
 }/*# sourceMappingURL=singletrail.module.css.map */
