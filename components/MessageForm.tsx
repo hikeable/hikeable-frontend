@@ -99,8 +99,8 @@ const MessageForm = ({
           <button
             type="button"
             style={{ cursor: "pointer", zIndex: 99 }}
-            onClick={handleSubmit}
-            onTouchStart={handleSubmit}
+            onClick={() => setValue("Test")}
+            onTouchStart={() => setValue("Test")}
           >
             Submit
           </button>
