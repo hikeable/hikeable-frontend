@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { Box, Modal } from "@mui/material";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface MessageFormProps {
   userID: number;
@@ -30,9 +31,12 @@ const MessageForm = ({
   currentPosition,
   open,
   setOpen,
-}: MessageFormProps) => {
+ }: MessageFormProps) => {
 
   const [value, setValue] = useState<string>("Write your message here");
+  const { userId } = useAuthContext();
+
+  const newID = userId
 
   const handleClose = () => {
     setOpen(false);
@@ -42,6 +46,18 @@ const MessageForm = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+  let testdate = new Date()
+
+  console.log (currentPosition, "🍒🍒🍒")
+  console.log ("userId =",newID)
+  console.log ("trailID =",trailID)
+  console.log ("latitude =",currentPosition["coordinates"]["latitude"])
+  console.log ("longitude =",currentPosition["coordinates"]["longitude"])
+  console.log ("msg =",value)
+  console.log ("date =",`${testdate.getFullYear()}-${
+    testdate.getMonth() + 1
+  }-${testdate.getDate()}`)
+
 
   const handleSubmit = async () => {
     let current = new Date();
@@ -49,7 +65,7 @@ const MessageForm = ({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
       data: {
-        user: userID,
+        user: newID,
         trail_id: trailID,
         latitude: currentPosition["coordinates"]["latitude"],
         longitude: currentPosition["coordinates"]["longitude"],
