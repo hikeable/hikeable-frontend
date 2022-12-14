@@ -88,6 +88,7 @@ export const Navbar: React.FC<INavbar> = ({
                   fontFamily: "Montserrat",
                   fontWeight: "600",
                   display: { xs: "none", sm: "block" },
+                  mr: "auto",
                 }}
               >
                 Hikeable

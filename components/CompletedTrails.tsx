@@ -11,7 +11,6 @@ interface CompletedTrailsProps {
   userID: number | undefined;
 }
 
-
 export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
@@ -31,7 +30,9 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
+          date: `${current.getFullYear()}-${
+            current.getMonth() + 1
+          }-${current.getDate()}`,
         },
       });
 
@@ -92,7 +93,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           <>
             <Tooltip title="Mark as incomplete">
               <IconButton aria-label="favorite" onClick={handleCompletion}>
-                <CheckBoxIcon></CheckBoxIcon>
+                <CheckBoxIcon sx={{ fontSize: "3vw" }}></CheckBoxIcon>
               </IconButton>
             </Tooltip>
           </>
@@ -103,7 +104,9 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
                 aria-label="favorite-outline"
                 onClick={handleCompletion}
               >
-                <CheckBoxOutlineBlankIcon></CheckBoxOutlineBlankIcon>
+                <CheckBoxOutlineBlankIcon
+                  sx={{ fontSize: "3vw" }}
+                ></CheckBoxOutlineBlankIcon>
               </IconButton>
             </Tooltip>
           </>

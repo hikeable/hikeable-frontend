@@ -6,7 +6,6 @@ import Image from "next/image";
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import axios from "axios";
 import { Trail } from "../global";
-import { Box, Container, Button, Typography } from "@mui/material";
 import styles from "../styles/singletrail.module.css";
 import { Likes } from "../components/Likes";
 import { CompletedTrails } from "../components/CompletedTrails";
@@ -17,7 +16,11 @@ import MessageForm from "../components/MessageForm";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
 import Mountain2 from "../public/mountain_2.svg";
-import { style } from "@mui/system";
+import { Box, Container, Button } from "@mui/material";
+import { Typography } from "@mui/joy";
+import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+
+const _ = require("lodash");
 
 const difficultyObj = {
   1: "Easy",
@@ -77,66 +80,107 @@ const SingleTrail = () => {
             flexDirection: "column",
           }}
         > */}
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
           }}
-        >
-          <BrowserView>
-            <div className={styles.container__top}>
-              <Image
-                src={trail.photo_url}
-                alt={trail.name}
-                width={250}
-                height={200}
-              />
-              <div className={styles.container__name}>
-                <Mountain2 />
-                <Typography variant="h1" sx={{ fontSize: "6vw" }}>
-                  {trail.name}
-                </Typography>
-              </div>
+        > */}
+        <BrowserView>
+          <div className={styles.container__top}>
+            <Image
+              src={trail.photo_url}
+              alt={trail.name}
+              width={250}
+              height={200}
+            />
+            <div className={styles.container__name}>
+              <Mountain2 />
+              <Typography sx={{ fontSize: "6vw", ml: 3 }}>
+                {trail.name}
+              </Typography>
             </div>
-            <Box
+          </div>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <Container
               sx={{
-                flexDirection: "column",
+                width: "65%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              <Typography>{trail.prefecture}</Typography>
-              <Typography>{trail.length}</Typography>
-              <Typography>{difficultyObj[trail.difficulty]}</Typography>
-              <Likes userID={userId} trailID={trail.id} />
-              <CompletedTrails userID={userId} trailID={trail.id} />
-            </Box>
-          </BrowserView>
-          <MobileView>
-            <div className={styles.container__top__mobile}>
-              <div className={styles.container__name}>
-                <Mountain2 />
-                <Typography variant="h1" sx={{ fontSize: "6vw" }}>
-                  {trail.name}
-                </Typography>
-              </div>
-              <Image
-                src={trail.photo_url}
-                alt={trail.name}
-                width={250}
-                height={200}
-              />
-            </div>
-            <Box
+              <Typography
+                startDecorator={<LocationOn />}
+                sx={{ fontSize: "3vw" }}
+              >
+                {_.capitalize(trail.prefecture)}
+              </Typography>
+              <Typography
+                startDecorator={<Straighten />}
+                sx={{ fontSize: "3vw" }}
+              >
+                {`${Number(trail.length).toString()} km`}
+              </Typography>
+              <Typography sx={{ fontSize: "3vw" }} startDecorator={<Speed />}>
+                {difficultyObj[trail.difficulty]}
+              </Typography>
+            </Container>
+            <Container
               sx={{
-                flexDirection: "column",
+                width: "35%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
               }}
             >
-              <Typography>{trail.prefecture}</Typography>
-              <Typography>{trail.length}</Typography>
-              <Typography>{difficultyObj[trail.difficulty]}</Typography>
               <Likes userID={userId} trailID={trail.id} />
               <CompletedTrails userID={userId} trailID={trail.id} />
-            </Box>
-          </MobileView>
-        </Box>
+            </Container>
+          </Box>
+        </BrowserView>
+        <MobileView>
+          <div className={styles.container__top__mobile}>
+            <div className={styles.container__name__mobile}>
+              <Mountain2 />
+              <Typography sx={{ fontSize: "6vw", ml: 3 }}>
+                {trail.name}
+              </Typography>
+            </div>
+            <Image
+              src={trail.photo_url}
+              alt={trail.name}
+              width={250}
+              height={200}
+            />
+          </div>
+          <Box
+            sx={{
+              flexDirection: "column",
+            }}
+          >
+            <Typography
+              sx={{ fontSize: "3vw" }}
+              startDecorator={<LocationOn />}
+            >
+              {_.capitalize(trail.prefecture)}
+            </Typography>
+            <Typography
+              sx={{ fontSize: "3vw" }}
+              startDecorator={<Straighten />}
+            >{`${Number(trail.length).toString()} km`}</Typography>
+            <Typography startDecorator={<Speed />} sx={{ fontSize: "3vw" }}>
+              {difficultyObj[trail.difficulty]}
+            </Typography>
+            <Likes userID={userId} trailID={trail.id} />
+            <CompletedTrails userID={userId} trailID={trail.id} />
+          </Box>
+        </MobileView>
+        {/* </Box> */}
         {/* <Box> */}
         {/* <Typography>5 Day Weather at {trail.name}</Typography> */}
         {/* <div className={styles.container__weather}> */}
@@ -188,8 +232,8 @@ const SingleTrail = () => {
             <Typography>
               Stone stairs, and very slippery while and after raining!
             </Typography>
+            {/* </Box> */}
           </Box>
-          {/* </Box> */}
         </Box>
         <CldUploadButton
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}

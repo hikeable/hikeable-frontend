@@ -90,7 +90,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
           <>
             <Tooltip title="Unlike">
               <IconButton aria-label="favorite" onClick={handleFavorite}>
-                <FavoriteIcon></FavoriteIcon>
+                <FavoriteIcon sx={{ fontSize: "3vw" }}></FavoriteIcon>
               </IconButton>
             </Tooltip>
           </>
@@ -101,7 +101,9 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
                 aria-label="favorite-outline"
                 onClick={handleFavorite}
               >
-                <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
+                <FavoriteBorderOutlinedIcon
+                  sx={{ fontSize: "3vw" }}
+                ></FavoriteBorderOutlinedIcon>
               </IconButton>
             </Tooltip>
           </>

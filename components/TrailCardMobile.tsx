@@ -24,7 +24,15 @@ const difficultyObj = {
 export const TrailCardMobile = ({ trail }: TrailCardProps) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
   return (
-    <Card variant="outlined" sx={{ width: 320, mb: 3 }}>
+    <Card
+      variant="outlined"
+      sx={{
+        width: 320,
+        mb: 3,
+        borderColor: "#9e9e9e",
+        backgroundColor: "white",
+      }}
+    >
       <Typography level="h2" fontSize="md" sx={{ mb: 0.5, fontWeight: 600 }}>
         {name}
       </Typography>
