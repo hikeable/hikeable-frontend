@@ -1,4 +1,4 @@
-import { MapContainer, Marker, TileLayer, Popup, useMap } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
@@ -55,14 +55,34 @@ const LargeMap = ({
     return <button onClick={fly}>Test</button>;
   };
 
+  function LocationMarker() {
+    const [position, setPosition] = useState<null | any>(null)
+    const map = useMapEvents({
+      click() {
+        map.locate()
+      },
+      locationfound(e) {
+        setPosition(e.latlng)
+        map.flyTo(e.latlng, map.getZoom())
+      },
+    })
+  
+    return position === null ? null : (
+      <Marker position={position}>
+        <Popup>You are here</Popup>
+      </Marker>
+    )
+  }
+  
+
   useEffect(() => {
     fetchMessageData();
   }, []);
 
-  useEffect(() => {
-    if (findMe) FlyToButton;
-    setFindMe(false);
-  }, [findMe]);
+  // useEffect(() => {
+  //   if (findMe) LocationMarker();
+  //   setFindMe(false);
+  // }, [findMe]);
 
   return (
     <>
@@ -89,7 +109,7 @@ const LargeMap = ({
             </Marker>
           );
         })}
-        <FlyToButton latlng={currentPositionLatLng} />
+        <LocationMarker />
       </MapContainer>
     </>
   );
