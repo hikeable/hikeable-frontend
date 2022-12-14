@@ -46,9 +46,7 @@ export const Landing = ({}) => {
       </div>
 
       <div className={styles.txt__wrapper}>
-        <Typography variant="h1" className={styles.landing__title}>
-          Hiking.Simplified
-        </Typography>
+        <h1 className={styles.landing__title}>Hiking.Simplified</h1>
       </div>
       <div className={styles.btn__wrapper}>
         <ThemeProvider theme={Theme}>

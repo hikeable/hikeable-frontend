@@ -82,7 +82,7 @@ const Dashboard  = () => {
 
         let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
         let tupleArray = getValues(completedTrails, trailUserCompletions );
-        setData([...tupleArray]);
+        setData([...data,...tupleArray]);
 
         let hikedDistance =  trailUserCompletions.reduce( (total, trail) => {  
             return   total + parseFloat(`${trail.length}`)}, 0.0);
@@ -112,7 +112,7 @@ const Dashboard  = () => {
                 {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
-             {data.length > 1 ?(
+             {data.length >= 0 ?(
                 <LineChart dataSet={data}></LineChart>
                 ): <>Loading...</>
              }   

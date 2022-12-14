@@ -1,13 +1,15 @@
 import * as React from "react";
 import Link from "next/link";
 import { Trail } from "../global";
+// import { Likes, CompletedTrails } from "../components";
 import AspectRatio from "@mui/joy/AspectRatio";
-import { Link as MuiLink } from "@mui/joy";
+import { Button } from "@mui/joy";
 import Card from "@mui/joy/Card";
-import Chip from "@mui/joy/Chip";
 import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import styles from "../styles/trailcard.module.css";
+
+const _ = require("lodash");
 
 interface TrailCardProps {
   trail: Trail;
@@ -29,72 +31,73 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
       sx={{
         borderRadius: "25px",
         backgroundColor: "white",
-        boxShadow: "8px 5px 20px 0px rgba(172,172,172,0.43)",
         borderColor: "#9e9e9e",
-        m: "3rem",
-        minWidth: "20rem",
-        width: "50%",
-        minHeight: "50%",
-        maxHeight: "4rem",
-        gap: 2,
-        "&:hover": {
-          boxShadow: "8px 5px 20px 0px rgba(152,152,152,0.43)",
-          borderColor: "#9e9e9e",
-        },
+        mr: 6,
+        mb: 4,
+        minWidth: "40vw",
+        maxHeight: "270px",
+        gap: 3,
       }}
     >
       <AspectRatio
-        ratio="16/9"
+        ratio="1"
         sx={{
-          width: "350px",
-          objectFit: "cover",
+          width: "50%",
+          objectFit: "contain",
           overflow: "hidden",
           borderRadius: "20px",
         }}
       >
         <div>
           <img
-            srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
-            src={photo_url}
+            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            srcSet={photo_url}
             loading="lazy"
             alt={`${name} photo`}
           />
         </div>
       </AspectRatio>
-      <div>
-        <Typography level="h2" fontSize="lg" id="card-description" mb={3}>
+      <div className={styles.card__info}>
+        <Typography
+          level="h2"
+          fontSize="1.5rem"
+          id="card-description"
+          mb={3}
+          sx={{ fontWeight: "600" }}
+        >
           {name}
         </Typography>
 
         <Typography
           fontSize="lg"
           aria-describedby="card-description"
-          mb={1}
+          mb={2}
           startDecorator={<LocationOn />}
         >
-          {prefecture}
+          {_.capitalize(prefecture)}
 
-          <Link
+          {/* <Link
             href={{
               pathname: "/singletrail",
               query: { trail: JSON.stringify(trail) },
             }}
             as={`/singletrail/${id}`}
+            passHref
           >
             <MuiLink
               overlay
               underline="none"
               sx={{ color: "text.tertiary" }}
             ></MuiLink>
-          </Link>
+          </Link> */}
         </Typography>
         <Typography
           fontSize="lg"
           aria-describedby="card-description"
-          mb={1}
+          mb={2}
           startDecorator={<Straighten />}
         >
-          {`${length} km`}
+          {`${Number(length).toString()} km`}
         </Typography>
         <Typography
           fontSize="lg"
@@ -104,14 +107,25 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
         >
           {difficultyObj[difficulty]}
         </Typography>
-        <Chip
-          variant="outlined"
-          color="primary"
-          size="sm"
-          sx={{ pointerEvents: "none" }}
+        <Link
+          className={styles.card__link}
+          href={{
+            pathname: "/singletrail",
+            query: { trail: JSON.stringify(trail) },
+          }}
+          as={`/singletrail/${id}`}
+          passHref
         >
-          Cool weather all day long
-        </Chip>
+          <Button
+            variant="soft"
+            size="lg"
+            aria-label={`View ${name} trail`}
+            sx={{ fontWeight: 600, backgroundColor: "pink" }}
+            component="a"
+          >
+            View this trail
+          </Button>
+        </Link>
       </div>
     </Card>
   );
