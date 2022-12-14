@@ -96,11 +96,16 @@ const MessageForm = ({
             placeholder={value}
             onChange={handleChange}
           />
-          <>
-          <button type="submit" style={{cursor: "pointer", zIndex: 99}} onClick={handleSubmit} onTouchStart={handleSubmit}>
-            Submit
-          </button>
-          </>
+          <form>
+            <button
+              type="button"
+              style={{ cursor: "pointer", zIndex: 99 }}
+              onClick={handleSubmit}
+              onTouchStart={handleSubmit}
+            >
+              Submit
+            </button>
+          </form>
         </Box>
       </Modal>
     </>
