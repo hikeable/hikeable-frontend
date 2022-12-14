@@ -31,12 +31,11 @@ const MessageForm = ({
   currentPosition,
   open,
   setOpen,
- }: MessageFormProps) => {
-
+}: MessageFormProps) => {
   const [value, setValue] = useState<string>("Write your message here");
   const { userId } = useAuthContext();
 
-  const newID = userId
+  const newID = userId;
 
   const handleClose = () => {
     setOpen(false);
@@ -46,18 +45,18 @@ const MessageForm = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-  let testdate = new Date()
+  let testdate = new Date();
 
-  console.log (currentPosition, "🍒🍒🍒")
-  console.log ("userId =",newID)
-  console.log ("trailID =",trailID)
-  console.log ("latitude =",currentPosition["coordinates"]["latitude"])
-  console.log ("longitude =",currentPosition["coordinates"]["longitude"])
-  console.log ("msg =",value)
-  console.log ("date =",`${testdate.getFullYear()}-${
-    testdate.getMonth() + 1
-  }-${testdate.getDate()}`)
-
+  console.log(currentPosition, "🍒🍒🍒");
+  console.log("userId =", newID);
+  console.log("trailID =", trailID);
+  console.log("latitude =", currentPosition["coordinates"]["latitude"]);
+  console.log("longitude =", currentPosition["coordinates"]["longitude"]);
+  console.log("msg =", value);
+  console.log(
+    "date =",
+    `${testdate.getFullYear()}-${testdate.getMonth() + 1}-${testdate.getDate()}`
+  );
 
   const handleSubmit = async () => {
     let current = new Date();
@@ -97,9 +96,11 @@ const MessageForm = ({
             placeholder={value}
             onChange={handleChange}
           />
-          <Button style={{cursor: 'pointer'}} variant="outlined" onClick={handleSubmit} onTouchStart={handleSubmit}>
+          <>
+          <button type="submit" onClick={handleSubmit} onTouchStart={handleSubmit}>
             Submit
-          </Button>
+          </button>
+          </>
         </Box>
       </Modal>
     </>
