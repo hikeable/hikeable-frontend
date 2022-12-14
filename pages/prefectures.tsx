@@ -2,7 +2,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import { Container } from "@mui/system";
+import { Container } from "@mui/material";
 
 const engPrefNames = {
   北海道: "Hokkaido",
@@ -148,10 +148,12 @@ const prefectures = () => {
   }, []);
 
   return (
-    <div className="bg__map">
-      <h1>Where do you want to walk next?</h1>
-      <div id="my-map-container"></div>
-    </div>
+    <Container maxWidth="lg">
+      <div className="bg__map">
+        <h1>Where do you want to walk next?</h1>
+        <div id="my-map-container"></div>
+      </div>
+    </Container>
   );
 };
 
