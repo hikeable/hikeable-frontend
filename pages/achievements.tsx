@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, CardHeader, Chip, Typography } from "@mui/material";
 import axios from "axios";
 import Image from 'next/image'
 import styles from "../styles/achievements.module.css"
@@ -9,6 +9,9 @@ const badgeDict = {
     "Incomplete": "/badges/Incomplete.png",
     "First Base":"/badges/First Base.png",
     "Power Of Two":"/badges/PowerOfTwo.png",
+
+    
+
 
 }
 
@@ -32,9 +35,56 @@ const Achievements = () => {
                 <Typography variant="h1" className={styles.achivements_title}>
                     Your Achievements
                 </Typography>
-            
+                <Card variant = "outlined" sx={{
+                    // maxWidth: 300
+                }}>
+                    <CardContent>
+                        <Typography variant="h2" className={styles.section_titles}>
+                            Getting Started
+                        </Typography>
+                        <Box sx={{ 
+                            display: "flex",
+                            flexDirection: 'row',
+                        }}>
+                         <Avatar
+                            alt="Registered"
+                            src={badgeDict["Incomplete"]}
+                            sx={{ width: 56, height: 56 }}
+                            />
+
+                         <Avatar
+                            alt="Registered"
+                            src={badgeDict["Incomplete"]}
+                            sx={{ width: 56, height: 56 }}
+                            />
+                            <CardHeader 
+                                sx={{display: "flex", flexDirection: "column", alignItems: "center"}}
+                                avatar={
+                                    <Avatar
+                                        alt="Registered"
+                                        src={badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 }}
+                                    />
+
+                                }
+                                subheader={<Chip label="A New Beginning" /> }
+                            
+                            />
+
+                        
+ 
+                        </Box>
+
+
+                    </CardContent>
+
+
+                </Card>
+
+
+
                 <Typography variant="h2" className={styles.section_titles}>
-                    Getting Started
+                    Distance
                 </Typography>
             
 
