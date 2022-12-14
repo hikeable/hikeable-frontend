@@ -97,7 +97,7 @@ const MessageForm = ({
             onChange={handleChange}
           />
           <>
-          <button type="submit" onClick={handleSubmit} onTouchStart={handleSubmit}>
+          <button type="submit" style={{cursor: "pointer", zIndex: 99}} onClick={handleSubmit} onTouchStart={handleSubmit}>
             Submit
           </button>
           </>
