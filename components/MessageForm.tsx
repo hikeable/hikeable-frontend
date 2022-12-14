@@ -97,7 +97,7 @@ const MessageForm = ({
             placeholder={value}
             onChange={handleChange}
           />
-          <Button variant="outlined" onClick={handleSubmit}>
+          <Button style={{cursor: 'pointer'}} variant="outlined" onClick={handleSubmit}>
             Submit
           </Button>
         </Box>
