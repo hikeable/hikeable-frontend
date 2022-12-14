@@ -78,11 +78,11 @@ const MapView = () => {
       onclick: () => setOpen(true),
     },
 
-    {
-      name: "My Location",
-      icon: <NearMeIcon />,
-      onclick: () => setFindMe(true),
-    },
+    // {
+    //   name: "My Location",
+    //   icon: <NearMeIcon />,
+    //   onclick: () => setFindMe(true),
+    // },
   ];
 
   return (

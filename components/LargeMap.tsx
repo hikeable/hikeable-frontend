@@ -1,4 +1,11 @@
-import { MapContainer, Marker, TileLayer, Popup, useMap, useMapEvents } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  Popup,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
@@ -39,6 +46,13 @@ const LargeMap = ({
     shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
     popupAnchor: [2, -40],
   });
+  const myIcon = L.icon({
+    iconUrl: "https://i.postimg.cc/FsTwfJdB/location-Marker.png",
+    iconSize: [25, 41],
+    iconAnchor: [10, 41],
+    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
+    popupAnchor: [2, -40],
+  });
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(
@@ -56,24 +70,23 @@ const LargeMap = ({
   };
 
   function LocationMarker() {
-    const [position, setPosition] = useState<null | any>(null)
+    const [position, setPosition] = useState<null | any>(null);
     const map = useMapEvents({
       click() {
-        map.locate()
+        map.locate();
       },
       locationfound(e) {
-        setPosition(e.latlng)
-        map.flyTo(e.latlng, map.getZoom())
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
       },
-    })
-  
+    });
+
     return position === null ? null : (
-      <Marker position={position}>
+      <Marker position={position} icon={myIcon}>
         <Popup>You are here</Popup>
       </Marker>
-    )
+    );
   }
-  
 
   useEffect(() => {
     fetchMessageData();
