@@ -86,8 +86,8 @@ const MapView = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">Terms and Conditions</DialogTitle>
-        <DialogContent sx={{ mt: 2 }}>
-          <DialogContentText sx={{ mb: 2 }} id="alert-dialog-description">
+        <DialogContent>
+          <DialogContentText sx={{ my: 2 }} id="alert-dialog-description">
             For your safety, please refrain from using Hikeable while walking.
             Hikeable is not responsible for any accidents that occur while using
             its products.

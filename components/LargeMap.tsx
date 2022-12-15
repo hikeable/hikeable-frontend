@@ -33,13 +33,9 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
   const lonNumber = parseFloat(lon);
 
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
-  const [newMessageData, setNewMessageData] = useState<MessageDataObject[]>([]);
   const [currentPosition, setCurrentPosition] = useState<LatLngObject | null>(
     null
   );
-  const [mostRecentMessageIndex, setMostRecentMessageIndex] =
-    useState<number>(0);
-  const [isLoaded, setIsLoaded] = useState<boolean>(true);
 
   const messageIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
@@ -57,17 +53,15 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
   });
 
   const fetchMessageData = async () => {
-    if (isSubmitted) {
-      const fetchedMessageData = await axios.get(
-        `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
-      );
-      setNewMessageData(fetchedMessageData.data);
-    }
-
     const fetchedMessageData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
     );
-    setMessageData(fetchedMessageData.data);
+    if (!messageData) {
+      setMessageData(fetchedMessageData.data);
+    } else {
+      setMessageData([...fetchedMessageData.data]);
+    }
+    setIsSubmitted(false);
   };
 
   const LocationMarker = () => {
@@ -89,48 +83,39 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
   };
 
   useEffect(() => {
-    if (isLoaded || isSubmitted) fetchMessageData();
-  }, [isLoaded, isSubmitted]);
+    fetchMessageData();
+  }, []);
 
   useEffect(() => {
-    setMostRecentMessageIndex(messageData.length - 1);
-  }, [messageData]);
-
-  useEffect(() => {
-    const filteredData = newMessageData.filter(
-      (message, index) => index > mostRecentMessageIndex
-    );
-    setMessageData([...filteredData]);
-    setNewMessageData([]);
-    setIsSubmitted(false);
-  }, [newMessageData]);
+    fetchMessageData();
+  }, [isSubmitted]);
 
   return (
-      <MapContainer
-        className={styles.map__wrapper}
-        center={[latNumber, lonNumber]}
-        zoom={13}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url={`https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x}/{y}.png?rapidapi-key=${process.env.NEXT_PUBLIC_MAP_API}`}
-        />
-        {messageData.map((message) => {
-          const messageLatNumber = parseFloat(message.latitude);
-          const messageLonNumber = parseFloat(message.longitude);
-          return (
-            <Marker
-              key={message.id}
-              position={[messageLatNumber, messageLonNumber]}
-              icon={messageIcon}
-            >
-              <Popup>{message.message}</Popup>
-            </Marker>
-          );
-        })}
-        <LocationMarker />
-      </MapContainer>
+    <MapContainer
+      className={styles.map__wrapper}
+      center={[latNumber, lonNumber]}
+      zoom={13}
+      scrollWheelZoom={false}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url={`https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x}/{y}.png?rapidapi-key=${process.env.NEXT_PUBLIC_MAP_API}`}
+      />
+      {messageData.map((message) => {
+        const messageLatNumber = parseFloat(message.latitude);
+        const messageLonNumber = parseFloat(message.longitude);
+        return (
+          <Marker
+            key={message.id}
+            position={[messageLatNumber, messageLonNumber]}
+            icon={messageIcon}
+          >
+            <Popup>{message.message}</Popup>
+          </Marker>
+        );
+      })}
+      <LocationMarker />
+    </MapContainer>
   );
 };
 

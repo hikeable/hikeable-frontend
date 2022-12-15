@@ -5,7 +5,7 @@ import axios from "axios";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAuthContext } from "./context/UseAuthContext";
 
-interface IMessageFormProps {
+interface MessageFormProps {
   trailID: number;
   currentPosition: Object;
   open: boolean;
@@ -33,15 +33,14 @@ const MessageForm = ({
   open,
   setOpen,
   setIsSubmitted,
-}: IMessageFormProps) => {
-  const [value, setValue] = useState<string>("Your message here");
+}: MessageFormProps) => {
+  const [value, setValue] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const { userId } = useAuthContext();
 
   const handleClose = () => {
-    setOpen(false);
     setError(false);
-    setValue("Your message here");
+    setOpen(false);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +48,7 @@ const MessageForm = ({
   };
 
   const handleSubmit = async () => {
-    if (value === "Your message here" || !currentPosition["loaded"]) {
+    if (!currentPosition["loaded"]) {
       setError(true);
       return;
     }
@@ -71,8 +70,7 @@ const MessageForm = ({
         }-${current.getDate()}`,
       },
     });
-    setIsSubmitted(true);
-    handleClose();
+    return setIsSubmitted(true);
   };
 
   const SubmitButton = () => {
@@ -111,14 +109,17 @@ const MessageForm = ({
           label="Message"
           multiline
           rows={3}
-          placeholder={value}
+          placeholder={"Your message here"}
+          value={value}
           onChange={handleChange}
           InputProps={{ endAdornment: <SubmitButton /> }}
         />
         {error === true ? (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            Cannot submit message - <strong>please try again later.</strong>
+            Cannot get location - please ensure{" "}
+            <strong>Location Services</strong> are enabled on your device, or
+            try again later.
           </Alert>
         ) : (
           <></>
