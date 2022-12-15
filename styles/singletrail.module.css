@@ -6,19 +6,10 @@
   justify-content: center;
 }
 
-.container__name {
-  display: flex;
-  margin-left: auto;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.container__name__mobile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.img__wrapper {
+  width: 400px;
+  height: 300px;
+  border-radius: 1rem;
 }
 
 .card__link {

@@ -20,6 +20,7 @@ import { Box, Container } from "@mui/material";
 import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
 import { LocationOn, Straighten, Speed, CameraAlt } from "@mui/icons-material";
+import { flexbox } from "@mui/system";
 
 const _ = require("lodash");
 
@@ -72,19 +73,26 @@ const SingleTrail = ({ imageLoader }) => {
         </Button>
         <BrowserView>
           <Box sx={{ display: "flex", flexDirection: "row", mb: 2 }}>
-            <Box>
-              <img
-                src={trail.photo_url}
-                alt={trail.name}
-                width={250}
-                height={200}
-              />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ mb: 2 }}>
+                <img
+                  src={trail.photo_url}
+                  alt={trail.name}
+                  className={styles.img__wrapper}
+                />
+              </Box>
               <Container>
                 <Button
                   variant="soft"
                   size="sm"
                   aria-label={"Upload photo for this trail"}
-                  sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                  sx={{ fontWeight: 600, backgroundColor: "pink", mr: 1 }}
                   component="a"
                 >
                   <CldUploadButton
@@ -122,7 +130,7 @@ const SingleTrail = ({ imageLoader }) => {
                   <Button
                     variant="soft"
                     size="lg"
-                    aria-label={`View ${name} trail`}
+                    aria-label={`View ${trail.name} trail`}
                     sx={{ fontWeight: 600, backgroundColor: "pink" }}
                     component="a"
                   >
@@ -131,70 +139,140 @@ const SingleTrail = ({ imageLoader }) => {
                 </Link>
               </Container>
             </Box>
-            <div className={styles.container__name}>
-              <Mountain2 />
-              <Typography sx={{ fontSize: "5vw", ml: 3 }}>
-                {trail.name}
-              </Typography>
-            </div>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                ml: "auto",
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+                <Mountain2 />
+                <Typography sx={{ fontSize: "5vw", ml: 3 }}>
+                  {trail.name}
+                </Typography>
+              </Box>
+              <Container
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  mb: 3,
+                }}
+              >
+                <Typography
+                  startDecorator={<LocationOn />}
+                  sx={{ fontSize: "2.5vw" }}
+                >
+                  {_.capitalize(trail.prefecture)}
+                </Typography>
+                <Typography
+                  startDecorator={<Straighten />}
+                  sx={{ fontSize: "2.5vw" }}
+                >
+                  {`${Number(trail.length).toString()} km`}
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "2.5vw" }}
+                  startDecorator={<Speed />}
+                >
+                  {difficultyObj[trail.difficulty]}
+                </Typography>
+              </Container>
+              <Container
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Likes userID={userId} trailID={trail.id} />
+                <CompletedTrails userID={userId} trailID={trail.id} />
+              </Container>
+            </Box>
           </Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: "row",
             }}
-          >
-            <Container
-              sx={{
-                width: "65%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography
-                startDecorator={<LocationOn />}
-                sx={{ fontSize: "3vw" }}
-              >
-                {_.capitalize(trail.prefecture)}
-              </Typography>
-              <Typography
-                startDecorator={<Straighten />}
-                sx={{ fontSize: "3vw" }}
-              >
-                {`${Number(trail.length).toString()} km`}
-              </Typography>
-              <Typography sx={{ fontSize: "3vw" }} startDecorator={<Speed />}>
-                {difficultyObj[trail.difficulty]}
-              </Typography>
-            </Container>
-            <Container
-              sx={{
-                width: "35%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Likes userID={userId} trailID={trail.id} />
-              <CompletedTrails userID={userId} trailID={trail.id} />
-            </Container>
-          </Box>
+          ></Box>
         </BrowserView>
         <MobileView>
           <div className={styles.container__top__mobile}>
-            <div className={styles.container__name__mobile}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: 2,
+              }}
+            >
               <Mountain2 />
-              <Typography sx={{ fontSize: "6vw", ml: 3 }}>
+              <Typography sx={{ fontSize: "7vw", fontWeight: "600", ml: 3 }}>
                 {trail.name}
               </Typography>
-            </div>
-            <Image
+            </Box>
+
+            <img
               src={trail.photo_url}
               alt={trail.name}
-              width={250}
-              height={200}
+              className={styles.img__wrapper}
             />
+            <Container sx={{ display: "flex", flexDirection: "column" }}>
+              <Button
+                variant="soft"
+                size="sm"
+                aria-label={"Upload photo for this trail"}
+                sx={{ fontWeight: 600, backgroundColor: "pink", mr: 1 }}
+                component="a"
+              >
+                <CldUploadButton
+                  className={styles.btn__cloudinary}
+                  uploadPreset={
+                    process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
+                  }
+                  onUpload={function (error, result, widget) {
+                    console.log(
+                      "error =",
+                      error,
+                      "result =",
+                      result,
+                      "widget =",
+                      widget
+                    );
+                  }}
+                  options={{
+                    folder: trail.name,
+                    tags: [trail.id, userNameTag],
+                  }}
+                />
+              </Button>
+              <Link
+                className={styles.card__link}
+                href={{
+                  pathname: "/trailphotos",
+                  query: {
+                    id: trailId,
+                    name: trailName,
+                  },
+                }}
+                passHref
+              >
+                <Button
+                  variant="soft"
+                  size="lg"
+                  aria-label={`View ${trail.name} trail`}
+                  sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                  component="a"
+                >
+                  View all photos in this trail
+                </Button>
+              </Link>
+            </Container>
           </div>
           <Box
             sx={{
