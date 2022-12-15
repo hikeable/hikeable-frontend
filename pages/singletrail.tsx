@@ -16,9 +16,10 @@ import MessageForm from "../components/MessageForm";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
 import Mountain2 from "../public/mountain_2.svg";
-import { Box, Container, Button } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
-import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+import { LocationOn, Straighten, Speed, CameraAlt } from "@mui/icons-material";
 
 const _ = require("lodash");
 
@@ -33,7 +34,7 @@ type CurrentPositionObject = {
   longitude: number;
 };
 
-const SingleTrail = () => {
+const SingleTrail = ({ imageLoader }) => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
@@ -60,46 +61,83 @@ const SingleTrail = () => {
 
   return (
     trail && (
-      <Container>
+      <Container sx={{ mb: 5 }}>
         <Button
-          variant="contained"
+          variant="soft"
           onClick={() => {
             router.back();
           }}
         >
           Back
         </Button>
-
-        {/* <Box
-          sx={{
-            display: "flex",
-            m: 1,
-            p: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        > */}
-        {/* <Box
-          sx={{
-            display: "flex",
-          }}
-        > */}
         <BrowserView>
-          <div className={styles.container__top}>
-            <Image
-              src={trail.photo_url}
-              alt={trail.name}
-              width={250}
-              height={200}
-            />
+          <Box sx={{ display: "flex", flexDirection: "row", mb: 2 }}>
+            <Box>
+              <img
+                src={trail.photo_url}
+                alt={trail.name}
+                width={250}
+                height={200}
+              />
+              <Container>
+                <Button
+                  variant="soft"
+                  size="sm"
+                  aria-label={"Upload photo for this trail"}
+                  sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                  component="a"
+                >
+                  <CldUploadButton
+                    className={styles.btn__cloudinary}
+                    uploadPreset={
+                      process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
+                    }
+                    onUpload={function (error, result, widget) {
+                      console.log(
+                        "error =",
+                        error,
+                        "result =",
+                        result,
+                        "widget =",
+                        widget
+                      );
+                    }}
+                    options={{
+                      folder: trail.name,
+                      tags: [trail.id, userNameTag],
+                    }}
+                  />
+                </Button>
+                <Link
+                  className={styles.card__link}
+                  href={{
+                    pathname: "/trailphotos",
+                    query: {
+                      id: trailId,
+                      name: trailName,
+                    },
+                  }}
+                  passHref
+                >
+                  <Button
+                    variant="soft"
+                    size="lg"
+                    aria-label={`View ${name} trail`}
+                    sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                    component="a"
+                  >
+                    View all photos in this trail
+                  </Button>
+                </Link>
+              </Container>
+            </Box>
             <div className={styles.container__name}>
               <Mountain2 />
-              <Typography sx={{ fontSize: "6vw", ml: 3 }}>
+              <Typography sx={{ fontSize: "5vw", ml: 3 }}>
                 {trail.name}
               </Typography>
             </div>
-          </div>
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -180,14 +218,8 @@ const SingleTrail = () => {
             <CompletedTrails userID={userId} trailID={trail.id} />
           </Box>
         </MobileView>
-        {/* </Box> */}
-        {/* <Box> */}
-        {/* <Typography>5 Day Weather at {trail.name}</Typography> */}
-        {/* <div className={styles.container__weather}> */}
         <Weather lat={trail.latitude} lon={trail.longitude} name={trail.name} />
-        {/* </div> */}
-        {/* </Box> */}
-        {/* <Box> */}
+
         <TrailMap
           currentPosition={currentPosition}
           setCurrentPosition={setCurrentPosition}
@@ -201,7 +233,7 @@ const SingleTrail = () => {
           userID={userId}
           trailID={trail.id}
         />
-        {/* </Box> */}
+
         <Box
           sx={{
             flexDirection: "column",
@@ -232,36 +264,8 @@ const SingleTrail = () => {
             <Typography>
               Stone stairs, and very slippery while and after raining!
             </Typography>
-            {/* </Box> */}
           </Box>
         </Box>
-        <CldUploadButton
-          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
-          onUpload={function (error, result, widget) {
-            console.log(
-              "error =",
-              error,
-              "result =",
-              result,
-              "widget =",
-              widget
-            );
-          }}
-          options={{ folder: trail.name, tags: [trail.id, userNameTag] }}
-        />
-        <p className={styles.p}>
-          <Link
-            href={{
-              pathname: "/trailphotos",
-              query: {
-                id: trailId,
-                name: trailName,
-              },
-            }}
-          >
-            check all photos in this trail
-          </Link>
-        </p>
       </Container>
     )
   );

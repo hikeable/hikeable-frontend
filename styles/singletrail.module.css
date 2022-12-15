@@ -1,8 +1,3 @@
-.container__top {
-  display: flex;
-  flex-direction: row;
-}
-
 .container__top__mobile {
   margin-top: 2rem;
   display: flex;
@@ -24,6 +19,22 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.card__link {
+  text-decoration: none;
+}
+
+.btn__cloudinary {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  width: 80px;
+  padding: 12px;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
 }
 
 .container-tips {
