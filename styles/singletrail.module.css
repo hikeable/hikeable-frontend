@@ -13,19 +13,23 @@
 }
 
 .card__link {
+  color: black;
   text-decoration: none;
 }
 
 .btn__cloudinary {
-  font-size: 1rem;
   font-family: "Montserrat", sans-serif;
+  background-color: pink;
   font-weight: 600;
-  width: 80px;
-  padding: 12px;
-  text-align: center;
-  background-color: transparent;
-  cursor: pointer;
+  font-size: 1rem;
   border: none;
+  border-radius: 40px;
+  padding: 12px 1rem;
+  cursor: pointer;
+}
+
+.btn__cloudinary__mobile {
+  margin-bottom: 1rem;
 }
 
 .container-tips {
@@ -50,4 +54,5 @@
 
 .map {
   height: 50vh;
+  border-radius: 1rem;
 }/*# sourceMappingURL=singletrail.module.css.map */

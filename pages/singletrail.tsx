@@ -35,7 +35,7 @@ type CurrentPositionObject = {
   longitude: number;
 };
 
-const SingleTrail = ({ imageLoader }) => {
+const SingleTrail = () => {
   const router = useRouter();
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
@@ -87,35 +87,35 @@ const SingleTrail = ({ imageLoader }) => {
                   className={styles.img__wrapper}
                 />
               </Box>
-              <Container>
-                <Button
-                  variant="soft"
-                  size="sm"
-                  aria-label={"Upload photo for this trail"}
-                  sx={{ fontWeight: 600, backgroundColor: "pink", mr: 1 }}
-                  component="a"
+              <Container
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+              >
+                <CldUploadButton
+                  className={styles.btn__cloudinary}
+                  uploadPreset={
+                    process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
+                  }
+                  onUpload={function (error, result, widget) {
+                    console.log(
+                      "error =",
+                      error,
+                      "result =",
+                      result,
+                      "widget =",
+                      widget
+                    );
+                  }}
+                  options={{
+                    folder: trail.name,
+                    tags: [trail.id, userNameTag],
+                  }}
                 >
-                  <CldUploadButton
-                    className={styles.btn__cloudinary}
-                    uploadPreset={
-                      process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
-                    }
-                    onUpload={function (error, result, widget) {
-                      console.log(
-                        "error =",
-                        error,
-                        "result =",
-                        result,
-                        "widget =",
-                        widget
-                      );
-                    }}
-                    options={{
-                      folder: trail.name,
-                      tags: [trail.id, userNameTag],
-                    }}
-                  />
-                </Button>
+                  Upload {trail.name} photo
+                </CldUploadButton>
                 <Link
                   className={styles.card__link}
                   href={{
@@ -131,7 +131,7 @@ const SingleTrail = ({ imageLoader }) => {
                     variant="soft"
                     size="lg"
                     aria-label={`View ${trail.name} trail`}
-                    sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                    sx={{ fontWeight: 600, backgroundColor: "pink", mt: 2 }}
                     component="a"
                   >
                     View all photos in this trail
@@ -222,35 +222,30 @@ const SingleTrail = ({ imageLoader }) => {
               alt={trail.name}
               className={styles.img__wrapper}
             />
-            <Container sx={{ display: "flex", flexDirection: "column" }}>
-              <Button
-                variant="soft"
-                size="sm"
-                aria-label={"Upload photo for this trail"}
-                sx={{ fontWeight: 600, backgroundColor: "pink", mr: 1 }}
-                component="a"
+            <Box
+              sx={{ display: "flex", flexDirection: "column", mt: 2, mb: 3 }}
+            >
+              <CldUploadButton
+                className={`${styles.btn__cloudinary} ${styles.btn__cloudinary__mobile}`}
+                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET}
+                onUpload={function (error, result, widget) {
+                  console.log(
+                    "error =",
+                    error,
+                    "result =",
+                    result,
+                    "widget =",
+                    widget
+                  );
+                }}
+                options={{
+                  folder: trail.name,
+                  tags: [trail.id, userNameTag],
+                }}
               >
-                <CldUploadButton
-                  className={styles.btn__cloudinary}
-                  uploadPreset={
-                    process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
-                  }
-                  onUpload={function (error, result, widget) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
-                  }}
-                  options={{
-                    folder: trail.name,
-                    tags: [trail.id, userNameTag],
-                  }}
-                />
-              </Button>
+                Upload {trail.name} photo
+              </CldUploadButton>
+
               <Link
                 className={styles.card__link}
                 href={{
@@ -272,28 +267,59 @@ const SingleTrail = ({ imageLoader }) => {
                   View all photos in this trail
                 </Button>
               </Link>
-            </Container>
+            </Box>
           </div>
           <Box
             sx={{
-              flexDirection: "column",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-around",
             }}
           >
             <Typography
-              sx={{ fontSize: "3vw" }}
+              sx={{ fontSize: "5vw" }}
               startDecorator={<LocationOn />}
             >
               {_.capitalize(trail.prefecture)}
             </Typography>
             <Typography
-              sx={{ fontSize: "3vw" }}
+              sx={{ fontSize: "5vw" }}
               startDecorator={<Straighten />}
             >{`${Number(trail.length).toString()} km`}</Typography>
-            <Typography startDecorator={<Speed />} sx={{ fontSize: "3vw" }}>
+            <Typography startDecorator={<Speed />} sx={{ fontSize: "5vw" }}>
               {difficultyObj[trail.difficulty]}
             </Typography>
-            <Likes userID={userId} trailID={trail.id} />
-            <CompletedTrails userID={userId} trailID={trail.id} />
+          </Box>
+          <Box
+            sx={{
+              mt: 3,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-around",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Likes userID={userId} trailID={trail.id} />
+              <Typography>I like this trail</Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <CompletedTrails userID={userId} trailID={trail.id} />
+              <Typography>Completed</Typography>
+            </Box>
           </Box>
         </MobileView>
         <Weather lat={trail.latitude} lon={trail.longitude} name={trail.name} />
