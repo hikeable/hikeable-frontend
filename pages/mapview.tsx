@@ -31,7 +31,6 @@ const MapView = () => {
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
   const trailID = Number(searchParams.get("trailID"));
-  const userID = Number(searchParams.get("userID"));
   const [agree, setAgree] = useState(false);
   const [currentPosition, setCurrentPosition] = useState<CurrentPositionObject>(
     {
@@ -87,9 +86,11 @@ const MapView = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">Terms and Conditions</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Disclaimer
+        <DialogContent sx={{ mt: 2 }}>
+          <DialogContentText sx={{ mb: 2 }} id="alert-dialog-description">
+            For your safety, please refrain from using Hikeable while walking.
+            Hikeable is not responsible for any accidents that occur while using
+            its products.
           </DialogContentText>
           <DialogActions>
             <Button onClick={() => router.back()}>Disagree</Button>
