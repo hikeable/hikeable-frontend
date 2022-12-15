@@ -10,19 +10,16 @@ import {
   SpeedDial,
   SpeedDialIcon,
   SpeedDialAction,
+  Box,
 } from "@mui/material";
-import NearMeIcon from "@mui/icons-material/NearMe";
 import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
 
-type CurrentPositionObject = {
-  loaded: boolean;
-  coordinates: {
-    latitude: number | null;
-    longitude: number | null;
-  };
+type LatLngObject = {
+  lat: number | null;
+  lng: number | null;
 };
 
 const MapView = () => {
@@ -31,27 +28,18 @@ const MapView = () => {
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
   const trailID = Number(searchParams.get("trailID"));
-  const userID = Number(searchParams.get("userID"));
   const [agree, setAgree] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState<CurrentPositionObject>(
-    {
-      loaded: false,
-      coordinates: {
-        latitude: null,
-        longitude: null,
-      },
-    }
-  );
+  const [currentPosition, setCurrentPosition] = useState<LatLngObject>({
+    lat: null,
+    lng: null,
+  });
   const [open, setOpen] = useState<boolean>(false);
-  const [findMe, setFindMe] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const successCallback = (position: object) => {
     setCurrentPosition({
-      loaded: true,
-      coordinates: {
-        latitude: position["coords"]["latitude"],
-        longitude: position["coords"]["longitude"],
-      },
+      lat: position["coords"]["latitude"],
+      lng: position["coords"]["longitude"],
     });
   };
 
@@ -77,16 +65,10 @@ const MapView = () => {
       icon: <MessageIcon />,
       onclick: () => setOpen(true),
     },
-
-    // {
-    //   name: "My Location",
-    //   icon: <NearMeIcon />,
-    //   onclick: () => setFindMe(true),
-    // },
   ];
 
   return (
-    <>
+    <Box>
       <Dialog
         open={!agree}
         aria-labelledby="alert-dialog-title"
@@ -94,8 +76,10 @@ const MapView = () => {
       >
         <DialogTitle id="alert-dialog-title">Terms and Conditions</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Disclaimer
+          <DialogContentText sx={{ my: 2 }} id="alert-dialog-description">
+            For your safety, please refrain from using Hikeable while walking.
+            Hikeable is not responsible for any accidents that occur while using
+            its products.
           </DialogContentText>
           <DialogActions>
             <Button onClick={() => router.back()}>Disagree</Button>
@@ -109,9 +93,10 @@ const MapView = () => {
         lat={lat}
         lon={lon}
         trailID={trailID}
+        isSubmitted={isSubmitted}
+        setIsSubmitted={setIsSubmitted}
         currentPosition={currentPosition}
-        findMe={findMe}
-        setFindMe={setFindMe}
+        setCurrentPosition={setCurrentPosition}
       />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
@@ -128,13 +113,13 @@ const MapView = () => {
         ))}
       </SpeedDial>
       <MessageForm
-        userID={userID}
         trailID={trailID}
         currentPosition={currentPosition}
         open={open}
         setOpen={setOpen}
+        setIsSubmitted={setIsSubmitted}
       />
-    </>
+    </Box>
   );
 };
 
