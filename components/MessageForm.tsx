@@ -40,6 +40,7 @@ const MessageForm = ({
 
   const handleClose = () => {
     setError(false);
+    setIsSubmitted(true);
     setOpen(false);
   };
 
@@ -70,7 +71,7 @@ const MessageForm = ({
         }-${current.getDate()}`,
       },
     });
-    return setIsSubmitted(true);
+    return handleClose();
   };
 
   const SubmitButton = () => {
@@ -80,6 +81,7 @@ const MessageForm = ({
         disableElevation
         style={{ cursor: "pointer", zIndex: 99 }}
         onClick={handleSubmit}
+        onTouchStart={handleSubmit}
       >
         Submit
       </Button>
