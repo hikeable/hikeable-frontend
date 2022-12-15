@@ -1,15 +1,26 @@
 .txt_wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  align-items: stretch;
   margin-right: 3rem;
 }
-.txt_wrapper .achivements_title {
-  color: rgb(110, 70, 220);
+.txt_wrapper .achievements_title {
+  color: rgb(68, 25, 187);
   text-transform: uppercase;
-  font-size: 4vw;
-  font-weight: 400;
+  font-size: "2.4rem";
+  font-weight: 5;
   text-align: center;
   z-index: 1;
   font-family: "Shadows Into Light";
+}
+.txt_wrapper .achievement_card .section_titles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.txt_wrapper .achievement_card .badges_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }/*# sourceMappingURL=achievements.module.css.map */
