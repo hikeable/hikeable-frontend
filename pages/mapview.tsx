@@ -11,7 +11,6 @@ import {
   SpeedDialIcon,
   SpeedDialAction,
 } from "@mui/material";
-import NearMeIcon from "@mui/icons-material/NearMe";
 import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
@@ -43,7 +42,6 @@ const MapView = () => {
     }
   );
   const [open, setOpen] = useState<boolean>(false);
-  const [findMe, setFindMe] = useState<boolean>(false);
 
   const successCallback = (position: object) => {
     setCurrentPosition({
@@ -77,12 +75,6 @@ const MapView = () => {
       icon: <MessageIcon />,
       onclick: () => setOpen(true),
     },
-
-    // {
-    //   name: "My Location",
-    //   icon: <NearMeIcon />,
-    //   onclick: () => setFindMe(true),
-    // },
   ];
 
   return (
@@ -105,14 +97,7 @@ const MapView = () => {
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <LargeMap
-        lat={lat}
-        lon={lon}
-        trailID={trailID}
-        currentPosition={currentPosition}
-        findMe={findMe}
-        setFindMe={setFindMe}
-      />
+      <LargeMap lat={lat} lon={lon} trailID={trailID} />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
         sx={{ position: "absolute", bottom: 16, right: 16 }}

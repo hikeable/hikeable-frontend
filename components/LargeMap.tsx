@@ -3,7 +3,6 @@ import {
   Marker,
   TileLayer,
   Popup,
-  useMap,
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -24,21 +23,19 @@ type MessageDataObject = {
   date: string;
 };
 
-const LargeMap = ({
-  lat,
-  lon,
-  trailID,
-  currentPosition,
-  findMe,
-  setFindMe,
-}) => {
+type LatLngObject = {
+  lat: number;
+  lng: number;
+};
+
+const LargeMap = ({ lat, lon, trailID }) => {
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
-  const currentPositionLatLng = {
-    lat: currentPosition["coordinates"]["latitude"],
-    lon: currentPosition["coordinates"]["longitude"],
-  };
+  const [currentPosition, setCurrentPosition] = useState<LatLngObject | null>(
+    null
+  );
+
   const leafletIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
     iconSize: [25, 41],
@@ -46,7 +43,7 @@ const LargeMap = ({
     shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
     popupAnchor: [2, -40],
   });
-  const myIcon = L.icon({
+  const locationIcon = L.icon({
     iconUrl: "https://i.postimg.cc/FsTwfJdB/location-Marker.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
@@ -61,41 +58,27 @@ const LargeMap = ({
     setMessageData(fetchedMessageData.data);
   };
 
-  const FlyToButton = ({ latlng }) => {
-    const map = useMap(); // available when component nested inside MapContainer
-    const fly = () => {
-      map.flyTo(latlng, 14, { duration: 2 });
-    };
-    return <button onClick={fly}>Test</button>;
-  };
+  useEffect(() => {
+    fetchMessageData();
+  }, []);
 
-  function LocationMarker() {
-    const [position, setPosition] = useState<null | any>(null);
+  const LocationMarker = () => {
     const map = useMapEvents({
       click() {
         map.locate();
       },
       locationfound(e) {
-        setPosition(e.latlng);
+        setCurrentPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
       },
     });
 
-    return position === null ? null : (
-      <Marker position={position} icon={myIcon}>
+    return currentPosition === null ? null : (
+      <Marker position={currentPosition} icon={locationIcon}>
         <Popup>You are here</Popup>
       </Marker>
     );
-  }
-
-  useEffect(() => {
-    fetchMessageData();
-  }, []);
-
-  // useEffect(() => {
-  //   if (findMe) LocationMarker();
-  //   setFindMe(false);
-  // }, [findMe]);
+  };
 
   return (
     <>
