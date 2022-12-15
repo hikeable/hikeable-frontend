@@ -10,6 +10,7 @@ import {
   SpeedDial,
   SpeedDialIcon,
   SpeedDialAction,
+  Box,
 } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -79,7 +80,7 @@ const MapView = () => {
   ];
 
   return (
-    <>
+    <Box>
       <Dialog
         open={!agree}
         aria-labelledby="alert-dialog-title"
@@ -126,7 +127,7 @@ const MapView = () => {
         setOpen={setOpen}
         setIsSubmitted={setIsSubmitted}
       />
-    </>
+    </Box>
   );
 };
 

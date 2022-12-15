@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Alert, AlertTitle, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { Box, Modal } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
 import { useAuthContext } from "./context/UseAuthContext";
 
-interface MessageFormProps {
+interface IMessageFormProps {
   trailID: number;
   currentPosition: Object;
   open: boolean;
@@ -22,7 +22,9 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  pt: 2,
+  px: 4,
+  pb: 3,
 };
 
 const MessageForm = ({
@@ -30,14 +32,16 @@ const MessageForm = ({
   currentPosition,
   open,
   setOpen,
-  setIsSubmitted
-}: MessageFormProps) => {
-  const [value, setValue] = useState<string>("Write your message here");
+  setIsSubmitted,
+}: IMessageFormProps) => {
+  const [value, setValue] = useState<string>("Your message here");
+  const [error, setError] = useState<boolean>(false);
   const { userId } = useAuthContext();
 
   const handleClose = () => {
     setOpen(false);
-    setValue("Write your message here");
+    setError(false);
+    setValue("Your message here");
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +49,11 @@ const MessageForm = ({
   };
 
   const handleSubmit = async () => {
+    if (value === "Your message here" || !currentPosition["loaded"]) {
+      setError(true);
+      return;
+    }
+
     let current = new Date();
     await axios({
       method: "post",
@@ -66,34 +75,56 @@ const MessageForm = ({
     handleClose();
   };
 
-  return (
-    <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+  const SubmitButton = () => {
+    return (
+      <Button
+        variant="contained"
+        disableElevation
+        style={{ cursor: "pointer", zIndex: 99 }}
+        onClick={handleSubmit}
       >
-        <Box sx={style} style={{ cursor: "pointer" }}>
-          <TextField
-            id="outlined-multiline-static"
-            label="Message"
-            multiline
-            rows={4}
-            placeholder={value}
-            onChange={handleChange}
-          />
-          <button
-            type="button"
-            style={{ cursor: "pointer", zIndex: 99 }}
-            onClick={handleSubmit}
-            onTouchStart={handleSubmit}
-          >
-            Submit
-          </button>
-        </Box>
-      </Modal>
-    </>
+        Submit
+      </Button>
+    );
+  };
+
+  return (
+    <Modal
+      keepMounted
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Write Trail Message
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
+          Messages that condone violence, hate speech, harmful misinformation,
+          or criminal acts are subject to deletion, and the offending user will
+          be banned.
+        </Typography>
+        <TextField
+          sx={{ width: 1, mb: 2 }}
+          id="outlined-multiline-static"
+          label="Message"
+          multiline
+          rows={3}
+          placeholder={value}
+          onChange={handleChange}
+          InputProps={{ endAdornment: <SubmitButton /> }}
+        />
+        {error === true ? (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Cannot submit message - <strong>please try again later.</strong>
+          </Alert>
+        ) : (
+          <></>
+        )}
+      </Box>
+    </Modal>
   );
 };
 

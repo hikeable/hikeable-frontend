@@ -6,10 +6,10 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import L from "leaflet";
+import styles from "../styles/mapview.module.css";
 
 type MessageDataObject = {
   id: number;
@@ -101,13 +101,13 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
       (message, index) => index > mostRecentMessageIndex
     );
     setMessageData([...filteredData]);
+    setNewMessageData([]);
     setIsSubmitted(false);
   }, [newMessageData]);
 
   return (
-    <>
       <MapContainer
-        className={style.map}
+        className={styles.map__wrapper}
         center={[latNumber, lonNumber]}
         zoom={13}
         scrollWheelZoom={false}
@@ -131,7 +131,6 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
         })}
         <LocationMarker />
       </MapContainer>
-    </>
   );
 };
 
