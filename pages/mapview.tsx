@@ -103,6 +103,7 @@ const MapView = () => {
         lon={lon}
         trailID={trailID}
         isSubmitted={isSubmitted}
+        setIsSubmitted={setIsSubmitted}
       />
       <SpeedDial
         ariaLabel="SpeedDial basic example"

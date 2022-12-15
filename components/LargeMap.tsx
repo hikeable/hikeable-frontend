@@ -28,16 +28,17 @@ type LatLngObject = {
   lng: number;
 };
 
-const LargeMap = ({ lat, lon, trailID, isSubmitted }) => {
-  const [messageData, setInitialMessageData] = useState<MessageDataObject[]>(
-    []
-  );
+const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
+
+  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
+  const [newMessageData, setNewMessageData] = useState<MessageDataObject[]>([]);
   const [currentPosition, setCurrentPosition] = useState<LatLngObject | null>(
     null
   );
-  const [mostRecentMessage, setMostRecentMessage] = useState<number>(0);
+  const [mostRecentMessageIndex, setMostRecentMessageIndex] =
+    useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
 
   const messageIcon = L.icon({
@@ -56,11 +57,17 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted }) => {
   });
 
   const fetchMessageData = async () => {
+    if (isSubmitted) {
+      const fetchedMessageData = await axios.get(
+        `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
+      );
+      setNewMessageData(fetchedMessageData.data);
+    }
+
     const fetchedMessageData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
     );
-    setInitialMessageData(fetchedMessageData.data);
-    setMostRecentMessage(messageData.length);
+    setMessageData(fetchedMessageData.data);
   };
 
   const LocationMarker = () => {
@@ -82,12 +89,20 @@ const LargeMap = ({ lat, lon, trailID, isSubmitted }) => {
   };
 
   useEffect(() => {
-    if (isLoaded) fetchMessageData();
-  }, [isLoaded]);
+    if (isLoaded || isSubmitted) fetchMessageData();
+  }, [isLoaded, isSubmitted]);
 
   useEffect(() => {
-    if (isSubmitted) console.log("It's submitted");
-  }, [isSubmitted])
+    setMostRecentMessageIndex(messageData.length - 1);
+  }, [messageData]);
+
+  useEffect(() => {
+    const filteredData = newMessageData.filter(
+      (message, index) => index > mostRecentMessageIndex
+    );
+    setMessageData([...filteredData]);
+    setIsSubmitted(false);
+  }, [newMessageData]);
 
   return (
     <>
