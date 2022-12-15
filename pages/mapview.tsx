@@ -42,6 +42,7 @@ const MapView = () => {
     }
   );
   const [open, setOpen] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const successCallback = (position: object) => {
     setCurrentPosition({
@@ -97,7 +98,12 @@ const MapView = () => {
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <LargeMap lat={lat} lon={lon} trailID={trailID} />
+      <LargeMap
+        lat={lat}
+        lon={lon}
+        trailID={trailID}
+        isSubmitted={isSubmitted}
+      />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
         sx={{ position: "absolute", bottom: 16, right: 16 }}
@@ -113,11 +119,11 @@ const MapView = () => {
         ))}
       </SpeedDial>
       <MessageForm
-        userID={userID}
         trailID={trailID}
         currentPosition={currentPosition}
         open={open}
         setOpen={setOpen}
+        setIsSubmitted={setIsSubmitted}
       />
     </>
   );

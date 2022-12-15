@@ -6,11 +6,11 @@ import { Box, Modal } from "@mui/material";
 import { useAuthContext } from "./context/UseAuthContext";
 
 interface MessageFormProps {
-  userID: number;
   trailID: number;
   currentPosition: Object;
   open: boolean;
   setOpen: Function;
+  setIsSubmitted: Function;
 }
 
 const style = {
@@ -26,16 +26,14 @@ const style = {
 };
 
 const MessageForm = ({
-  userID,
   trailID,
   currentPosition,
   open,
   setOpen,
+  setIsSubmitted
 }: MessageFormProps) => {
   const [value, setValue] = useState<string>("Write your message here");
   const { userId } = useAuthContext();
-
-  const newID = userId;
 
   const handleClose = () => {
     setOpen(false);
@@ -45,18 +43,6 @@ const MessageForm = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-  let testdate = new Date();
-
-  console.log(currentPosition, "🍒🍒🍒");
-  console.log("userId =", newID);
-  console.log("trailID =", trailID);
-  console.log("latitude =", currentPosition["coordinates"]["latitude"]);
-  console.log("longitude =", currentPosition["coordinates"]["longitude"]);
-  console.log("msg =", value);
-  console.log(
-    "date =",
-    `${testdate.getFullYear()}-${testdate.getMonth() + 1}-${testdate.getDate()}`
-  );
 
   const handleSubmit = async () => {
     let current = new Date();
@@ -64,7 +50,7 @@ const MessageForm = ({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
       data: {
-        user: newID,
+        user: userId,
         trail_id: trailID,
         latitude: currentPosition["coordinates"]["latitude"],
         longitude: currentPosition["coordinates"]["longitude"],
@@ -76,6 +62,7 @@ const MessageForm = ({
         }-${current.getDate()}`,
       },
     });
+    setIsSubmitted(true);
     handleClose();
   };
 
@@ -87,7 +74,7 @@ const MessageForm = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} style={{cursor: "pointer"}}>
+        <Box sx={style} style={{ cursor: "pointer" }}>
           <TextField
             id="outlined-multiline-static"
             label="Message"

@@ -28,13 +28,17 @@ type LatLngObject = {
   lng: number;
 };
 
-const LargeMap = ({ lat, lon, trailID }) => {
-  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
+const LargeMap = ({ lat, lon, trailID, isSubmitted }) => {
+  const [messageData, setInitialMessageData] = useState<MessageDataObject[]>(
+    []
+  );
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
   const [currentPosition, setCurrentPosition] = useState<LatLngObject | null>(
     null
   );
+  const [mostRecentMessage, setMostRecentMessage] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState<boolean>(true);
 
   const messageIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
@@ -55,12 +59,9 @@ const LargeMap = ({ lat, lon, trailID }) => {
     const fetchedMessageData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
     );
-    setMessageData(fetchedMessageData.data);
+    setInitialMessageData(fetchedMessageData.data);
+    setMostRecentMessage(messageData.length);
   };
-
-  useEffect(() => {
-    fetchMessageData();
-  }, []);
 
   const LocationMarker = () => {
     const map = useMapEvents({
@@ -79,6 +80,14 @@ const LargeMap = ({ lat, lon, trailID }) => {
       </Marker>
     );
   };
+
+  useEffect(() => {
+    if (isLoaded) fetchMessageData();
+  }, [isLoaded]);
+
+  useEffect(() => {
+    if (isSubmitted) console.log("It's submitted");
+  }, [isSubmitted])
 
   return (
     <>
