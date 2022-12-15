@@ -123,10 +123,10 @@ const Achievements = () => {
                                 >
                                 <Avatar
                                     alt="One hike completed"
-                                    src={userBadges.includes("1st Hike")? badgeDict["1st Hike"] : badgeDict["Incomplete"]}
+                                    src={userBadges.includes("First Base")? badgeDict["First Base"] : badgeDict["Incomplete"]}
                                     sx={{ width: 84, height: 84 , margin: 0}}
                                 />
-                                <Chip label="1st Hike" /> 
+                                <Chip label="First Base" /> 
                             </Box>
 
                             <Box
