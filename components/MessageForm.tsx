@@ -25,6 +25,7 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
+  cursor: "pointer",
 };
 
 const MessageForm = ({
@@ -40,7 +41,6 @@ const MessageForm = ({
 
   const handleClose = () => {
     setError(false);
-    setIsSubmitted(true);
     setOpen(false);
   };
 
@@ -71,7 +71,8 @@ const MessageForm = ({
         }-${current.getDate()}`,
       },
     });
-    return handleClose();
+    setIsSubmitted(true);
+    handleClose();
   };
 
   const SubmitButton = () => {
