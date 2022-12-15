@@ -23,20 +23,18 @@ type MessageDataObject = {
   date: string;
 };
 
-type LatLngObject = {
-  lat: number;
-  lng: number;
-};
-
-const LargeMap = ({ lat, lon, trailID, isSubmitted, setIsSubmitted }) => {
+const LargeMap = ({
+  lat,
+  lon,
+  trailID,
+  isSubmitted,
+  setIsSubmitted,
+  currentPosition,
+  setCurrentPosition,
+}) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
-
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
-  const [currentPosition, setCurrentPosition] = useState<LatLngObject | null>(
-    null
-  );
-
   const messageIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
     iconSize: [25, 41],

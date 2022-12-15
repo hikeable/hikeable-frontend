@@ -49,7 +49,7 @@ const MessageForm = ({
   };
 
   const handleSubmit = async () => {
-    if (!currentPosition["loaded"]) {
+    if (!currentPosition) {
       setError(true);
       return;
     }
@@ -61,8 +61,8 @@ const MessageForm = ({
       data: {
         user: userId,
         trail_id: trailID,
-        latitude: currentPosition["coordinates"]["latitude"],
-        longitude: currentPosition["coordinates"]["longitude"],
+        latitude: currentPosition["lat"],
+        longitude: currentPosition["lng"],
         likes: 0,
         dislikes: 0,
         message: value,

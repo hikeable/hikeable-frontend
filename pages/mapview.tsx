@@ -17,12 +17,9 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
 
-type CurrentPositionObject = {
-  loaded: boolean;
-  coordinates: {
-    latitude: number | null;
-    longitude: number | null;
-  };
+type LatLngObject = {
+  lat: number | null;
+  lng: number | null;
 };
 
 const MapView = () => {
@@ -32,25 +29,17 @@ const MapView = () => {
   const lon = searchParams.get("lon");
   const trailID = Number(searchParams.get("trailID"));
   const [agree, setAgree] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState<CurrentPositionObject>(
-    {
-      loaded: false,
-      coordinates: {
-        latitude: null,
-        longitude: null,
-      },
-    }
-  );
+  const [currentPosition, setCurrentPosition] = useState<LatLngObject>({
+    lat: null,
+    lng: null,
+  });
   const [open, setOpen] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const successCallback = (position: object) => {
     setCurrentPosition({
-      loaded: true,
-      coordinates: {
-        latitude: position["coords"]["latitude"],
-        longitude: position["coords"]["longitude"],
-      },
+      lat: position["coords"]["latitude"],
+      lng: position["coords"]["longitude"],
     });
   };
 
@@ -106,6 +95,8 @@ const MapView = () => {
         trailID={trailID}
         isSubmitted={isSubmitted}
         setIsSubmitted={setIsSubmitted}
+        currentPosition={currentPosition}
+        setCurrentPosition={setCurrentPosition}
       />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
