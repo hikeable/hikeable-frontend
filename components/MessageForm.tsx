@@ -49,7 +49,7 @@ const MessageForm = ({
   };
 
   const handleSubmit = async () => {
-    if (!currentPosition) {
+    if (currentPosition["lat"] === null || currentPosition["lng"] === null) {
       setError(true);
       return;
     }
@@ -72,6 +72,7 @@ const MessageForm = ({
       },
     });
     setIsSubmitted(true);
+    setValue("");
     handleClose();
   };
 
