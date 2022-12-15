@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
+import useSWR from "swr";
 import { useEffect, useRef, useState, forwardRef } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import Link from "next/link";
@@ -14,7 +16,6 @@ import {
   SinglePageBreadcrumbs,
 } from "../components";
 // import { CompletedTrails } from "../components/CompletedTrails";
-// import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
 // import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
@@ -24,8 +25,7 @@ import Mountain2 from "../public/mountain_2.svg";
 import { Box, Container } from "@mui/material";
 import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
-import { LocationOn, Straighten, Speed, CameraAlt } from "@mui/icons-material";
-import { flexbox } from "@mui/system";
+import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 
 const _ = require("lodash");
 
@@ -40,8 +40,25 @@ type CurrentPositionObject = {
   longitude: number;
 };
 
+async function fetcher(url: string) {
+  const { data } = await axios.get(url);
+  return data;
+}
+
+function GetTrailData(path) {
+  const { data, error } = useSWR(
+    `https://hikeable-backend.herokuapp.com/api/trails/${path}`,
+    fetcher
+  );
+  return data;
+}
+
 const SingleTrail = () => {
   const router = useRouter();
+  const idFromPath = usePathname()?.split("/")[2];
+  const singleTrailData = GetTrailData(idFromPath);
+  console.log(singleTrailData);
+
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
   const [currentPosition, setCurrentPosition] = useState<
@@ -54,28 +71,29 @@ const SingleTrail = () => {
   // console.log ("testId =",trailName)
   // const trailId =useRef(trail?.id)
   const trailId = trail?.id.toString();
+
   // console.log ("trail = ",trail, "trailId =",trailId)
   // console.log (userNameTag)
 
+  console.log(trail);
+
+  // useEffect(() => {
+  //   if (router.query.trail !== undefined) {
+  //     setTrail(JSON.parse(router.query.trail as string));
+  //   } else {
+  //     return;
+  //   }
+  // }, []);
+
   useEffect(() => {
-    if (router.query.trail !== undefined) {
-      setTrail(JSON.parse(router.query.trail as string));
-    } else {
-      return;
+    if (singleTrailData !== undefined) {
+      setTrail(singleTrailData[0]);
     }
   }, []);
 
   return (
     trail && (
-      <Container sx={{ mb: 5 }}>
-        <Button
-          variant="soft"
-          onClick={() => {
-            router.back();
-          }}
-        >
-          Back
-        </Button>
+      <Container sx={{ mb: 5, mt: 10 }}>
         <SinglePageBreadcrumbs
           name={trail.name}
           prefecture={trail.prefecture}

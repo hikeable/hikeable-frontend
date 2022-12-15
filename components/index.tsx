@@ -12,6 +12,7 @@ export * from "./SinglePageBreadcrumbs";
 export * from "./MessageForm";
 export * from "./Weather";
 export * from "./photoGallery";
+export * from "./PhotoPageBreadcrumbs";
 
 import dynamic from "next/dynamic";
 
