@@ -2,16 +2,21 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState, forwardRef } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import Link from "next/link";
-import Image from "next/image";
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import axios from "axios";
 import { Trail } from "../global";
 import styles from "../styles/singletrail.module.css";
-import { Likes } from "../components/Likes";
-import { CompletedTrails } from "../components/CompletedTrails";
-import { Weather } from "../components/Weather";
+import {
+  Likes,
+  CompletedTrails,
+  Weather,
+  TrailMap,
+  SinglePageBreadcrumbs,
+} from "../components";
+// import { CompletedTrails } from "../components/CompletedTrails";
+// import { Weather } from "../components/Weather";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import { TrailMap } from "../components";
+// import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
@@ -71,8 +76,12 @@ const SingleTrail = () => {
         >
           Back
         </Button>
+        <SinglePageBreadcrumbs
+          name={trail.name}
+          prefecture={trail.prefecture}
+        />
         <BrowserView>
-          <Box sx={{ display: "flex", flexDirection: "row", mb: 2 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", mt: 4, mb: 2 }}>
             <Box
               sx={{
                 display: "flex",
@@ -153,12 +162,13 @@ const SingleTrail = () => {
                   {trail.name}
                 </Typography>
               </Box>
-              <Container
+              <Box
                 sx={{
+                  width: "100%",
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "space-between",
+                  justifyContent: "space-around",
                   mb: 3,
                 }}
               >
@@ -180,7 +190,7 @@ const SingleTrail = () => {
                 >
                   {difficultyObj[trail.difficulty]}
                 </Typography>
-              </Container>
+              </Box>
               <Container
                 sx={{
                   width: "100%",

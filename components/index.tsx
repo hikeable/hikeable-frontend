@@ -8,11 +8,13 @@ export * from "./login";
 export * from "./Landing";
 export * from "./Logo";
 export * from "./TrailCardMobile";
+export * from "./SinglePageBreadcrumbs";
+export * from "./MessageForm";
+export * from "./Weather";
+export * from "./photoGallery";
 
 import dynamic from "next/dynamic";
 
 export const TrailMap = dynamic(() => import("./TrailMap"), {
   ssr: false,
 });
-
-export * from "./photoGallery";
