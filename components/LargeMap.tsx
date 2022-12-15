@@ -36,7 +36,7 @@ const LargeMap = ({ lat, lon, trailID }) => {
     null
   );
 
-  const leafletIcon = L.icon({
+  const messageIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
@@ -99,7 +99,7 @@ const LargeMap = ({ lat, lon, trailID }) => {
             <Marker
               key={message.id}
               position={[messageLatNumber, messageLonNumber]}
-              icon={leafletIcon}
+              icon={messageIcon}
             >
               <Popup>{message.message}</Popup>
             </Marker>
