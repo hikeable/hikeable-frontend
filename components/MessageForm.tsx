@@ -8,8 +8,8 @@ import { useAuthContext } from "./context/UseAuthContext";
 interface MessageFormProps {
   trailID: number;
   currentPosition: Object;
-  open: boolean;
-  setOpen: Function;
+  formOpen: boolean;
+  setFormOpen: Function;
   setIsSubmitted: Function;
 }
 
@@ -31,8 +31,8 @@ const style = {
 const MessageForm = ({
   trailID,
   currentPosition,
-  open,
-  setOpen,
+  formOpen,
+  setFormOpen,
   setIsSubmitted,
 }: MessageFormProps) => {
   const [value, setValue] = useState<string>("");
@@ -41,7 +41,7 @@ const MessageForm = ({
 
   const handleClose = () => {
     setError(false);
-    setOpen(false);
+    setFormOpen(false);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +93,7 @@ const MessageForm = ({
   return (
     <Modal
       keepMounted
-      open={open}
+      open={formOpen}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

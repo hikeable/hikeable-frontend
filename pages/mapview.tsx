@@ -16,6 +16,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
+import MessageRating from "../components/MessageRating";
 
 type LatLngObject = {
   lat: number | null;
@@ -33,7 +34,7 @@ const MapView = () => {
     lat: null,
     lng: null,
   });
-  const [open, setOpen] = useState<boolean>(false);
+  const [formOpen, setFormOpen] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const successCallback = (position: object) => {
@@ -63,7 +64,7 @@ const MapView = () => {
     {
       name: "Write Message",
       icon: <MessageIcon />,
-      onclick: () => setOpen(true),
+      onclick: () => setFormOpen(true),
     },
   ];
 
@@ -115,10 +116,11 @@ const MapView = () => {
       <MessageForm
         trailID={trailID}
         currentPosition={currentPosition}
-        open={open}
-        setOpen={setOpen}
+        formOpen={formOpen}
+        setFormOpen={setFormOpen}
         setIsSubmitted={setIsSubmitted}
       />
+      <MessageRating />
     </Box>
   );
 };
