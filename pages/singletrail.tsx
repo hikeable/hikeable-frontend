@@ -70,11 +70,11 @@ const SingleTrail = () => {
   return (
     trail && (
       <Container sx={{ mb: 5, mt: 10 }}>
-        <SinglePageBreadcrumbs
-          name={trail.name}
-          prefecture={trail.prefecture}
-        />
         <BrowserView>
+          <SinglePageBreadcrumbs
+            name={trail.name}
+            prefecture={trail.prefecture}
+          />
           <Box sx={{ display: "flex", flexDirection: "row", mt: 4, mb: 2 }}>
             <Box
               sx={{
@@ -189,7 +189,7 @@ const SingleTrail = () => {
                 sx={{
                   width: "100%",
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "space-around",
                 }}
               >
                 <Likes userID={userId} trailID={trail.id} />
