@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Alert, AlertTitle, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { Box, Modal } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface MessageFormProps {
   trailID: number;
-  userID: number | undefined;
-  currentPosition: Array<Object>;
-  setCurrentPosition: Function;
+  currentPosition: Object;
+  open: boolean;
+  setOpen: Function;
+  setIsSubmitted: Function;
 }
 
 const style = {
@@ -20,43 +22,26 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  pt: 2,
+  px: 4,
+  pb: 3,
+  cursor: "pointer",
 };
 
 const MessageForm = ({
-  userID,
   trailID,
   currentPosition,
-  setCurrentPosition,
+  open,
+  setOpen,
+  setIsSubmitted,
 }: MessageFormProps) => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string>("Write your message here");
-
-  const successCallback = (position: object) => {
-    setCurrentPosition([
-      ...currentPosition,
-      {
-        latitude: position["coords"]["latitude"],
-        longitude: position["coords"]["longitude"],
-      },
-    ]);
-  };
-
-  const errorCallback = (error: object) => {
-    console.error(error);
-  };
-
-  const handleOpen = () => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
-      enableHighAccuracy: true,
-      timeout: 10000,
-    });
-    setOpen(true);
-  };
+  const [value, setValue] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+  const { userId } = useAuthContext();
 
   const handleClose = () => {
+    setError(false);
     setOpen(false);
-    setValue("Write your message here");
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,16 +49,20 @@ const MessageForm = ({
   };
 
   const handleSubmit = async () => {
-    let recentPositionIndex = currentPosition.length - 1;
+    if (currentPosition["lat"] === null || currentPosition["lng"] === null) {
+      setError(true);
+      return;
+    }
+
     let current = new Date();
     await axios({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
       data: {
-        user: userID,
+        user: userId,
         trail_id: trailID,
-        latitude: currentPosition[recentPositionIndex]["latitude"],
-        longitude: currentPosition[recentPositionIndex]["longitude"],
+        latitude: currentPosition["lat"],
+        longitude: currentPosition["lng"],
         likes: 0,
         dislikes: 0,
         message: value,
@@ -82,33 +71,65 @@ const MessageForm = ({
         }-${current.getDate()}`,
       },
     });
+    setIsSubmitted(true);
+    setValue("");
     handleClose();
   };
 
-  return (
-    <>
-      <Button onClick={handleOpen}>Write Message</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+  const SubmitButton = () => {
+    return (
+      <Button
+        variant="contained"
+        disableElevation
+        style={{ cursor: "pointer", zIndex: 99 }}
+        onClick={handleSubmit}
+        onTouchStart={handleSubmit}
       >
-        <Box sx={style}>
-          <TextField
-            id="outlined-multiline-static"
-            label="Message"
-            multiline
-            rows={4}
-            placeholder={value}
-            onChange={handleChange}
-          />
-          <Button variant="outlined" onClick={handleSubmit}>
-            Submit
-          </Button>
-        </Box>
-      </Modal>
-    </>
+        Submit
+      </Button>
+    );
+  };
+
+  return (
+    <Modal
+      keepMounted
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Write Trail Message
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
+          Messages that condone violence, hate speech, harmful misinformation,
+          or criminal acts are subject to deletion, and the offending user will
+          be banned.
+        </Typography>
+        <TextField
+          sx={{ width: 1, mb: 2 }}
+          id="outlined-multiline-static"
+          label="Message"
+          multiline
+          rows={3}
+          placeholder={"Your message here"}
+          value={value}
+          onChange={handleChange}
+          InputProps={{ endAdornment: <SubmitButton /> }}
+        />
+        {error === true ? (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Cannot get location - please ensure{" "}
+            <strong>Location Services</strong> are enabled on your device, or
+            try again later.
+          </Alert>
+        ) : (
+          <></>
+        )}
+      </Box>
+    </Modal>
   );
 };
 

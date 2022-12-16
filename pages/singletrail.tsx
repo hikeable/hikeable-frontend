@@ -1,21 +1,19 @@
 import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
-import useSWR from "swr";
 import { useEffect, useRef, useState, forwardRef } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import Link from "next/link";
 import { CldImage, CldUploadButton } from "next-cloudinary";
-import axios from "axios";
 import { Trail } from "../global";
 import styles from "../styles/singletrail.module.css";
 import {
   Likes,
   CompletedTrails,
   Weather,
-  TrailMap,
   SinglePageBreadcrumbs,
 } from "../components";
 import { useAuthContext } from "../components/context/UseAuthContext";
+import axios from "axios";
+import { SmallMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
@@ -33,19 +31,11 @@ const difficultyObj = {
   3: "Hard",
 };
 
-type CurrentPositionObject = {
-  latitude: number;
-  longitude: number;
-};
-
 const SingleTrail = () => {
   const router = useRouter();
 
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
-  const [currentPosition, setCurrentPosition] = useState<
-    CurrentPositionObject[]
-  >([]);
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
@@ -56,8 +46,7 @@ const SingleTrail = () => {
 
   // console.log ("trail = ",trail, "trailId =",trailId)
   // console.log (userNameTag)
-
-  console.log(trail);
+  const userID = userId?.toString();
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -220,7 +209,6 @@ const SingleTrail = () => {
                 {trail.name}
               </Typography>
             </Box>
-
             <img
               src={trail.photo_url}
               alt={trail.name}
@@ -249,7 +237,6 @@ const SingleTrail = () => {
               >
                 Upload {trail.name} photo
               </CldUploadButton>
-
               <Link
                 className={styles.card__link}
                 href={{
@@ -328,19 +315,22 @@ const SingleTrail = () => {
         </MobileView>
         <Weather lat={trail.latitude} lon={trail.longitude} name={trail.name} />
 
-        <TrailMap
-          currentPosition={currentPosition}
-          setCurrentPosition={setCurrentPosition}
-          lat={trail.latitude}
-          lon={trail.longitude}
-          trailID={trail.id}
-        />
-        <MessageForm
-          currentPosition={currentPosition}
-          setCurrentPosition={setCurrentPosition}
-          userID={userId}
-          trailID={trail.id}
-        />
+        <Box>
+          <SmallMap lat={trail.latitude} lon={trail.longitude} />
+          <Link
+            href={{
+              pathname: "/mapview",
+              query: {
+                lat: trail.latitude,
+                lon: trail.longitude,
+                trailID: trail.id,
+                userID: userId,
+              },
+            }}
+          >
+            Interactive Mode
+          </Link>
+        </Box>
 
         <Box
           sx={{
