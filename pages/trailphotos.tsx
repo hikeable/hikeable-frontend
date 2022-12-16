@@ -12,14 +12,14 @@ const TrailPhotos = () => {
   return (
     <>
       <Container>
-        {/* <Button
+        <Button
           variant="contained"
           onClick={() => {
             router.back();
           }}
         >
-          Back
-        </Button> */}
+          Back to trail page
+        </Button>
         {/* <PhotoPageBreadcrumbs
           name={trailName}
           prefecture={prefecture}

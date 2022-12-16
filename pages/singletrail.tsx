@@ -15,9 +15,7 @@ import {
   TrailMap,
   SinglePageBreadcrumbs,
 } from "../components";
-// import { CompletedTrails } from "../components/CompletedTrails";
 import { useAuthContext } from "../components/context/UseAuthContext";
-// import { TrailMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import SingleProduct from "../components/photoGallery";
 import PhotoGallery from "../components/photoGallery";
@@ -40,24 +38,8 @@ type CurrentPositionObject = {
   longitude: number;
 };
 
-async function fetcher(url: string) {
-  const { data } = await axios.get(url);
-  return data;
-}
-
-function GetTrailData(path) {
-  const { data, error } = useSWR(
-    `https://hikeable-backend.herokuapp.com/api/trails/${path}`,
-    fetcher
-  );
-  return data;
-}
-
 const SingleTrail = () => {
   const router = useRouter();
-  const idFromPath = usePathname()?.split("/")[2];
-  const singleTrailData = GetTrailData(idFromPath);
-  console.log(singleTrailData);
 
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
@@ -77,17 +59,11 @@ const SingleTrail = () => {
 
   console.log(trail);
 
-  // useEffect(() => {
-  //   if (router.query.trail !== undefined) {
-  //     setTrail(JSON.parse(router.query.trail as string));
-  //   } else {
-  //     return;
-  //   }
-  // }, []);
-
   useEffect(() => {
-    if (singleTrailData !== undefined) {
-      setTrail(singleTrailData[0]);
+    if (router.query.trail !== undefined) {
+      setTrail(JSON.parse(router.query.trail as string));
+    } else {
+      return;
     }
   }, []);
 
@@ -209,7 +185,7 @@ const SingleTrail = () => {
                   {difficultyObj[trail.difficulty]}
                 </Typography>
               </Box>
-              <Container
+              <Box
                 sx={{
                   width: "100%",
                   display: "flex",
@@ -218,7 +194,7 @@ const SingleTrail = () => {
               >
                 <Likes userID={userId} trailID={trail.id} />
                 <CompletedTrails userID={userId} trailID={trail.id} />
-              </Container>
+              </Box>
             </Box>
           </Box>
           <Box

@@ -93,7 +93,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           <>
             <Tooltip title="Mark as incomplete">
               <IconButton aria-label="favorite" onClick={handleCompletion}>
-                <CheckBoxIcon></CheckBoxIcon>
+                <CheckBoxIcon sx={{ fontSize: "2.5rem" }}></CheckBoxIcon>
               </IconButton>
             </Tooltip>
           </>
@@ -104,7 +104,9 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
                 aria-label="favorite-outline"
                 onClick={handleCompletion}
               >
-                <CheckBoxOutlineBlankIcon></CheckBoxOutlineBlankIcon>
+                <CheckBoxOutlineBlankIcon
+                  sx={{ fontSize: "2.5rem" }}
+                ></CheckBoxOutlineBlankIcon>
               </IconButton>
             </Tooltip>
           </>
