@@ -26,7 +26,15 @@ const MessageDetails = ({
   setMessageDetails,
 }: MessageRatingProps) => {
   const handleClose = () => {
-    setMessageDetails(messageDetails["selected"] === false);
+    setMessageDetails({
+      selected: "false",
+      data: {
+        message: null,
+        likes: null,
+        dislikes: null,
+        date: null,
+      },
+    });
   };
 
   return (
@@ -39,6 +47,9 @@ const MessageDetails = ({
     >
       <Box sx={style}>
         <Typography>{messageDetails["data"]["message"]}</Typography>
+        <Typography>Likes: {messageDetails["data"]["likes"]}</Typography>
+        <Typography>Dislikes: {messageDetails["data"]["dislikes"]}</Typography>
+        <Typography>Date: {messageDetails["data"]["date"]}</Typography>
       </Box>
     </Modal>
   );
