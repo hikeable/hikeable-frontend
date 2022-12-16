@@ -32,7 +32,7 @@ const LargeMap = ({
   setIsSubmitted,
   currentPosition,
   setCurrentPosition,
-  setRatingOpen,
+  setMessageDetails,
 }) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
@@ -112,7 +112,7 @@ const LargeMap = ({
           >
             <Popup>
               {message.message}{" "}
-              <MessageIcon message={message} setRatingOpen={setRatingOpen} />
+              <MessageIcon message={message} setMessageDetails={setMessageDetails} />
             </Popup>
           </Marker>
         );

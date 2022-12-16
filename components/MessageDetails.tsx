@@ -1,9 +1,18 @@
+import { useEffect } from "react";
+
 interface MessageRatingProps {
-  ratingOpen: Object;
-  setRatingOpen: Function;
+  messageDetails: Object;
+  setMessageDetails: Function;
 }
 
-const MessageDetails = ({ ratingOpen, setRatingOpen }: MessageRatingProps) => {
+const MessageDetails = ({
+  messageDetails,
+  setMessageDetails,
+}: MessageRatingProps) => {
+  useEffect(() => {
+    console.log(messageDetails);
+  }, [messageDetails]);
+
   return <>Test</>;
 };
 

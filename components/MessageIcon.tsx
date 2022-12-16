@@ -3,16 +3,24 @@ import MoreIcon from "@mui/icons-material/More";
 
 interface MessageIconProps {
   message: Object;
-  setRatingOpen: Function;
+  setMessageDetails: Function;
 }
 
-const MessageIcon = ({ message, setRatingOpen }: MessageIconProps) => {
-  const Console = () => {
-    console.log(message);
+const MessageIcon = ({ message, setMessageDetails }: MessageIconProps) => {
+  const handleMessageDetails = () => {
+    setMessageDetails({
+      selected: true,
+      data: {
+        message: message["message"],
+        likes: message["likes"],
+        dislikes: message["dislikes"],
+        date: message["date"],
+      },
+    });
   };
 
   return (
-    <IconButton onClick={Console}>
+    <IconButton onClick={handleMessageDetails}>
       <MoreIcon />
     </IconButton>
   );
