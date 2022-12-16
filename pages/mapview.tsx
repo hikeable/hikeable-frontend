@@ -16,7 +16,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
-import MessageRating from "../components/MessageRating";
+import MessageRating from "../components/MessageDetails";
 
 type LatLngObject = {
   lat: number | null;
@@ -36,6 +36,15 @@ const MapView = () => {
   });
   const [formOpen, setFormOpen] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [ratingOpen, setRatingOpen] = useState<Object>({
+    selected: false,
+    data: {
+      message: null,
+      likes: null,
+      dislikes: null,
+      date: null,
+    },
+  });
 
   const successCallback = (position: object) => {
     setCurrentPosition({
@@ -98,6 +107,7 @@ const MapView = () => {
         setIsSubmitted={setIsSubmitted}
         currentPosition={currentPosition}
         setCurrentPosition={setCurrentPosition}
+        setRatingOpen={setRatingOpen}
       />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
@@ -120,7 +130,7 @@ const MapView = () => {
         setFormOpen={setFormOpen}
         setIsSubmitted={setIsSubmitted}
       />
-      <MessageRating />
+      {/* <MessageRating ratingOpen={ratingOpen} setRatingOpen={setRatingOpen} /> */}
     </Box>
   );
 };
