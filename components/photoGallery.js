@@ -25,7 +25,7 @@ const PhotoGallery = ({ trailId, trailName}) => {
       // borderWidth:1,
       // borderColor:"black",
       displayProps:{
-        mode:"expanded",
+        // mode:"expanded",
         topOffset: 70
       },
       thumbnailProps: {
@@ -36,10 +36,28 @@ const PhotoGallery = ({ trailId, trailName}) => {
         borderColor:"black",
         borderWidth:1
       },
-      zoomProps: {
-        type:"inline"
-      },
-      mediaAssets: [{ tag: trailId }],
+      // zoomProps: {
+      //   type:"inline"
+      // },
+      mediaAssets: [{ tag: trailId,
+        transformation :{
+          crop:"fill",
+          transformation:[{
+          
+            overlay: {
+              text: {"ctx":"name"},
+              font_size: 20,
+              font_family: 'Roboto',
+              font_color: 'red',
+              // gravity: 'south',
+              // x: 10,
+              // y: 0.05
+            }
+          }
+            
+          ]
+        } 
+      }],
     });
     // console.log (typeof trailId, trailId, "🍒🍒🍒")
     if (!cloudnaryGalleryRef.current && typeof window !== 'undefined') {
