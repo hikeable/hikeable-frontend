@@ -93,7 +93,11 @@ const MessageDetails = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        <Typography>Message: {messageDetails["data"]["message"]}</Typography>
         <MessageThumbUp isLiked={isLiked} setIsLiked={setIsLiked} />
+        <Typography>
+          Likes: <>{numberOfLikes}</>
+        </Typography>
       </Box>
     </Modal>
   );
