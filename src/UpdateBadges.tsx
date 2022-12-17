@@ -16,8 +16,6 @@ const addBadge =  async (userId: number | undefined, badge: string) => {
     })
 }
 
-
-
 const updateBadges = async (userId: number | undefined) => {
     // const fetchCompletionData = await axios.get(
     //     `https://hikeable-backend.herokuapp.com/api/users/${userId}/completedTrails`
