@@ -22,6 +22,7 @@ const MessageThumbUp = ({
   setIsLiked,
 }: MessageThumbUpProps) => {
   const handleClick = async () => {
+    const messageID = messageDetails["data"]["id"];
     let current = new Date();
 
     if (!recordExists) {
@@ -39,7 +40,38 @@ const MessageThumbUp = ({
         },
       });
       setIsLiked(true);
-      setRecordExists(true);
+    } else if (isLiked && recordExists) {
+      await axios({
+        method: "put",
+        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${messageID}`,
+        data: {
+          user: userId,
+          message_id: messageDetails["data"]["id"],
+          value: 0,
+          // needs to be fixed
+          create_date: `${current.getFullYear()}-${
+            current.getMonth() + 1
+          }-${current.getDate()}`,
+          update_date: null,
+        },
+      });
+      setIsLiked(false);
+    } else if (!isLiked && recordExists) {
+      await axios({
+        method: "put",
+        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${messageID}`,
+        data: {
+          user: userId,
+          message_id: messageDetails["data"]["id"],
+          value: 1,
+          // needs to be fixed
+          create_date: `${current.getFullYear()}-${
+            current.getMonth() + 1
+          }-${current.getDate()}`,
+          update_date: null,
+        },
+      });
+      setIsLiked(false);
     }
   };
 
