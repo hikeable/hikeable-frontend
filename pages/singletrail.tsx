@@ -241,7 +241,8 @@ const SingleTrail = () => {
                 }}
                 options={{
                   folder: trail.name,
-                  tags: [trail.id, userNameTag],
+                  tags: [trail.id],
+                  context: {name:firstName, date:date}
                 }}
               >
                 Upload {trail.name} photo
