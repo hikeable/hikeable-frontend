@@ -28,9 +28,7 @@ const updateBadges = async (userId: number | undefined) => {
     const fetchCompletionData = result.data.filter((completions) => completions.user === userId)  
     console.log("🐓 completionsData");
     console.log(fetchCompletionData);
-    // .then( (response) => {
-    //         setCompleted(result); 
-    //     });
+
     const numberOfCompletions = fetchCompletionData.length;
 
     //first check if the badge already exists...
@@ -42,27 +40,33 @@ const updateBadges = async (userId: number | undefined) => {
     console.log("👻trying before the cases");
     console.log("number Of completions are : " , numberOfCompletions);
 
-    switch (numberOfCompletions){
+    switch (true){
 
-        case 1 :
-            if (!listOfBadges.includes("First Base")){
-                addBadge(userId, "First Base");
-            };
-
-        case 2 :
-            if (!listOfBadges.includes("First Base")){
-                addBadge(userId, "Power of Two");
-            };
-        
-        case 3 :
-            if (!listOfBadges.includes("Hat-trick")){
-                addBadge(userId, "Hat-trick");
-            };
-        
-        case 4 :
+        case (numberOfCompletions >= 7) :
             if (!listOfBadges.includes("Lucky Number 7")){
                 addBadge(userId, "Lucky Number 7");
             };
+
+        case ( (numberOfCompletions > 2) && (numberOfCompletions < 7)) :
+            if (!listOfBadges.includes("Hat-trick")){
+                addBadge(userId, "Hat-trick");
+            };
+            
+        
+        case ((numberOfCompletions > 1) && (numberOfCompletions <= 2)) :
+                if (!listOfBadges.includes("First Base")){
+                    addBadge(userId, "Power of Two");
+                };
+
+
+        case (numberOfCompletions === 1) :
+            if (!listOfBadges.includes("First Base")){
+                addBadge(userId, "First Base");
+            };
+            break;
+
+        
+        
     }
 
 
