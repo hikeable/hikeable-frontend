@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
-import { Paper, Button, Modal, TextField, Box, List, ListItem, Dialog, DialogContent} from '@mui/material';
+import React, { useEffect,useState } from 'react';
+import { Paper, Button, Modal, TextField, Box, List, ListItem, Dialog, DialogContent, ListItemText} from '@mui/material';
 import { Typography } from "@mui/joy";
 import axios from 'axios';
 import { useAuthContext } from './context/UseAuthContext';
-import { Interface } from 'readline';
 
 
-interface ScrollableTextProps{
+
+interface ScrollableTextProps {
   trailID: number;
+}
+
+type commentsDataObject = {
+  id: number,
+  user: number,
+  trail_id: number,
+  comment: string,
+  date: string
 }
 
 const ScrollableText = ({
   trailID}: ScrollableTextProps) => {
   const [value,setValue] = useState("")
-  const [text, setText] = useState('');
+  const [comments, setComments] = useState<commentsDataObject[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const {userId} = useAuthContext()
+  const {user,userId} = useAuthContext()
 
-  const comments = [{id:1, text:"first one"}, {id:2, text:"second one"},{id:3, text:"third one"}, {id:4, text:"forth one"}, {id:5, text:"fifth one"} ]
+  const userNameTag = user?.displayName;
+  let firstName
+  if (userNameTag){
+    const split =userNameTag.split(" ")
+    firstName =  split[0]
+  }
+
   
   
-
-
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -51,11 +63,20 @@ const ScrollableText = ({
 
   const handleSubmit = async () => {
     let current = new Date();
+    console.log ("userId =",userId)
+    console.log ("trail_id =",trailID)
+    console.log ("username =",firstName)
+
+    console.log ("date =",  `${current.getFullYear()}-${
+      current.getMonth() + 1
+    }-${current.getDate()}`)
+
     await axios({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/comments",
       data: {
         user: userId,
+        username: firstName,
         trail_id: trailID,
         comment:value,
         date: `${current.getFullYear()}-${
@@ -68,10 +89,25 @@ const ScrollableText = ({
     handleModalClose();
   };
 
-  const getComments = async () => {
-    const response = await axios.get('https://hikeable-backend.herokuapp.com/api/trails/comments');
-  return response.data;
-  }
+
+  useEffect(()=>{
+    fetchComments()
+  },[])
+
+  // "api/trails/<int:pk>/comments"
+  const fetchComments = async () => {
+    const fetchedCommentsData = await axios.get(
+      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments`
+    );
+    console.log (fetchedCommentsData.data)
+    if (!comments) {
+      setComments(fetchedCommentsData.data);
+    } else {
+      
+      setComments([...fetchedCommentsData.data]);
+    }
+  };
+
 
   const SubmitButton = () => {
     return (
@@ -79,7 +115,12 @@ const ScrollableText = ({
         variant="contained"
         disableElevation
         style={{ cursor: "pointer", zIndex: 99 }}
-        onClick={handleSubmit}
+        onClick={()=>{
+          handleSubmit() 
+          fetchComments()
+          fetchComments()
+
+        }}
         onTouchStart={handleSubmit}
       >
         Submit
@@ -125,9 +166,12 @@ const ScrollableText = ({
         <Typography>Comments for Trail</Typography>
         <List>
         {comments.map((comment) => (
-        <ListItem key={comment.id}>{comment.text}</ListItem>
+          <ListItemText key={comment.id}> * {comment.date} {comment.comment} {comment.trail_id}</ListItemText>
       ))}
-        {value}
+      
+       
+
+        {/* {value} */}
 
         </List>
           
@@ -135,7 +179,7 @@ const ScrollableText = ({
       {/* <Dialog open={open} onClose={handleClose}>
   <DialogContent>
     <List style={{ maxHeight: '50vh', overflow: 'auto' }}>
-      {comments.map((comment) => (
+      {commentss.map((comment) => (
         <ListItem key={comment.id}>{comment.text}</ListItem>
       ))}
     </List>
