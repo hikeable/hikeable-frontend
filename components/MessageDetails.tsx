@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Box, Typography } from "@mui/material";
+import axios from "axios";
 
 interface MessageRatingProps {
   messageDetails: Object;
@@ -25,6 +26,9 @@ const MessageDetails = ({
   messageDetails,
   setMessageDetails,
 }: MessageRatingProps) => {
+  const [data, setData] = useState<Object>([]);
+  const [messageID, setMessageID] = useState<Number>(0);
+
   const handleClose = () => {
     setMessageDetails({
       selected: "false",
@@ -35,9 +39,26 @@ const MessageDetails = ({
     });
   };
 
-  const fetchUserLikeData = () => {};
+  const fetchMessageLikeData = async () => {
+    const fetchedMessageLikeData = await axios.get(
+      `https://hikeable-backend.herokuapp.com/api/trails/messages/${messageID}/likes`
+    );
+    setData(fetchedMessageLikeData.data);
+  };
 
-  useEffect(() => {}, [messageDetails["selected"] === true]);
+  useEffect(() => {
+    if (messageDetails["selected"] === true) {
+      setMessageID(messageDetails["data"]["id"]);
+    }
+  }, [messageDetails]);
+
+  useEffect(() => {
+    fetchMessageLikeData();
+  }, [messageID]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data])
 
   return (
     <Modal
@@ -49,7 +70,7 @@ const MessageDetails = ({
     >
       <Box sx={style}>
         <Typography>{messageDetails["data"]["message"]}</Typography>
-        <Typography>Date: {messageDetails["data"]["date"]}</Typography>
+        <Typography>ID: {messageDetails["data"]["id"]}</Typography>
       </Box>
     </Modal>
   );

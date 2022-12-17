@@ -11,6 +11,7 @@ const MessageIcon = ({ message, setMessageDetails }: MessageIconProps) => {
     setMessageDetails({
       selected: true,
       data: {
+        id: message["id"],
         message: message["message"],
         date: message["date"],
       },
