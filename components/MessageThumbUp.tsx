@@ -11,6 +11,7 @@ interface MessageThumbUpProps {
   userId: number | undefined;
   isLiked: boolean;
   setIsLiked: Function;
+  likeID: number;
 }
 
 const MessageThumbUp = ({
@@ -20,9 +21,11 @@ const MessageThumbUp = ({
   userId,
   isLiked,
   setIsLiked,
+  likeID,
 }: MessageThumbUpProps) => {
   const handleClick = async () => {
     const messageID = messageDetails["data"]["id"];
+    
     let current = new Date();
 
     if (!recordExists) {
@@ -31,7 +34,7 @@ const MessageThumbUp = ({
         url: "https://hikeable-backend.herokuapp.com/api/trails/messages/likes",
         data: {
           user: userId,
-          message_id: messageDetails["data"]["id"],
+          message_id: messageID,
           value: 1,
           create_date: `${current.getFullYear()}-${
             current.getMonth() + 1
@@ -40,13 +43,14 @@ const MessageThumbUp = ({
         },
       });
       setIsLiked(true);
+      setRecordExists(true);
     } else if (isLiked && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${messageID}`,
+        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${likeID}`,
         data: {
           user: userId,
-          message_id: messageDetails["data"]["id"],
+          message_id: messageID,
           value: 0,
           // needs to be fixed
           create_date: `${current.getFullYear()}-${
@@ -59,10 +63,10 @@ const MessageThumbUp = ({
     } else if (!isLiked && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${messageID}`,
+        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${likeID}`,
         data: {
           user: userId,
-          message_id: messageDetails["data"]["id"],
+          message_id: messageID,
           value: 1,
           // needs to be fixed
           create_date: `${current.getFullYear()}-${
@@ -71,8 +75,9 @@ const MessageThumbUp = ({
           update_date: null,
         },
       });
-      setIsLiked(false);
+      setIsLiked(true);
     }
+    console.log(messageID);
   };
 
   return (
@@ -85,7 +90,7 @@ const MessageThumbUp = ({
         </>
       ) : (
         <>
-          <IconButton>
+          <IconButton onClick={handleClick}>
             <ThumbUpOutlinedIcon />
           </IconButton>
         </>

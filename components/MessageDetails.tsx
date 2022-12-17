@@ -38,10 +38,11 @@ const MessageDetails = ({
   setMessageDetails,
 }: MessageRatingProps) => {
   const [data, setData] = useState<messageLikeObject[]>([]);
-  const [messageID, setMessageID] = useState<Number>(0);
+  const [messageID, setMessageID] = useState<number>(0);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [numberOfLikes, setNumberOfLikes] = useState<Number>(0);
+  const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
+  const [likeID, setLikeID] = useState<number>(0);
   const { userId } = useAuthContext();
 
   const handleClose = () => {
@@ -66,7 +67,10 @@ const MessageDetails = ({
     return data.map((record) => {
       if (record["user"] === userId) {
         setRecordExists(true);
-        if (record["value"] === 1) setIsLiked(true);
+        setLikeID(record["id"]);
+        if (record["value"] === 1) {
+          setIsLiked(true);
+        }
       }
 
       count += record["value"];
@@ -82,7 +86,7 @@ const MessageDetails = ({
 
   useEffect(() => {
     fetchMessageLikeData();
-  }, [messageID]);
+  }, [messageID, isLiked]);
 
   useEffect(() => {
     filterMessageLikeData();
@@ -105,6 +109,7 @@ const MessageDetails = ({
           setIsLiked={setIsLiked}
           messageDetails={messageDetails}
           userId={userId}
+          likeID={likeID}
         />
         <Typography>
           Likes: <>{numberOfLikes}</>
