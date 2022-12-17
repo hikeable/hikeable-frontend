@@ -30,7 +30,9 @@ function startFilter<trailProps>(
   function isRequested(trail: Trail) {
     return (
       (!locationVal ||
-        trail.name.toLowerCase().includes(locationVal.toLowerCase())) &&
+        trail.name.toLowerCase().includes(locationVal.toLowerCase()) ||
+        !locationVal ||
+        trail.prefecture.toLowerCase().includes(locationVal.toLowerCase())) &&
       (!lengthVal ||
         (trail.length >= lengthVal[0] && trail.length <= lengthVal[1])) &&
       (!difficultyVal || parseInt(difficultyVal) === trail.difficulty)
@@ -89,7 +91,7 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
 
         <TextField
           id="demo-helper-text-aligned"
-          label="Trail Name"
+          label="Keyword"
           onChange={handleLocChange}
           sx={{ mb: 2 }}
         />

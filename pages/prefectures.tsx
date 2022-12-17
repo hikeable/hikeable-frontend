@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
-import { useAuthContext } from "../components/context/UseAuthContext";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { Container } from "@mui/material";
+import styles from "../styles/prefectures.module.css";
 
 const engPrefNames = {
   北海道: "Hokkaido",
@@ -148,9 +149,21 @@ const prefectures = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mt: 10 }}>
       <div className="bg__map">
         <h1>Where do you want to walk next?</h1>
+        <Link
+          className={styles.link__all}
+          href={{
+            pathname: "trails/[pref]",
+            query: { pref: "all" },
+          }}
+        >
+          <h2 className={styles.txt__link}>
+            {" "}
+            Not sure where to go?🤔 See all trails
+          </h2>
+        </Link>
         <div id="my-map-container"></div>
       </div>
     </Container>
