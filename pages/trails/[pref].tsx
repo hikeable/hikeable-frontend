@@ -27,11 +27,16 @@ function GetTrailData() {
 const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
+  console.log(pref);
   const allTrails = GetTrailData() || [];
 
   const capitalizePref = _.capitalize(pref);
   const filteredTrails = allTrails.filter((trail: Trail) => {
-    return pref === trail.prefecture;
+    if (pref === "all") {
+      return allTrails;
+    } else {
+      return pref === trail.prefecture;
+    }
   });
 
   const [trailsArr, setTrail] = useState<Trail[] | []>(filteredTrails);
@@ -42,8 +47,8 @@ const ResultList = () => {
 
   return (
     <>
-      <Container maxWidth="lg">
-        <h1>Trails in {capitalizePref}</h1>
+      <Container maxWidth="lg" sx={{ mt: 10 }}>
+        <h1>{capitalizePref} Trails</h1>
         <BrowserView>
           <Container>
             <div className={styles.flex_container}>

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { Container } from "@mui/material";
@@ -148,9 +149,17 @@ const prefectures = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mt: 10 }}>
       <div className="bg__map">
         <h1>Where do you want to walk next?</h1>
+        <Link
+          href={{
+            pathname: "trails/[pref]",
+            query: { pref: "all" },
+          }}
+        >
+          Not sure about where to go? See all trails
+        </Link>
         <div id="my-map-container"></div>
       </div>
     </Container>
