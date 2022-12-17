@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Box, Typography } from "@mui/material";
 import axios from "axios";
+import MessageThumbUp from "./MessageThumbUp";
 
 interface MessageRatingProps {
   messageDetails: Object;
@@ -28,6 +29,7 @@ const MessageDetails = ({
 }: MessageRatingProps) => {
   const [data, setData] = useState<Object>([]);
   const [messageID, setMessageID] = useState<Number>(0);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const handleClose = () => {
     setMessageDetails({
@@ -69,8 +71,7 @@ const MessageDetails = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography>{messageDetails["data"]["message"]}</Typography>
-        <Typography>ID: {messageDetails["data"]["id"]}</Typography>
+        <MessageThumbUp isLiked={isLiked}/>
       </Box>
     </Modal>
   );
