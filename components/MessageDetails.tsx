@@ -97,11 +97,19 @@ const MessageDetails = ({
       keepMounted
       open={messageDetails["selected"] === true}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="keep-mounted-modal-title"
+      aria-describedby="keep-mounted-modal-description"
     >
       <Box sx={style}>
-        <Typography>Message: {messageDetails["data"]["message"]}</Typography>
+        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+          Message
+        </Typography>
+        <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+          Posted on {messageDetails["data"]["date"]}
+        </Typography>
+        <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
+          {messageDetails["data"]["message"]}
+        </Typography>
         <MessageThumbUp
           recordExists={recordExists}
           setRecordExists={setRecordExists}
@@ -111,9 +119,8 @@ const MessageDetails = ({
           userId={userId}
           likeID={likeID}
         />
-        <Typography>
-          Likes: <>{numberOfLikes}</>
-        </Typography>
+
+        <>{numberOfLikes}</>
       </Box>
     </Modal>
   );
