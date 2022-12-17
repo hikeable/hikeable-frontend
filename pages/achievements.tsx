@@ -14,6 +14,21 @@ const badgeDict = {
     "Power Of Two":"/badges/PowerOfTwo.png",
     "Hat-trick": "/badges/Hat-trick.png",
 
+    "50 KM": "/badges/50 KM.png", 
+    "30 KM": "/badges/30 KM.png", 
+    "20 KM": "/badges/20 KM.png", 
+    "15 KM": "/badges/15 KM.png", 
+    "10 KM": "/badges/10 KM.png", 
+    "7 KM": "/badges/7 KM.png", 
+    "5 KM": "/badges/5 KM.png", 
+    "3 KM": "/badges/3 KM.png", 
+
+    "Master": "/badges/Master.png",
+    "Mentor": "/badges/Mentor.png",
+    "The Assistant": "/badges/The Assistant.png",
+
+
+
 }
 
 

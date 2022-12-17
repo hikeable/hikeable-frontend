@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
 import { trailCompletionObject } from "../global";
-import { updateBadges } from "../src/UpdateBadges";
+import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
 
 interface CompletedTrailsProps {
   trailID: number;
@@ -63,7 +63,8 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
       });
       setCompleted(true);
     }
-    updateBadges(userId)
+    updateBadgeStreak(userId);
+    updateBadgeLength(userId);
   };
 
   const fetchCompletionData = async () => {
