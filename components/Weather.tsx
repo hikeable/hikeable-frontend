@@ -48,7 +48,6 @@ export const Weather = ({ lon, lat, name }: WeatherProps) => {
           errorMessage={errorMessage}
           data={data}
           lang="en"
-          // locationLabel={`${name}`}
           locationLabel="Today"
           unitsLabels={{ temperature: "C", windSpeed: "Km/h" }}
           showForecast
