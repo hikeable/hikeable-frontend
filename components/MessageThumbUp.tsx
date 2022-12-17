@@ -4,9 +4,10 @@ import { IconButton } from "@mui/material";
 
 interface MessageThumbUpProps {
   isLiked: boolean;
+  setIsLiked: Function;
 }
 
-const MessageThumbUp = ({ isLiked }: MessageThumbUpProps) => {
+const MessageThumbUp = ({ isLiked, setIsLiked }: MessageThumbUpProps) => {
   return (
     <>
       {isLiked === true ? (

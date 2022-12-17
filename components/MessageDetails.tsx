@@ -2,11 +2,21 @@ import { useEffect, useState } from "react";
 import { Modal, Box, Typography } from "@mui/material";
 import axios from "axios";
 import MessageThumbUp from "./MessageThumbUp";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface MessageRatingProps {
   messageDetails: Object;
   setMessageDetails: Function;
 }
+
+type messageLikeObject = {
+  id: number;
+  user: number;
+  message_id: number;
+  value: number;
+  create_date: string;
+  update_date: string | null;
+};
 
 const style = {
   position: "absolute" as "absolute",
@@ -27,9 +37,11 @@ const MessageDetails = ({
   messageDetails,
   setMessageDetails,
 }: MessageRatingProps) => {
-  const [data, setData] = useState<Object>([]);
+  const [data, setData] = useState<messageLikeObject[]>([]);
   const [messageID, setMessageID] = useState<Number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [numberOfLikes, setNumberOfLikes] = useState<Number>(0);
+  const { userId } = useAuthContext();
 
   const handleClose = () => {
     setMessageDetails({
@@ -48,6 +60,16 @@ const MessageDetails = ({
     setData(fetchedMessageLikeData.data);
   };
 
+  const filterMessageLikeData = () => {
+    let count = 0;
+    return data.map((record) => {
+      if (record.user === userId) setIsLiked(true);
+
+      count += record.value;
+      setNumberOfLikes(count);
+    });
+  };
+
   useEffect(() => {
     if (messageDetails["selected"] === true) {
       setMessageID(messageDetails["data"]["id"]);
@@ -59,8 +81,8 @@ const MessageDetails = ({
   }, [messageID]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data])
+    filterMessageLikeData();
+  }, [data]);
 
   return (
     <Modal
@@ -71,7 +93,7 @@ const MessageDetails = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <MessageThumbUp isLiked={isLiked}/>
+        <MessageThumbUp isLiked={isLiked} setIsLiked={setIsLiked} />
       </Box>
     </Modal>
   );
