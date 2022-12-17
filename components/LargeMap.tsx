@@ -3,14 +3,13 @@ import {
   Marker,
   TileLayer,
   Popup,
-  useMap,
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import style from "../styles/mapview.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import L from "leaflet";
+import styles from "../styles/mapview.module.css";
 
 type MessageDataObject = {
   id: number;
@@ -28,25 +27,22 @@ const LargeMap = ({
   lat,
   lon,
   trailID,
+  isSubmitted,
+  setIsSubmitted,
   currentPosition,
-  findMe,
-  setFindMe,
+  setCurrentPosition,
 }) => {
-  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
-  const currentPositionLatLng = {
-    lat: currentPosition["coordinates"]["latitude"],
-    lon: currentPosition["coordinates"]["longitude"],
-  };
-  const leafletIcon = L.icon({
+  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
+  const messageIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
     shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
     popupAnchor: [2, -40],
   });
-  const myIcon = L.icon({
+  const locationIcon = L.icon({
     iconUrl: "https://i.postimg.cc/FsTwfJdB/location-Marker.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
@@ -58,73 +54,66 @@ const LargeMap = ({
     const fetchedMessageData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
     );
-    setMessageData(fetchedMessageData.data);
+    if (!messageData) {
+      setMessageData(fetchedMessageData.data);
+    } else {
+      setMessageData([...fetchedMessageData.data]);
+    }
+    setIsSubmitted(false);
   };
 
-  const FlyToButton = ({ latlng }) => {
-    const map = useMap(); // available when component nested inside MapContainer
-    const fly = () => {
-      map.flyTo(latlng, 14, { duration: 2 });
-    };
-    return <button onClick={fly}>Test</button>;
-  };
-
-  function LocationMarker() {
-    const [position, setPosition] = useState<null | any>(null);
+  const LocationMarker = () => {
     const map = useMapEvents({
       click() {
         map.locate();
       },
       locationfound(e) {
-        setPosition(e.latlng);
+        setCurrentPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
       },
     });
 
-    return position === null ? null : (
-      <Marker position={position} icon={myIcon}>
+    return currentPosition === null ? null : (
+      <Marker position={currentPosition} icon={locationIcon}>
         <Popup>You are here</Popup>
       </Marker>
     );
-  }
+  };
 
   useEffect(() => {
     fetchMessageData();
   }, []);
 
-  // useEffect(() => {
-  //   if (findMe) LocationMarker();
-  //   setFindMe(false);
-  // }, [findMe]);
+  useEffect(() => {
+    fetchMessageData();
+  }, [isSubmitted]);
 
   return (
-    <>
-      <MapContainer
-        className={style.map}
-        center={[latNumber, lonNumber]}
-        zoom={13}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url={`https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x}/{y}.png?rapidapi-key=${process.env.NEXT_PUBLIC_MAP_API}`}
-        />
-        {messageData.map((message) => {
-          const messageLatNumber = parseFloat(message.latitude);
-          const messageLonNumber = parseFloat(message.longitude);
-          return (
-            <Marker
-              key={message.id}
-              position={[messageLatNumber, messageLonNumber]}
-              icon={leafletIcon}
-            >
-              <Popup>{message.message}</Popup>
-            </Marker>
-          );
-        })}
-        <LocationMarker />
-      </MapContainer>
-    </>
+    <MapContainer
+      className={styles.map__wrapper}
+      center={[latNumber, lonNumber]}
+      zoom={13}
+      scrollWheelZoom={false}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url={`https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x}/{y}.png?rapidapi-key=${process.env.NEXT_PUBLIC_MAP_API}`}
+      />
+      {messageData.map((message) => {
+        const messageLatNumber = parseFloat(message.latitude);
+        const messageLonNumber = parseFloat(message.longitude);
+        return (
+          <Marker
+            key={message.id}
+            position={[messageLatNumber, messageLonNumber]}
+            icon={messageIcon}
+          >
+            <Popup>{message.message}</Popup>
+          </Marker>
+        );
+      })}
+      <LocationMarker />
+    </MapContainer>
   );
 };
 
