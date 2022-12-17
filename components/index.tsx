@@ -13,6 +13,8 @@ export * from "./MessageForm";
 export * from "./Weather";
 export * from "./photoGallery";
 export * from "./PhotoPageBreadcrumbs";
+export * from "./CommentsComponent";
+
 
 import dynamic from "next/dynamic";
 

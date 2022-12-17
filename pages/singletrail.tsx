@@ -22,6 +22,7 @@ import { Box, Container } from "@mui/material";
 import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+import ScrollableText from "../components/CommentsComponent";
 
 const _ = require("lodash");
 
@@ -360,6 +361,7 @@ const SingleTrail = () => {
           >
             <Typography>Tips for Trails</Typography>
             <Typography>Add Tips</Typography>
+            <ScrollableText></ScrollableText>
           </Box>
           <Box
             sx={{
