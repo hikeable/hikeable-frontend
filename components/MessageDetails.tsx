@@ -30,12 +30,14 @@ const MessageDetails = ({
       selected: "false",
       data: {
         message: null,
-        likes: null,
-        dislikes: null,
         date: null,
       },
     });
   };
+
+  const fetchUserLikeData = () => {};
+
+  useEffect(() => {}, [messageDetails["selected"] === true]);
 
   return (
     <Modal
@@ -47,8 +49,6 @@ const MessageDetails = ({
     >
       <Box sx={style}>
         <Typography>{messageDetails["data"]["message"]}</Typography>
-        <Typography>Likes: {messageDetails["data"]["likes"]}</Typography>
-        <Typography>Dislikes: {messageDetails["data"]["dislikes"]}</Typography>
         <Typography>Date: {messageDetails["data"]["date"]}</Typography>
       </Box>
     </Modal>

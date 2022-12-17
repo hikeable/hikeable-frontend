@@ -40,8 +40,6 @@ const MapView = () => {
     selected: false,
     data: {
       message: null,
-      likes: null,
-      dislikes: null,
       date: null,
     },
   });

@@ -12,8 +12,6 @@ const MessageIcon = ({ message, setMessageDetails }: MessageIconProps) => {
       selected: true,
       data: {
         message: message["message"],
-        likes: message["likes"],
-        dislikes: message["dislikes"],
         date: message["date"],
       },
     });

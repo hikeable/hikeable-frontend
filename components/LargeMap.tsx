@@ -19,8 +19,6 @@ type MessageDataObject = {
   latitude: string;
   longitude: string;
   message: string;
-  likes: number;
-  dislikes: number;
   date: string;
 };
 
