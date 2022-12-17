@@ -343,7 +343,7 @@ const SingleTrail = () => {
           </Link>
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
             flexDirection: "column",
             width: "40%",
@@ -361,9 +361,15 @@ const SingleTrail = () => {
           >
             <Typography>Tips for Trails</Typography>
             <Typography>Add Tips</Typography>
-            <ScrollableText></ScrollableText>
           </Box>
-          <Box
+          <Box>
+
+          </Box> */}
+          <Box>
+            <ScrollableText trailID={trail?.id}></ScrollableText>
+
+         
+          {/* <Box
             sx={{
               marginTop: "1",
               border: "solid",
@@ -374,7 +380,7 @@ const SingleTrail = () => {
             <Typography>
               Stone stairs, and very slippery while and after raining!
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </Container>
     )
