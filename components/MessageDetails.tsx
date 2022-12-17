@@ -64,9 +64,12 @@ const MessageDetails = ({
   const filterMessageLikeData = () => {
     let count = 0;
     return data.map((record) => {
-      if (record.user === userId) setRecordExists(true);
+      if (record["user"] === userId) {
+        setRecordExists(true);
+        if (record["value"] === 1) setIsLiked(true);
+      }
 
-      count += record.value;
+      count += record["value"];
       setNumberOfLikes(count);
     });
   };
@@ -95,7 +98,14 @@ const MessageDetails = ({
     >
       <Box sx={style}>
         <Typography>Message: {messageDetails["data"]["message"]}</Typography>
-        <MessageThumbUp recordExists={recordExists} setRecordExists={setRecordExists} isLiked={isLiked} setIsLiked={setIsLiked} messageDetails={messageDetails} userId={userId}/>
+        <MessageThumbUp
+          recordExists={recordExists}
+          setRecordExists={setRecordExists}
+          isLiked={isLiked}
+          setIsLiked={setIsLiked}
+          messageDetails={messageDetails}
+          userId={userId}
+        />
         <Typography>
           Likes: <>{numberOfLikes}</>
         </Typography>
