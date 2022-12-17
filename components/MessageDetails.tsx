@@ -39,6 +39,7 @@ const MessageDetails = ({
 }: MessageRatingProps) => {
   const [data, setData] = useState<messageLikeObject[]>([]);
   const [messageID, setMessageID] = useState<Number>(0);
+  const [recordExists, setRecordExists] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [numberOfLikes, setNumberOfLikes] = useState<Number>(0);
   const { userId } = useAuthContext();
@@ -63,7 +64,7 @@ const MessageDetails = ({
   const filterMessageLikeData = () => {
     let count = 0;
     return data.map((record) => {
-      if (record.user === userId) setIsLiked(true);
+      if (record.user === userId) setRecordExists(true);
 
       count += record.value;
       setNumberOfLikes(count);
@@ -94,7 +95,7 @@ const MessageDetails = ({
     >
       <Box sx={style}>
         <Typography>Message: {messageDetails["data"]["message"]}</Typography>
-        <MessageThumbUp isLiked={isLiked} setIsLiked={setIsLiked} />
+        <MessageThumbUp recordExists={recordExists} setRecordExists={setRecordExists} isLiked={isLiked} setIsLiked={setIsLiked} messageDetails={messageDetails} userId={userId}/>
         <Typography>
           Likes: <>{numberOfLikes}</>
         </Typography>
