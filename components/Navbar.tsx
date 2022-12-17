@@ -75,8 +75,8 @@ export const Navbar: React.FC<INavbar> = ({
   };
 
   return navActive == true ? (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, mb: "55px" }}>
+      <AppBar position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
@@ -88,6 +88,7 @@ export const Navbar: React.FC<INavbar> = ({
                   fontFamily: "Montserrat",
                   fontWeight: "600",
                   display: { xs: "none", sm: "block" },
+                  mr: "auto",
                 }}
               >
                 Hikeable

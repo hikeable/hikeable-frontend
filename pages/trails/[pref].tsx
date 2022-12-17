@@ -1,17 +1,13 @@
-
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import { Filter, TrailCard } from "../../components";
+import { BrowserView, MobileView } from "react-device-detect";
+import { Filter, TrailCard, TrailCardMobile } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
 import styles from "../../styles/pref_trails.module.css";
-// import Toolbar from "@material-ui/core/Toolbar";
-import Toolbar from '@mui/material/Toolbar';
-
-
-
-
+import Toolbar from "@mui/material/Toolbar";
+import { Container } from "@mui/material";
 
 const _ = require("lodash");
 
@@ -31,40 +27,65 @@ function GetTrailData() {
 const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
+  console.log(pref);
   const allTrails = GetTrailData() || [];
-  
+
   const capitalizePref = _.capitalize(pref);
-  const filteredTrails = allTrails
-  .filter((trail: Trail) => {
-    return pref === trail.prefecture;
+  const filteredTrails = allTrails.filter((trail: Trail) => {
+    if (pref === "all") {
+      return allTrails;
+    } else {
+      return pref === trail.prefecture;
+    }
   });
 
   const [trailsArr, setTrail] = useState<Trail[] | []>(filteredTrails);
-  
-  useEffect(() => { 
+
+  useEffect(() => {
     setTrail(filteredTrails);
-  },[allTrails])
+  }, [allTrails]);
 
   return (
     <>
-      <h1>Trails in {capitalizePref}</h1>
-      <div className= {styles.flex_container}>
+      <Container maxWidth="lg" sx={{ mt: 10 }}>
+        <h1>{capitalizePref} Trails</h1>
+        <BrowserView>
+          <Container>
+            <div className={styles.flex_container}>
+              <div className={styles.cards_feed}>
+                {trailsArr.map((filteredTrail: Trail) => {
+                  return (
+                    <TrailCard key={filteredTrail.id} trail={filteredTrail} />
+                  );
+                })}
+              </div>
+              <div className={styles.filter_card}>
+                <Filter trails={filteredTrails} setTrail={setTrail} />
+              </div>
+            </div>
+          </Container>
+        </BrowserView>
 
-        <div className= {styles.cards_feed}>
-          { 
-            trailsArr.map((filteredTrail: Trail) => {
-              return (
-                <TrailCard key={filteredTrail.id} trail={filteredTrail} />
-              )}
-            )}
-        </div>
-        <div className={styles.filter_card}>
-            <Filter trails={filteredTrails} setTrail = {setTrail}  />
-
-        </div>
-
-
-      </div>
+        <MobileView>
+          <Container>
+            <div className={styles.flex_container_mobile}>
+              <div className={styles.filter_card_mobile}>
+                <Filter trails={filteredTrails} setTrail={setTrail} />
+              </div>
+              <div className={styles.cards_feed}>
+                {trailsArr.map((filteredTrail: Trail) => {
+                  return (
+                    <TrailCardMobile
+                      key={filteredTrail.id}
+                      trail={filteredTrail}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </Container>
+        </MobileView>
+      </Container>
     </>
   );
 };
