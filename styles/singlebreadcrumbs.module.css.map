@@ -1,1 +1,1 @@
-{"version":3,"sources":["singlebreadcrumbs.scss","singlebreadcrumbs.css"],"names":[],"mappings":"AAAA;EACE,qBAAA;ACCF","file":"singlebreadcrumbs.css"}
+{"version":3,"sources":["singlebreadcrumbs.module.scss","singlebreadcrumbs.module.css"],"names":[],"mappings":"AAAA;EACE,qBAAA;ACCF","file":"singlebreadcrumbs.module.css"}
