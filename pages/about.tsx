@@ -20,7 +20,7 @@ const About = () => {
     "/about/mui.svg",
     "/about/reactleaflet.svg",
     "/about/django.svg",
-    "/about/postgresql.svg",
+    "/about/firebase.svg",
   ];
 
   const staffCardInfo = [
@@ -51,7 +51,7 @@ const About = () => {
   return (
     <>
       <Box
-        sx={{ width: "100vw", height: "40vh", minHeight: "300px" }}
+        sx={{ width: "100vw", height: "60vh", minHeight: "300px" }}
         bgcolor={"white"}
         marginLeft={"auto"}
         marginRight={"auto"}
@@ -62,21 +62,35 @@ const About = () => {
       >
         <Typography variant="caption">About us</Typography>
         <Typography variant="h4" my={2}>
-          Built by adventurers, for adventurers.
+          Built by <strong>adventurers</strong>, for{" "}
+          <strong>adventurers</strong>
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography variant="subtitle1" my={2}>
           In a country where 80% of its landmass is mountainous, our mission is
           to provide a platform for both new and experienced hikers in Japan.
         </Typography>
+        <Typography variant="subtitle1" my={2}>
+          Find trails in each prefecture tailored to your experience level, read
+          reviews, and view photos from previous travelers.
+        </Typography>
+        <Typography variant="subtitle1" my={2}>
+          When you arrive at the trailhead, launch the{" "}
+          <strong>interactive map</strong> from your mobile device to see and
+          interact with geolocated messages left by other users.
+        </Typography>
+        <Typography variant="subtitle1" mt={2} mb={4}>
+          Hiking in Japan. Simplified.
+        </Typography>
       </Box>
       <Box
-        
         bgcolor={"white"}
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <Typography variant="subtitle2">Hikeable was built using:</Typography>
+        <Typography variant="subtitle2">
+          <strong>Hikeable</strong> was built using:
+        </Typography>
       </Box>
       <Box
         p={4}
@@ -89,7 +103,7 @@ const About = () => {
         <Grid container rowSpacing={1} columnSpacing={4}>
           {techStackPictures.map((picture) => (
             <Grid item xs={2} margin={"auto"}>
-              <Image src={picture} alt="Badge" width="64" height="64"></Image>
+              <Image src={picture} alt="Badge" width="75" height="75"></Image>
             </Grid>
           ))}
         </Grid>
