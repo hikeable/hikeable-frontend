@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAuthContext } from "./context/UseAuthContext";
+import { userParticipationBadge } from "../src/UpdateBadges";
 
 interface MessageFormProps {
   trailID: number;
@@ -71,6 +72,7 @@ const MessageForm = ({
     });
     setIsSubmitted(true);
     setValue("");
+    userParticipationBadge(userId);
     handleClose();
   };
 

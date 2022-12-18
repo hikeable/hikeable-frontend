@@ -1,0 +1,33 @@
+@import "../node_modules/sass-google-fonts/src/GoogleFonts.scss";
+
+.txt_wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: stretch;
+	margin-right: 3rem;
+
+	.achievements_title {
+		color: rgb(68, 25, 187);
+		text-transform: uppercase;
+		font-size: "2.4rem";
+		font-weight: 5;
+		text-align: center;
+		z-index: 1;
+		font-family: "Shadows Into Light";
+	}
+
+	.achievement_card {
+		.section_titles {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.badges_section {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+}
