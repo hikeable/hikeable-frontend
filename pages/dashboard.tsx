@@ -11,16 +11,6 @@ import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
 import * as React from 'react';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
 
 type dummy = {
 
@@ -95,7 +85,7 @@ const Dashboard  = () => {
 
         let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
         let tupleArray = getValues(completedTrails, trailUserCompletions );
-        setData([...data,...tupleArray]);
+        setData([...tupleArray]);
 
         let hikedDistance =  trailUserCompletions.reduce( (total, trail) => {  
             return   total + parseFloat(`${trail.length}`)}, 0.0);
@@ -132,34 +122,37 @@ const Dashboard  = () => {
                 ): <>Loading...</>
              }   
 
-<Typography>You have completed the following trails: !</Typography><div className={styles.completed_trails}>
-            {usersCompletedTrails.map((trail: dummy) => {
-                return (
-                    <>
+            <Typography>
+                You have completed the following trails: !
+            </Typography>
+            <div className={styles.completed_trails}>
+                {usersCompletedTrails.map((trail: dummy) => {
+                    return (
+                        <>
 
-                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
 
-                            <Button
-                                variant='outlined'
+                                <Button
+                                    variant='outlined'
 
-                                component={NextLinkComposed}
-                                to={{
-                                    pathname: "/singletrail",
-                                    query: { trail: JSON.stringify(trail) },
-                                }}
-                                linkAs={`/singletrail/${trail.id}`}
-                            >
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                        {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
-                                    </Typography>
-                                </CardContent>
-                            </Button>
-                        </Box>
-                    </>
+                                    component={NextLinkComposed}
+                                    to={{
+                                        pathname: "/singletrail",
+                                        query: { trail: JSON.stringify(trail) },
+                                    }}
+                                    linkAs={`/singletrail/${trail.id}`}
+                                >
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                        </Typography>
+                                    </CardContent>
+                                </Button>
+                            </Box>
+                        </>
 
-                );
-            })}
+                    );
+             })}
         </div>
 
             
