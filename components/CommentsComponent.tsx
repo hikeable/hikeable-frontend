@@ -13,6 +13,7 @@ interface ScrollableTextProps {
 type commentsDataObject = {
   id: number,
   user: number,
+  userName: string
   trail_id: number,
   comment: string,
   date: string
@@ -71,12 +72,14 @@ const ScrollableText = ({
       current.getMonth() + 1
     }-${current.getDate()}`)
 
+    // https://hikeable-backend.herokuapp.com/api/trails/comments
+
     await axios({
       method: "post",
       url: "https://hikeable-backend.herokuapp.com/api/trails/comments",
       data: {
         user: userId,
-        username: firstName,
+        userName: firstName,
         trail_id: trailID,
         comment:value,
         date: `${current.getFullYear()}-${
@@ -95,6 +98,8 @@ const ScrollableText = ({
   },[])
 
   // "api/trails/<int:pk>/comments"
+
+  // https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments
   const fetchComments = async () => {
     const fetchedCommentsData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments`
@@ -166,7 +171,7 @@ const ScrollableText = ({
         <Typography>Comments for Trail</Typography>
         <List>
         {comments.map((comment) => (
-          <ListItemText key={comment.id}> * {comment.date} {comment.comment} {comment.trail_id}</ListItemText>
+          <ListItemText key={comment.id}> * {comment.date} {comment.userName} {comment.comment} {comment.trail_id}</ListItemText>
       ))}
       
        
