@@ -10,6 +10,19 @@ import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
+import * as React from 'react';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+
+type Anchor = 'left' ;
 
 type dummy = {
 
@@ -42,6 +55,8 @@ const Dashboard  = () => {
     const [completedTrails, setCompleted] = useState<trailCompletionObject[] >([]);
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
     const [data, setData] = useState<{date: string, length: number}[]>([]);
+
+    const [state, setState] = React.useState({left: false });
 
     const getCompleted = async () => {
 
@@ -90,9 +105,67 @@ const Dashboard  = () => {
 
     },[usersCompletedTrails])
 
+
+    const toggleDrawer =
+    (anchor: Anchor, open: boolean) =>
+    (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return;
+      }
+
+      setState({ ...state, [anchor]: open });
+    };
+
+  const list = (anchor: Anchor) => (
+    <Box
+      sx={{ width: 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Achievements', 'Completed Trails'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton
+                 href={"/" + text.toLowerCase()} 
+            >
+                
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+    </Box>
+  );
+
     return (
         
         <>
+
+            <div>
+                {(['left'] as const).map((anchor) => (
+                    <React.Fragment key={anchor}>
+                    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+                    <SwipeableDrawer
+                        anchor={anchor}
+                        open={state[anchor]}
+                        onClose={toggleDrawer(anchor, false)}
+                        onOpen={toggleDrawer(anchor, true)}
+                    >
+                        {list(anchor)}
+                    </SwipeableDrawer>
+                    </React.Fragment>
+                ))}
+            </div>
             <Box
               sx={{
                 flexDirection: "column",
