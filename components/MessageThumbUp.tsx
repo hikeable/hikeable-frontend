@@ -7,25 +7,23 @@ import axios from "axios";
 interface MessageThumbUpProps {
   recordExists: boolean;
   setRecordExists: Function;
-  messageDetails: Object;
   userId: number | undefined;
   isLiked: boolean;
   setIsLiked: Function;
   likeID: number | null;
+  messageID: number | null;
 }
 
 const MessageThumbUp = ({
   recordExists,
   setRecordExists,
-  messageDetails,
   userId,
   isLiked,
   setIsLiked,
   likeID,
+  messageID,
 }: MessageThumbUpProps) => {
   const handleClick = async () => {
-    const messageID = messageDetails["data"]["id"];
-
     let current = new Date();
 
     if (!recordExists) {
@@ -78,10 +76,6 @@ const MessageThumbUp = ({
       setIsLiked(true);
     }
   };
-
-  useEffect(() => {
-    console.log(isLiked);
-  }, [isLiked]);
 
   return (
     <>

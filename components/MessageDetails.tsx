@@ -54,6 +54,8 @@ const MessageDetails = ({
         date: null,
       },
     });
+    setIsLiked(false);
+    setMessageID(null);
   };
 
   const fetchMessageLikeData = async () => {
@@ -119,9 +121,9 @@ const MessageDetails = ({
           setRecordExists={setRecordExists}
           isLiked={isLiked}
           setIsLiked={setIsLiked}
-          messageDetails={messageDetails}
           userId={userId}
           likeID={likeID}
+          messageID={messageID}
         />
 
         <>{numberOfLikes}</>
