@@ -42,7 +42,6 @@ export const options = {
   scales: {
 
     yAxis: {
-      type: 'linear',
       min: 0,
       
     }

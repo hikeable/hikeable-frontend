@@ -22,7 +22,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
 
-type Anchor = 'left' ;
+type Anchor = 'Menu' ;
 
 type dummy = {
 
@@ -56,7 +56,7 @@ const Dashboard  = () => {
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
     const [data, setData] = useState<{date: string, length: number}[]>([]);
 
-    const [state, setState] = React.useState({left: false });
+    const [state, setState] = React.useState({Menu: false });
 
     const getCompleted = async () => {
 
@@ -152,11 +152,11 @@ const Dashboard  = () => {
         <>
 
             <div>
-                {(['left'] as const).map((anchor) => (
+                {(['Menu'] as const).map((anchor) => (
                     <React.Fragment key={anchor}>
                     <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
                     <SwipeableDrawer
-                        anchor={anchor}
+                        anchor='left'
                         open={state[anchor]}
                         onClose={toggleDrawer(anchor, false)}
                         onOpen={toggleDrawer(anchor, true)}
@@ -181,49 +181,12 @@ const Dashboard  = () => {
                     </Item>
                 </div>
 
-                {/* <Typography>You favourite trails are  !</Typography> */}
-                {/* <Typography>You favourite trails are  !</Typography> */}
 
             </Box>
              {data.length >= 0 ?(
                 <LineChart dataSet={data}></LineChart>
                 ): <>Loading...</>
              }   
-
-            {/* <Typography>You have completed the following trails: !</Typography>
-
-             <div className={styles.completed_trails}>
-                {
-                    usersCompletedTrails.map((trail: dummy) => {
-                    return (  
-                        <>
-
-                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-       
-                                <Button
-                                    variant='outlined'
-                                    
-                                    component={NextLinkComposed}
-                                    to={{
-                                        pathname: "/singletrail",
-                                        query: { trail: JSON.stringify(trail) },
-                                    }}
-                                    linkAs = {`/singletrail/${trail.id}`}
-                                >
-                                    <CardContent>
-                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
-                                        </Typography>
-                                    </CardContent>
-                                </Button>
-                            </Box>
-                        </>
-                     
-                     )
-                    })
-                } 
-             </div>  */}
-
 
             
         </>
