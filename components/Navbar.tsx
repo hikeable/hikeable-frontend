@@ -16,6 +16,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 import { Dispatch, SetStateAction } from "react";
 import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
+import {userLoggedBadge} from "../src/UpdateBadges";
 
 export interface INavbar {
   navActive: boolean;
@@ -35,13 +36,15 @@ export const Navbar: React.FC<INavbar> = ({
   logOff,
   setLoggedStatus,
 }) => {
-  const { user, loginWithGoogle, logout, auth } = useAuthContext();
+  const { user, userId, loginWithGoogle, logout, auth } = useAuthContext();
   userName = user?.displayName;
   // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
   // console.log("usecontext", navActive, useAuthContext())
 
   React.useEffect(() => {
     setLoggedStatus(true);
+    if(userId) 
+      userLoggedBadge(userId);
   }, [userName]);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(

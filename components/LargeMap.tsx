@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
+import MessageIcon from "./MessageIcon";
 
 type MessageDataObject = {
   id: number;
@@ -18,8 +19,6 @@ type MessageDataObject = {
   latitude: string;
   longitude: string;
   message: string;
-  likes: number;
-  dislikes: number;
   date: string;
 };
 
@@ -31,6 +30,7 @@ const LargeMap = ({
   setIsSubmitted,
   currentPosition,
   setCurrentPosition,
+  setMessageDetails,
 }) => {
   const latNumber = parseFloat(lat);
   const lonNumber = parseFloat(lon);
@@ -108,7 +108,10 @@ const LargeMap = ({
             position={[messageLatNumber, messageLonNumber]}
             icon={messageIcon}
           >
-            <Popup>{message.message}</Popup>
+            <Popup>
+              {message.message}{" "}
+              <MessageIcon message={message} setMessageDetails={setMessageDetails} />
+            </Popup>
           </Marker>
         );
       })}
