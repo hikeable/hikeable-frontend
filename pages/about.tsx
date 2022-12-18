@@ -1,7 +1,27 @@
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Card, CardContent } from "@mui/material";
 import Image from "next/image";
+import * as React from "react";
 
 const About = () => {
+  const staffCardInfo = [
+    {
+      name: "Cris",
+      title: "Product Owner",
+    },
+    {
+      name: "Kamil",
+      title: "Tech Lead",
+    },
+    {
+      name: "Haruna",
+      title: "Full-Stack Engineer",
+    },
+    {
+      name: "Chad",
+      title: "Full-Stack Engineer",
+    },
+  ];
+
   return (
     <>
       <Box
@@ -39,18 +59,11 @@ const About = () => {
         <Typography variant="h4">Our Team</Typography>
 
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-          <Grid item xs={3}>
-            Cris
-          </Grid>
-          <Grid item xs={3}>
-            Kamil
-          </Grid>
-          <Grid item xs={3}>
-            Haruna
-          </Grid>
-          <Grid item xs={3}>
-            Chad
-          </Grid>
+          {staffCardInfo.map((staff) => (
+            <Grid item xs={3}>
+              <Card variant="outlined">{staff.name}</Card>
+            </Grid>
+          ))}
         </Grid>
       </Box>
     </>
