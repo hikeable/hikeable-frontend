@@ -104,13 +104,13 @@ const SingleTrail = () => {
                 }}
               >
                 <img
-                  // src={trail.photo_url}
                   src={photoUrl}
                   alt={trail.name}
                   className={styles.img__wrapper}
                 />
                 <Box
                   sx={{
+                    width: "95%",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
@@ -120,13 +120,11 @@ const SingleTrail = () => {
                     left: "1rem",
                   }}
                 >
-                  {/* <Mountain2 /> */}
                   <Typography
                     sx={{
                       fontSize: "5vw",
                       ml: 3,
                       color: "white",
-                      fontWeight: 600,
                     }}
                   >
                     {trail.name}
@@ -137,28 +135,48 @@ const SingleTrail = () => {
                       display: "flex",
                       flexDirection: "row",
                       alignItems: "center",
-                      justifyContent: "space-around",
-                      mb: 3,
+                      justifyContent: "space-between",
                     }}
                   >
-                    <Typography
-                      startDecorator={<LocationOn />}
-                      sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                    <Box
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                      }}
                     >
-                      {_.capitalize(trail.prefecture)}
-                    </Typography>
-                    <Typography
-                      startDecorator={<Straighten />}
-                      sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                      <Typography
+                        startDecorator={<LocationOn />}
+                        sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                      >
+                        {_.capitalize(trail.prefecture)}
+                      </Typography>
+                      <Typography
+                        startDecorator={<Straighten />}
+                        sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                      >
+                        {`${Number(trail.length).toString()} km`}
+                      </Typography>
+                      <Typography
+                        sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                        startDecorator={<Speed />}
+                      >
+                        {difficultyObj[trail.difficulty]}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                      }}
                     >
-                      {`${Number(trail.length).toString()} km`}
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
-                      startDecorator={<Speed />}
-                    >
-                      {difficultyObj[trail.difficulty]}
-                    </Typography>
+                      <Likes userID={userId} trailID={trail.id} />
+                      <CompletedTrails userID={userId} trailID={trail.id} />
+                    </Box>
                   </Box>
                 </Box>
               </Box>
@@ -166,8 +184,9 @@ const SingleTrail = () => {
               <Container
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
+                  // flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
                 }}
               >
                 <CldUploadButton
@@ -208,7 +227,7 @@ const SingleTrail = () => {
                     variant="soft"
                     size="lg"
                     aria-label={`View ${trail.name} trail`}
-                    sx={{ fontWeight: 600, backgroundColor: "pink", mt: 2 }}
+                    sx={{ fontWeight: 600, backgroundColor: "pink" }}
                     component="a"
                   >
                     View all photos in this trail
@@ -224,42 +243,7 @@ const SingleTrail = () => {
                 alignItems: "center",
               }}
             >
-              {/* <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                <Mountain2 />
-                <Typography sx={{ fontSize: "5vw", ml: 3 }}>
-                  {trail.name}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                  mb: 3,
-                }}
-              >
-                <Typography
-                  startDecorator={<LocationOn />}
-                  sx={{ fontSize: "2.5vw" }}
-                >
-                  {_.capitalize(trail.prefecture)}
-                </Typography>
-                <Typography
-                  startDecorator={<Straighten />}
-                  sx={{ fontSize: "2.5vw" }}
-                >
-                  {`${Number(trail.length).toString()} km`}
-                </Typography>
-                <Typography
-                  sx={{ fontSize: "2.5vw" }}
-                  startDecorator={<Speed />}
-                >
-                  {difficultyObj[trail.difficulty]}
-                </Typography>
-              </Box> */}
-              <Box
+              {/* <Box
                 sx={{
                   width: "100%",
                   display: "flex",
@@ -268,15 +252,9 @@ const SingleTrail = () => {
               >
                 <Likes userID={userId} trailID={trail.id} />
                 <CompletedTrails userID={userId} trailID={trail.id} />
-              </Box>
+              </Box> */}
             </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          ></Box>
         </BrowserView>
         <MobileView>
           <div className={styles.container__top__mobile}>
@@ -289,18 +267,23 @@ const SingleTrail = () => {
                 mb: 2,
               }}
             >
-              <Mountain2 />
               <Typography sx={{ fontSize: "7vw", fontWeight: "600", ml: 3 }}>
                 {trail.name}
               </Typography>
             </Box>
             <img
-              src={trail.photo_url}
+              src={photoUrl}
               alt={trail.name}
-              className={styles.img__wrapper}
+              className={styles.img__wrapper__mobile}
             />
             <Box
-              sx={{ display: "flex", flexDirection: "column", mt: 2, mb: 3 }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mt: 2,
+                mb: 3,
+              }}
             >
               <CldUploadButton
                 className={`${styles.btn__cloudinary} ${styles.btn__cloudinary__mobile}`}

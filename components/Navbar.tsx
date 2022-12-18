@@ -16,7 +16,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 import { Dispatch, SetStateAction } from "react";
 import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
-import {userLoggedBadge} from "../src/UpdateBadges";
+import { userLoggedBadge } from "../src/UpdateBadges";
 
 export interface INavbar {
   navActive: boolean;
@@ -43,8 +43,7 @@ export const Navbar: React.FC<INavbar> = ({
 
   React.useEffect(() => {
     setLoggedStatus(true);
-    if(userId) 
-      userLoggedBadge(userId);
+    if (userId) userLoggedBadge(userId);
   }, [userName]);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
