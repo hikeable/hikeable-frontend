@@ -190,7 +190,7 @@ const Dashboard  = () => {
                 ): <>Loading...</>
              }   
 
-            <Typography>You have completed the following trails: !</Typography>
+            {/* <Typography>You have completed the following trails: !</Typography>
 
              <div className={styles.completed_trails}>
                 {
@@ -222,7 +222,7 @@ const Dashboard  = () => {
                      )
                     })
                 } 
-             </div> 
+             </div>  */}
 
 
             

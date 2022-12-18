@@ -27,7 +27,7 @@ export interface INavbar {
 }
 
 const pages = [""];
-const settings = ["Profile", "Dashboard", "Logout"];
+const settings = [ "Dashboard", "Logout"];
 
 export const Navbar: React.FC<INavbar> = ({
   navActive,

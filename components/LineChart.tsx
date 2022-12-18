@@ -36,8 +36,19 @@ export const options = {
       display: true,
       text: 'My Hiked Distance',
     },
+    
+    
   },
+  scales: {
+
+    yAxis: {
+      type: 'linear',
+      min: 0,
+      
+    }
+  }
 };
+
 
 export function LineChart( {dataSet}) {
 
@@ -54,7 +65,6 @@ export function LineChart( {dataSet}) {
     let labels = getDayAndMonth(lastFullDays);
 
     let res : number[] =[];
-
 
     for (let i = 0; i < lastFullDays.length; i++){
         if (i === 0)
