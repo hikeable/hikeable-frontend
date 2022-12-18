@@ -22,8 +22,6 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
 
-type Anchor = 'Menu' ;
-
 type dummy = {
 
     "id": number,
@@ -106,66 +104,12 @@ const Dashboard  = () => {
     },[usersCompletedTrails])
 
 
-    const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event &&
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return;
-      }
-
-      setState({ ...state, [anchor]: open });
-    };
-
-  const list = (anchor: Anchor) => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {['Achievements', 'Completed Trails'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton
-                 href={"/" + text.toLowerCase()} 
-            >
-                
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Box>
-  );
+    
 
     return (
         
         <>
 
-            <div>
-                {(['Menu'] as const).map((anchor) => (
-                    <React.Fragment key={anchor}>
-                    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-                    <SwipeableDrawer
-                        anchor='left'
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                        onOpen={toggleDrawer(anchor, true)}
-                    >
-                        {list(anchor)}
-                    </SwipeableDrawer>
-                    </React.Fragment>
-                ))}
-            </div>
             <Box
               sx={{
                 flexDirection: "column",
@@ -187,6 +131,36 @@ const Dashboard  = () => {
                 <LineChart dataSet={data}></LineChart>
                 ): <>Loading...</>
              }   
+
+<Typography>You have completed the following trails: !</Typography><div className={styles.completed_trails}>
+            {usersCompletedTrails.map((trail: dummy) => {
+                return (
+                    <>
+
+                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+
+                            <Button
+                                variant='outlined'
+
+                                component={NextLinkComposed}
+                                to={{
+                                    pathname: "/singletrail",
+                                    query: { trail: JSON.stringify(trail) },
+                                }}
+                                linkAs={`/singletrail/${trail.id}`}
+                            >
+                                <CardContent>
+                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                        {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                    </Typography>
+                                </CardContent>
+                            </Button>
+                        </Box>
+                    </>
+
+                );
+            })}
+        </div>
 
             
         </>
