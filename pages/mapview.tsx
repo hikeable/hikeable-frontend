@@ -39,6 +39,7 @@ const MapView = () => {
   const [messageDetails, setMessageDetails] = useState<Object>({
     selected: false,
     data: {
+      id: null,
       message: null,
       date: null,
     },

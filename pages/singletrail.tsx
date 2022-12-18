@@ -339,7 +339,6 @@ const SingleTrail = () => {
                 lat: trail.latitude,
                 lon: trail.longitude,
                 trailID: trail.id,
-                userID: userId,
               },
             }}
           >

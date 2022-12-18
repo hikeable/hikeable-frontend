@@ -1,10 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Box, Typography } from "@mui/material";
+import axios from "axios";
+import MessageThumbUp from "./MessageThumbUp";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface MessageRatingProps {
   messageDetails: Object;
   setMessageDetails: Function;
 }
+
+type messageLikeObject = {
+  id: number;
+  user: number;
+  message_id: number;
+  value: number;
+  create_date: string;
+  update_date: string | null;
+};
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,31 +37,96 @@ const MessageDetails = ({
   messageDetails,
   setMessageDetails,
 }: MessageRatingProps) => {
+  const [data, setData] = useState<messageLikeObject[]>([]);
+  const [messageID, setMessageID] = useState<number | null>(null);
+  const [recordExists, setRecordExists] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
+  const [likeID, setLikeID] = useState<number | null>(null);
+  const { userId } = useAuthContext();
+
   const handleClose = () => {
     setMessageDetails({
       selected: "false",
       data: {
+        id: null,
         message: null,
         date: null,
       },
     });
+    setIsLiked(false);
+    setMessageID(null);
   };
 
-  const fetchUserLikeData = () => {};
+  const fetchMessageLikeData = async () => {
+    const fetchedMessageLikeData = await axios.get(
+      `https://hikeable-backend.herokuapp.com/api/trails/messages/${messageID}/likes`
+    );
+    setData(fetchedMessageLikeData.data);
+  };
 
-  useEffect(() => {}, [messageDetails["selected"] === true]);
+  const filterMessageLikeData = () => {
+    let count = 0;
+    if (data.length === 0) {
+      setRecordExists(false);
+      setLikeID(null);
+      setIsLiked(false);
+      setNumberOfLikes(count);
+    } else {
+      return data.map((record) => {
+        if (record["user"] === userId) {
+          setRecordExists(true);
+          setLikeID(record["id"]);
+          if (record["value"] === 1) setIsLiked(true);
+        }
+
+        count += record["value"];
+        setNumberOfLikes(count);
+      });
+    }
+  };
+
+  useEffect(() => {
+    setMessageID(messageDetails["data"]["id"]);
+  }, [messageDetails]);
+
+  useEffect(() => {
+    if (messageID !== null) fetchMessageLikeData();
+  }, [messageID, isLiked]);
+
+  useEffect(() => {
+    filterMessageLikeData();
+  }, [data]);
 
   return (
     <Modal
       keepMounted
       open={messageDetails["selected"] === true}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="keep-mounted-modal-title"
+      aria-describedby="keep-mounted-modal-description"
     >
       <Box sx={style}>
-        <Typography>{messageDetails["data"]["message"]}</Typography>
-        <Typography>Date: {messageDetails["data"]["date"]}</Typography>
+        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+          Message
+        </Typography>
+        <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+          Posted on {messageDetails["data"]["date"]}
+        </Typography>
+        <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
+          {messageDetails["data"]["message"]}
+        </Typography>
+        <MessageThumbUp
+          recordExists={recordExists}
+          setRecordExists={setRecordExists}
+          isLiked={isLiked}
+          setIsLiked={setIsLiked}
+          userId={userId}
+          likeID={likeID}
+          messageID={messageID}
+        />
+
+        <>{numberOfLikes}</>
       </Box>
     </Modal>
   );
