@@ -56,6 +56,14 @@ const SingleTrail = () => {
   // console.log (firstName,"🌍🌍")
   const userID = userId?.toString();
 
+  let photoUrl;
+  if (trail?.photo_url.length) {
+    photoUrl = trail.photo_url;
+  } else {
+    photoUrl =
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
+  }
+
   const current = new Date();
   const date = `${current.getDate()}/${
     current.getMonth() + 1
@@ -77,7 +85,7 @@ const SingleTrail = () => {
             name={trail.name}
             prefecture={trail.prefecture}
           />
-          <Box sx={{ display: "flex", flexDirection: "row", mt: 4, mb: 2 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 4, mb: 2 }}>
             <Box
               sx={{
                 display: "flex",
@@ -85,13 +93,76 @@ const SingleTrail = () => {
                 alignItems: "center",
               }}
             >
-              <Box sx={{ mb: 2 }}>
+              <Box
+                sx={{
+                  mb: 2,
+                  width: "100%",
+                  height: "70vh",
+                  position: "relative",
+                  backgroundColor: "black",
+                  borderRadius: "1rem",
+                }}
+              >
                 <img
-                  src={trail.photo_url}
+                  // src={trail.photo_url}
+                  src={photoUrl}
                   alt={trail.name}
                   className={styles.img__wrapper}
                 />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    mb: 3,
+                    position: "absolute",
+                    bottom: "1rem",
+                    left: "1rem",
+                  }}
+                >
+                  {/* <Mountain2 /> */}
+                  <Typography
+                    sx={{
+                      fontSize: "5vw",
+                      ml: 3,
+                      color: "white",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {trail.name}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                      mb: 3,
+                    }}
+                  >
+                    <Typography
+                      startDecorator={<LocationOn />}
+                      sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                    >
+                      {_.capitalize(trail.prefecture)}
+                    </Typography>
+                    <Typography
+                      startDecorator={<Straighten />}
+                      sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                    >
+                      {`${Number(trail.length).toString()} km`}
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: "2.5vw", color: "white", mr: 2 }}
+                      startDecorator={<Speed />}
+                    >
+                      {difficultyObj[trail.difficulty]}
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
+
               <Container
                 sx={{
                   display: "flex",
@@ -153,7 +224,7 @@ const SingleTrail = () => {
                 alignItems: "center",
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+              {/* <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Mountain2 />
                 <Typography sx={{ fontSize: "5vw", ml: 3 }}>
                   {trail.name}
@@ -187,7 +258,7 @@ const SingleTrail = () => {
                 >
                   {difficultyObj[trail.difficulty]}
                 </Typography>
-              </Box>
+              </Box> */}
               <Box
                 sx={{
                   width: "100%",
