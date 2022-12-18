@@ -183,7 +183,7 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    mb: 0.5,
+                    mb: 2,
                     mt: 1,
                   }}
                 >
