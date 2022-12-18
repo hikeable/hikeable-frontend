@@ -39,6 +39,11 @@ const SingleTrail = () => {
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
+  let firstName;
+  if (userNameTag){
+    const split =userNameTag.split(" ")
+    firstName =  split[0]
+  };
   const trailName = trail?.name;
   // console.log ("testId =",trailName)
   // const trailId =useRef(trail?.id)
@@ -47,6 +52,9 @@ const SingleTrail = () => {
   // console.log ("trail = ",trail, "trailId =",trailId)
   // console.log (userNameTag)
   const userID = userId?.toString();
+
+  const current = new Date()  
+  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`;
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -103,7 +111,8 @@ const SingleTrail = () => {
                   }}
                   options={{
                     folder: trail.name,
-                    tags: [trail.id, userNameTag],
+                    tags: [trail.id],
+                    context: {name:firstName, date:date}
                   }}
                 >
                   Upload {trail.name} photo
@@ -232,7 +241,8 @@ const SingleTrail = () => {
                 }}
                 options={{
                   folder: trail.name,
-                  tags: [trail.id, userNameTag],
+                  tags: [trail.id],
+                  context: {name:firstName, date:date}
                 }}
               >
                 Upload {trail.name} photo
