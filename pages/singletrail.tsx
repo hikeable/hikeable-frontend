@@ -41,10 +41,10 @@ const SingleTrail = () => {
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
 
-  let firstName
-  if (userNameTag){
-    const split =userNameTag.split(" ")
-    firstName =  split[0]
+  let firstName;
+  if (userNameTag) {
+    const split = userNameTag.split(" ");
+    firstName = split[0];
   }
 
   const trailName = trail?.name;
@@ -56,8 +56,10 @@ const SingleTrail = () => {
   // console.log (firstName,"🌍🌍")
   const userID = userId?.toString();
 
-  const current = new Date()  
-  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`;
+  const current = new Date();
+  const date = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}  ${current.getHours()}:${current.getMinutes()}`;
 
   useEffect(() => {
     if (router.query.trail !== undefined) {
@@ -115,7 +117,7 @@ const SingleTrail = () => {
                   options={{
                     folder: trail.name,
                     tags: [trail.id],
-                    context: {name:firstName, date:date}
+                    context: { name: firstName, date: date },
                   }}
                 >
                   Upload {trail.name} photo
@@ -246,8 +248,7 @@ const SingleTrail = () => {
                   folder: trail.name,
                   tags: [trail.id],
 
-                  context: {name:firstName, date:date}
-
+                  context: { name: firstName, date: date },
                 }}
               >
                 Upload {trail.name} photo
@@ -345,45 +346,11 @@ const SingleTrail = () => {
             Interactive Mode
           </Link>
         </Box>
-
-        {/* <Box
-          sx={{
-            flexDirection: "column",
-            width: "40%",
-            border: "solid",
-            borderRadius: "4px",
-            m: 1,
-            p: 1,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>Tips for Trails</Typography>
-            <Typography>Add Tips</Typography>
-          </Box>
-          <Box>
-
-          </Box> */}
-          <Box>
-            <ScrollableText trailID={trail?.id}></ScrollableText>
-
-         
-          {/* <Box
-            sx={{
-              marginTop: "1",
-              border: "solid",
-              borderRadius: "4px",
-            }}
-          >
-            <Typography>From Haruna</Typography>
-            <Typography>
-              Stone stairs, and very slippery while and after raining!
-            </Typography>
-          </Box> */}
+        <Box sx={{ mt: 5 }}>
+          <Typography sx={{ fontWeight: 600, mb: 1 }}>
+            Reviews / Comments
+          </Typography>
+          <ScrollableText trailID={trail?.id} />
         </Box>
       </Container>
     )

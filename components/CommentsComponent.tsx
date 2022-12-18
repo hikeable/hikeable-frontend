@@ -6,11 +6,15 @@ import {
   TextField,
   Box,
   List,
+  Divider,
   ListItem,
   Dialog,
   DialogContent,
   ListItemText,
+  Avatar,
 } from "@mui/material";
+import ParkIcon from "@mui/icons-material/Park";
+
 import { Typography } from "@mui/joy";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
@@ -105,7 +109,6 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
     const fetchedCommentsData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments`
     );
-    console.log(fetchedCommentsData.data);
     if (!comments) {
       setComments(fetchedCommentsData.data);
     } else {
@@ -133,7 +136,6 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
 
   return (
     <>
-      <Button onClick={handleModalOpen}>Add a comment</Button>
       <Modal
         keepMounted
         open={modalOpen}
@@ -164,19 +166,61 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
         </Box>
       </Modal>
       <Paper
-        elevation={1}
-        style={{ overflowY: "scroll", height: "100px", width: "48vw" }}
+        // elevation={1}
+        style={{
+          overflowY: "scroll",
+          height: "40vh",
+          width: "100%",
+          borderRadius: "1rem",
+          padding: "2rem",
+          marginBottom: "1rem",
+        }}
       >
         <List>
           {comments.map((comment) => (
             <ListItemText key={comment.id}>
-              {" "}
-              {comment.date} {comment.userName} {comment.comment}{" "}
-              {comment.trail_id}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  mb: 0.5,
+                  mt: 1,
+                }}
+              >
+                <Avatar
+                  alt={comment.userName as string}
+                  src="/static/images/avatar/2.jpg"
+                  sx={{ mr: 3 }}
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    ml: 1,
+                    mr: 1,
+                    mb: 1,
+                  }}
+                >
+                  <Typography>{comment.date}</Typography>
+                  <Typography sx={{ mb: 1 }}>By {comment.userName}</Typography>
+                  <Typography sx={{ color: "grey" }}>
+                    {comment.comment}
+                  </Typography>
+                </Box>
+              </Box>
+              <Divider variant="middle" component="li" />
             </ListItemText>
           ))}
         </List>
       </Paper>
+      <Button
+        variant="outlined"
+        sx={{ textTransform: "none" }}
+        onClick={handleModalOpen}
+      >
+        Write comment
+      </Button>
     </>
   );
 };
