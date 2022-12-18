@@ -38,17 +38,18 @@ const MessageDetails = ({
   setMessageDetails,
 }: MessageRatingProps) => {
   const [data, setData] = useState<messageLikeObject[]>([]);
-  const [messageID, setMessageID] = useState<number>(0);
+  const [messageID, setMessageID] = useState<number | null>(null);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
-  const [likeID, setLikeID] = useState<number>(0);
+  const [likeID, setLikeID] = useState<number | null>(null);
   const { userId } = useAuthContext();
 
   const handleClose = () => {
     setMessageDetails({
       selected: "false",
       data: {
+        id: null,
         message: null,
         date: null,
       },
@@ -64,28 +65,31 @@ const MessageDetails = ({
 
   const filterMessageLikeData = () => {
     let count = 0;
-    return data.map((record) => {
-      if (record["user"] === userId) {
-        setRecordExists(true);
-        setLikeID(record["id"]);
-        if (record["value"] === 1) {
-          setIsLiked(true);
-        }
-      }
-
-      count += record["value"];
+    if (data.length === 0) {
+      setRecordExists(false);
+      setLikeID(null);
+      setIsLiked(false);
       setNumberOfLikes(count);
-    });
+    } else {
+      return data.map((record) => {
+        if (record["user"] === userId) {
+          setRecordExists(true);
+          setLikeID(record["id"]);
+          if (record["value"] === 1) setIsLiked(true);
+        }
+
+        count += record["value"];
+        setNumberOfLikes(count);
+      });
+    }
   };
 
   useEffect(() => {
-    if (messageDetails["selected"] === true) {
-      setMessageID(messageDetails["data"]["id"]);
-    }
+    setMessageID(messageDetails["data"]["id"]);
   }, [messageDetails]);
 
   useEffect(() => {
-    fetchMessageLikeData();
+    if (messageID !== null) fetchMessageLikeData();
   }, [messageID, isLiked]);
 
   useEffect(() => {

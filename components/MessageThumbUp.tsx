@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { IconButton } from "@mui/material";
@@ -11,7 +11,7 @@ interface MessageThumbUpProps {
   userId: number | undefined;
   isLiked: boolean;
   setIsLiked: Function;
-  likeID: number;
+  likeID: number | null;
 }
 
 const MessageThumbUp = ({
@@ -25,7 +25,7 @@ const MessageThumbUp = ({
 }: MessageThumbUpProps) => {
   const handleClick = async () => {
     const messageID = messageDetails["data"]["id"];
-    
+
     let current = new Date();
 
     if (!recordExists) {
@@ -77,8 +77,11 @@ const MessageThumbUp = ({
       });
       setIsLiked(true);
     }
-    console.log(messageID);
   };
+
+  useEffect(() => {
+    console.log(isLiked);
+  }, [isLiked]);
 
   return (
     <>
