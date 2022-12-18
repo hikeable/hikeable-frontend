@@ -41,17 +41,19 @@ export const options = {
   },
   scales: {
 
-    yAxis: {
-      min: 0,
+    y: {beginAtZero: true}
+
+    // yAxis: {
+    //   min: 0,
       
-    }
+    // }
   }
 };
 
 
 export function LineChart( {dataSet}) {
 
-    const [period, setPeriod] = React.useState<number>(40);
+    const [period, setPeriod] = React.useState<number>(30);
     const [label, setLabel] = useState<string>(`Last ${period} days`)
 
     const handlePeriod = (event: React.MouseEvent<HTMLElement>, newPeriod: number) => {
