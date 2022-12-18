@@ -39,6 +39,11 @@ const SingleTrail = () => {
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
+  let firstName;
+  if (userNameTag){
+    const split =userNameTag.split(" ")
+    firstName =  split[0]
+  };
   const trailName = trail?.name;
   // console.log ("testId =",trailName)
   // const trailId =useRef(trail?.id)
@@ -107,7 +112,7 @@ const SingleTrail = () => {
                   options={{
                     folder: trail.name,
                     tags: [trail.id],
-                    context: {name:userNameTag, date:date}
+                    context: {name:firstName, date:date}
                   }}
                 >
                   Upload {trail.name} photo
@@ -236,7 +241,8 @@ const SingleTrail = () => {
                 }}
                 options={{
                   folder: trail.name,
-                  tags: [trail.id, userNameTag],
+                  tags: [trail.id],
+                  context: {name:firstName, date:date}
                 }}
               >
                 Upload {trail.name} photo
