@@ -45,7 +45,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: false,
-          date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
+          date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
         },
       });
       setCompleted(false);
@@ -57,7 +57,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: `${current.getFullYear()}-${current.getMonth()}-${current.getDate()}`,
+          date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
         },
       });
       setCompleted(true);
