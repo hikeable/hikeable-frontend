@@ -22,6 +22,7 @@ import { Box, Container } from "@mui/material";
 import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+import ScrollableText from "../components/CommentsComponent";
 
 const _ = require("lodash");
 
@@ -39,18 +40,20 @@ const SingleTrail = () => {
 
   // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
-  let firstName;
+
+  let firstName
   if (userNameTag){
     const split =userNameTag.split(" ")
     firstName =  split[0]
-  };
+  }
+
   const trailName = trail?.name;
   // console.log ("testId =",trailName)
   // const trailId =useRef(trail?.id)
   const trailId = trail?.id.toString();
 
   // console.log ("trail = ",trail, "trailId =",trailId)
-  // console.log (userNameTag)
+  // console.log (firstName,"🌍🌍")
   const userID = userId?.toString();
 
   const current = new Date()  
@@ -242,7 +245,9 @@ const SingleTrail = () => {
                 options={{
                   folder: trail.name,
                   tags: [trail.id],
+
                   context: {name:firstName, date:date}
+
                 }}
               >
                 Upload {trail.name} photo
@@ -342,7 +347,7 @@ const SingleTrail = () => {
           </Link>
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
             flexDirection: "column",
             width: "40%",
@@ -361,7 +366,14 @@ const SingleTrail = () => {
             <Typography>Tips for Trails</Typography>
             <Typography>Add Tips</Typography>
           </Box>
-          <Box
+          <Box>
+
+          </Box> */}
+          <Box>
+            <ScrollableText trailID={trail?.id}></ScrollableText>
+
+         
+          {/* <Box
             sx={{
               marginTop: "1",
               border: "solid",
@@ -372,7 +384,7 @@ const SingleTrail = () => {
             <Typography>
               Stone stairs, and very slippery while and after raining!
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </Container>
     )
