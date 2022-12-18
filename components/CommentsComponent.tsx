@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 import {
   Paper,
   Button,
@@ -7,13 +8,9 @@ import {
   Box,
   List,
   Divider,
-  ListItem,
-  Dialog,
-  DialogContent,
   ListItemText,
   Avatar,
 } from "@mui/material";
-import ParkIcon from "@mui/icons-material/Park";
 
 import { Typography } from "@mui/joy";
 import axios from "axios";
@@ -50,9 +47,10 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: "90%",
     bgcolor: "background.paper",
     border: "2px solid #000",
+    borderRadius: "1rem",
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -176,51 +174,114 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
           marginBottom: "1rem",
         }}
       >
-        <List>
-          {comments.map((comment) => (
-            <ListItemText key={comment.id}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  mb: 0.5,
-                  mt: 1,
-                }}
-              >
-                <Avatar
-                  alt={comment.userName as string}
-                  src="/static/images/avatar/2.jpg"
-                  sx={{ mr: 3 }}
-                />
+        <BrowserView>
+          <List>
+            {comments.map((comment) => (
+              <ListItemText key={comment.id}>
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    ml: 1,
-                    mr: 1,
-                    mb: 1,
+                    alignItems: "center",
+                    mb: 0.5,
+                    mt: 1,
                   }}
                 >
-                  <Typography>{comment.date}</Typography>
-                  <Typography sx={{ mb: 1 }}>By {comment.userName}</Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                      mb: 0.5,
+                      mt: 1,
+                      width: "100%",
+                    }}
+                  >
+                    <Avatar
+                      alt={comment.userName as string}
+                      src="/static/images/avatar/2.jpg"
+                      sx={{ mr: 3 }}
+                    />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        ml: 1,
+                        mr: 1,
+                        mb: 1,
+                      }}
+                    >
+                      <Typography>{comment.date}</Typography>
+                      <Typography sx={{ mb: 1 }}>
+                        By {comment.userName}
+                      </Typography>
+                    </Box>
+                  </Box>
+
                   <Typography sx={{ color: "grey" }}>
                     {comment.comment}
                   </Typography>
                 </Box>
-              </Box>
-              <Divider variant="middle" component="li" />
-            </ListItemText>
-          ))}
-        </List>
+                <Divider variant="middle" component="li" />
+              </ListItemText>
+            ))}
+          </List>
+        </BrowserView>
+        <MobileView>
+          <List>
+            {comments.map((comment) => (
+              <ListItemText key={comment.id}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    mb: 0.5,
+                    mt: 1.5,
+                  }}
+                >
+                  <Avatar
+                    alt={comment.userName as string}
+                    src="/static/images/avatar/2.jpg"
+                    sx={{ mr: 3 }}
+                  />
+                  <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Typography>{comment.date}</Typography>
+                    <Typography sx={{ mb: 1 }}>
+                      By {comment.userName}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Typography sx={{ color: "grey", mb: 2 }}>
+                  {comment.comment}
+                </Typography>
+
+                <Divider variant="middle" component="li" />
+              </ListItemText>
+            ))}
+          </List>
+        </MobileView>
       </Paper>
-      <Button
-        variant="outlined"
-        sx={{ textTransform: "none" }}
-        onClick={handleModalOpen}
-      >
-        Write comment
-      </Button>
+      <BrowserView>
+        <Button
+          variant="outlined"
+          sx={{ textTransform: "none" }}
+          onClick={handleModalOpen}
+        >
+          Write comment
+        </Button>
+      </BrowserView>
+      <MobileView>
+        <Button
+          variant="outlined"
+          sx={{ textTransform: "none", width: "100%" }}
+          onClick={handleModalOpen}
+        >
+          Write comment
+        </Button>
+      </MobileView>
     </>
   );
 };

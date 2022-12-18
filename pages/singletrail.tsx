@@ -343,7 +343,9 @@ const SingleTrail = () => {
               },
             }}
           >
-            Interactive Mode
+            <Typography sx={{ mt: 2, fontSize: "1.5rem" }}>
+              Interactive Mode
+            </Typography>
           </Link>
         </Box>
         <Box sx={{ mt: 5 }}>
