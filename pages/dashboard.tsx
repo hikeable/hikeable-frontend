@@ -10,6 +10,7 @@ import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
+
 import * as React from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -42,12 +43,21 @@ type dummy = {
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: 'center',
+    fontSize: '1 rem',
     color: theme.palette.text.secondary,
     height: 60,
-    maxWidth: '20rem',
+    maxWidth: '32rem',
     minWidth: '15rem',
     lineHeight: '60px',
+    padding: '4px',
+    
   }));
+
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat",
+    },
+  });
 
 const Dashboard  = () => {
 
@@ -106,71 +116,76 @@ const Dashboard  = () => {
 
     },[usersCompletedTrails])
 
-
-    
-
     return (
         
         <>
           
 
-            <Box
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-                <div className= {styles.page_header}>
-                <Typography>Hi {user?.displayName} !</Typography>
-                  
-                    <Item key={7} elevation={7} >
-                        {`You've hiked a distance of ${hiked} km` }
-                    </Item>
-                </div>
+            <ThemeProvider theme={theme}>
+                <Box
+                sx={{
+                    flexDirection: "column",
+                }}
+                >
+                    <div className= {styles.page_header}>
+                    <Typography fontSize={'3rem'}
+                        
+                    >Hi {user?.displayName} !</Typography>
+                    
+                        {/* <Item key={7} elevation={1} > */}
+                        <Typography fontSize={'1.5rem'}>
+                            {`You've hiked a total of ${hiked} km` }
+
+                        </Typography>
+                        {/* </Item> */}
+                    </div>
+
+                </Box>
+                <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
+
+                {data.length >= 0 ?(
+                    <LineChart dataSet={data}></LineChart>
+                    ): <>Loading...</>
+                }   
 
 
-            </Box>
-            <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
+                </Box>
 
-             {data.length >= 0 ?(
-                <LineChart dataSet={data}></LineChart>
-                ): <>Loading...</>
-             }   
+                <Typography>
+                    You have completed the following trails: !
+                </Typography>
+                <div className={styles.completed_trails}>
+                    {usersCompletedTrails.map((trail: dummy) => {
+                        return (
+                            <>
 
+                                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
 
-            </Box>
+                                    <Button
+                                        variant='outlined'
 
-            <Typography>
-                You have completed the following trails: !
-            </Typography>
-            <div className={styles.completed_trails}>
-                {usersCompletedTrails.map((trail: dummy) => {
-                    return (
-                        <>
+                                        component={NextLinkComposed}
+                                        to={{
+                                            pathname: "/singletrail",
+                                            query: { trail: JSON.stringify(trail) },
+                                        }}
+                                        linkAs={`/singletrail/${trail.id}`}
+                                    >
+                                        <CardContent>
+                                            <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                                {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                            </Typography>
+                                        </CardContent>
+                                    </Button>
+                                </Box>
+                            </>
 
-                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                        );
+                })}
+            </div>
 
-                                <Button
-                                    variant='outlined'
+        </ThemeProvider>
 
-                                    component={NextLinkComposed}
-                                    to={{
-                                        pathname: "/singletrail",
-                                        query: { trail: JSON.stringify(trail) },
-                                    }}
-                                    linkAs={`/singletrail/${trail.id}`}
-                                >
-                                    <CardContent>
-                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
-                                        </Typography>
-                                    </CardContent>
-                                </Button>
-                            </Box>
-                        </>
-
-                    );
-             })}
-        </div>
 
             
         </>

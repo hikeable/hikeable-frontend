@@ -1,8 +1,20 @@
 import { useEffect, useState } from "react";
-import { Modal, Box, Typography } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import axios from "axios";
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Montserrat",
+  },
+});
 
 interface MessageRatingProps {
   messageDetails: Object;
@@ -26,6 +38,7 @@ const style = {
   width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
+  borderRadius: "1rem",
   boxShadow: 24,
   pt: 2,
   px: 4,
@@ -99,36 +112,39 @@ const MessageDetails = ({
   }, [data]);
 
   return (
-    <Modal
-      keepMounted
-      open={messageDetails["selected"] === true}
-      onClose={handleClose}
-      aria-labelledby="keep-mounted-modal-title"
-      aria-describedby="keep-mounted-modal-description"
-    >
-      <Box sx={style}>
-        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-          Message
-        </Typography>
-        <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-          Posted on {messageDetails["data"]["date"]}
-        </Typography>
-        <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
-          {messageDetails["data"]["message"]}
-        </Typography>
-        <MessageThumbUp
-          recordExists={recordExists}
-          setRecordExists={setRecordExists}
-          isLiked={isLiked}
-          setIsLiked={setIsLiked}
-          userId={userId}
-          likeID={likeID}
-          messageID={messageID}
-        />
+    <ThemeProvider theme={theme}>
+      <Modal
+        keepMounted
+        open={messageDetails["selected"] === true}
+        onClose={handleClose}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+        sx={{ borderRadius: "1rem" }}
+      >
+        <Box sx={style}>
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            Message
+          </Typography>
+          <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+            Posted on {messageDetails["data"]["date"]}
+          </Typography>
+          <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
+            {messageDetails["data"]["message"]}
+          </Typography>
+          <MessageThumbUp
+            recordExists={recordExists}
+            setRecordExists={setRecordExists}
+            isLiked={isLiked}
+            setIsLiked={setIsLiked}
+            userId={userId}
+            likeID={likeID}
+            messageID={messageID}
+          />
 
-        <>{numberOfLikes}</>
-      </Box>
-    </Modal>
+          <>{numberOfLikes}</>
+        </Box>
+      </Modal>
+    </ThemeProvider>
   );
 };
 

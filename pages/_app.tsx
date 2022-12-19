@@ -2,7 +2,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Navbar } from "../components/Navbar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { User } from "firebase/auth";
@@ -42,7 +42,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
           </>
     );
   }
-  console.log("router.pathname =======", router.pathname, user); // just to clarify which route is on display.
   return (
     <>
     <Head>
@@ -62,7 +61,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
           />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
-
       </AuthProvider>
           </>
     </>

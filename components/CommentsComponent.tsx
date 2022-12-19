@@ -1,48 +1,56 @@
-import React, { useEffect,useState } from 'react';
-import { Paper, Button, Modal, TextField, Box, List, ListItem, Dialog, DialogContent, ListItemText} from '@mui/material';
+import React, { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
+import {
+  Paper,
+  Button,
+  Modal,
+  TextField,
+  Box,
+  List,
+  Divider,
+  ListItemText,
+  Avatar,
+} from "@mui/material";
+
 import { Typography } from "@mui/joy";
-import axios from 'axios';
-import { useAuthContext } from './context/UseAuthContext';
-
-
+import axios from "axios";
+import { useAuthContext } from "./context/UseAuthContext";
 
 interface ScrollableTextProps {
   trailID: number;
 }
 
 type commentsDataObject = {
-  id: number,
-  user: number,
-  userName: string
-  trail_id: number,
-  comment: string,
-  date: string
-}
+  id: number;
+  user: number;
+  userName: string;
+  trail_id: number;
+  comment: string;
+  date: string;
+};
 
-const ScrollableText = ({
-  trailID}: ScrollableTextProps) => {
-  const [value,setValue] = useState("")
+const ScrollableText = ({ trailID }: ScrollableTextProps) => {
+  const [value, setValue] = useState("");
   const [comments, setComments] = useState<commentsDataObject[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const {user,userId} = useAuthContext()
+  const { user, userId } = useAuthContext();
 
   const userNameTag = user?.displayName;
-  let firstName
-  if (userNameTag){
-    const split =userNameTag.split(" ")
-    firstName =  split[0]
+  let firstName;
+  if (userNameTag) {
+    const split = userNameTag.split(" ");
+    firstName = split[0];
   }
 
-  
-  
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: "90%",
     bgcolor: "background.paper",
     border: "2px solid #000",
+    borderRadius: "1rem",
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -64,15 +72,6 @@ const ScrollableText = ({
 
   const handleSubmit = async () => {
     let current = new Date();
-    console.log ("userId =",userId)
-    console.log ("trail_id =",trailID)
-    console.log ("username =",firstName)
-
-    console.log ("date =",  `${current.getFullYear()}-${
-      current.getMonth() + 1
-    }-${current.getDate()}`)
-
-    // https://hikeable-backend.herokuapp.com/api/trails/comments
 
     await axios({
       method: "post",
@@ -81,52 +80,54 @@ const ScrollableText = ({
         user: userId,
         userName: firstName,
         trail_id: trailID,
-        comment:value,
+        comment: value,
         date: `${current.getFullYear()}-${
           current.getMonth() + 1
         }-${current.getDate()}`,
       },
     });
-  
+
     setValue("");
     handleModalClose();
   };
 
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
-  useEffect(()=>{
-    fetchComments()
-  },[])
-
-  // "api/trails/<int:pk>/comments"
-
-  // https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments
   const fetchComments = async () => {
     const fetchedCommentsData = await axios.get(
       `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments`
     );
-    console.log (fetchedCommentsData.data)
     if (!comments) {
       setComments(fetchedCommentsData.data);
     } else {
-      
       setComments([...fetchedCommentsData.data]);
     }
   };
-
 
   const SubmitButton = () => {
     return (
       <Button
         variant="contained"
         disableElevation
-        style={{ cursor: "pointer", zIndex: 99 }}
-        onClick={()=>{
-          handleSubmit() 
-          fetchComments()
-          fetchComments()
-
+        style={{
+          cursor: "pointer",
+          zIndex: 99,
+          fontFamily: "Montserrat",
+        }}
+        onClick={() => {
+          handleSubmit();
+          fetchComments();
+          fetchComments();
         }}
         onTouchStart={handleSubmit}
+        sx={{
+          background: "#304b35",
+          "&:hover": {
+            background: "#64801a",
+          },
+        }}
       >
         Submit
       </Button>
@@ -135,65 +136,215 @@ const ScrollableText = ({
 
   return (
     <>
-      <Button onClick={handleModalOpen}>Add a comment</Button>
       <Modal
-      keepMounted
-      open={modalOpen}
-      onClose={handleModalClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Typography id="modal-modal-title"  component="h2">
-          Write Trail Comment
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-          Messages that condone violence, hate speech, harmful misinformation,
-          or criminal acts are subject to deletion, and the offending user will
-          be banned.
-        </Typography>
-        <TextField
-          sx={{ width: 1, mb: 2 }}
-          id="outlined-multiline-static"
-          label="Message"
-          multiline
-          rows={3}
-          placeholder={"Your message here"}
-          value={value}
-          onChange={handleTextChange}
-          InputProps={{ endAdornment: <SubmitButton /> }}
-        />
-      
-      </Box>
-    </Modal>
-      <Paper elevation={1} style={{ overflowY: 'scroll', height: '100px', width: "48vw" }}>
-           
-        <Typography>Comments for Trail</Typography>
-        <List>
-        {comments.map((comment) => (
-          <ListItemText key={comment.id}> * {comment.date} {comment.userName} {comment.comment} {comment.trail_id}</ListItemText>
-      ))}
-      
-       
+        keepMounted
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            component="h2"
+            sx={{
+              fontFamily: "Montserrat",
+            }}
+          >
+            Write Trail Comment
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
+            Messages that condone violence, hate speech, harmful misinformation,
+            or criminal acts are subject to deletion, and the offending user
+            will be banned.
+          </Typography>
+          <TextField
+            sx={{ width: 1, mb: 2, fontFamily: "Montserrat" }}
+            id="outlined-multiline-static"
+            label="Message"
+            multiline
+            rows={3}
+            placeholder={"Your message here"}
+            value={value}
+            onChange={handleTextChange}
+            InputProps={{ endAdornment: <SubmitButton /> }}
+          />
+        </Box>
+      </Modal>
 
-        {/* {value} */}
+      <Paper
+        style={{
+          overflowY: "scroll",
+          height: "40vh",
+          width: "100%",
+          borderRadius: "1rem",
+          padding: "2rem",
+          marginBottom: "1rem",
+          marginTop: "1rem",
+        }}
+      >
+        <BrowserView>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+            }}
+          >
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: "8px",
+                textTransform: "none",
+                fontFamily: "Montserrat",
+                background: "#304b35",
+                "&:hover": {
+                  background: "#64801a",
+                },
+              }}
+              onClick={handleModalOpen}
+            >
+              Write comment
+            </Button>
+          </Box>
 
-        </List>
-          
+          <List>
+            {comments.map((comment) => (
+              <ListItemText key={comment.id}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    mb: 2,
+                    mt: 1,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                      mb: 0.5,
+                      mt: 1,
+                      width: "100%",
+                    }}
+                  >
+                    <Avatar
+                      alt={comment.userName as string}
+                      src="/static/images/avatar/2.jpg"
+                      sx={{ mr: 3 }}
+                    />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        ml: 1,
+                        mr: 1,
+                        mb: 1,
+                      }}
+                    >
+                      <Typography sx={{ fontFamily: "Montserrat" }}>
+                        {comment.date}
+                      </Typography>
+                      <Typography sx={{ mb: 1, fontFamily: "Montserrat" }}>
+                        By {comment.userName}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "grey",
+                        fontFamily: "Montserrat",
+                      }}
+                    >
+                      {comment.comment}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Divider variant="middle" component="li" />
+              </ListItemText>
+            ))}
+          </List>
+        </BrowserView>
+        <MobileView>
+          <List>
+            {comments.map((comment) => (
+              <ListItemText key={comment.id}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    mb: 0.5,
+                    mt: 1.5,
+                  }}
+                >
+                  <Avatar
+                    alt={comment.userName as string}
+                    src="/static/images/avatar/2.jpg"
+                    sx={{ mr: 3 }}
+                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      fontFamily: "Montserrat",
+                    }}
+                  >
+                    <Typography sx={{ fontFamily: "Montserrat" }}>
+                      {comment.date}
+                    </Typography>
+                    <Typography sx={{ mb: 1, fontFamily: "Montserrat" }}>
+                      By {comment.userName}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Typography
+                  sx={{ color: "grey", mb: 2, fontFamily: "Montserrat" }}
+                >
+                  {comment.comment}
+                </Typography>
+
+                <Divider variant="middle" component="li" />
+              </ListItemText>
+            ))}
+          </List>
+        </MobileView>
       </Paper>
-      {/* <Dialog open={open} onClose={handleClose}>
-  <DialogContent>
-    <List style={{ maxHeight: '50vh', overflow: 'auto' }}>
-      {commentss.map((comment) => (
-        <ListItem key={comment.id}>{comment.text}</ListItem>
-      ))}
-    </List>
-  </DialogContent>
-</Dialog> */}
-    
+
+      <MobileView>
+        <Button
+          variant="outlined"
+          sx={{
+            borderRadius: "8px",
+            fontWeight: 600,
+            fontFamily: "Montserrat",
+            color: "white",
+            textTransform: "none",
+            width: "100%",
+            background: "#304b35",
+            "&:hover": {
+              background: "#64801a",
+            },
+          }}
+          onClick={handleModalOpen}
+        >
+          Write comment
+        </Button>
+      </MobileView>
     </>
   );
 };
 
-
-export default ScrollableText
+export default ScrollableText;

@@ -2,6 +2,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
 
@@ -90,7 +91,14 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
           <>
             <Tooltip title="Unlike">
               <IconButton aria-label="favorite" onClick={handleFavorite}>
-                <FavoriteIcon sx={{ fontSize: "2.5rem" }}></FavoriteIcon>
+                <BrowserView>
+                  <FavoriteIcon
+                    sx={{ fontSize: "2.5rem", fill: "white" }}
+                  ></FavoriteIcon>
+                </BrowserView>
+                <MobileView>
+                  <FavoriteIcon sx={{ fontSize: "2.5rem" }}></FavoriteIcon>
+                </MobileView>
               </IconButton>
             </Tooltip>
           </>
@@ -101,9 +109,16 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
                 aria-label="favorite-outline"
                 onClick={handleFavorite}
               >
-                <FavoriteBorderOutlinedIcon
-                  sx={{ fontSize: "2.5rem" }}
-                ></FavoriteBorderOutlinedIcon>
+                <BrowserView>
+                  <FavoriteBorderOutlinedIcon
+                    sx={{ fontSize: "2.5rem", fill: "white" }}
+                  ></FavoriteBorderOutlinedIcon>
+                </BrowserView>
+                <MobileView>
+                  <FavoriteBorderOutlinedIcon
+                    sx={{ fontSize: "2.5rem" }}
+                  ></FavoriteBorderOutlinedIcon>
+                </MobileView>
               </IconButton>
             </Tooltip>
           </>

@@ -7,22 +7,19 @@
 }
 
 .img__wrapper {
-  width: 450px;
-  height: 300px;
+  width: 100%;
+  height: 70vh;
+  opacity: 0.7;
+  object-fit: cover;
   border-radius: 1rem;
 }
 
-// .container__weather {
-//   margin-top: 4vh;
-//   margin-bottom: 4vh;
-//   width: 30vw;
-//   align-items: flex-start;
-// }
-
-// .container-map {
-//   width: 40vw;
-//   align-items: flex-start;
-// }
+.img__wrapper__mobile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
 
 .card__link {
   color: black;
@@ -31,13 +28,18 @@
 
 .btn__cloudinary {
   font-family: "Montserrat", sans-serif;
-  background-color: pink;
+  color: white;
+  background: #304b35;
   font-weight: 600;
   font-size: 1rem;
   border: none;
   border-radius: 40px;
   padding: 12px 1rem;
   cursor: pointer;
+}
+
+.btn__cloudinary:hover {
+  background: #64801a;
 }
 
 .btn__cloudinary__mobile {
@@ -68,4 +70,8 @@
   // width: 60vw;
   height: 50vh;
   border-radius: 1rem;
+}
+
+.link__interactive {
+  text-decoration: none;
 }
