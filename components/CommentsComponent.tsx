@@ -244,7 +244,9 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
                         mb: 1,
                       }}
                     >
-                      <Typography>{comment.date}</Typography>
+                      <Typography sx={{ fontFamily: "Montserrat" }}>
+                        {comment.date}
+                      </Typography>
                       <Typography sx={{ mb: 1, fontFamily: "Montserrat" }}>
                         By {comment.userName}
                       </Typography>

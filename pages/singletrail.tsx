@@ -310,6 +310,7 @@ const SingleTrail = () => {
                   size="lg"
                   aria-label={`View ${trail.name} trail`}
                   sx={{
+                    color: "white",
                     fontWeight: 600,
                     background: "#304b35",
                     "&:hover": {
@@ -390,7 +391,15 @@ const SingleTrail = () => {
               },
             }}
           >
-            <Typography sx={{ mt: 2, fontSize: "1.5rem" }}>
+            <Typography
+              sx={{
+                mt: 2,
+                fontSize: "1.5rem",
+                textAlign: "center",
+                fontWeight: "600",
+                color: "#0e2424",
+              }}
+            >
               Interactive Mode
             </Typography>
           </Link>
