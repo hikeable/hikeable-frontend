@@ -62,7 +62,6 @@ const ContactForm = () => {
       <Button
         sx={{
           my: 2,
-          width: "8vw",
           background: "#304b35",
           "&:hover": {
             background: "#64801a",

@@ -6,6 +6,7 @@ import {
   CardActions,
   CardMedia,
   IconButton,
+  Container,
 } from "@mui/material";
 import Image from "next/image";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -100,8 +101,9 @@ const About = () => {
         <Box
           bgcolor={"white"}
           display={"flex"}
-          alignItems={"center"}
+          flexDirection={"column"}
           justifyContent={"center"}
+          alignItems={"center"}
         >
           <Typography variant="subtitle2">
             <strong>Hikeable</strong> is built using:
@@ -123,51 +125,51 @@ const About = () => {
             ))}
           </Grid>
         </Box>
-        <Box
-          sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
-          bgcolor={"whitesmoke"}
-          p={4}
-          display={"flex"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <Typography variant="h4" my={2}>
-            Our Team
-          </Typography>
+        <Container>
+          <Box
+            textAlign={"center"}
+            p={4}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"space-around"}
+          >
+            <Typography variant="h4" my={2}>
+              Our Team
+            </Typography>
 
-          <Grid container rowSpacing={1} columnSpacing={{ md: 4 }}>
-            {staffCardInfo.map((staff) => (
-              <Grid item xs={3} sx={{ textAlign: "center" }}>
-                <Card variant="outlined">
-                  <CardMedia
-                    sx={{
-                      height: "24vh",
-                      width: "24vh",
-                      p: 2,
-                      borderRadius: "50%",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                    component="img"
-                    alt="Profile Picture"
-                    image={staff.picture}
-                  />
-                  <Typography fontSize={24}>{staff.name}</Typography>
-                  <Typography fontSize={16}>{staff.title}</Typography>
-                  <CardActions>
-                    <IconButton href={staff.github}>
-                      <GitHubIcon style={{ color: "black" }} />
-                    </IconButton>
-                    <IconButton href={staff.linkedin}>
-                      <LinkedInIcon style={{ color: "#0072b1" }} />
-                    </IconButton>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+            <Grid container spacing={2}>
+              {staffCardInfo.map((staff) => (
+                <Grid item sm={3} sx={{ textAlign: "center" }}>
+                  <Card variant="outlined">
+                    <CardMedia
+                      sx={{
+                        height: "24vh",
+                        width: "24vh",
+                        p: 2,
+                        borderRadius: "50%",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                      component="img"
+                      alt="Profile Picture"
+                      image={staff.picture}
+                    />
+                    <Typography fontSize={24}>{staff.name}</Typography>
+                    <Typography fontSize={16}>{staff.title}</Typography>
+                    <CardActions>
+                      <IconButton href={staff.github}>
+                        <GitHubIcon style={{ color: "black" }} />
+                      </IconButton>
+                      <IconButton href={staff.linkedin}>
+                        <LinkedInIcon style={{ color: "#0072b1" }} />
+                      </IconButton>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Container>
         <Box
           sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
           bgcolor={"white"}
@@ -189,7 +191,7 @@ const About = () => {
             flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"left"}
-            width={"40vw"}
+            width={{ xs: "80vw", md: "40vw" }}
           >
             <ContactForm />
           </Box>
