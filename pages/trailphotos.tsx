@@ -2,6 +2,7 @@ import PhotoGallery from "../components/photoGallery";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Container } from "@mui/material";
 import styles from "../styles/trailphotos.module.css";
+import Head from "next/head";
 
 // import { PhotoPageBreadcrumbs } from "../components";
 
@@ -13,6 +14,9 @@ const TrailPhotos = () => {
 
   return (
     <>
+      {/* <Head>
+        <title>Hikeable</title>
+      </Head> */}
       <Container sx={{ mt: 15 }}>
         <Button
           variant="outlined"

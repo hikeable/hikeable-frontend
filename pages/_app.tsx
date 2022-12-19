@@ -20,6 +20,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
   if (router.pathname === "/") {
     console.log("path--", router.pathname);
     return (
+      <>
+      <title>Hikeable</title>
+        <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
+        <meta name="keywords" content="hiking, japan, advice"/>
+        <link rel="icon" href="/boots.png" /> 
       <AuthProvider>
         <Navbar
           navActive={false}
@@ -27,14 +32,19 @@ export default function App({ Component, pageProps, router }: AppProps) {
           setLoggedStatus={setLoggedStatus}
           userName={""}
           logOff={setLoggedStatus}
-        />
+          />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
       </AuthProvider>
+          </>
     );
   }
   console.log("router.pathname =======", router.pathname, user); // just to clarify which route is on display.
   return (
+    <>
+    <title>Hikeable</title>
+        <meta name="description" content="hiking japan" />
+        <link rel="icon" href="/boots.png" /> 
     <>
       <AuthProvider>
         <Navbar
@@ -43,11 +53,12 @@ export default function App({ Component, pageProps, router }: AppProps) {
           setLoggedStatus={setLoggedStatus}
           userName={""}
           logOff={setLoggedStatus}
-        />
+          />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
 
       </AuthProvider>
+          </>
     </>
   );
 }

@@ -17,6 +17,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import MessageDetails from "../components/MessageDetails";
+import Head from "next/head";
 
 type LatLngObject = {
   lat: number | null;
@@ -77,12 +78,16 @@ const MapView = () => {
   ];
 
   return (
+    <>
+    <Head>
+      <title>Hikeable</title>
+    </Head>
     <Box>
       <Dialog
         open={!agree}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-      >
+        >
         <DialogTitle id="alert-dialog-title">Terms and Conditions</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ my: 2 }} id="alert-dialog-description">
@@ -107,20 +112,20 @@ const MapView = () => {
         currentPosition={currentPosition}
         setCurrentPosition={setCurrentPosition}
         setMessageDetails={setMessageDetails}
-      />
+        />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
         sx={{ position: "absolute", bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
-      >
+        >
         {actions.map((action) => (
           <SpeedDialAction
-            key={action.name}
-            tooltipTitle={action.name}
-            icon={action.icon}
-            onClick={action.onclick}
+          key={action.name}
+          tooltipTitle={action.name}
+          icon={action.icon}
+          onClick={action.onclick}
           />
-        ))}
+          ))}
       </SpeedDial>
       <MessageForm
         trailID={trailID}
@@ -128,12 +133,13 @@ const MapView = () => {
         formOpen={formOpen}
         setFormOpen={setFormOpen}
         setIsSubmitted={setIsSubmitted}
-      />
+        />
       <MessageDetails
         messageDetails={messageDetails}
         setMessageDetails={setMessageDetails}
-      />
+        />
     </Box>
+    </>
   );
 };
 

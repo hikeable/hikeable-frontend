@@ -17,6 +17,7 @@ import { Dispatch, SetStateAction } from "react";
 import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
 import {userLoggedBadge} from "../src/UpdateBadges";
+import Head from "next/head";
 
 export interface INavbar {
   navActive: boolean;
@@ -78,6 +79,10 @@ export const Navbar: React.FC<INavbar> = ({
   };
 
   return navActive == true ? (
+    <>
+    <Head>
+    <title>Hikeable</title>
+   </Head>
     <Box sx={{ flexGrow: 1, mb: "55px" }}>
       <AppBar position="fixed">
         <Container maxWidth="xl">
@@ -93,7 +98,7 @@ export const Navbar: React.FC<INavbar> = ({
                   display: { xs: "none", sm: "block" },
                   mr: "auto",
                 }}
-              >
+                >
                 Hikeable
               </Typography>
             </Link>
@@ -110,7 +115,7 @@ export const Navbar: React.FC<INavbar> = ({
                     display: { xs: "none", sm: "block" },
                     ml: 5,
                   }}
-                >
+                  >
                   Welcome {userName?.split(" ")[0]}&nbsp;!
                 </Typography>
 
@@ -120,7 +125,7 @@ export const Navbar: React.FC<INavbar> = ({
                       <Avatar
                         alt={userName as string}
                         src="/static/images/avatar/2.jpg"
-                      />
+                        />
                     </IconButton>
                   </Tooltip>
                 </Box>
@@ -140,13 +145,13 @@ export const Navbar: React.FC<INavbar> = ({
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
-                >
+                  >
                   {settings.map((setting) => (
                     <MenuItem
-                      component="a"
-                      href={"/" + setting.toLowerCase()}
-                      key={setting}
-                      onClick={() => updateState(setting)}
+                    component="a"
+                    href={"/" + setting.toLowerCase()}
+                    key={setting}
+                    onClick={() => updateState(setting)}
                     >
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
@@ -155,9 +160,9 @@ export const Navbar: React.FC<INavbar> = ({
               </>
             ) : (
               <Button
-                variant="contained"
-                sx={{ ml: 3 }}
-                onClick={() => loginWithGoogle()}
+              variant="contained"
+              sx={{ ml: 3 }}
+              onClick={() => loginWithGoogle()}
               >
                 Log In
               </Button>
@@ -166,7 +171,11 @@ export const Navbar: React.FC<INavbar> = ({
         </Container>
       </AppBar>
     </Box>
+  </>
+
   ) : (
     <></>
-  );
-};
+    );
+  };
+
+          

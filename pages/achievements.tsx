@@ -5,6 +5,7 @@ import styles from "../styles/achievements.module.css"
 // import styles from "../styles/achievements.module.css";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 const badgeDict = {
     "Incomplete": "/badges/Incomplete.png",
@@ -71,6 +72,9 @@ const Achievements = () => {
 
     return (
         <>
+            <Head>
+                 <title>Hikeable</title>
+            </Head>
             <div className={styles.txt_wrapper}>
                 <Typography variant="h3" className={styles.achievements_title}>
                     Your Achievements

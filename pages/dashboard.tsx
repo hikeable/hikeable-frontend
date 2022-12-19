@@ -20,6 +20,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Head from 'next/head';
 
 
 type Anchor = 'left' ;
@@ -150,6 +151,9 @@ const Dashboard  = () => {
     return (
         
         <>
+          <Head>
+            <title>Hikeable</title>
+          </Head>
 
             <div>
                 {(['left'] as const).map((anchor) => (
