@@ -253,17 +253,23 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
                       </Typography>
                     </Box>
                   </Box>
-
-                  <Typography
+                  <Box
                     sx={{
-                      color: "grey",
-                      fontFamily: "Montserrat",
+                      width: "100%",
                       display: "flex",
-                      alignItems: "flex-start",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
                     }}
                   >
-                    {comment.comment}
-                  </Typography>
+                    <Typography
+                      sx={{
+                        color: "grey",
+                        fontFamily: "Montserrat",
+                      }}
+                    >
+                      {comment.comment}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Divider variant="middle" component="li" />
               </ListItemText>
