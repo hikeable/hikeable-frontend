@@ -146,10 +146,10 @@ const About = () => {
                 <Typography fontSize={16}>{staff.title}</Typography>
                 <CardActions>
                   <IconButton href={staff.github}>
-                    <GitHubIcon />
+                    <GitHubIcon style={{ color: "black" }} />
                   </IconButton>
                   <IconButton href={staff.linkedin}>
-                    <LinkedInIcon />
+                    <LinkedInIcon style={{ color: "#0072b1" }} />
                   </IconButton>
                 </CardActions>
               </Card>
@@ -182,9 +182,6 @@ const About = () => {
           width={"50vw"}
         >
           <ContactForm />
-          <Button variant="contained" disableElevation>
-            Submit
-          </Button>
         </Box>
       </Box>
     </>
