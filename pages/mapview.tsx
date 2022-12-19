@@ -79,9 +79,9 @@ const MapView = () => {
 
   return (
     <>
-    <Head>
+    {/* <Head>
       <title>Hikeable</title>
-    </Head>
+    </Head> */}
     <Box>
       <Dialog
         open={!agree}

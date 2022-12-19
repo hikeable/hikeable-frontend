@@ -72,9 +72,9 @@ const Achievements = () => {
 
     return (
         <>
-            <Head>
+            {/* <Head>
                  <title>Hikeable</title>
-            </Head>
+            </Head> */}
             <div className={styles.txt_wrapper}>
                 <Typography variant="h3" className={styles.achievements_title}>
                     Your Achievements

@@ -24,7 +24,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <title>Hikeable</title>
         <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
         <meta name="keywords" content="hiking, japan, advice"/>
-        <link rel="icon" href="/boots.png" /> 
+        {/* <link rel="icon" href="/favicon.ico" />  */}
+        <link rel="icon" href="/boots.png" />
       <AuthProvider>
         <Navbar
           navActive={false}

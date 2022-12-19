@@ -18,6 +18,7 @@ import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
 import {userLoggedBadge} from "../src/UpdateBadges";
 import Head from "next/head";
+import { color } from "@mui/system";
 
 export interface INavbar {
   navActive: boolean;  
@@ -103,8 +104,12 @@ export const Navbar: React.FC<INavbar> = ({
               </Typography>
             </Link>
 
-            <Button sx={{ ml: "auto" }} variant="contained" href="/prefectures">
-              Explore
+            <Button sx={{ ml: "auto" }} variant="contained" href="/prefectures" >
+              {/* <Link href="/prefectures" legacyBehavior >
+                Explore
+                <a >Explore</a>
+              </Link> */}
+              
             </Button>
 
             {user ? (
@@ -153,6 +158,7 @@ export const Navbar: React.FC<INavbar> = ({
                     key={setting}
                     onClick={() => updateState(setting)}
                     >
+                      {/* <Link href={"/" + setting.toLowerCase()}></Link> */}
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}

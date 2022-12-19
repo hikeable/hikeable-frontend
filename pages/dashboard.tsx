@@ -11,7 +11,6 @@ import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
 import * as React from 'react';
-<<<<<<< HEAD
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -25,8 +24,6 @@ import Head from 'next/head';
 
 
 type Anchor = 'left' ;
-=======
->>>>>>> development
 
 type dummy = {
 

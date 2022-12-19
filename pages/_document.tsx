@@ -6,9 +6,9 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        {/* <title>Hikeable</title>
-        <meta name="description" content="hiking japan" />
-        <link rel="icon" href="/boots.png" />  */}
+        <title>Hikeable</title>
+        {/* <meta name="description" content="hiking japan" /> */}
+        <link rel="icon" href="/boots.png" /> 
         
         <link
           rel="stylesheet"

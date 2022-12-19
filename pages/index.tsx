@@ -20,9 +20,10 @@ export default function Home() {
   return (
     <div>
       <Head>
-         {/* <title>Hikeable</title>
-         <meta name="description" content="hiking japan" />
-         <link rel="icon" href="/boots.png" />  */}
+         <title>Hikeable</title>
+         {/* <meta name="description" content="hiking japan" /> */}
+         <link rel="icon" href="/boots.png" /> 
+         {/* <link rel="icon" href="/favicon.ico" />  */}
       </Head>
       <Landing/>
       {
