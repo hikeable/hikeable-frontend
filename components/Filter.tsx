@@ -98,7 +98,7 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
           <Divider />
 
           <FormControl sx={{ mt: 1, mb: 1 }}>
-            <FormLabel id="demo-radio-buttons-group-label" sx={{}}>
+            <FormLabel id="demo-radio-buttons-group-label">
               Difficulty
             </FormLabel>
             <RadioGroup
@@ -107,18 +107,20 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
               name="radio-buttons-group"
               onChange={handleDiffChange}
             >
-              <FormControlLabel value="1" control={<Radio />} label="Easy" />
+              <FormControlLabel
+                value="1"
+                control={<Radio color="success" />}
+                label="Easy"
+              />
               <FormControlLabel
                 value="2"
-                control={<Radio />}
+                control={<Radio color="success" />}
                 label="Moderate"
-                sx={{}}
               />
               <FormControlLabel
                 value="3"
-                control={<Radio />}
+                control={<Radio color="success" />}
                 label="Hard"
-                sx={{}}
               />
             </RadioGroup>
           </FormControl>

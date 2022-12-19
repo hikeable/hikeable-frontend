@@ -194,6 +194,7 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
             <Button
               variant="contained"
               sx={{
+                borderRadius: "8px",
                 textTransform: "none",
                 fontFamily: "Montserrat",
                 background: "#304b35",
@@ -253,7 +254,14 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
                     </Box>
                   </Box>
 
-                  <Typography sx={{ color: "grey", fontFamily: "Montserrat" }}>
+                  <Typography
+                    sx={{
+                      color: "grey",
+                      fontFamily: "Montserrat",
+                      display: "flex",
+                      alignItems: "flex-start",
+                    }}
+                  >
                     {comment.comment}
                   </Typography>
                 </Box>
@@ -313,6 +321,8 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
         <Button
           variant="outlined"
           sx={{
+            borderRadius: "8px",
+            fontWeight: 600,
             fontFamily: "Montserrat",
             color: "white",
             textTransform: "none",

@@ -71,4 +71,8 @@
 .map {
   height: 50vh;
   border-radius: 1rem;
+}
+
+.link__interactive {
+  text-decoration: none;
 }/*# sourceMappingURL=singletrail.module.css.map */

@@ -310,6 +310,7 @@ const SingleTrail = () => {
                   size="lg"
                   aria-label={`View ${trail.name} trail`}
                   sx={{
+                    padding: "0 2rem",
                     color: "white",
                     fontWeight: 600,
                     background: "#304b35",
@@ -382,6 +383,7 @@ const SingleTrail = () => {
         <Box>
           <SmallMap lat={trail.latitude} lon={trail.longitude} />
           <Link
+            className={styles.link__interactive}
             href={{
               pathname: "/mapview",
               query: {
@@ -390,8 +392,9 @@ const SingleTrail = () => {
                 trailID: trail.id,
               },
             }}
+            passHref
           >
-            <Typography
+            {/* <Typography
               sx={{
                 mt: 2,
                 fontSize: "1.5rem",
@@ -399,9 +402,25 @@ const SingleTrail = () => {
                 fontWeight: "600",
                 color: "#0e2424",
               }}
+            > */}
+            <Button
+              variant="outlined"
+              sx={{
+                mt: 3,
+                fontWeight: 600,
+                fontFamily: "Montserrat",
+                color: "white",
+                textTransform: "none",
+                width: "100%",
+                background: "#304b35",
+                "&:hover": {
+                  background: "#64801a",
+                },
+              }}
             >
               Interactive Mode
-            </Typography>
+            </Button>
+            {/* </Typography> */}
           </Link>
         </Box>
         <Box sx={{ mt: 5 }}>
