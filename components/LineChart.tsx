@@ -41,9 +41,20 @@ export const options = {
   },
   scales: {
     y: {beginAtZero: true,
-        label: 'y'
-    }
+      title : {
+        align: "center",
+        text: "Total Hiked Distance",
+        display: true,  
+      }
+    },
 
+    x: {beginAtZero: true,
+      title : {
+        align: "center",
+        text: "Date",
+        display: true,  
+      }
+    }
 
   }
 };
