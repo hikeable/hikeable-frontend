@@ -34,11 +34,13 @@ const About = () => {
       name: "Kamil B.",
       title: "Tech Lead",
       github: "https://github.com/Tricole",
+      linkedin: "https://www.linkedin.com/in/kamil-bayri",
     },
     {
       name: "Haruna K.",
       title: "Full-Stack Engineer",
       github: "https://github.com/harunakawakami",
+      linkedin: "https://www.linkedin.com/in/haruna-kawakami-9a2330228/",
     },
     {
       name: "Chad G.",
@@ -89,7 +91,7 @@ const About = () => {
         justifyContent={"center"}
       >
         <Typography variant="subtitle2">
-          <strong>Hikeable</strong> was built using:
+          <strong>Hikeable</strong> is built using:
         </Typography>
       </Box>
       <Box
@@ -109,6 +111,7 @@ const About = () => {
         </Grid>
       </Box>
       <Box
+        sx={{ width: "100vw", height: "60vh", minHeight: "300px" }}
         bgcolor={"lightgray"}
         p={4}
         display={"flex"}
@@ -151,6 +154,20 @@ const About = () => {
             </Grid>
           ))}
         </Grid>
+      </Box>
+      <Box
+        sx={{ width: "100vw", height: "60vh", minHeight: "300px" }}
+        bgcolor={"white"}
+        marginLeft={"auto"}
+        marginRight={"auto"}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+                <Typography variant="h4" my={2}>
+          Contact Us
+        </Typography>
       </Box>
     </>
   );
