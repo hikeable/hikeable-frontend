@@ -119,7 +119,12 @@ const About = () => {
         >
           <Grid container rowSpacing={1} columnSpacing={4}>
             {techStackPictures.map((picture) => (
-              <Grid item xs={2} margin={"auto"}>
+              <Grid
+                item
+                xs={2}
+                margin={"auto"}
+                key={techStackPictures.indexOf(picture)}
+              >
                 <Image src={picture} alt="Badge" width="75" height="75"></Image>
               </Grid>
             ))}
@@ -139,7 +144,12 @@ const About = () => {
 
             <Grid container spacing={2}>
               {staffCardInfo.map((staff) => (
-                <Grid item sm={3} sx={{ textAlign: "center" }}>
+                <Grid
+                  item
+                  sm={3}
+                  sx={{ textAlign: "center" }}
+                  key={staffCardInfo.indexOf(staff)}
+                >
                   <Card variant="outlined">
                     <CardMedia
                       sx={{
@@ -152,15 +162,15 @@ const About = () => {
                       }}
                       component="img"
                       alt="Profile Picture"
-                      image={staff.picture}
+                      image={staff["picture"]}
                     />
-                    <Typography fontSize={24}>{staff.name}</Typography>
-                    <Typography fontSize={16}>{staff.title}</Typography>
+                    <Typography fontSize={24}>{staff["name"]}</Typography>
+                    <Typography fontSize={16}>{staff["title"]}</Typography>
                     <CardActions>
-                      <IconButton href={staff.github}>
+                      <IconButton href={staff["github"]}>
                         <GitHubIcon style={{ color: "black" }} />
                       </IconButton>
-                      <IconButton href={staff.linkedin}>
+                      <IconButton href={staff["linkedin"]}>
                         <LinkedInIcon style={{ color: "#0072b1" }} />
                       </IconButton>
                     </CardActions>

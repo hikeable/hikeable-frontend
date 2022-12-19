@@ -22,14 +22,15 @@ const ContactForm = () => {
     e.preventDefault();
     await axios({
       method: "post",
-      url: "https://hikeable-backend.herokuapp.com/feedback",
+      url: "https://hikeable-backend.herokuapp.com/api/feedback",
       data: {
-        from_name: [toSend]["from_name"],
-        from_email: [toSend]["from_email"],
-        message: [toSend]["message"],
+        from_name: toSend["from_name"],
+        from_email: toSend["from_email"],
+        message: toSend["message"],
       },
     });
     setSent(true);
+    window.location.reload();
   };
 
   const handleChange = (e) => {
@@ -76,6 +77,7 @@ const ContactForm = () => {
           },
         }}
         variant="contained"
+        type="submit"
         disableElevation
         onClick={onSubmit}
       >
@@ -83,7 +85,11 @@ const ContactForm = () => {
       </Button>
 
       {sent === true ? (
-        <Typography>Your message was sent successfully!</Typography>
+        <Box textAlign={"center"}>
+          <Typography color="green">
+            Your message was sent successfully!
+          </Typography>
+        </Box>
       ) : (
         <></>
       )}
