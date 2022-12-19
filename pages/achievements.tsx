@@ -92,7 +92,7 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -103,7 +103,7 @@ const Achievements = () => {
                                     <Chip label="A New Beginning" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -114,7 +114,7 @@ const Achievements = () => {
                                     <Chip label="First Steps" /> 
                                 </Box>
                             
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -144,7 +144,7 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -155,7 +155,7 @@ const Achievements = () => {
                                     <Chip label="First Base" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -166,7 +166,7 @@ const Achievements = () => {
                                     <Chip label="Power of Two" /> 
                                 </Box>
                             
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -177,7 +177,7 @@ const Achievements = () => {
                                     <Chip label="Hat-trick" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -205,7 +205,7 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -216,7 +216,7 @@ const Achievements = () => {
                                     <Chip label="3 KM" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -227,7 +227,7 @@ const Achievements = () => {
                                     <Chip label="5 KM" /> 
                                 </Box>
                             
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -238,7 +238,7 @@ const Achievements = () => {
                                     <Chip label="7 KM" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -249,7 +249,7 @@ const Achievements = () => {
                                     <Chip label="10 KM" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -260,7 +260,7 @@ const Achievements = () => {
                                     <Chip label="15 KM" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -271,7 +271,7 @@ const Achievements = () => {
                                     <Chip label="20 KM" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -282,7 +282,7 @@ const Achievements = () => {
                                     <Chip label="30 KM" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -310,7 +310,7 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -321,7 +321,7 @@ const Achievements = () => {
                                     <Chip label="Team Player" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -332,7 +332,7 @@ const Achievements = () => {
                                     <Chip label="The Assistant" /> 
                                 </Box>
                             
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -343,7 +343,7 @@ const Achievements = () => {
                                     <Chip label="The Apprentice" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -354,7 +354,7 @@ const Achievements = () => {
                                     <Chip label="Mentor" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -382,7 +382,7 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -393,7 +393,7 @@ const Achievements = () => {
                                     <Chip label="Helpful" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -404,7 +404,7 @@ const Achievements = () => {
                                     <Chip label="Well Rounded" /> 
                                 </Box>
 
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar
@@ -415,7 +415,7 @@ const Achievements = () => {
                                     <Chip label="Excellent Feedback" /> 
                                 </Box>
                             
-                                <Box
+                                <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
                                     <Avatar

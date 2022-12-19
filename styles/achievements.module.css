@@ -23,4 +23,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+.txt_wrapper .achievement_card .individual_badge {
+  flex: 1 0 21%;
 }/*# sourceMappingURL=achievements.module.css.map */
