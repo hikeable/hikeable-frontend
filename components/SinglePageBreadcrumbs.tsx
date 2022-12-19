@@ -25,6 +25,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
     height: theme.spacing(4),
     color: theme.palette.text.primary,
     fontSize: "large",
+    fontFamily: "Montserrat",
     fontWeight: theme.typography.fontWeightRegular,
     padding: "0.3rem",
     "&:hover, &:focus": {
