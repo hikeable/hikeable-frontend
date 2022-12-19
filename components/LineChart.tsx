@@ -36,23 +36,36 @@ export const options = {
     title: {
       display: true,
       text: 'My Hiked Distance',
+      font: {
+        size: '25 rem',
+        weight: 'bold'
+
+      }
     },
 
   },
   scales: {
     y: {beginAtZero: true,
       title : {
-        align: "center",
-        text: "Total Hiked Distance",
+        align: 'center',
+        text: 'Total Hiked Distance',
         display: true,  
+        font : {
+          size: '20 rem',
+          weight: 'bold'
+        } 
       }
     },
 
     x: {beginAtZero: true,
       title : {
-        align: "center",
-        text: "Date",
-        display: true,  
+        align: 'center',
+        text: 'Date',
+        display: true, 
+        font : {
+          size: '20 rem',
+          weight: 'bold'
+        } 
       }
     }
 
