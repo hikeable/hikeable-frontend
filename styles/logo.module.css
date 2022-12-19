@@ -6,14 +6,14 @@
 }
 
 .logo {
-  fill: whitesmoke;
+  fill: #5e7119;
   margin-right: 0.5rem;
   z-index: 1;
 }
 
 .logo__name {
   font-size: 35px;
-  color: whitesmoke;
+  color: #5e7119;
   position: relative;
   z-index: 1;
 }/*# sourceMappingURL=logo.module.css.map */
