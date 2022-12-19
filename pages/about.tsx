@@ -165,8 +165,8 @@ const About = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-                <Typography variant="h4" my={2}>
-          Contact Us
+        <Typography variant="h4" my={2}>
+          Contact
         </Typography>
       </Box>
     </>
