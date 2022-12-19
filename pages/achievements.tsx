@@ -132,7 +132,10 @@ const Achievements = () => {
                     </Card>
 
                     <Card variant = "outlined" sx={{
-                        margin: '10px'
+                        margin: '10px',
+                        maxHeight: 'fit-content (10%)',
+                        // hei
+
                     }}>
                         <CardContent className={styles.achievement_card}>
                             <Typography variant="h4" className={styles.section_titles}>
@@ -370,6 +373,7 @@ const Achievements = () => {
                     </Card>
 
                     <Card variant = "outlined" sx={{
+
                         margin: '10px'
                     }}>
                         <CardContent className={styles.achievement_card}>
