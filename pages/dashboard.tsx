@@ -36,6 +36,7 @@ const Item = styled(Paper)(({ theme }) => ({
     maxWidth: '32rem',
     minWidth: '15rem',
     lineHeight: '60px',
+    padding: '4px',
     
   }));
 
@@ -107,66 +108,67 @@ const Dashboard  = () => {
         <>
 
             <ThemeProvider theme={theme}>
-
-
-            <Box
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-                <div className= {styles.page_header}>
-                <Typography fontSize={'3rem'}
+                <Box
+                sx={{
+                    flexDirection: "column",
+                }}
+                >
+                    <div className= {styles.page_header}>
+                    <Typography fontSize={'3rem'}
+                        
+                    >Hi {user?.displayName} !</Typography>
                     
-                >Hi {user?.displayName} !</Typography>
-                  
-                    <Item key={7} elevation={7} >
-                        {`You've hiked a total of ${hiked} km` }
-                    </Item>
-                </div>
+                        {/* <Item key={7} elevation={1} > */}
+                        <Typography fontSize={'1.5rem'}>
+                            {`You've hiked a total of ${hiked} km` }
 
-            </Box>
-            <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
+                        </Typography>
+                        {/* </Item> */}
+                    </div>
 
-             {data.length >= 0 ?(
-                <LineChart dataSet={data}></LineChart>
-                ): <>Loading...</>
-             }   
+                </Box>
+                <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
+
+                {data.length >= 0 ?(
+                    <LineChart dataSet={data}></LineChart>
+                    ): <>Loading...</>
+                }   
 
 
-            </Box>
+                </Box>
 
-            <Typography>
-                You have completed the following trails: !
-            </Typography>
-            <div className={styles.completed_trails}>
-                {usersCompletedTrails.map((trail: dummy) => {
-                    return (
-                        <>
+                <Typography>
+                    You have completed the following trails: !
+                </Typography>
+                <div className={styles.completed_trails}>
+                    {usersCompletedTrails.map((trail: dummy) => {
+                        return (
+                            <>
 
-                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
 
-                                <Button
-                                    variant='outlined'
+                                    <Button
+                                        variant='outlined'
 
-                                    component={NextLinkComposed}
-                                    to={{
-                                        pathname: "/singletrail",
-                                        query: { trail: JSON.stringify(trail) },
-                                    }}
-                                    linkAs={`/singletrail/${trail.id}`}
-                                >
-                                    <CardContent>
-                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
-                                        </Typography>
-                                    </CardContent>
-                                </Button>
-                            </Box>
-                        </>
+                                        component={NextLinkComposed}
+                                        to={{
+                                            pathname: "/singletrail",
+                                            query: { trail: JSON.stringify(trail) },
+                                        }}
+                                        linkAs={`/singletrail/${trail.id}`}
+                                    >
+                                        <CardContent>
+                                            <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                                {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                            </Typography>
+                                        </CardContent>
+                                    </Button>
+                                </Box>
+                            </>
 
-                    );
-             })}
-        </div>
+                        );
+                })}
+            </div>
 
         </ThemeProvider>
 
