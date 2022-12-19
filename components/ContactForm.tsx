@@ -1,5 +1,6 @@
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 const style = {
   "& .MuiOutlinedInput-root": {
@@ -15,13 +16,20 @@ const ContactForm = () => {
     from_email: "",
     message: "",
   });
+  const [sent, setSent] = useState<Boolean>(false);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    {
-      /* --- METHOD TO SEND THE MAIL --- */
-    }
-    console.log(toSend);
+    await axios({
+      method: "post",
+      url: "https://hikeable-backend.herokuapp.com/feedback",
+      data: {
+        from_name: [toSend]["from_name"],
+        from_email: [toSend]["from_email"],
+        message: [toSend]["message"],
+      },
+    });
+    setSent(true);
   };
 
   const handleChange = (e) => {
@@ -73,6 +81,12 @@ const ContactForm = () => {
       >
         Submit
       </Button>
+
+      {sent === true ? (
+        <Typography>Your message was sent successfully!</Typography>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
