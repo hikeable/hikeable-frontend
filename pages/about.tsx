@@ -7,11 +7,13 @@ import {
   CardActions,
   CardMedia,
   IconButton,
+  Button,
 } from "@mui/material";
 import Image from "next/image";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import * as React from "react";
+import ContactForm from "../components/ContactForm";
 
 const About = () => {
   const techStackPictures = [
@@ -168,6 +170,22 @@ const About = () => {
         <Typography variant="h4" my={2}>
           Contact
         </Typography>
+        <Typography variant="subtitle1" my={2}>
+          For all inquiries, please email us using the form below.
+        </Typography>
+        <Box
+          bgcolor={"white"}
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          width={"50vw"}
+        >
+          <ContactForm />
+          <Button variant="contained" disableElevation>
+            Submit
+          </Button>
+        </Box>
       </Box>
     </>
   );
