@@ -111,6 +111,7 @@ export const Navbar: React.FC<INavbar> = ({
               sx={{
                 ml: "auto",
                 mr: 2,
+                fontFamily: "Montserrat",
                 backgroundColor: "#304b35",
                 "&:hover": {
                   background: "#64801a",
@@ -126,6 +127,7 @@ export const Navbar: React.FC<INavbar> = ({
               <>
                 <Typography
                   sx={{
+                    fontFamily: "Montserrat",
                     fontWeight: "600",
                     color: "#0e2424",
                     display: { xs: "none", sm: "block" },
@@ -169,7 +171,12 @@ export const Navbar: React.FC<INavbar> = ({
                       key={setting}
                       onClick={() => updateState(setting)}
                     >
-                      <Typography textAlign="center">{setting}</Typography>
+                      <Typography
+                        textAlign="center"
+                        sx={{ fontFamily: "Montserrat" }}
+                      >
+                        {setting}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -180,6 +187,7 @@ export const Navbar: React.FC<INavbar> = ({
                 sx={{
                   ml: 3,
                   mr: 3,
+                  fontFamily: "Montserrat",
                   background: "#304b35",
                   "&:hover": {
                     background: "#64801a",
