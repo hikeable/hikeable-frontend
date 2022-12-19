@@ -34,11 +34,8 @@ const difficultyObj = {
 
 const SingleTrail = () => {
   const router = useRouter();
-
   const [trail, setTrail] = useState<Trail | undefined>(undefined);
   const { user, userId } = useAuthContext();
-
-  // const userNameTag =useRef(JSON.stringify(user?.displayName))
   const userNameTag = user?.displayName;
 
   let firstName;
@@ -48,12 +45,7 @@ const SingleTrail = () => {
   }
 
   const trailName = trail?.name;
-  // console.log ("testId =",trailName)
-  // const trailId =useRef(trail?.id)
   const trailId = trail?.id.toString();
-
-  // console.log ("trail = ",trail, "trailId =",trailId)
-  // console.log (firstName,"🌍🌍")
   const userID = userId?.toString();
 
   let photoUrl;
@@ -184,7 +176,6 @@ const SingleTrail = () => {
               <Container
                 sx={{
                   display: "flex",
-                  // flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "space-evenly",
                 }}
