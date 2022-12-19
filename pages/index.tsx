@@ -21,9 +21,7 @@ export default function Home() {
     <div>
       <Head>
          <title>Hikeable</title>
-         {/* <meta name="description" content="hiking japan" /> */}
          <link rel="icon" href="/boots.png" /> 
-         {/* <link rel="icon" href="/favicon.ico" />  */}
       </Head>
       <Landing/>
       {

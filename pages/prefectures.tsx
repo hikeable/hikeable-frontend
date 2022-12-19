@@ -151,9 +151,7 @@ const prefectures = () => {
 
   return (
    <>
-   <Head>
-    <title>Hikeable</title>
-   </Head>
+   
 
     <Container maxWidth="lg" sx={{ mt: 10 }}>
       <div className="bg__map">

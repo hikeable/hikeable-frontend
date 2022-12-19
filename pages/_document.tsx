@@ -6,15 +6,13 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <title>Hikeable</title>
-        {/* <meta name="description" content="hiking japan" /> */}
-        <link rel="icon" href="/boots.png" /> 
-        
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css"
           type="text/css"
         />
+        <title>Hikeable</title>
+        <link rel="icon" href="/boots.png" /> 
 
       </Head>
       <body>

@@ -96,9 +96,7 @@ const Completedtrails = () => {
     return (
         
         <>
-        {/* <Head>
-            <title>Hikeable</title>
-        </Head> */}
+       
         <Typography>You have completed the following trails: !</Typography><div className={styles.completed_trails}>
             {usersCompletedTrails.map((trail: dummy) => {
                 return (

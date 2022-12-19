@@ -14,9 +14,7 @@ const TrailPhotos = () => {
 
   return (
     <>
-      {/* <Head>
-        <title>Hikeable</title>
-      </Head> */}
+    
       <Container sx={{ mt: 15 }}>
         <Button
           variant="outlined"

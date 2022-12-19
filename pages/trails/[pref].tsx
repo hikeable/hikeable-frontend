@@ -48,9 +48,7 @@ const ResultList = () => {
 
   return (
     <>
-      <Head>
-        <title>Hikeable</title>
-      </Head>
+    
 
       <Container maxWidth="lg" sx={{ mt: 10 }}>
         <h1>{capitalizePref} Trails</h1>

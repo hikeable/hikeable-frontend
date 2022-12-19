@@ -112,9 +112,7 @@ const Dashboard  = () => {
     return (
         
         <>
-          <Head>
-            <title>Hikeable</title>
-          </Head>
+          
 
             <Box
               sx={{

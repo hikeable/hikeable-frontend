@@ -67,13 +67,13 @@ const SingleTrail = () => {
       return;
     }
   }, []);
+
+  // console.log (trailId)
   
   return (
     trail && (
         <>
-      {/* <Head>
-        <title>Hikeable</title>
-      </Head> */}
+     
       <Container sx={{ mb: 5, mt: 10 }}>
         <BrowserView>
           <SinglePageBreadcrumbs

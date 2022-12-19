@@ -8,6 +8,7 @@ import { useAuthContext } from "../components/context/UseAuthContext";
 import { User } from "firebase/auth";
 
 import router from "next/router";
+import Head from "next/head";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const { user } = useAuthContext();
@@ -21,11 +22,12 @@ export default function App({ Component, pageProps, router }: AppProps) {
     console.log("path--", router.pathname);
     return (
       <>
-      <title>Hikeable</title>
+        <Head>
+        <title>Hikeable</title>
         <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
         <meta name="keywords" content="hiking, japan, advice"/>
-        {/* <link rel="icon" href="/favicon.ico" />  */}
         <link rel="icon" href="/boots.png" />
+        </Head>
       <AuthProvider>
         <Navbar
           navActive={false}
@@ -43,9 +45,12 @@ export default function App({ Component, pageProps, router }: AppProps) {
   console.log("router.pathname =======", router.pathname, user); // just to clarify which route is on display.
   return (
     <>
-    <title>Hikeable</title>
-        <meta name="description" content="hiking japan" />
-        <link rel="icon" href="/boots.png" /> 
+    <Head>
+        <title>Hikeable</title>
+        <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
+        <meta name="keywords" content="hiking, japan, advice"/>
+        <link rel="icon" href="/boots.png" />
+    </Head>
     <>
       <AuthProvider>
         <Navbar

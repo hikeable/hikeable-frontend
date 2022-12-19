@@ -20,6 +20,8 @@ import {userLoggedBadge} from "../src/UpdateBadges";
 import Head from "next/head";
 import { color } from "@mui/system";
 
+
+
 export interface INavbar {
   navActive: boolean;  
   isLoggedIn: boolean;
@@ -81,9 +83,6 @@ export const Navbar: React.FC<INavbar> = ({
 
   return navActive == true ? (
     <>
-    <Head>
-    <title>Hikeable</title>
-   </Head>
     <Box sx={{ flexGrow: 1, mb: "55px" }}>
       <AppBar position="fixed">
         <Container maxWidth="xl">
@@ -109,7 +108,7 @@ export const Navbar: React.FC<INavbar> = ({
                 Explore
                 <a >Explore</a>
               </Link> */}
-              
+              Explore
             </Button>
 
             {user ? (
