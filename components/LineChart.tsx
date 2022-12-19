@@ -32,18 +32,43 @@ export const options = {
   plugins: {
     legend: {
       position: 'top' as const,
+      
     },
     title: {
       display: true,
       text: 'My Hiked Distance',
+      font: {
+        size: 18,
+        weight: 'bold'
+  
+      }
     },
 
   },
   scales: {
-    y: {beginAtZero: true,
-        label: 'y'
-    }
 
+    y: {beginAtZero: true,
+      title : {
+        text: 'Total Hiked Distance (km)',
+        display: true,  
+        font: {
+          size: 16,
+          weight: 'bold',
+        }
+
+      }
+    },
+
+    x: {beginAtZero: true,
+      title : {
+        text: 'Date',
+        display: true,
+        font: {
+          size: 16,
+          weight: 'bold',
+        } 
+      }
+    }
 
   }
 };

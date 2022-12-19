@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardContent, CardHeader, Chip, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, CardHeader, Chip, createTheme, ThemeProvider, Typography } from "@mui/material";
 import axios, { Axios, AxiosError } from "axios";
 import Image from 'next/image'
 import styles from "../styles/achievements.module.css"
@@ -33,11 +33,15 @@ const badgeDict = {
     "Well Rounded": "/badges/Well Rounded.png",
     "Excellent Feedback": "/badges/Excellent Feedback.png",
     "MVP": "/badges/MVP.png",
-
-
-
 }
 
+const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat",
+    },
+  });
+
+  
 
 const Achievements = () => {
 
@@ -66,384 +70,386 @@ const Achievements = () => {
                     if (axios.isAxiosError(e) && e.response && e.response.status === 404)
                     console.log('This user has no badges')
                 })
-
     }
 
     return (
         <>
-            <div className={styles.txt_wrapper}>
-                <Typography variant="h3" className={styles.achievements_title}>
-                    Your Achievements
-                </Typography>
-                <Card variant = "outlined" sx={{
-                    // maxWidth: 300
-                }}>
-                    <CardContent className={styles.achievement_card}>
-                        <Typography variant="h4" className={styles.section_titles}>
-                            Getting Started
-                        </Typography>
-                        <Box className= {styles.badges_section} 
-                        sx={{ 
-                            display: "flex",
-                            flexDirection: 'column',
-                            alignItems: "center"
-                        }}>
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Registered"
-                                    src={userBadges.includes("A New Beginning")? badgeDict["A New Beginning"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="A New Beginning" /> 
-                            </Box>
+            <ThemeProvider theme={theme}>
 
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Registered"
-                                    src={userBadges.includes("A New Beginnings")? badgeDict["A New Beginnings"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="First Steps" /> 
-                            </Box>
-                        
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Registered"
-                                    src={userBadges.includes("On a roll")? badgeDict["On a roll"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="On a roll" /> 
-                            </Box>
-                        </Box>
+                <div className={styles.txt_wrapper}>
+                    <Typography variant="h3" className={styles.achievements_title}>
+                        Your Achievements
+                    </Typography>
+                    <Card variant = "outlined" sx={{
+                        margin: '10px'
+                    }}>
+                        <CardContent className={styles.achievement_card}>
+                            <Typography variant="h4" className={styles.section_titles}>
+                                Getting Started
+                            </Typography>
+                            <Box className= {styles.badges_section} 
+                            sx={{ 
+                                display: "flex",
+                                flexDirection: 'column',
+                                alignItems: "center"
+                            }}>
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Registered"
+                                        src={userBadges.includes("A New Beginning")? badgeDict["A New Beginning"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="A New Beginning" /> 
+                                </Box>
 
-                    </CardContent>
-
-
-                </Card>
-
-                <Card variant = "outlined" sx={{
-                    // maxWidth: 300
-                }}>
-                    <CardContent className={styles.achievement_card}>
-                        <Typography variant="h4" className={styles.section_titles}>
-                            Streaks
-                        </Typography>
-                        <Box className= {styles.badges_section} 
-                        sx={{ 
-                            display: "flex",
-                            flexDirection: 'column',
-                            alignItems: "center"
-                        }}>
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="One hike completed"
-                                    src={userBadges.includes("First Base")? badgeDict["First Base"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="First Base" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Two hikes in a row"
-                                    src={userBadges.includes("Power of Two")? badgeDict["Power of Two"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Power of Two" /> 
-                            </Box>
-                        
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="A streak of 3 hikes"
-                                    src={userBadges.includes("Hat-trick")? badgeDict["Hat-trick"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Hat-trick" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="A streak of 7 hikes"
-                                    src={userBadges.includes("Lucky Number 7")? badgeDict["Lucky Number 7"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Lucky Number 7" /> 
-                            </Box>
-                        </Box>
-
-                    </CardContent>
-                </Card>
-
-                <Card variant = "outlined" sx={{
-                    // maxWidth: 300
-                }}>
-                    <CardContent className={styles.achievement_card}>
-                        <Typography variant="h4" className={styles.section_titles}>
-                            Distance
-                        </Typography>
-                        <Box className= {styles.badges_section} 
-                        sx={{ 
-                            display: "flex",
-                            flexDirection: 'column',
-                            alignItems: "center"
-                        }}>
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 3 KM"
-                                    src={userBadges.includes("3 KM")? badgeDict["3 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="3 KM" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 5 KM"
-                                    src={userBadges.includes("5 KM")? badgeDict["5 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="5 KM" /> 
-                            </Box>
-                        
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 7 KM"
-                                    src={userBadges.includes("7 KM")? badgeDict["7 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="7 KM" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 10 KM"
-                                    src={userBadges.includes("10 KM")? badgeDict["10 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="10 KM" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 15 KM"
-                                    src={userBadges.includes("15 KM")? badgeDict["15 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="15 KM" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 20 KM"
-                                    src={userBadges.includes("20 KM")? badgeDict["20 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="20 KM" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 30 KM"
-                                    src={userBadges.includes("30 KM")? badgeDict["30 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="30 KM" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Hiked 50 KM"
-                                    src={userBadges.includes("50 KM")? badgeDict["50 KM"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="50 KM" /> 
-                            </Box>
-                        </Box>
-
-                    </CardContent>
-                </Card>
-
-                <Card variant = "outlined" sx={{
-                    // maxWidth: 300
-                }}>
-                    <CardContent className={styles.achievement_card}>
-                        <Typography variant="h4" className={styles.section_titles}>
-                            Participation
-                        </Typography>
-                        <Box className= {styles.badges_section} 
-                        sx={{ 
-                            display: "flex",
-                            flexDirection: 'column',
-                            alignItems: "center"
-                        }}>
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Team Player Badge"
-                                    src={userBadges.includes("Team Player")? badgeDict["Team Player"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Team Player" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="The Assistant Badge"
-                                    src={userBadges.includes("Assistant")? badgeDict["Assistant"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="The Assistant" /> 
-                            </Box>
-                        
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="The Apprentice Badge"
-                                    src={userBadges.includes("Apprentice")? badgeDict["Apprentice"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="The Apprentice" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="The Mentor Badge"
-                                    src={userBadges.includes("Mentor")? badgeDict["Mentor"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Mentor" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="The Master Badge"
-                                    src={userBadges.includes("Master")? badgeDict["Master"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Master" /> 
-                            </Box>
-                        </Box>
-
-                    </CardContent>
-                </Card>
-
-                <Card variant = "outlined" sx={{
-                    // maxWidth: 300
-                }}>
-                    <CardContent className={styles.achievement_card}>
-                        <Typography variant="h4" className={styles.section_titles}>
-                            Usefulness to Others
-                        </Typography>
-                        <Box className= {styles.badges_section} 
-                        sx={{ 
-                            display: "flex",
-                            flexDirection: 'column',
-                            alignItems: "center"
-                        }}>
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Helpful Badge"
-                                    src={userBadges.includes("Helpful")? badgeDict["Helpful"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Helpful" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Well Rounded Badge"
-                                    src={userBadges.includes("Well Rounded")? badgeDict["Well Rounded"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Well Rounded" /> 
-                            </Box>
-
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="Excellent Feedback Badge"
-                                    src={userBadges.includes("Excellent Feedback")? badgeDict["Excellent Feedback"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="Excellent Feedback" /> 
-                            </Box>
-                        
-                            <Box
-                                sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: 0}}
-                                >
-                                <Avatar
-                                    alt="The MVP Badge"
-                                    src={userBadges.includes("MVP")? badgeDict["MVP"] : badgeDict["Incomplete"]}
-                                    sx={{ width: 84, height: 84 , margin: 0}}
-                                />
-                                <Chip label="MVP" /> 
-                            </Box>
-
-    
-
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Registered"
+                                        src={userBadges.includes("A New Beginnings")? badgeDict["A New Beginnings"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="First Steps" /> 
+                                </Box>
                             
-                        </Box>
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Registered"
+                                        src={userBadges.includes("On a roll")? badgeDict["On a roll"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="On a roll" /> 
+                                </Box>
+                            </Box>
 
-                    </CardContent>
-                </Card>
-                        
+                        </CardContent>
 
-                {/* <Typography variant="h2" className={styles.section_titles}>
-                    Distance
-                </Typography>
-            
 
-                <Image
-                    src= {badgeDict["First Base"]}
-                    alt="First Award"
-                    width={200}
-                    height={200}
-                /> */}
-            
-            </div>
+                    </Card>
+
+                    <Card variant = "outlined" sx={{
+                        margin: '10px'
+                    }}>
+                        <CardContent className={styles.achievement_card}>
+                            <Typography variant="h4" className={styles.section_titles}>
+                                Streaks
+                            </Typography>
+                            <Box className= {styles.badges_section} 
+                            sx={{ 
+                                display: "flex",
+                                flexDirection: 'column',
+                                alignItems: "center"
+                            }}>
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="One hike completed"
+                                        src={userBadges.includes("First Base")? badgeDict["First Base"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="First Base" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Two hikes in a row"
+                                        src={userBadges.includes("Power of Two")? badgeDict["Power of Two"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Power of Two" /> 
+                                </Box>
+                            
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="A streak of 3 hikes"
+                                        src={userBadges.includes("Hat-trick")? badgeDict["Hat-trick"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Hat-trick" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="A streak of 7 hikes"
+                                        src={userBadges.includes("Lucky Number 7")? badgeDict["Lucky Number 7"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Lucky Number 7" /> 
+                                </Box>
+                            </Box>
+
+                        </CardContent>
+                    </Card>
+
+                    <Card variant = "outlined" sx={{
+                        margin: '10px'
+                    }}>
+                        <CardContent className={styles.achievement_card}>
+                            <Typography variant="h4" className={styles.section_titles}>
+                                Distance
+                            </Typography>
+                            <Box className= {styles.badges_section} 
+                            sx={{ 
+                                display: "flex",
+                                flexDirection: 'column',
+                                alignItems: "center"
+                            }}>
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 3 KM"
+                                        src={userBadges.includes("3 KM")? badgeDict["3 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="3 KM" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 5 KM"
+                                        src={userBadges.includes("5 KM")? badgeDict["5 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="5 KM" /> 
+                                </Box>
+                            
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 7 KM"
+                                        src={userBadges.includes("7 KM")? badgeDict["7 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="7 KM" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 10 KM"
+                                        src={userBadges.includes("10 KM")? badgeDict["10 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="10 KM" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 15 KM"
+                                        src={userBadges.includes("15 KM")? badgeDict["15 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="15 KM" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 20 KM"
+                                        src={userBadges.includes("20 KM")? badgeDict["20 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="20 KM" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 30 KM"
+                                        src={userBadges.includes("30 KM")? badgeDict["30 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="30 KM" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Hiked 50 KM"
+                                        src={userBadges.includes("50 KM")? badgeDict["50 KM"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="50 KM" /> 
+                                </Box>
+                            </Box>
+
+                        </CardContent>
+                    </Card>
+
+                    <Card variant = "outlined" sx={{
+                        margin: '10px'
+                    }}>
+                        <CardContent className={styles.achievement_card}>
+                            <Typography variant="h4" className={styles.section_titles}>
+                                Participation
+                            </Typography>
+                            <Box className= {styles.badges_section} 
+                            sx={{ 
+                                display: "flex",
+                                flexDirection: 'column',
+                                alignItems: "center"
+                            }}>
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Team Player Badge"
+                                        src={userBadges.includes("Team Player")? badgeDict["Team Player"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Team Player" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="The Assistant Badge"
+                                        src={userBadges.includes("Assistant")? badgeDict["Assistant"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="The Assistant" /> 
+                                </Box>
+                            
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="The Apprentice Badge"
+                                        src={userBadges.includes("Apprentice")? badgeDict["Apprentice"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="The Apprentice" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="The Mentor Badge"
+                                        src={userBadges.includes("Mentor")? badgeDict["Mentor"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Mentor" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="The Master Badge"
+                                        src={userBadges.includes("Master")? badgeDict["Master"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Master" /> 
+                                </Box>
+                            </Box>
+
+                        </CardContent>
+                    </Card>
+
+                    <Card variant = "outlined" sx={{
+                        margin: '10px'
+                    }}>
+                        <CardContent className={styles.achievement_card}>
+                            <Typography variant="h4" className={styles.section_titles}>
+                                Usefulness to Others
+                            </Typography>
+                            <Box className= {styles.badges_section} 
+                            sx={{ 
+                                display: "flex",
+                                flexDirection: 'column',
+                                alignItems: "center"
+                            }}>
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Helpful Badge"
+                                        src={userBadges.includes("Helpful")? badgeDict["Helpful"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Helpful" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Well Rounded Badge"
+                                        src={userBadges.includes("Well Rounded")? badgeDict["Well Rounded"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Well Rounded" /> 
+                                </Box>
+
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="Excellent Feedback Badge"
+                                        src={userBadges.includes("Excellent Feedback")? badgeDict["Excellent Feedback"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="Excellent Feedback" /> 
+                                </Box>
+                            
+                                <Box className= {styles.individual_badge}
+                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                    >
+                                    <Avatar
+                                        alt="The MVP Badge"
+                                        src={userBadges.includes("MVP")? badgeDict["MVP"] : badgeDict["Incomplete"]}
+                                        sx={{ width: 84, height: 84 , margin: 0}}
+                                    />
+                                    <Chip label="MVP" /> 
+                                </Box>
+
+        
+
+                                
+                            </Box>
+
+                        </CardContent>
+                    </Card>
+                            
+
+                    {/* <Typography variant="h2" className={styles.section_titles}>
+                        Distance
+                    </Typography>
+                
+
+                    <Image
+                        src= {badgeDict["First Base"]}
+                        alt="First Award"
+                        width={200}
+                        height={200}
+                    /> */}
+                
+                </div>
+            </ThemeProvider>
 
         </>
         
