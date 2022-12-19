@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import {compareDate, getDayAndMonth, getLastNDays} from '../src/DateFunctions';
+import { Box } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -36,17 +37,14 @@ export const options = {
       display: true,
       text: 'My Hiked Distance',
     },
-    
-    
+
   },
   scales: {
+    y: {beginAtZero: true,
+        label: 'y'
+    }
 
-    y: {beginAtZero: true}
 
-    // yAxis: {
-    //   min: 0,
-      
-    // }
   }
 };
 
@@ -94,21 +92,24 @@ export function LineChart( {dataSet}) {
   return (
     
     <>
-        <Line options={options} data={data} />
-        
+        <Box sx={{paddingBottom: '1em'}}>
+          <Line options={options} data={data} />
+        </Box>
+
         <ToggleButtonGroup
             value={period}
             exclusive
             onChange={handlePeriod}
             aria-label="text alignment"
         >
+
             <ToggleButton value={30} aria-label="monthly">
                 Monthly
             </ToggleButton>
             <ToggleButton value={7} aria-label="weekly">
                 Weekly
             </ToggleButton>
-
-        </ToggleButtonGroup></>
+        </ToggleButtonGroup>
+        </>
     );
 }

@@ -106,8 +106,6 @@ const Dashboard  = () => {
               }}
             >
                 <div className= {styles.page_header}>
-
-
                 <Typography>Hi {user?.displayName} !</Typography>
                   
                     <Item key={7} elevation={7} >
@@ -117,10 +115,15 @@ const Dashboard  = () => {
 
 
             </Box>
+            <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
+
              {data.length >= 0 ?(
                 <LineChart dataSet={data}></LineChart>
                 ): <>Loading...</>
              }   
+
+
+            </Box>
 
             <Typography>
                 You have completed the following trails: !
