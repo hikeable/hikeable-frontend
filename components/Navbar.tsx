@@ -78,7 +78,11 @@ export const Navbar: React.FC<INavbar> = ({
 
   return navActive == true ? (
     <Box sx={{ flexGrow: 1, mb: "55px" }}>
-      <AppBar position="fixed">
+      <AppBar
+        position="fixed"
+        sx={{ backgroundColor: "white", borderBottom: "1px solid #b8b388" }}
+        elevation={0}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
@@ -97,7 +101,17 @@ export const Navbar: React.FC<INavbar> = ({
               </Typography>
             </Link>
 
-            <Button sx={{ ml: "auto" }} variant="contained" href="/prefectures">
+            <Button
+              sx={{
+                ml: "auto",
+                backgroundColor: "#304b35",
+                "&:hover": {
+                  background: "#64801a",
+                },
+              }}
+              variant="contained"
+              href="/prefectures"
+            >
               Explore
             </Button>
 
@@ -106,6 +120,7 @@ export const Navbar: React.FC<INavbar> = ({
                 <Typography
                   sx={{
                     fontWeight: "600",
+                    color: "#0e2424",
                     display: { xs: "none", sm: "block" },
                     ml: 5,
                   }}
