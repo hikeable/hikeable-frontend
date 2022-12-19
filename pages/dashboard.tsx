@@ -10,6 +10,7 @@ import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
+
 import * as React from 'react';
 
 type dummy = {
@@ -29,12 +30,20 @@ type dummy = {
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: 'center',
+    fontSize: '1 rem',
     color: theme.palette.text.secondary,
     height: 60,
-    maxWidth: '20rem',
+    maxWidth: '32rem',
     minWidth: '15rem',
     lineHeight: '60px',
+    
   }));
+
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat",
+    },
+  });
 
 const Dashboard  = () => {
 
@@ -93,12 +102,12 @@ const Dashboard  = () => {
 
     },[usersCompletedTrails])
 
-
-    
-
     return (
         
         <>
+
+            <ThemeProvider theme={theme}>
+
 
             <Box
               sx={{
@@ -106,13 +115,14 @@ const Dashboard  = () => {
               }}
             >
                 <div className= {styles.page_header}>
-                <Typography>Hi {user?.displayName} !</Typography>
+                <Typography fontSize={'3rem'}
+                    
+                >Hi {user?.displayName} !</Typography>
                   
                     <Item key={7} elevation={7} >
-                        {`You've hiked a distance of ${hiked} km` }
+                        {`You've hiked a total of ${hiked} km` }
                     </Item>
                 </div>
-
 
             </Box>
             <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
@@ -157,6 +167,9 @@ const Dashboard  = () => {
                     );
              })}
         </div>
+
+        </ThemeProvider>
+
 
             
         </>

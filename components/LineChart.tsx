@@ -32,6 +32,7 @@ export const options = {
   plugins: {
     legend: {
       position: 'top' as const,
+     
     },
     title: {
       display: true,
@@ -48,7 +49,7 @@ export const options = {
     y: {beginAtZero: true,
       title : {
         align: 'center',
-        text: 'Total Hiked Distance',
+        text: 'Total Hiked Distance (km)',
         display: true,  
         font : {
           size: '20 rem',
