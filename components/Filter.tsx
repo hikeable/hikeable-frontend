@@ -144,6 +144,7 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
               getAriaValueText={valuetext}
               min={0.0}
               max={30.0}
+              sx={{ color: "#5e7119" }}
             />
           </Box>
 
@@ -159,7 +160,13 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
           ></Box>
 
           <Button
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 2,
+              background: "#304b35",
+              "&:hover": {
+                background: "#64801a",
+              },
+            }}
             variant="contained"
             onClick={() =>
               startFilter(
