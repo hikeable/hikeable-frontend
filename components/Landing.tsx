@@ -38,15 +38,17 @@ export const Landing = ({}) => {
       </div>
       <div className={styles.landing__background}>
         <Image
-          src="/michael-chiara-QlY4oiFbT9o-unsplash.webp"
+          src="/landing.webp"
           alt="Background Image of some people walking a trail"
           fill
           objectFit="cover"
+          style={{ objectPosition: "top" }}
         />
       </div>
 
       <div className={styles.txt__wrapper}>
-        <h1 className={styles.landing__title}>Hiking.Simplified</h1>
+        <h1 className={styles.landing__title}>Hiking in Japan</h1>
+        <h1 className={styles.landing__title}>Simplified</h1>
       </div>
       <div className={styles.btn__wrapper}>
         <ThemeProvider theme={Theme}>

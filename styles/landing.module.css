@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Shadows+Into+Light");
 .landing__background {
-  z-index: -1;
   position: "fixed";
   width: "100vw";
   height: "100vh";
@@ -14,7 +13,7 @@
 .landing__title {
   color: whitesmoke;
   text-transform: uppercase;
-  font-size: 9vw;
+  font-size: 8vw;
   font-weight: 600;
   text-align: center;
   z-index: 1;
@@ -24,12 +23,10 @@
 .txt__wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin-right: 3rem;
 }
 
 .btn__wrapper {
-  margin-top: 10rem;
+  margin-top: 5rem;
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -38,11 +35,11 @@
 
 .txt__btn {
   color: whitesmoke;
-  font-size: 4.5vw;
+  font-size: 3vw;
   text-transform: uppercase;
   text-decoration: none;
   z-index: 1;
-  font-family: "Shadows Into Light";
+  font-family: "Montserrat", sans-serif;
 }
 
 .btn__line {

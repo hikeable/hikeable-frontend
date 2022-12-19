@@ -110,7 +110,10 @@ const LargeMap = ({
           >
             <Popup>
               {message.message}{" "}
-              <MessageIcon message={message} setMessageDetails={setMessageDetails} />
+              <MessageIcon
+                message={message}
+                setMessageDetails={setMessageDetails}
+              />
             </Popup>
           </Marker>
         );

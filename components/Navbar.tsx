@@ -16,7 +16,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 import { Dispatch, SetStateAction } from "react";
 import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
-import {userLoggedBadge} from "../src/UpdateBadges";
+import { userLoggedBadge } from "../src/UpdateBadges";
 
 export interface INavbar {
   navActive: boolean;  
@@ -43,8 +43,7 @@ export const Navbar: React.FC<INavbar> = ({
 
   React.useEffect(() => {
     setLoggedStatus(true);
-    if(userId) 
-      userLoggedBadge(userId);
+    if (userId) userLoggedBadge(userId);
   }, [userName]);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -79,26 +78,48 @@ export const Navbar: React.FC<INavbar> = ({
 
   return navActive == true ? (
     <Box sx={{ flexGrow: 1, mb: "55px" }}>
-      <AppBar position="fixed">
-        <Container maxWidth="xl">
+      <AppBar
+        position="fixed"
+        sx={{ backgroundColor: "white", borderBottom: "1px solid #b8b388" }}
+        elevation={0}
+      >
+        <Box>
           <Toolbar disableGutters>
-            <Link href="/" style={{ textDecoration: "none", display: "flex" }}>
+            <Link
+              href="/"
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                marginLeft: "1.5rem",
+              }}
+            >
               <Mountain className={styles.logo} />
               <Typography
                 sx={{
-                  color: "whitesmoke",
+                  color: "#5e7119",
                   fontSize: "35px",
                   fontFamily: "Montserrat",
                   fontWeight: "600",
                   display: { xs: "none", sm: "block" },
-                  mr: "auto",
                 }}
               >
                 Hikeable
               </Typography>
             </Link>
 
-            <Button sx={{ ml: "auto" }} variant="contained" href="/prefectures">
+            <Button
+              sx={{
+                ml: "auto",
+                mr: 2,
+                fontFamily: "Montserrat",
+                backgroundColor: "#304b35",
+                "&:hover": {
+                  background: "#64801a",
+                },
+              }}
+              variant="contained"
+              href="/prefectures"
+            >
               Explore
             </Button>
 
@@ -106,7 +127,9 @@ export const Navbar: React.FC<INavbar> = ({
               <>
                 <Typography
                   sx={{
+                    fontFamily: "Montserrat",
                     fontWeight: "600",
+                    color: "#0e2424",
                     display: { xs: "none", sm: "block" },
                     ml: 5,
                   }}
@@ -114,7 +137,7 @@ export const Navbar: React.FC<INavbar> = ({
                   Welcome {userName?.split(" ")[0]}&nbsp;!
                 </Typography>
 
-                <Box sx={{ flexGrow: 0, ml: 1, mr: 1 }}>
+                <Box sx={{ flexGrow: 0, ml: 1, mr: 3 }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
@@ -148,7 +171,12 @@ export const Navbar: React.FC<INavbar> = ({
                       key={setting}
                       onClick={() => updateState(setting)}
                     >
-                      <Typography textAlign="center">{setting}</Typography>
+                      <Typography
+                        textAlign="center"
+                        sx={{ fontFamily: "Montserrat" }}
+                      >
+                        {setting}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -156,14 +184,22 @@ export const Navbar: React.FC<INavbar> = ({
             ) : (
               <Button
                 variant="contained"
-                sx={{ ml: 3 }}
+                sx={{
+                  ml: 3,
+                  mr: 3,
+                  fontFamily: "Montserrat",
+                  background: "#304b35",
+                  "&:hover": {
+                    background: "#64801a",
+                  },
+                }}
                 onClick={() => loginWithGoogle()}
               >
                 Log In
               </Button>
             )}
           </Toolbar>
-        </Container>
+        </Box>
       </AppBar>
     </Box>
   ) : (
