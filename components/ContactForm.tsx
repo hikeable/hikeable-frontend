@@ -1,4 +1,4 @@
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
 const ContactForm = () => {
@@ -22,39 +22,39 @@ const ContactForm = () => {
 
   return (
     <>
+    <Typography></Typography>
       <TextField
         sx={{ my: 2, width: "100%" }}
         id="outlined-basic"
-        label="Name"
+        
         variant="outlined"
         name="from_name"
         onChange={handleChange}
+        required
       />
       <TextField
         sx={{ mb: 2, width: "100%" }}
         id="outlined-basic"
-        label="Email"
+        
         variant="outlined"
         name="from_email"
         onChange={handleChange}
+        required
       />
       <TextField
         sx={{ mb: 2, width: "100%" }}
         id="outlined-multiline-static"
         multiline
-        rows={3}
-        label="Message"
+        rows={4}
+        
         variant="outlined"
         name="message"
         onChange={handleChange}
-        InputProps={{
-          endAdornment: (
-            <Button variant="contained" disableElevation onClick={onSubmit}>
-              Submit
-            </Button>
-          ),
-        }}
+        required
       />
+      <Button variant="contained" disableElevation onClick={onSubmit}>
+        Submit
+      </Button>
     </>
   );
 };

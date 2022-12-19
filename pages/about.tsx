@@ -3,11 +3,9 @@ import {
   Typography,
   Grid,
   Card,
-  CardContent,
   CardActions,
   CardMedia,
   IconButton,
-  Button,
 } from "@mui/material";
 import Image from "next/image";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -31,31 +29,35 @@ const About = () => {
       title: "Product Owner",
       github: "https://github.com/Loose37",
       linkedin: "https://www.linkedin.com/in/cristian-armbruster",
+      picture: "/about/cris.jpg",
     },
     {
       name: "Kamil B.",
       title: "Tech Lead",
       github: "https://github.com/Tricole",
       linkedin: "https://www.linkedin.com/in/kamil-bayri",
+      picture: "/about/kamil.jpg",
     },
     {
       name: "Haruna K.",
       title: "Full-Stack Engineer",
       github: "https://github.com/harunakawakami",
       linkedin: "https://www.linkedin.com/in/haruna-kawakami-9a2330228/",
+      picture: "/about/haruna.jpg",
     },
     {
       name: "Chad G.",
       title: "Full-Stack Engineer",
       github: "https://github.com/chadgrover",
       linkedin: "https://www.linkedin.com/in/chadgrover/",
+      picture: "/about/chad.jpg",
     },
   ];
 
   return (
     <>
       <Box
-        sx={{ width: "100vw", height: "60vh", minHeight: "300px" }}
+        sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
         bgcolor={"white"}
         marginLeft={"auto"}
         marginRight={"auto"}
@@ -113,7 +115,7 @@ const About = () => {
         </Grid>
       </Box>
       <Box
-        sx={{ width: "100vw", height: "60vh", minHeight: "300px" }}
+        sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
         bgcolor={"lightgray"}
         p={4}
         display={"flex"}
@@ -140,7 +142,7 @@ const About = () => {
                   }}
                   component="img"
                   alt="Profile Picture"
-                  image="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  image={staff.picture}
                 />
                 <Typography fontSize={24}>{staff.name}</Typography>
                 <Typography fontSize={16}>{staff.title}</Typography>
@@ -158,7 +160,8 @@ const About = () => {
         </Grid>
       </Box>
       <Box
-        sx={{ width: "100vw", height: "60vh", minHeight: "300px" }}
+        sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
+        p={4}
         bgcolor={"white"}
         marginLeft={"auto"}
         marginRight={"auto"}
@@ -179,7 +182,7 @@ const About = () => {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          width={"50vw"}
+          width={"40vw"}
         >
           <ContactForm />
         </Box>
