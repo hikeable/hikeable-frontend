@@ -12,6 +12,13 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import * as React from "react";
 import ContactForm from "../components/ContactForm";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Montserrat",
+  },
+});
 
 const About = () => {
   const techStackPictures = [
@@ -56,137 +63,138 @@ const About = () => {
 
   return (
     <>
-      <Box
-        sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
-        bgcolor={"white"}
-        marginLeft={"auto"}
-        marginRight={"auto"}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        <Typography variant="caption">About us</Typography>
-        <Typography variant="h4" my={2}>
-          Built by <strong>adventurers</strong>, for{" "}
-          <strong>adventurers</strong>
-        </Typography>
-        <Typography variant="subtitle1" my={2}>
-          In a country where 80% of its landmass is mountainous, our mission is
-          to provide a platform for both new and experienced hikers in Japan.
-        </Typography>
-        <Typography variant="subtitle1" my={2}>
-          Find trails in each prefecture tailored to your experience level, read
-          reviews, and view photos from previous travelers.
-        </Typography>
-        <Typography variant="subtitle1" my={2}>
-          When you arrive at the trailhead, launch the{" "}
-          <strong>interactive map</strong> from your mobile device to see and
-          interact with geolocated messages left by other users.
-        </Typography>
-        <Typography variant="subtitle1" mt={2} mb={4}>
-          Hiking in Japan. Simplified.
-        </Typography>
-      </Box>
-      <Box
-        bgcolor={"white"}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-      >
-        <Typography variant="subtitle2">
-          <strong>Hikeable</strong> is built using:
-        </Typography>
-      </Box>
-      <Box
-        p={4}
-        bgcolor={"white"}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        textAlign={"center"}
-      >
-        <Grid container rowSpacing={1} columnSpacing={4}>
-          {techStackPictures.map((picture) => (
-            <Grid item xs={2} margin={"auto"}>
-              <Image src={picture} alt="Badge" width="75" height="75"></Image>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box
-        sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
-        bgcolor={"lightgray"}
-        p={4}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        <Typography variant="h4" my={2}>
-          Our Team
-        </Typography>
-
-        <Grid container rowSpacing={1} columnSpacing={{ md: 4 }}>
-          {staffCardInfo.map((staff) => (
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Card variant="outlined">
-                <CardMedia
-                  sx={{
-                    height: "24vh",
-                    width: "24vh",
-                    p: 2,
-                    borderRadius: "50%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  component="img"
-                  alt="Profile Picture"
-                  image={staff.picture}
-                />
-                <Typography fontSize={24}>{staff.name}</Typography>
-                <Typography fontSize={16}>{staff.title}</Typography>
-                <CardActions>
-                  <IconButton href={staff.github}>
-                    <GitHubIcon style={{ color: "black" }} />
-                  </IconButton>
-                  <IconButton href={staff.linkedin}>
-                    <LinkedInIcon style={{ color: "#0072b1" }} />
-                  </IconButton>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box
-        sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
-        p={4}
-        bgcolor={"white"}
-        marginLeft={"auto"}
-        marginRight={"auto"}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        <Typography variant="h4" my={2}>
-          Contact
-        </Typography>
-        <Typography variant="subtitle1" my={2}>
-          For all inquiries, please email us using the form below.
-        </Typography>
+      <ThemeProvider theme={theme}>
         <Box
+          sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
           bgcolor={"white"}
+          marginLeft={"auto"}
+          marginRight={"auto"}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          width={"40vw"}
         >
-          <ContactForm />
+          <Typography variant="caption">About us</Typography>
+          <Typography variant="h4" my={2}>
+            Built by <strong>adventurers</strong>, for{" "}
+            <strong>adventurers</strong>
+          </Typography>
+          <Typography variant="subtitle1" my={2}>
+            In a country where 80% of its landmass is mountainous, our mission
+            is to provide a platform for both new and experienced hikers in
+            Japan.
+          </Typography>
+          <Typography variant="subtitle1" my={2}>
+            Find trails in each prefecture tailored to your experience level,
+            read reviews, and view photos from previous travelers.
+          </Typography>
+          <Typography variant="subtitle1" my={2}>
+            When you arrive at the trailhead, launch the{" "}
+            <strong>interactive map</strong> from your mobile device to see and
+            interact with geolocated messages left by other users.
+          </Typography>
+          <Typography variant="subtitle1" mt={2} mb={4}>
+            Hiking in Japan. Simplified.
+          </Typography>
         </Box>
-      </Box>
+        <Box
+          bgcolor={"white"}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <Typography variant="subtitle2">
+            <strong>Hikeable</strong> is built using:
+          </Typography>
+        </Box>
+        <Box
+          p={4}
+          bgcolor={"white"}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          textAlign={"center"}
+        >
+          <Grid container rowSpacing={1} columnSpacing={4}>
+            {techStackPictures.map((picture) => (
+              <Grid item xs={2} margin={"auto"}>
+                <Image src={picture} alt="Badge" width="75" height="75"></Image>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        <Box
+          sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
+          bgcolor={"whitesmoke"}
+          p={4}
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Typography variant="h4" my={2}>
+            Our Team
+          </Typography>
+
+          <Grid container rowSpacing={1} columnSpacing={{ md: 4 }}>
+            {staffCardInfo.map((staff) => (
+              <Grid item xs={3} sx={{ textAlign: "center" }}>
+                <Card variant="outlined">
+                  <CardMedia
+                    sx={{
+                      height: "24vh",
+                      width: "24vh",
+                      p: 2,
+                      borderRadius: "50%",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    component="img"
+                    alt="Profile Picture"
+                    image={staff.picture}
+                  />
+                  <Typography fontSize={24}>{staff.name}</Typography>
+                  <Typography fontSize={16}>{staff.title}</Typography>
+                  <CardActions>
+                    <IconButton href={staff.github}>
+                      <GitHubIcon style={{ color: "black" }} />
+                    </IconButton>
+                    <IconButton href={staff.linkedin}>
+                      <LinkedInIcon style={{ color: "#0072b1" }} />
+                    </IconButton>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        <Box
+          sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
+          bgcolor={"white"}
+          p={4}
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Typography variant="h4" my={2}>
+            Contact
+          </Typography>
+          <Typography variant="subtitle1" my={2}>
+            For all inquiries, please email us using the form below.
+          </Typography>
+          <Box
+            bgcolor={"white"}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+            alignItems={"left"}
+            width={"40vw"}
+          >
+            <ContactForm />
+          </Box>
+        </Box>
+      </ThemeProvider>
     </>
   );
 };
