@@ -19,15 +19,19 @@ const TrailPhotos = () => {
           onClick={() => {
             router.back();
           }}
-          sx={{ mb: 3 }}
+          sx={{
+            mb: 3,
+            borderRadius: "8px",
+            color: "#304b35",
+            borderColor: "#304b35",
+            "&:hover": {
+              borderColor: "#304b35",
+            },
+          }}
         >
           Back to trail page
         </Button>
-        {/* <PhotoPageBreadcrumbs
-          name={trailName}
-          prefecture={prefecture}
-          id={trailId}
-        /> */}
+
         <h1 className={styles.title}> {`All photos of ${trailName} trail`}</h1>
 
         <PhotoGallery trailId={trailId} trailName={trailName}></PhotoGallery>
