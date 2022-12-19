@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { Container, Box } from "@mui/material";
 import { BrowserView, MobileView } from "react-device-detect";
 import styles from "../styles/prefectures.module.css";
+import { Hiking } from "@mui/icons-material";
 
 const engPrefNames = {
   北海道: "Hokkaido",
@@ -169,7 +170,7 @@ const prefectures = () => {
         <BrowserView>
           <div className={styles.img__position__hiking}>
             <Image
-              src="/hiking.png"
+              src={"/hiking.png"}
               alt="illustration of people hiking"
               width={500}
               height={500}

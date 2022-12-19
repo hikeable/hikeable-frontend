@@ -12,11 +12,9 @@
   color: #5e7119;
 }
 
-.bg__map {
-  position: relative;
-}
-
 .img__position__hiking {
+  width: 500px;
+  height: 500px;
   position: absolute;
   top: 10rem;
   left: 3;
