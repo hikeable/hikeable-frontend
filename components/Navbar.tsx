@@ -20,7 +20,7 @@ import {userLoggedBadge} from "../src/UpdateBadges";
 import Head from "next/head";
 
 export interface INavbar {
-  navActive: boolean;
+  navActive: boolean;  
   isLoggedIn: boolean;
   userName: string | null | undefined;
   logOff: (val: boolean) => void;
@@ -28,7 +28,7 @@ export interface INavbar {
 }
 
 const pages = [""];
-const settings = ["Profile", "Dashboard", "Logout"];
+const settings = [ "Achievements", "Dashboard", "Logout"];
 
 export const Navbar: React.FC<INavbar> = ({
   navActive,
