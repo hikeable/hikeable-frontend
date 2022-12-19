@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
+import { BrowserView, MobileView } from "react-device-detect";
 import styles from "../styles/prefectures.module.css";
 
 const engPrefNames = {
@@ -150,7 +152,7 @@ const prefectures = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 10 }}>
-      <div className="bg__map">
+      <div className={styles.bg__map}>
         <h1>Where do you want to walk next?</h1>
         <Link
           className={styles.link__all}
@@ -160,10 +162,20 @@ const prefectures = () => {
           }}
         >
           <h2 className={styles.txt__link}>
-            {" "}
-            Not sure where to go?🤔 See all trails
+            Not sure where to go?🤔{" "}
+            <span className={styles.span__underline}> See all trails</span>
           </h2>
         </Link>
+        <BrowserView>
+          <div className={styles.img__position__hiking}>
+            <Image
+              src="/hiking.png"
+              alt="illustration of people hiking"
+              width={500}
+              height={500}
+            />
+          </div>
+        </BrowserView>
         <div id="my-map-container"></div>
       </div>
     </Container>
