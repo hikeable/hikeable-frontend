@@ -218,7 +218,14 @@ const SingleTrail = () => {
                     variant="soft"
                     size="lg"
                     aria-label={`View ${trail.name} trail`}
-                    sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                    sx={{
+                      color: "white",
+                      fontWeight: 600,
+                      background: "#304b35",
+                      "&:hover": {
+                        background: "#64801a",
+                      },
+                    }}
                     component="a"
                   >
                     View all photos in this trail
@@ -233,18 +240,7 @@ const SingleTrail = () => {
                 ml: "auto",
                 alignItems: "center",
               }}
-            >
-              {/* <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Likes userID={userId} trailID={trail.id} />
-                <CompletedTrails userID={userId} trailID={trail.id} />
-              </Box> */}
-            </Box>
+            ></Box>
           </Box>
         </BrowserView>
         <MobileView>
@@ -313,7 +309,13 @@ const SingleTrail = () => {
                   variant="soft"
                   size="lg"
                   aria-label={`View ${trail.name} trail`}
-                  sx={{ fontWeight: 600, backgroundColor: "pink" }}
+                  sx={{
+                    fontWeight: 600,
+                    background: "#304b35",
+                    "&:hover": {
+                      background: "#64801a",
+                    },
+                  }}
                   component="a"
                 >
                   View all photos in this trail
@@ -394,7 +396,7 @@ const SingleTrail = () => {
           </Link>
         </Box>
         <Box sx={{ mt: 5 }}>
-          <Typography sx={{ fontWeight: 600, mb: 1 }}>
+          <Typography sx={{ fontSize: "2rem", fontWeight: 600, mb: 1 }}>
             Reviews / Comments
           </Typography>
           <ScrollableText trailID={trail?.id} />

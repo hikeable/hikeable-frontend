@@ -84,7 +84,13 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
             variant="soft"
             size="sm"
             aria-label={`View ${name} trail`}
-            sx={{ fontWeight: 600, backgroundColor: "pink" }}
+            sx={{
+              fontWeight: 600,
+              background: "#304b35",
+              "&:hover": {
+                background: "#64801a",
+              },
+            }}
             component="a"
           >
             View

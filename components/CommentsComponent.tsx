@@ -72,14 +72,6 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
 
   const handleSubmit = async () => {
     let current = new Date();
-    console.log("userId =", userId);
-    console.log("trail_id =", trailID);
-    console.log("username =", firstName);
-
-    console.log(
-      "date =",
-      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`
-    );
 
     await axios({
       method: "post",
@@ -119,13 +111,23 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
       <Button
         variant="contained"
         disableElevation
-        style={{ cursor: "pointer", zIndex: 99 }}
+        style={{
+          cursor: "pointer",
+          zIndex: 99,
+          fontFamily: "Montserrat",
+        }}
         onClick={() => {
           handleSubmit();
           fetchComments();
           fetchComments();
         }}
         onTouchStart={handleSubmit}
+        sx={{
+          background: "#304b35",
+          "&:hover": {
+            background: "#64801a",
+          },
+        }}
       >
         Submit
       </Button>
@@ -142,7 +144,13 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" component="h2">
+          <Typography
+            id="modal-modal-title"
+            component="h2"
+            sx={{
+              fontFamily: "Montserrat",
+            }}
+          >
             Write Trail Comment
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
@@ -151,7 +159,7 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
             will be banned.
           </Typography>
           <TextField
-            sx={{ width: 1, mb: 2 }}
+            sx={{ width: 1, mb: 2, fontFamily: "Montserrat" }}
             id="outlined-multiline-static"
             label="Message"
             multiline
@@ -163,8 +171,8 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
           />
         </Box>
       </Modal>
+
       <Paper
-        // elevation={1}
         style={{
           overflowY: "scroll",
           height: "40vh",
@@ -172,9 +180,33 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
           borderRadius: "1rem",
           padding: "2rem",
           marginBottom: "1rem",
+          marginTop: "1rem",
         }}
       >
         <BrowserView>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+            }}
+          >
+            <Button
+              variant="contained"
+              sx={{
+                textTransform: "none",
+                fontFamily: "Montserrat",
+                background: "#304b35",
+                "&:hover": {
+                  background: "#64801a",
+                },
+              }}
+              onClick={handleModalOpen}
+            >
+              Write comment
+            </Button>
+          </Box>
+
           <List>
             {comments.map((comment) => (
               <ListItemText key={comment.id}>
@@ -213,13 +245,13 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
                       }}
                     >
                       <Typography>{comment.date}</Typography>
-                      <Typography sx={{ mb: 1 }}>
+                      <Typography sx={{ mb: 1, fontFamily: "Montserrat" }}>
                         By {comment.userName}
                       </Typography>
                     </Box>
                   </Box>
 
-                  <Typography sx={{ color: "grey" }}>
+                  <Typography sx={{ color: "grey", fontFamily: "Montserrat" }}>
                     {comment.comment}
                   </Typography>
                 </Box>
@@ -246,15 +278,25 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
                     src="/static/images/avatar/2.jpg"
                     sx={{ mr: 3 }}
                   />
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Typography>{comment.date}</Typography>
-                    <Typography sx={{ mb: 1 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      fontFamily: "Montserrat",
+                    }}
+                  >
+                    <Typography sx={{ fontFamily: "Montserrat" }}>
+                      {comment.date}
+                    </Typography>
+                    <Typography sx={{ mb: 1, fontFamily: "Montserrat" }}>
                       By {comment.userName}
                     </Typography>
                   </Box>
                 </Box>
 
-                <Typography sx={{ color: "grey", mb: 2 }}>
+                <Typography
+                  sx={{ color: "grey", mb: 2, fontFamily: "Montserrat" }}
+                >
                   {comment.comment}
                 </Typography>
 
@@ -264,19 +306,20 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
           </List>
         </MobileView>
       </Paper>
-      <BrowserView>
-        <Button
-          variant="outlined"
-          sx={{ textTransform: "none" }}
-          onClick={handleModalOpen}
-        >
-          Write comment
-        </Button>
-      </BrowserView>
+
       <MobileView>
         <Button
           variant="outlined"
-          sx={{ textTransform: "none", width: "100%" }}
+          sx={{
+            fontFamily: "Montserrat",
+            color: "white",
+            textTransform: "none",
+            width: "100%",
+            background: "#304b35",
+            "&:hover": {
+              background: "#64801a",
+            },
+          }}
           onClick={handleModalOpen}
         >
           Write comment
