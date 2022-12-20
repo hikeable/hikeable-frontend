@@ -67,13 +67,14 @@ const About = () => {
     <>
       <ThemeProvider theme={theme}>
         <Box
-          sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
+          sx={{ width: "100vw", height: "65vh", minHeight: "300px",mt:8.5 }}
           bgcolor={"white"}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
         >
+          <Container sx={{display:"flex",flexDirection:"column", alignItems:"center", }}>
           <Typography variant="caption">About us</Typography>
           <Typography variant="h4" my={2}>
             Built by <strong>adventurers</strong>, for{" "}
@@ -96,6 +97,7 @@ const About = () => {
           <Typography variant="subtitle1" mt={2} mb={4}>
             Hiking in Japan. Simplified.
           </Typography>
+          </Container>
         </Box>
         <Box
           bgcolor={"white"}
