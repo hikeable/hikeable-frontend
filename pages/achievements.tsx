@@ -5,7 +5,6 @@ import styles from "../styles/achievements.module.css"
 // import styles from "../styles/achievements.module.css";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { useEffect, useState } from "react";
-import Head from "next/head";
 
 const badgeDict = {
     "Incomplete": "/badges/Incomplete.png",

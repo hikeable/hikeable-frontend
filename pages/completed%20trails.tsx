@@ -6,7 +6,6 @@ import { Trail, trailCompletionObject } from "../global";
 import { NextLinkComposed } from "../src/Link";
 import { getValues, returnUniqueObjects } from "../src/ObjectFunctions";
 import styles from "../styles/dashboard.module.css"
-import Head from "next/head";
 
 
 

@@ -152,9 +152,6 @@ const prefectures = () => {
   }, []);
 
   return (
-   <>
-   
-
     <Container maxWidth="lg" sx={{ mt: 10 }}>
       <div className={styles.bg__map}>
         <h1>Where do you want to walk next?</h1>
@@ -183,7 +180,6 @@ const prefectures = () => {
         <div id="my-map-container"></div>
       </div>
     </Container>
-          </>
   );
 };
 
