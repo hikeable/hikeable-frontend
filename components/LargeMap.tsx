@@ -36,17 +36,17 @@ const LargeMap = ({
   const lonNumber = parseFloat(lon);
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const messageIcon = L.icon({
-    iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
+    iconUrl: "/messageMarker.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
-    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
+    shadowUrl: "/markerShadow.png",
     popupAnchor: [2, -40],
   });
   const locationIcon = L.icon({
-    iconUrl: "https://i.postimg.cc/FsTwfJdB/location-Marker.png",
+    iconUrl: "/locationMarker.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
-    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
+    shadowUrl: "/markerShadow.png",
     popupAnchor: [2, -40],
   });
 
