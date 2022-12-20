@@ -97,7 +97,7 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
 
   const fetchComments = async () => {
     const fetchedCommentsData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/comments`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/comments`
     );
     if (!comments) {
       setComments(fetchedCommentsData.data);
