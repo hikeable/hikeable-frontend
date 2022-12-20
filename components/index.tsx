@@ -13,8 +13,7 @@ export * from "./Weather";
 export * from "./photoGallery";
 export * from "./PhotoPageBreadcrumbs";
 export * from "./CommentsComponent";
-export * from "./Landing Logo";
-
+export * from "./LandingLogo";
 
 import dynamic from "next/dynamic";
 

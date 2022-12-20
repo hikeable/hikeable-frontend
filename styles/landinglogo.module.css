@@ -1,0 +1,22 @@
+.logo__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  fill: whitesmoke;
+  margin-right: 0.5rem;
+  z-index: 1;
+  filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.4));
+}
+
+.logo__name {
+  font-size: 8vw;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: whitesmoke;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.4));
+}/*# sourceMappingURL=landinglogo.module.css.map */

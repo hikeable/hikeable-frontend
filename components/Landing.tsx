@@ -1,14 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrowserView, MobileView } from "react-device-detect";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Typography } from "@mui/material";
-import { Logo } from "../components";
 import styles from "../styles/landing.module.css";
-import { Container, fontFamily } from "@mui/system";
-import { Filter } from "@mui/icons-material";
-import { sx } from "@mui/joy/styles/styleFunctionSx";
-import zIndex from "@mui/material/styles/zIndex";
-import { LAndingLogo } from "../components";
+import { Container } from "@mui/system";
+import { LandingLogo } from "../components";
 
 const Theme = createTheme({
   transitions: {
@@ -38,59 +35,78 @@ transition: ${theme.transitions.create(["letter-spacing", "transform"], {
 export const Landing = ({}) => {
   return (
     <>
-      <div className={styles.logo__wrapper}>
-        <LAndingLogo />
-      </div>
       <div className={styles.landing__background}>
         <Image
           src="/david-edelstein-N4DbvTUDikw-unsplash.jpg"
-          alt="Background Image of some people walking a trail"
+          alt="Background Image of Mt. Fuji and shrine"
           fill
           objectFit="cover"
           style={{ objectPosition: "top" }}
         />
       </div>
-      
-        <Box 
+      <Box
         sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "end",
-              textAlign:"center",
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "end",
+            textAlign: "center",
+            fontFamily: "Montserrat",
+            zIndex: 1,
+          }}
+        >
+          <div className={styles.logo__wrapper}>
+            <LandingLogo />
+          </div>
+          <Typography
+            variant="h1"
+            sx={{
               fontFamily: "Montserrat",
-              zIndex:1,
-              backgroundColor:"green"
-              
-            }} 
-            // style={{ filter: 'blur(5px)'}}
-            >
-          <Typography variant="h1" fontFamily={"Monserrat"} zIndex="2" color={"whitesmoke"}>
-            Hiking in Japan</Typography>
-          <Typography variant="h1" fontFamily={"Monserrat"} zIndex="2" color={"whitesmoke"} >
-            Simplified</Typography>
-          
-          
-          
-          
-          {/* <div className={styles.txt__wrapper}>
-            <h1 className={styles.landing__title}>Hiking in Japan</h1>
-            <h1 className={styles.landing__title}>Simplified</h1>
-          </div> */}
+              color: "#5e7119",
+              fontSize: "3vw",
+              fontWeight: 600,
+            }}
+            zIndex="2"
+          >
+            Hiking in Japan.
+          </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "Montserrat",
+              color: "#5e7119",
+              fontSize: "3vw",
+              fontWeight: 600,
+            }}
+            zIndex="2"
+          >
+            Simplified.
+          </Typography>
         </Box>
-     
-      <div className={styles.btn__wrapper}>
-        <ThemeProvider theme={Theme}>
-          <StyledButton variant="text" sx={{ mr: 2, ml: 1 }}>
-            <Link
-              className={`${styles.txt__btn} ${styles.btn__line}`}
-              href="/prefectures"
-            >
-              Start Walking
-            </Link>
-          </StyledButton>
-        </ThemeProvider>
-      </div>
+
+        <div className={styles.btn__wrapper}>
+          <ThemeProvider theme={Theme}>
+            <StyledButton variant="text" sx={{ mr: 2, ml: 1 }}>
+              <Link
+                className={`${styles.txt__btn} ${styles.btn__line}`}
+                href="/prefectures"
+              >
+                Start Walking
+              </Link>
+            </StyledButton>
+          </ThemeProvider>
+        </div>
+      </Box>
     </>
   );
 };

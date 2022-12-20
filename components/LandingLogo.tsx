@@ -1,7 +1,7 @@
 import Mountain from "../public/mountain_2.svg";
-import styles from "../styles/logo.module.css";
+import styles from "../styles/landinglogo.module.css";
 
-export const LAndingLogo = () => {
+export const LandingLogo = () => {
   return (
     <>
       <div className={styles.logo__wrapper}>
