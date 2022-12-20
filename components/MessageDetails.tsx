@@ -73,7 +73,7 @@ const MessageDetails = ({
 
   const fetchMessageLikeData = async () => {
     const fetchedMessageLikeData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/messages/${messageID}/likes`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages/${messageID}/likes`
     );
     setData(fetchedMessageLikeData.data);
   };
