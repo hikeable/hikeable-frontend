@@ -22,7 +22,7 @@ const ContactForm = () => {
     e.preventDefault();
     await axios({
       method: "post",
-      url: "https://hikeable-backend.herokuapp.com/api/feedback",
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/feedback`,
       data: {
         from_name: toSend["from_name"],
         from_email: toSend["from_email"],
