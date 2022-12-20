@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState, forwardRef } from "react";
+import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import Link from "next/link";
-import { CldImage, CldUploadButton } from "next-cloudinary";
+import { CldUploadButton } from "next-cloudinary";
 import { Trail } from "../global";
 import styles from "../styles/singletrail.module.css";
 import {
@@ -12,12 +12,7 @@ import {
   SinglePageBreadcrumbs,
 } from "../components";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import axios from "axios";
 import { SmallMap } from "../components";
-import MessageForm from "../components/MessageForm";
-import SingleProduct from "../components/photoGallery";
-import PhotoGallery from "../components/photoGallery";
-import Mountain2 from "../public/mountain_2.svg";
 import { Box, Container } from "@mui/material";
 import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
@@ -69,6 +64,8 @@ const SingleTrail = () => {
     }
   }, []);
 
+  // console.log (trailId)
+  
   return (
     trail && (
       <Container sx={{ mb: 5, mt: 10 }}>
@@ -179,7 +176,7 @@ const SingleTrail = () => {
                   alignItems: "center",
                   justifyContent: "space-evenly",
                 }}
-              >
+                >
                 <CldUploadButton
                   className={styles.btn__cloudinary}
                   uploadPreset={
@@ -213,7 +210,7 @@ const SingleTrail = () => {
                     },
                   }}
                   passHref
-                >
+                  >
                   <Button
                     variant="soft"
                     size="lg"
@@ -227,7 +224,7 @@ const SingleTrail = () => {
                       },
                     }}
                     component="a"
-                  >
+                    >
                     View all photos in this trail
                   </Button>
                 </Link>
@@ -283,15 +280,15 @@ const SingleTrail = () => {
                     result,
                     "widget =",
                     widget
-                  );
-                }}
+                    );
+                  }}
                 options={{
                   folder: trail.name,
                   tags: [trail.id],
 
                   context: { name: firstName, date: date },
                 }}
-              >
+                >
                 Upload {trail.name} photo
               </CldUploadButton>
               <Link
@@ -304,7 +301,7 @@ const SingleTrail = () => {
                   },
                 }}
                 passHref
-              >
+                >
                 <Button
                   variant="soft"
                   size="lg"
@@ -319,7 +316,7 @@ const SingleTrail = () => {
                     },
                   }}
                   component="a"
-                >
+                  >
                   View all photos in this trail
                 </Button>
               </Link>
@@ -332,17 +329,17 @@ const SingleTrail = () => {
               alignItems: "center",
               justifyContent: "space-around",
             }}
-          >
+            >
             <Typography
               sx={{ fontSize: "5vw" }}
               startDecorator={<LocationOn />}
-            >
+              >
               {_.capitalize(trail.prefecture)}
             </Typography>
             <Typography
               sx={{ fontSize: "5vw" }}
               startDecorator={<Straighten />}
-            >{`${Number(trail.length).toString()} km`}</Typography>
+              >{`${Number(trail.length).toString()} km`}</Typography>
             <Typography startDecorator={<Speed />} sx={{ fontSize: "5vw" }}>
               {difficultyObj[trail.difficulty]}
             </Typography>
@@ -355,14 +352,14 @@ const SingleTrail = () => {
               alignItems: "center",
               justifyContent: "space-around",
             }}
-          >
+            >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
-            >
+              >
               <Likes userID={userId} trailID={trail.id} />
               <Typography>I like this trail</Typography>
             </Box>
@@ -372,7 +369,7 @@ const SingleTrail = () => {
                 flexDirection: "column",
                 alignItems: "center",
               }}
-            >
+              >
               <CompletedTrails userID={userId} trailID={trail.id} />
               <Typography>Completed</Typography>
             </Box>
@@ -394,15 +391,6 @@ const SingleTrail = () => {
             }}
             passHref
           >
-            {/* <Typography
-              sx={{
-                mt: 2,
-                fontSize: "1.5rem",
-                textAlign: "center",
-                fontWeight: "600",
-                color: "#0e2424",
-              }}
-            > */}
             <Button
               variant="outlined"
               sx={{

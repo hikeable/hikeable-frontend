@@ -5,8 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
@@ -77,6 +75,7 @@ export const Navbar: React.FC<INavbar> = ({
   };
 
   return navActive == true ? (
+    <>
     <Box sx={{ flexGrow: 1, mb: "55px" }}>
       <AppBar
         position="fixed"
@@ -102,7 +101,7 @@ export const Navbar: React.FC<INavbar> = ({
                   fontWeight: "600",
                   display: { xs: "none", sm: "block" },
                 }}
-              >
+                >
                 Hikeable
               </Typography>
             </Link>
@@ -133,7 +132,7 @@ export const Navbar: React.FC<INavbar> = ({
                     display: { xs: "none", sm: "block" },
                     ml: 5,
                   }}
-                >
+                  >
                   Welcome {userName?.split(" ")[0]}&nbsp;!
                 </Typography>
 
@@ -143,7 +142,7 @@ export const Navbar: React.FC<INavbar> = ({
                       <Avatar
                         alt={userName as string}
                         src="/static/images/avatar/2.jpg"
-                      />
+                        />
                     </IconButton>
                   </Tooltip>
                 </Box>
@@ -163,13 +162,13 @@ export const Navbar: React.FC<INavbar> = ({
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
-                >
+                  >
                   {settings.map((setting) => (
                     <MenuItem
-                      component="a"
-                      href={"/" + setting.toLowerCase()}
-                      key={setting}
-                      onClick={() => updateState(setting)}
+                    component="a"
+                    href={"/" + setting.toLowerCase()}
+                    key={setting}
+                    onClick={() => updateState(setting)}
                     >
                       <Typography
                         textAlign="center"
@@ -202,7 +201,11 @@ export const Navbar: React.FC<INavbar> = ({
         </Box>
       </AppBar>
     </Box>
+  </>
+
   ) : (
     <></>
-  );
-};
+    );
+  };
+
+          

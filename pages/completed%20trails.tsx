@@ -93,37 +93,36 @@ const Completedtrails = () => {
 
     
     return (
-        
         <>
-        <Typography>You have completed the following trails: !</Typography><div className={styles.completed_trails}>
-            {usersCompletedTrails.map((trail: dummy) => {
-                return (
-                    <>
+        <Typography>You have completed the following trails: !</Typography>
+            <div className={styles.completed_trails}>
+                {usersCompletedTrails.map((trail: dummy) => {
+                    return (
+                        <>
+                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
 
-                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                <Button
+                                    variant='outlined'
 
-                            <Button
-                                variant='outlined'
-
-                                component={NextLinkComposed}
-                                to={{
-                                    pathname: "/singletrail",
-                                    query: { trail: JSON.stringify(trail) },
-                                }}
-                                linkAs={`/singletrail/${trail.id}`}
-                            >
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                        {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
-                                    </Typography>
-                                </CardContent>
-                            </Button>
-                        </Box>
-                    </>
-
-                );
-            })}
-        </div></> 
+                                    component={NextLinkComposed}
+                                    to={{
+                                        pathname: "/singletrail",
+                                        query: { trail: JSON.stringify(trail) },
+                                    }}
+                                    linkAs={`/singletrail/${trail.id}`}
+                                >
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                        </Typography>
+                                    </CardContent>
+                                </Button>
+                            </Box>
+                        </>
+                    );
+                })}
+            </div>
+        </> 
 
     );
 }
