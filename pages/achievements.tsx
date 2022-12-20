@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardContent, CardHeader, Chip, createTheme, ThemeProvider, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, CardHeader, Chip, createTheme, ThemeProvider, Tooltip, Typography } from "@mui/material";
 import axios, { Axios, AxiosError } from "axios";
 import Image from 'next/image'
 import styles from "../styles/achievements.module.css"
@@ -80,6 +80,7 @@ const Achievements = () => {
                     <Typography variant="h3" className={styles.achievements_title}>
                         Your Achievements
                     </Typography>
+
                     <Card variant = "outlined" sx={{
                         margin: '10px'
                     }}>
@@ -93,6 +94,8 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
+                                <Tooltip  title="Register as a user">
+
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
@@ -103,6 +106,10 @@ const Achievements = () => {
                                     />
                                     <Chip label="A New Beginning" /> 
                                 </Box>
+                                </Tooltip>
+
+
+                                <Tooltip  title="Setup your hiking goals">
 
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
@@ -114,23 +121,29 @@ const Achievements = () => {
                                     />
                                     <Chip label="First Steps" /> 
                                 </Box>
+                                </Tooltip>
                             
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Registered"
-                                        src={userBadges.includes("On a roll")? badgeDict["On a roll"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="On a roll" /> 
-                                </Box>
+                                <Tooltip  title="Connect with other users">
+
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Registered"
+                                            src={userBadges.includes("On a roll")? badgeDict["On a roll"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="On a roll" /> 
+                                    </Box>
+                                </Tooltip>
+
                             </Box>
 
                         </CardContent>
 
 
                     </Card>
+
 
                     <Card variant = "outlined" sx={{
                         margin: '10px',
@@ -148,6 +161,7 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
+                                <Tooltip  title="Complete your first hike">
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
@@ -158,18 +172,22 @@ const Achievements = () => {
                                     />
                                     <Chip label="First Base" /> 
                                 </Box>
-
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Two hikes in a row"
-                                        src={userBadges.includes("Power of Two")? badgeDict["Power of Two"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Power of Two" /> 
-                                </Box>
+                                </Tooltip>
+                                
+                                <Tooltip  title="Complete your second hike">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Two hikes in a row"
+                                            src={userBadges.includes("Power of Two")? badgeDict["Power of Two"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Power of Two" /> 
+                                    </Box>
+                                </Tooltip>
                             
+                                <Tooltip  title="Complete your third hike">
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
@@ -180,7 +198,10 @@ const Achievements = () => {
                                     />
                                     <Chip label="Hat-trick" /> 
                                 </Box>
+                                </Tooltip>
 
+
+                                <Tooltip  title="Complete your seventh hike">
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
@@ -191,6 +212,7 @@ const Achievements = () => {
                                     />
                                     <Chip label="Lucky Number 7" /> 
                                 </Box>
+                                </Tooltip>
                             </Box>
 
                         </CardContent>
@@ -209,50 +231,60 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Hiked 3 KM"
-                                        src={userBadges.includes("3 KM")? badgeDict["3 KM"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="3 KM" /> 
-                                </Box>
+                                <Tooltip  title="Hike a total of 3 KM">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Hiked 3 KM"
+                                            src={userBadges.includes("3 KM")? badgeDict["3 KM"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="3 KM" /> 
+                                    </Box>
+                                </Tooltip>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Hiked 5 KM"
-                                        src={userBadges.includes("5 KM")? badgeDict["5 KM"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="5 KM" /> 
-                                </Box>
-                            
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Hiked 7 KM"
-                                        src={userBadges.includes("7 KM")? badgeDict["7 KM"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="7 KM" /> 
-                                </Box>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Hiked 10 KM"
-                                        src={userBadges.includes("10 KM")? badgeDict["10 KM"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="10 KM" /> 
-                                </Box>
+                                <Tooltip  title="Hike a total of 5 KM">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Hiked 5 KM"
+                                            src={userBadges.includes("5 KM")? badgeDict["5 KM"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="5 KM" /> 
+                                    </Box>
+                                </Tooltip>
 
+                                <Tooltip  title="Hike a total of 7 KM">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Hiked 7 KM"
+                                            src={userBadges.includes("7 KM")? badgeDict["7 KM"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="7 KM" /> 
+                                    </Box>
+                                </Tooltip>
+
+                                <Tooltip  title="Hike a total of 10 KM">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Hiked 10 KM"
+                                            src={userBadges.includes("10 KM")? badgeDict["10 KM"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="10 KM" /> 
+                                    </Box>
+                                </Tooltip>
+
+                                <Tooltip  title="Hike a total of 15 KM">
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
@@ -263,29 +295,36 @@ const Achievements = () => {
                                     />
                                     <Chip label="15 KM" /> 
                                 </Box>
+                                </Tooltip>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Hiked 20 KM"
-                                        src={userBadges.includes("20 KM")? badgeDict["20 KM"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="20 KM" /> 
-                                </Box>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Hiked 30 KM"
-                                        src={userBadges.includes("30 KM")? badgeDict["30 KM"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="30 KM" /> 
-                                </Box>
+                                <Tooltip  title="Hike a total of 20 KM">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Hiked 20 KM"
+                                            src={userBadges.includes("20 KM")? badgeDict["20 KM"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="20 KM" /> 
+                                    </Box>
+                                </Tooltip>
 
+                                <Tooltip  title="Hike a total of 30 KM">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Hiked 30 KM"
+                                            src={userBadges.includes("30 KM")? badgeDict["30 KM"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="30 KM" /> 
+                                    </Box>
+                                </Tooltip>
+
+                                <Tooltip  title="Hike a total of 50 KM">
                                 <Box className= {styles.individual_badge}
                                     sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
                                     >
@@ -296,6 +335,7 @@ const Achievements = () => {
                                     />
                                     <Chip label="50 KM" /> 
                                 </Box>
+                                </Tooltip>
                             </Box>
 
                         </CardContent>
@@ -314,60 +354,74 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Team Player Badge"
-                                        src={userBadges.includes("Team Player")? badgeDict["Team Player"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Team Player" /> 
-                                </Box>
+                                
+                                <Tooltip  title="Write a message on a trail">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Team Player Badge"
+                                            src={userBadges.includes("Team Player")? badgeDict["Team Player"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Team Player" /> 
+                                    </Box>
+                                </Tooltip>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="The Assistant Badge"
-                                        src={userBadges.includes("Assistant")? badgeDict["Assistant"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="The Assistant" /> 
-                                </Box>
+
+                                <Tooltip  title="Write 10 messages on trails">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="The Assistant Badge"
+                                            src={userBadges.includes("Assistant")? badgeDict["Assistant"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="The Assistant" /> 
+                                    </Box>
+                                </Tooltip>
                             
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="The Apprentice Badge"
-                                        src={userBadges.includes("Apprentice")? badgeDict["Apprentice"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="The Apprentice" /> 
-                                </Box>
+                                <Tooltip  title="Write 20 messages on trails">
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="The Mentor Badge"
-                                        src={userBadges.includes("Mentor")? badgeDict["Mentor"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Mentor" /> 
-                                </Box>
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="The Apprentice Badge"
+                                            src={userBadges.includes("Apprentice")? badgeDict["Apprentice"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="The Apprentice" /> 
+                                    </Box>
+                                </Tooltip>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="The Master Badge"
-                                        src={userBadges.includes("Master")? badgeDict["Master"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Master" /> 
-                                </Box>
+
+                                <Tooltip  title="Write 30 messages on trails">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="The Mentor Badge"
+                                            src={userBadges.includes("Mentor")? badgeDict["Mentor"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Mentor" /> 
+                                    </Box>
+                                </Tooltip>
+
+                                <Tooltip  title="Write 50 messages on trails">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="The Master Badge"
+                                            src={userBadges.includes("Master")? badgeDict["Master"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Master" /> 
+                                    </Box>
+                                </Tooltip>
                             </Box>
 
                         </CardContent>
@@ -387,49 +441,59 @@ const Achievements = () => {
                                 flexDirection: 'column',
                                 alignItems: "center"
                             }}>
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Helpful Badge"
-                                        src={userBadges.includes("Helpful")? badgeDict["Helpful"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Helpful" /> 
-                                </Box>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Well Rounded Badge"
-                                        src={userBadges.includes("Well Rounded")? badgeDict["Well Rounded"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Well Rounded" /> 
-                                </Box>
+                                <Tooltip  title="Your message is liked by one person">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Helpful Badge"
+                                            src={userBadges.includes("Helpful")? badgeDict["Helpful"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Helpful" /> 
+                                    </Box>
+                                </Tooltip>
 
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="Excellent Feedback Badge"
-                                        src={userBadges.includes("Excellent Feedback")? badgeDict["Excellent Feedback"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="Excellent Feedback" /> 
-                                </Box>
+
+                                <Tooltip  title="Your message are liked by 10 people">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Well Rounded Badge"
+                                            src={userBadges.includes("Well Rounded")? badgeDict["Well Rounded"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Well Rounded" /> 
+                                    </Box>
+                                </Tooltip>
+
+                                <Tooltip  title="Your messages are liked by 25 people">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="Excellent Feedback Badge"
+                                            src={userBadges.includes("Excellent Feedback")? badgeDict["Excellent Feedback"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="Excellent Feedback" /> 
+                                    </Box>
+                                </Tooltip>
                             
-                                <Box className= {styles.individual_badge}
-                                    sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
-                                    >
-                                    <Avatar
-                                        alt="The MVP Badge"
-                                        src={userBadges.includes("MVP")? badgeDict["MVP"] : badgeDict["Incomplete"]}
-                                        sx={{ width: 84, height: 84 , margin: 0}}
-                                    />
-                                    <Chip label="MVP" /> 
-                                </Box>
+                                <Tooltip  title="Your messages are liked by 50 people">
+                                    <Box className= {styles.individual_badge}
+                                        sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '10px'}}
+                                        >
+                                        <Avatar
+                                            alt="The MVP Badge"
+                                            src={userBadges.includes("MVP")? badgeDict["MVP"] : badgeDict["Incomplete"]}
+                                            sx={{ width: 84, height: 84 , margin: 0}}
+                                        />
+                                        <Chip label="MVP" /> 
+                                    </Box>
+                                </Tooltip>
 
         
 
