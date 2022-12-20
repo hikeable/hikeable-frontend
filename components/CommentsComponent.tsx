@@ -75,7 +75,7 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
 
     await axios({
       method: "post",
-      url: "https://hikeable-backend.herokuapp.com/api/trails/comments",
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/comments`,
       data: {
         user: userId,
         userName: firstName,
