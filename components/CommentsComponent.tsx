@@ -56,6 +56,11 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
     px: 4,
     pb: 3,
     cursor: "pointer",
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "green",
+      },
+    },
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,7 +166,6 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
           <TextField
             sx={{ width: 1, mb: 2, fontFamily: "Montserrat" }}
             id="outlined-multiline-static"
-            label="Message"
             multiline
             rows={3}
             placeholder={"Your message here"}
