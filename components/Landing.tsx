@@ -68,30 +68,58 @@ export const Landing = ({}) => {
           <div className={styles.logo__wrapper}>
             <LandingLogo />
           </div>
-          <Typography
-            variant="h1"
-            sx={{
-              fontFamily: "Montserrat",
-              color: "#5e7119",
-              fontSize: "3vw",
-              fontWeight: 600,
-            }}
-            zIndex="2"
-          >
-            Hiking in Japan.
-          </Typography>
-          <Typography
-            variant="h1"
-            sx={{
-              fontFamily: "Montserrat",
-              color: "#5e7119",
-              fontSize: "3vw",
-              fontWeight: 600,
-            }}
-            zIndex="2"
-          >
-            Simplified.
-          </Typography>
+          <BrowserView>
+            <Typography
+              variant="h1"
+              sx={{
+                fontFamily: "Montserrat",
+                color: "#5e7119",
+                fontSize: "3vw",
+                fontWeight: 600,
+              }}
+              zIndex="2"
+            >
+              Hiking in Japan.
+            </Typography>
+            <Typography
+              variant="h1"
+              sx={{
+                fontFamily: "Montserrat",
+                color: "#5e7119",
+                fontSize: "3vw",
+                fontWeight: 600,
+              }}
+              zIndex="2"
+            >
+              Simplified.
+            </Typography>
+          </BrowserView>
+          <MobileView>
+            <Typography
+              variant="h1"
+              sx={{
+                fontFamily: "Montserrat",
+                color: "#5e7119",
+                fontSize: "2rem",
+                fontWeight: 600,
+                mt: 3,
+              }}
+            >
+              Hiking in Japan.
+            </Typography>
+            <Typography
+              variant="h1"
+              sx={{
+                fontFamily: "Montserrat",
+                color: "#5e7119",
+                fontSize: "2rem",
+                fontWeight: 600,
+              }}
+              zIndex="2"
+            >
+              Simplified.
+            </Typography>
+          </MobileView>
         </Box>
 
         <div className={styles.btn__wrapper}>
