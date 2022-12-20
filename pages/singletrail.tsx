@@ -64,8 +64,6 @@ const SingleTrail = () => {
     }
   }, []);
 
-  // console.log (trailId)
-  
   return (
     trail && (
       <Container sx={{ mb: 5, mt: 10 }}>
@@ -176,30 +174,47 @@ const SingleTrail = () => {
                   alignItems: "center",
                   justifyContent: "space-evenly",
                 }}
-                >
-                <CldUploadButton
-                  className={styles.btn__cloudinary}
-                  uploadPreset={
-                    process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
-                  }
-                  onUpload={function (error, result, widget) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
-                  }}
-                  options={{
-                    folder: trail.name,
-                    tags: [trail.id],
-                    context: { name: firstName, date: date },
-                  }}
-                >
-                  Upload {trail.name} photo
-                </CldUploadButton>
+              >
+                {userId !== undefined ? (
+                  <CldUploadButton
+                    className={styles.btn__cloudinary}
+                    uploadPreset={
+                      process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
+                    }
+                    onUpload={function (error, result, widget) {
+                      console.log(
+                        "error =",
+                        error,
+                        "result =",
+                        result,
+                        "widget =",
+                        widget
+                      );
+                    }}
+                    options={{
+                      folder: trail.name,
+                      tags: [trail.id],
+                      context: { name: firstName, date: date },
+                    }}
+                  >
+                    Upload {trail.name} Photo
+                  </CldUploadButton>
+                ) : (
+                  <Button
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: "1rem",
+                      border: "none",
+                      borderRadius: "40px",
+                      padding: "12px 1rem",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Log in to Upload Photo
+                  </Button>
+                )}
                 <Link
                   className={styles.card__link}
                   href={{
@@ -210,7 +225,7 @@ const SingleTrail = () => {
                     },
                   }}
                   passHref
-                  >
+                >
                   <Button
                     variant="soft"
                     size="lg"
@@ -224,7 +239,7 @@ const SingleTrail = () => {
                       },
                     }}
                     component="a"
-                    >
+                  >
                     View all photos in this trail
                   </Button>
                 </Link>
@@ -280,15 +295,15 @@ const SingleTrail = () => {
                     result,
                     "widget =",
                     widget
-                    );
-                  }}
+                  );
+                }}
                 options={{
                   folder: trail.name,
                   tags: [trail.id],
 
                   context: { name: firstName, date: date },
                 }}
-                >
+              >
                 Upload {trail.name} photo
               </CldUploadButton>
               <Link
@@ -301,7 +316,7 @@ const SingleTrail = () => {
                   },
                 }}
                 passHref
-                >
+              >
                 <Button
                   variant="soft"
                   size="lg"
@@ -316,7 +331,7 @@ const SingleTrail = () => {
                     },
                   }}
                   component="a"
-                  >
+                >
                   View all photos in this trail
                 </Button>
               </Link>
@@ -329,17 +344,17 @@ const SingleTrail = () => {
               alignItems: "center",
               justifyContent: "space-around",
             }}
-            >
+          >
             <Typography
               sx={{ fontSize: "5vw" }}
               startDecorator={<LocationOn />}
-              >
+            >
               {_.capitalize(trail.prefecture)}
             </Typography>
             <Typography
               sx={{ fontSize: "5vw" }}
               startDecorator={<Straighten />}
-              >{`${Number(trail.length).toString()} km`}</Typography>
+            >{`${Number(trail.length).toString()} km`}</Typography>
             <Typography startDecorator={<Speed />} sx={{ fontSize: "5vw" }}>
               {difficultyObj[trail.difficulty]}
             </Typography>
@@ -352,14 +367,14 @@ const SingleTrail = () => {
               alignItems: "center",
               justifyContent: "space-around",
             }}
-            >
+          >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
-              >
+            >
               <Likes userID={userId} trailID={trail.id} />
               <Typography>I like this trail</Typography>
             </Box>
@@ -369,7 +384,7 @@ const SingleTrail = () => {
                 flexDirection: "column",
                 alignItems: "center",
               }}
-              >
+            >
               <CompletedTrails userID={userId} trailID={trail.id} />
               <Typography>Completed</Typography>
             </Box>
@@ -379,37 +394,55 @@ const SingleTrail = () => {
 
         <Box>
           <SmallMap lat={trail.latitude} lon={trail.longitude} />
-          <Link
-            className={styles.link__interactive}
-            href={{
-              pathname: "/mapview",
-              query: {
-                lat: trail.latitude,
-                lon: trail.longitude,
-                trailID: trail.id,
-              },
-            }}
-            passHref
-          >
+
+          {userId !== undefined ? (
+            <Link
+              className={styles.link__interactive}
+              href={{
+                pathname: "/mapview",
+                query: {
+                  lat: trail.latitude,
+                  lon: trail.longitude,
+                  trailID: trail.id,
+                },
+              }}
+              passHref
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  mt: 3,
+                  fontWeight: 600,
+                  fontFamily: "Montserrat",
+                  color: "white",
+                  textTransform: "none",
+                  width: "100%",
+                  background: "#304b35",
+                  "&:hover": {
+                    background: "#64801a",
+                  },
+                }}
+              >
+                Launch Interactive Map
+              </Button>
+            </Link>
+          ) : (
             <Button
               variant="outlined"
+              disabled
               sx={{
                 mt: 3,
                 fontWeight: 600,
+                fontSize: "1rem",
                 fontFamily: "Montserrat",
                 color: "white",
                 textTransform: "none",
                 width: "100%",
-                background: "#304b35",
-                "&:hover": {
-                  background: "#64801a",
-                },
               }}
             >
-              Interactive Mode
+              Log in to Launch Interactive Map
             </Button>
-            {/* </Typography> */}
-          </Link>
+          )}
         </Box>
         <Box sx={{ mt: 5 }}>
           <Typography sx={{ fontSize: "2rem", fontWeight: 600, mb: 1 }}>

@@ -56,6 +56,11 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
     px: 4,
     pb: 3,
     cursor: "pointer",
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "green",
+      },
+    },
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,7 +166,6 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
           <TextField
             sx={{ width: 1, mb: 2, fontFamily: "Montserrat" }}
             id="outlined-multiline-static"
-            label="Message"
             multiline
             rows={3}
             placeholder={"Your message here"}
@@ -184,30 +188,33 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
         }}
       >
         <BrowserView>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
-            }}
-          >
-            <Button
-              variant="contained"
+          {userId !== undefined ? (
+            <Box
               sx={{
-                borderRadius: "8px",
-                textTransform: "none",
-                fontFamily: "Montserrat",
-                background: "#304b35",
-                "&:hover": {
-                  background: "#64801a",
-                },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "end",
               }}
-              onClick={handleModalOpen}
             >
-              Write comment
-            </Button>
-          </Box>
-
+              <Button
+                variant="contained"
+                sx={{
+                  borderRadius: "8px",
+                  textTransform: "none",
+                  fontFamily: "Montserrat",
+                  background: "#304b35",
+                  "&:hover": {
+                    background: "#64801a",
+                  },
+                }}
+                onClick={handleModalOpen}
+              >
+                Write comment
+              </Button>
+            </Box>
+          ) : (
+            <></>
+          )}
           <List>
             {comments.map((comment) => (
               <ListItemText key={comment.id}>
