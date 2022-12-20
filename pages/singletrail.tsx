@@ -200,7 +200,18 @@ const SingleTrail = () => {
                     Upload {trail.name} Photo
                   </CldUploadButton>
                 ) : (
-                  <Button disabled className={styles.btn__cloudinary}>
+                  <Button
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: "1rem",
+                      border: "none",
+                      borderRadius: "40px",
+                      padding: "12px 1rem",
+                      cursor: "pointer",
+                    }}
+                  >
                     Log in to Upload Photo
                   </Button>
                 )}
@@ -422,6 +433,7 @@ const SingleTrail = () => {
               sx={{
                 mt: 3,
                 fontWeight: 600,
+                fontSize: "1rem",
                 fontFamily: "Montserrat",
                 color: "white",
                 textTransform: "none",
