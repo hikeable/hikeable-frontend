@@ -136,9 +136,13 @@ const Dashboard  = () => {
 
                 </Box>
 
-                <Typography>
+               
+                {/***** PLEASE DO NOT DELETE   *******/
+                
+                /* <Typography>
                     You have completed the following trails: !
                 </Typography>
+
                 <div className={styles.completed_trails}>
                     {usersCompletedTrails.map((trail: dummy) => {
                         return (
@@ -165,7 +169,7 @@ const Dashboard  = () => {
                             </>
                         );
                     })}
-                </div>
+                </div> */}
 
             </ThemeProvider>
         </>
