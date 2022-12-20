@@ -58,7 +58,7 @@ const Achievements = () => {
     
     const getBadges = async (user: number | undefined) => {
 
-        const url = `https://hikeable-backend.herokuapp.com/api/users/${user}/badges`;
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users/${user}/badges`;
         
             await axios.get(url)
                 .then((response) => {
