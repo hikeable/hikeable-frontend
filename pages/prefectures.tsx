@@ -67,7 +67,7 @@ const prefectures = () => {
 
       window.svgJapan({
         element: "#my-map-container",
-        uniformly: false,
+        uniformly: true,
         uniformColor: "#00984F",
         width: "auto",
         height: "calc(100vh - 120px)",
@@ -160,7 +160,7 @@ const prefectures = () => {
             pathname: "trails/[pref]",
             query: { pref: "all" },
           }}
-          >
+        >
           <h2 className={styles.txt__link}>
             Not sure where to go?🤔{" "}
             <span className={styles.span__underline}> See all trails</span>
