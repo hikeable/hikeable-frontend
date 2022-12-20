@@ -188,30 +188,33 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
         }}
       >
         <BrowserView>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
-            }}
-          >
-            <Button
-              variant="contained"
+          {userId !== undefined ? (
+            <Box
               sx={{
-                borderRadius: "8px",
-                textTransform: "none",
-                fontFamily: "Montserrat",
-                background: "#304b35",
-                "&:hover": {
-                  background: "#64801a",
-                },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "end",
               }}
-              onClick={handleModalOpen}
             >
-              Write comment
-            </Button>
-          </Box>
-
+              <Button
+                variant="contained"
+                sx={{
+                  borderRadius: "8px",
+                  textTransform: "none",
+                  fontFamily: "Montserrat",
+                  background: "#304b35",
+                  "&:hover": {
+                    background: "#64801a",
+                  },
+                }}
+                onClick={handleModalOpen}
+              >
+                Write comment
+              </Button>
+            </Box>
+          ) : (
+            <></>
+          )}
           <List>
             {comments.map((comment) => (
               <ListItemText key={comment.id}>
