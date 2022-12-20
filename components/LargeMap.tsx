@@ -52,7 +52,7 @@ const LargeMap = ({
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/messages`
     );
     if (!messageData) {
       setMessageData(fetchedMessageData.data);

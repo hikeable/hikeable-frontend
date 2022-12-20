@@ -28,7 +28,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
     if (!recordExists) {
       await axios({
         method: "post",
-        url: "https://hikeable-backend.herokuapp.com/api/trails/likes",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -40,7 +40,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
     } else if (favorited && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -51,7 +51,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
     } else if (!favorited && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/likes/${recordID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -64,7 +64,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
 
   const fetchLikeData = async () => {
     const fetchedLikeData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/likes`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/likes`
     );
     setData(fetchedLikeData.data);
   };

@@ -27,7 +27,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
     if (!recordExists) {
       await axios({
         method: "post",
-        url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -42,7 +42,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
     } else if (completed && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/completions/${recordID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -56,7 +56,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
     } else if (!completed && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/completions/${recordID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -74,7 +74,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
 
   const fetchCompletionData = async () => {
     const fetchedCompletionData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/completions`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/completions`
     );
     setData(fetchedCompletionData.data);
   };

@@ -29,7 +29,7 @@ const MessageThumbUp = ({
     if (!recordExists) {
       await axios({
         method: "post",
-        url: "https://hikeable-backend.herokuapp.com/api/trails/messages/likes",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages/likes`,
         data: {
           user: userId,
           message_id: messageID,
@@ -45,7 +45,7 @@ const MessageThumbUp = ({
     } else if (isLiked && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/messages/likes/${likeID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages/likes/${likeID}`,
         data: {
           user: userId,
           message_id: messageID,
