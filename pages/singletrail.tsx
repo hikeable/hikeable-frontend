@@ -377,20 +377,42 @@ const SingleTrail = () => {
 
         <Box>
           <SmallMap lat={trail.latitude} lon={trail.longitude} />
-          <Link
-            className={styles.link__interactive}
-            href={{
-              pathname: "/mapview",
-              query: {
-                lat: trail.latitude,
-                lon: trail.longitude,
-                trailID: trail.id,
-              },
-            }}
-            passHref
-          >
+
+          {userId !== undefined ? (
+            <Link
+              className={styles.link__interactive}
+              href={{
+                pathname: "/mapview",
+                query: {
+                  lat: trail.latitude,
+                  lon: trail.longitude,
+                  trailID: trail.id,
+                },
+              }}
+              passHref
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  mt: 3,
+                  fontWeight: 600,
+                  fontFamily: "Montserrat",
+                  color: "white",
+                  textTransform: "none",
+                  width: "100%",
+                  background: "#304b35",
+                  "&:hover": {
+                    background: "#64801a",
+                  },
+                }}
+              >
+                Launch Interactive Map
+              </Button>
+            </Link>
+          ) : (
             <Button
               variant="outlined"
+              disabled
               sx={{
                 mt: 3,
                 fontWeight: 600,
@@ -398,16 +420,11 @@ const SingleTrail = () => {
                 color: "white",
                 textTransform: "none",
                 width: "100%",
-                background: "#304b35",
-                "&:hover": {
-                  background: "#64801a",
-                },
               }}
             >
-              Interactive Mode
+              Log in to Launch Interactive Map
             </Button>
-            {/* </Typography> */}
-          </Link>
+          )}
         </Box>
         <Box sx={{ mt: 5 }}>
           <Typography sx={{ fontSize: "2rem", fontWeight: 600, mb: 1 }}>
