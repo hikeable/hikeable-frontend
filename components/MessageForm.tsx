@@ -71,7 +71,7 @@ const MessageForm = ({
     let current = new Date();
     await axios({
       method: "post",
-      url: "https://hikeable-backend.herokuapp.com/api/trails/messages",
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages`,
       data: {
         user: userId,
         trail_id: trailID,
