@@ -175,29 +175,35 @@ const SingleTrail = () => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <CldUploadButton
-                  className={styles.btn__cloudinary}
-                  uploadPreset={
-                    process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
-                  }
-                  onUpload={function (error, result, widget) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
-                  }}
-                  options={{
-                    folder: trail.name,
-                    tags: [trail.id],
-                    context: { name: firstName, date: date },
-                  }}
-                >
-                  Upload {trail.name} photo
-                </CldUploadButton>
+                {userId !== undefined ? (
+                  <CldUploadButton
+                    className={styles.btn__cloudinary}
+                    uploadPreset={
+                      process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
+                    }
+                    onUpload={function (error, result, widget) {
+                      console.log(
+                        "error =",
+                        error,
+                        "result =",
+                        result,
+                        "widget =",
+                        widget
+                      );
+                    }}
+                    options={{
+                      folder: trail.name,
+                      tags: [trail.id],
+                      context: { name: firstName, date: date },
+                    }}
+                  >
+                    Upload {trail.name} Photo
+                  </CldUploadButton>
+                ) : (
+                  <Button disabled className={styles.btn__cloudinary}>
+                    Log in to Upload Photo
+                  </Button>
+                )}
                 <Link
                   className={styles.card__link}
                   href={{
