@@ -183,7 +183,7 @@ const Achievements = () => {
                                         >
                                         <Avatar
                                             alt="Two hikes in a row"
-                                            src={userBadges.includes("Power of Two")? badgeDict["Power of Two"] : badgeDict["Incomplete"]}
+                                            src={userBadges.includes("Power Of Two")? badgeDict["Power Of Two"] : badgeDict["Incomplete"]}
                                             sx={{ width: 84, height: 84 , margin: 0}}
                                         />
                                         <Chip label="Power of Two" /> 

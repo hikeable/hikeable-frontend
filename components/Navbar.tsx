@@ -74,6 +74,8 @@ export const Navbar: React.FC<INavbar> = ({
     }
   };
 
+  console.log(userId);
+
   return navActive == true ? (
     <>
     <Box sx={{ flexGrow: 1, mb: "55px" }}>
@@ -109,7 +111,7 @@ export const Navbar: React.FC<INavbar> = ({
             <Button
               sx={{
                 ml: "auto",
-                mr: 2,
+                mr: 0,
                 fontFamily: "Montserrat",
                 backgroundColor: "#304b35",
                 "&:hover": {
@@ -120,6 +122,22 @@ export const Navbar: React.FC<INavbar> = ({
               href="/prefectures"
             >
               Explore
+            </Button>
+
+            <Button
+              sx={{
+                ml: 3,
+                mr: 0,
+                fontFamily: "Montserrat",
+                backgroundColor: "#304b35",
+                "&:hover": {
+                  background: "#64801a",
+                },
+              }}
+              variant="contained"
+              href="/about"
+            >
+              About Us
             </Button>
 
             {user ? (
