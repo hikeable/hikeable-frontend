@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { Logo } from "../components";
 import styles from "../styles/landing.module.css";
 

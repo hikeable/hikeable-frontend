@@ -6,7 +6,6 @@ import { Filter, TrailCard, TrailCardMobile } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
 import styles from "../../styles/pref_trails.module.css";
-import Toolbar from "@mui/material/Toolbar";
 import { Container } from "@mui/material";
 
 const _ = require("lodash");
@@ -47,6 +46,8 @@ const ResultList = () => {
 
   return (
     <>
+    
+
       <Container maxWidth="lg" sx={{ mt: 10 }}>
         <h1>{capitalizePref} Trails</h1>
         <BrowserView>

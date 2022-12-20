@@ -5,6 +5,7 @@ import { Navbar } from "../components/Navbar";
 import { useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
 import { useAuthContext } from "../components/context/UseAuthContext";
+import Head from "next/head";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const { user } = useAuthContext();
@@ -17,6 +18,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
   if (router.pathname === "/") {
     console.log("path--", router.pathname);
     return (
+      <>
+        <Head>
+        <title>Hikeable</title>
+        <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
+        <meta name="keywords" content="hiking, japan, advice"/>
+        <link rel="icon" href="/boots.png" />
+        </Head>
       <AuthProvider>
         <Navbar
           navActive={false}
@@ -24,13 +32,21 @@ export default function App({ Component, pageProps, router }: AppProps) {
           setLoggedStatus={setLoggedStatus}
           userName={""}
           logOff={setLoggedStatus}
-        />
+          />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
       </AuthProvider>
+          </>
     );
   }
   return (
+    <>
+    <Head>
+        <title>Hikeable</title>
+        <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
+        <meta name="keywords" content="hiking, japan, advice"/>
+        <link rel="icon" href="/boots.png" />
+    </Head>
     <>
       <AuthProvider>
         <Navbar
@@ -39,10 +55,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
           setLoggedStatus={setLoggedStatus}
           userName={""}
           logOff={setLoggedStatus}
-        />
+          />
         <Component {...pageProps} />
         <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
       </AuthProvider>
+          </>
     </>
   );
 }

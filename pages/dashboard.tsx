@@ -1,17 +1,18 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '../components/context/UseAuthContext';
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, Paper, Typography } from "@mui/material";
-import {  Link as MuiLink } from "@mui/joy"
-import Link, { NextLinkComposed } from "../src/Link"
+import { Box, Button, Card, CardContent, Paper, Typography } from "@mui/material";
+import { NextLinkComposed } from "../src/Link"
 import { Trail , trailCompletionObject} from '../global';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { LocationOn } from "@mui/icons-material";
 import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
 
 import * as React from 'react';
+
+
+type Anchor = 'left' ;
 
 type dummy = {
 
@@ -104,9 +105,7 @@ const Dashboard  = () => {
     },[usersCompletedTrails])
 
     return (
-        
         <>
-
             <ThemeProvider theme={theme}>
                 <Box
                 sx={{
@@ -144,7 +143,6 @@ const Dashboard  = () => {
                     {usersCompletedTrails.map((trail: dummy) => {
                         return (
                             <>
-
                                 <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
 
                                     <Button
@@ -165,15 +163,11 @@ const Dashboard  = () => {
                                     </Button>
                                 </Box>
                             </>
-
                         );
-                })}
-            </div>
+                    })}
+                </div>
 
-        </ThemeProvider>
-
-
-            
+            </ThemeProvider>
         </>
     );
 }

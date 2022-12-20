@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import { Landing, Navbar} from '../components'
-import styles from '../styles/Home.module.scss'
-
 import { useEffect, useRef, useState } from 'react'
 
 
@@ -20,10 +18,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Hikable</title>
-        <meta name="description" content="hiking japan" />
-        <link rel="icon" href="/boots.png" />
-
+         <title>Hikeable</title>
+         <link rel="icon" href="/boots.png" /> 
       </Head>
       <Landing/>
       {

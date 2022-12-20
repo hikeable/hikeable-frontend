@@ -1,7 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { Trail } from "../global";
-// import { Likes, CompletedTrails } from "../components";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/joy";
 import Card from "@mui/joy/Card";
