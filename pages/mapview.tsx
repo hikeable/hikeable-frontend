@@ -129,7 +129,15 @@ const MapView = () => {
         />
         <SpeedDial
           ariaLabel="SpeedDial basic example"
-          sx={{ position: "absolute", bottom: 16, right: 16 }}
+          FabProps={{
+            sx: {
+              backgroundColor: "#304b35",
+              "&:hover": {
+                bgcolor: "#64801a",
+              },
+            },
+          }}
+          sx={{ position: "fixed", bottom: 16, right: 16 }}
           icon={<SpeedDialIcon />}
         >
           {actions.map((action) => (

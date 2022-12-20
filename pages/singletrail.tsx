@@ -175,29 +175,46 @@ const SingleTrail = () => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <CldUploadButton
-                  className={styles.btn__cloudinary}
-                  uploadPreset={
-                    process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
-                  }
-                  onUpload={function (error, result, widget) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
-                  }}
-                  options={{
-                    folder: trail.name,
-                    tags: [trail.id],
-                    context: { name: firstName, date: date },
-                  }}
-                >
-                  Upload {trail.name} photo
-                </CldUploadButton>
+                {userId !== undefined ? (
+                  <CldUploadButton
+                    className={styles.btn__cloudinary}
+                    uploadPreset={
+                      process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
+                    }
+                    onUpload={function (error, result, widget) {
+                      console.log(
+                        "error =",
+                        error,
+                        "result =",
+                        result,
+                        "widget =",
+                        widget
+                      );
+                    }}
+                    options={{
+                      folder: trail.name,
+                      tags: [trail.id],
+                      context: { name: firstName, date: date },
+                    }}
+                  >
+                    Upload {trail.name} Photo
+                  </CldUploadButton>
+                ) : (
+                  <Button
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: "1rem",
+                      border: "none",
+                      borderRadius: "40px",
+                      padding: "12px 1rem",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Log in to Upload Photo
+                  </Button>
+                )}
                 <Link
                   className={styles.card__link}
                   href={{
@@ -377,37 +394,55 @@ const SingleTrail = () => {
 
         <Box>
           <SmallMap lat={trail.latitude} lon={trail.longitude} />
-          <Link
-            className={styles.link__interactive}
-            href={{
-              pathname: "/mapview",
-              query: {
-                lat: trail.latitude,
-                lon: trail.longitude,
-                trailID: trail.id,
-              },
-            }}
-            passHref
-          >
+
+          {userId !== undefined ? (
+            <Link
+              className={styles.link__interactive}
+              href={{
+                pathname: "/mapview",
+                query: {
+                  lat: trail.latitude,
+                  lon: trail.longitude,
+                  trailID: trail.id,
+                },
+              }}
+              passHref
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  mt: 3,
+                  fontWeight: 600,
+                  fontFamily: "Montserrat",
+                  color: "white",
+                  textTransform: "none",
+                  width: "100%",
+                  background: "#304b35",
+                  "&:hover": {
+                    background: "#64801a",
+                  },
+                }}
+              >
+                Launch Interactive Map
+              </Button>
+            </Link>
+          ) : (
             <Button
               variant="outlined"
+              disabled
               sx={{
                 mt: 3,
                 fontWeight: 600,
+                fontSize: "1rem",
                 fontFamily: "Montserrat",
                 color: "white",
                 textTransform: "none",
                 width: "100%",
-                background: "#304b35",
-                "&:hover": {
-                  background: "#64801a",
-                },
               }}
             >
-              Interactive Mode
+              Log in to Launch Interactive Map
             </Button>
-            {/* </Typography> */}
-          </Link>
+          )}
         </Box>
         <Box sx={{ mt: 5 }}>
           <Typography sx={{ fontSize: "2rem", fontWeight: 600, mb: 1 }}>

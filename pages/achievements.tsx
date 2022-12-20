@@ -5,6 +5,7 @@ import styles from "../styles/achievements.module.css"
 // import styles from "../styles/achievements.module.css";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { useEffect, useState } from "react";
+import { padding } from "@mui/system";
 
 const badgeDict = {
     "Incomplete": "/badges/Incomplete.png",
@@ -76,13 +77,16 @@ const Achievements = () => {
         <>
             <ThemeProvider theme={theme}>
 
+
                 <div className={styles.txt_wrapper}>
-                    <Typography variant="h3" className={styles.achievements_title}>
+
+                    <Typography variant="h3" className={styles.achievements_title} sx={{ paddingTop: '1rem' }}>
                         Your Achievements
                     </Typography>
 
                     <Card variant = "outlined" sx={{
-                        margin: '10px'
+                        margin: '10px',
+                        borderRadius: '1rem',
                     }}>
                         <CardContent className={styles.achievement_card}>
                             <Typography variant="h4" className={styles.section_titles}>
@@ -147,8 +151,7 @@ const Achievements = () => {
 
                     <Card variant = "outlined" sx={{
                         margin: '10px',
-                        maxHeight: 'fit-content (10%)',
-                        // hei
+                        borderRadius: '1rem',
 
                     }}>
                         <CardContent className={styles.achievement_card}>
@@ -219,7 +222,9 @@ const Achievements = () => {
                     </Card>
 
                     <Card variant = "outlined" sx={{
-                        margin: '10px'
+                        margin: '10px',
+                        borderRadius: '1rem',
+
                     }}>
                         <CardContent className={styles.achievement_card}>
                             <Typography variant="h4" className={styles.section_titles}>
@@ -342,7 +347,8 @@ const Achievements = () => {
                     </Card>
 
                     <Card variant = "outlined" sx={{
-                        margin: '10px'
+                        margin: '10px',
+                        borderRadius: '1rem'
                     }}>
                         <CardContent className={styles.achievement_card}>
                             <Typography variant="h4" className={styles.section_titles}>
@@ -428,8 +434,9 @@ const Achievements = () => {
                     </Card>
 
                     <Card variant = "outlined" sx={{
+                        margin: '10px',
+                        borderRadius: '1rem',
 
-                        margin: '10px'
                     }}>
                         <CardContent className={styles.achievement_card}>
                             <Typography variant="h4" className={styles.section_titles}>
