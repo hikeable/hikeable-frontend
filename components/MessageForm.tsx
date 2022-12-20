@@ -42,6 +42,16 @@ const style = {
   cursor: "pointer",
 };
 
+const inputFormStyle = {
+  width: 1,
+  mb: 2,
+  "& .MuiOutlinedInput-root": {
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+    },
+  },
+};
+
 const MessageForm = ({
   trailID,
   currentPosition,
@@ -129,9 +139,8 @@ const MessageForm = ({
             will be banned.
           </Typography>
           <TextField
-            sx={{ width: 1, mb: 2 }}
+            sx={inputFormStyle}
             id="outlined-multiline-static"
-            label="Message"
             multiline
             rows={3}
             placeholder={"Your message here"}
