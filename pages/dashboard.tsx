@@ -59,7 +59,7 @@ const Dashboard  = () => {
 
     const getCompleted = async () => {
 
-        const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`;
         await axios.get(url).then( (response) => {
             const result = response.data.filter((completions) => completions.user === userId)  
             setCompleted(result); 
@@ -72,7 +72,7 @@ const Dashboard  = () => {
 
             const response = await axios ({
                 method: "get",
-                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.trail_id}`
+                url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${singleCompletedTrail.trail_id}`
             })
 
             const trail = response.data;
