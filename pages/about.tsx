@@ -19,6 +19,7 @@ const theme = createTheme({
   typography: {
     fontFamily: "Montserrat",
   },
+
 });
 
 const About = () => {
@@ -68,8 +69,6 @@ const About = () => {
         <Box
           sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
           bgcolor={"white"}
-          marginLeft={"auto"}
-          marginRight={"auto"}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
@@ -116,6 +115,7 @@ const About = () => {
           alignItems={"center"}
           justifyContent={"center"}
           textAlign={"center"}
+
         >
           <Grid container rowSpacing={1} columnSpacing={4}>
             {techStackPictures.map((picture) => (
@@ -150,7 +150,7 @@ const About = () => {
                   sx={{ textAlign: "center" }}
                   key={staffCardInfo.indexOf(staff)}
                 >
-                  <Card variant="outlined">
+                  <Card variant="outlined" sx={{borderRadius:'1rem'}}>
                     <CardMedia
                       sx={{
                         height: "24vh",
@@ -188,6 +188,8 @@ const About = () => {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
+          marginTop={"30px"}
+          
         >
           <Typography variant="h4" my={2}>
             Contact

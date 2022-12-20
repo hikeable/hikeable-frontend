@@ -29,4 +29,6 @@
 }
 .txt_wrapper .achievement_card .individual_badge {
   flex: 1 0 21%;
+  display: contents;
+  flex-wrap: wrap;
 }/*# sourceMappingURL=achievements.module.css.map */
