@@ -5,9 +5,6 @@ import { Navbar } from "../components/Navbar";
 import { useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import { User } from "firebase/auth";
-
-import router from "next/router";
 import Head from "next/head";
 
 export default function App({ Component, pageProps, router }: AppProps) {

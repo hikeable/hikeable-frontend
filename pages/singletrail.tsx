@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState, forwardRef } from "react";
+import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import Link from "next/link";
-import { CldImage, CldUploadButton } from "next-cloudinary";
+import { CldUploadButton } from "next-cloudinary";
 import { Trail } from "../global";
 import styles from "../styles/singletrail.module.css";
 import {
@@ -12,18 +12,12 @@ import {
   SinglePageBreadcrumbs,
 } from "../components";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import axios from "axios";
 import { SmallMap } from "../components";
-import MessageForm from "../components/MessageForm";
-import SingleProduct from "../components/photoGallery";
-import PhotoGallery from "../components/photoGallery";
-import Mountain2 from "../public/mountain_2.svg";
 import { Box, Container } from "@mui/material";
 import { Button } from "@mui/joy";
 import { Typography } from "@mui/joy";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import ScrollableText from "../components/CommentsComponent";
-import Head from "next/head";
 
 const _ = require("lodash");
 
@@ -74,8 +68,6 @@ const SingleTrail = () => {
   
   return (
     trail && (
-        <>
-     
       <Container sx={{ mb: 5, mt: 10 }}>
         <BrowserView>
           <SinglePageBreadcrumbs
@@ -399,15 +391,6 @@ const SingleTrail = () => {
             }}
             passHref
           >
-            {/* <Typography
-              sx={{
-                mt: 2,
-                fontSize: "1.5rem",
-                textAlign: "center",
-                fontWeight: "600",
-                color: "#0e2424",
-              }}
-            > */}
             <Button
               variant="outlined"
               sx={{
@@ -435,7 +418,6 @@ const SingleTrail = () => {
           <ScrollableText trailID={trail?.id} />
         </Box>
       </Container>
-      </>
     )
   );
 };

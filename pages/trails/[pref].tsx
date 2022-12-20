@@ -6,9 +6,7 @@ import { Filter, TrailCard, TrailCardMobile } from "../../components";
 import { Trail } from "../../global";
 import { useEffect, useState } from "react";
 import styles from "../../styles/pref_trails.module.css";
-import Toolbar from "@mui/material/Toolbar";
 import { Container } from "@mui/material";
-import Head from "next/head";
 
 const _ = require("lodash");
 

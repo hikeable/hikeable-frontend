@@ -6,7 +6,6 @@ import { useEffect, useRef } from "react";
 import { Container, Box } from "@mui/material";
 import { BrowserView, MobileView } from "react-device-detect";
 import styles from "../styles/prefectures.module.css";
-import { Hiking } from "@mui/icons-material";
 
 const engPrefNames = {
   北海道: "Hokkaido",

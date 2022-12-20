@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import { Landing, Navbar} from '../components'
-import styles from '../styles/Home.module.scss'
-
 import { useEffect, useRef, useState } from 'react'
 
 
