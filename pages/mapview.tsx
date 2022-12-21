@@ -12,11 +12,18 @@ import {
   SpeedDialAction,
   Box,
 } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import MessageDetails from "../components/MessageDetails";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Montserrat",
+  },
+});
 
 type LatLngObject = {
   lat: number | null;
@@ -77,63 +84,84 @@ const MapView = () => {
   ];
 
   return (
-    <Box>
-      <Dialog
-        open={!agree}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Terms and Conditions</DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ my: 2 }} id="alert-dialog-description">
-            For your safety, please refrain from using Hikeable while walking.
-            Hikeable is not responsible for any accidents that occur while using
-            its products.
-          </DialogContentText>
-          <DialogActions>
-            <Button onClick={() => router.back()}>Disagree</Button>
-            <Button onClick={() => setAgree(true)} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
-      <LargeMap
-        lat={lat}
-        lon={lon}
-        trailID={trailID}
-        isSubmitted={isSubmitted}
-        setIsSubmitted={setIsSubmitted}
-        currentPosition={currentPosition}
-        setCurrentPosition={setCurrentPosition}
-        setMessageDetails={setMessageDetails}
-      />
-      <SpeedDial
-        ariaLabel="SpeedDial basic example"
-        sx={{ position: "absolute", bottom: 16, right: 16 }}
-        icon={<SpeedDialIcon />}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            tooltipTitle={action.name}
-            icon={action.icon}
-            onClick={action.onclick}
-          />
-        ))}
-      </SpeedDial>
-      <MessageForm
-        trailID={trailID}
-        currentPosition={currentPosition}
-        formOpen={formOpen}
-        setFormOpen={setFormOpen}
-        setIsSubmitted={setIsSubmitted}
-      />
-      <MessageDetails
-        messageDetails={messageDetails}
-        setMessageDetails={setMessageDetails}
-      />
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Box>
+        <Dialog
+          open={!agree}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          PaperProps={{
+            style: { borderRadius: "1rem" },
+          }}
+        >
+          <DialogTitle id="alert-dialog-title">
+            Terms and Conditions
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText sx={{ my: 2 }} id="alert-dialog-description">
+              For your safety, please refrain from using Hikeable while walking.
+              Hikeable is not responsible for any accidents that occur while
+              using its products.
+            </DialogContentText>
+            <DialogActions>
+              <Button sx={{ color: "#5e7119" }} onClick={() => router.back()}>
+                Disagree
+              </Button>
+              <Button
+                sx={{ color: "#5e7119" }}
+                onClick={() => setAgree(true)}
+                autoFocus
+              >
+                Agree
+              </Button>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
+        <LargeMap
+          lat={lat}
+          lon={lon}
+          trailID={trailID}
+          isSubmitted={isSubmitted}
+          setIsSubmitted={setIsSubmitted}
+          currentPosition={currentPosition}
+          setCurrentPosition={setCurrentPosition}
+          setMessageDetails={setMessageDetails}
+        />
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          FabProps={{
+            sx: {
+              backgroundColor: "#304b35",
+              "&:hover": {
+                bgcolor: "#64801a",
+              },
+            },
+          }}
+          sx={{ position: "fixed", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              tooltipTitle={action.name}
+              icon={action.icon}
+              onClick={action.onclick}
+            />
+          ))}
+        </SpeedDial>
+        <MessageForm
+          trailID={trailID}
+          currentPosition={currentPosition}
+          formOpen={formOpen}
+          setFormOpen={setFormOpen}
+          setIsSubmitted={setIsSubmitted}
+        />
+        <MessageDetails
+          messageDetails={messageDetails}
+          setMessageDetails={setMessageDetails}
+        />
+      </Box>
+    </ThemeProvider>
   );
 };
 

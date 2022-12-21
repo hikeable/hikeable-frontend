@@ -47,7 +47,7 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
       <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
         <img
           src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-          srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
+          srcSet={photo_url}
           loading="lazy"
           alt=""
         />
@@ -84,7 +84,13 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
             variant="soft"
             size="sm"
             aria-label={`View ${name} trail`}
-            sx={{ fontWeight: 600, backgroundColor: "pink" }}
+            sx={{
+              fontWeight: 600,
+              background: "#304b35",
+              "&:hover": {
+                background: "#64801a",
+              },
+            }}
             component="a"
           >
             View

@@ -1,3 +1,6 @@
+// @import "globals";
+@import "/hikeable-frontend/styles/globals.scss";
+
 .completed_trails {
 	width: auto;
 }
@@ -7,4 +10,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-items: center;
+	padding: 1.2em;
+	font-family: $base-font;
+	font-size: x-large;
 }

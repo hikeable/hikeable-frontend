@@ -36,23 +36,23 @@ const LargeMap = ({
   const lonNumber = parseFloat(lon);
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const messageIcon = L.icon({
-    iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
+    iconUrl: "/messageMarker.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
-    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
+    shadowUrl: "/markerShadow.png",
     popupAnchor: [2, -40],
   });
   const locationIcon = L.icon({
-    iconUrl: "https://i.postimg.cc/FsTwfJdB/location-Marker.png",
+    iconUrl: "/locationMarker.png",
     iconSize: [25, 41],
     iconAnchor: [10, 41],
-    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
+    shadowUrl: "/markerShadow.png",
     popupAnchor: [2, -40],
   });
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/messages`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/messages`
     );
     if (!messageData) {
       setMessageData(fetchedMessageData.data);
@@ -110,7 +110,10 @@ const LargeMap = ({
           >
             <Popup>
               {message.message}{" "}
-              <MessageIcon message={message} setMessageDetails={setMessageDetails} />
+              <MessageIcon
+                message={message}
+                setMessageDetails={setMessageDetails}
+              />
             </Popup>
           </Marker>
         );

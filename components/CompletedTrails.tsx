@@ -2,6 +2,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
 import { trailCompletionObject } from "../global";
@@ -26,7 +27,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
     if (!recordExists) {
       await axios({
         method: "post",
-        url: "https://hikeable-backend.herokuapp.com/api/trails/completions",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`,
         data: {
           user: userID,
           trail_id: trailID,
@@ -41,24 +42,28 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
     } else if (completed && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/completions/${recordID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
           user: userID,
           trail_id: trailID,
           completion: false,
-          date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
+          date: `${current.getFullYear()}-${
+            current.getMonth() + 1
+          }-${current.getDate()}`,
         },
       });
       setCompleted(false);
     } else if (!completed && recordExists) {
       await axios({
         method: "put",
-        url: `https://hikeable-backend.herokuapp.com/api/trails/completions/${recordID}`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
           user: userID,
           trail_id: trailID,
           completion: true,
-          date: `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
+          date: `${current.getFullYear()}-${
+            current.getMonth() + 1
+          }-${current.getDate()}`,
         },
       });
       setCompleted(true);
@@ -69,7 +74,7 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
 
   const fetchCompletionData = async () => {
     const fetchedCompletionData = await axios.get(
-      `https://hikeable-backend.herokuapp.com/api/trails/${trailID}/completions`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/completions`
     );
     setData(fetchedCompletionData.data);
   };
@@ -96,7 +101,14 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
           <>
             <Tooltip title="Mark as incomplete">
               <IconButton aria-label="favorite" onClick={handleCompletion}>
-                <CheckBoxIcon sx={{ fontSize: "2.5rem" }}></CheckBoxIcon>
+                <BrowserView>
+                  <CheckBoxIcon
+                    sx={{ fontSize: "2.5rem", fill: "white" }}
+                  ></CheckBoxIcon>
+                </BrowserView>
+                <MobileView>
+                  <CheckBoxIcon sx={{ fontSize: "2.5rem" }}></CheckBoxIcon>
+                </MobileView>
               </IconButton>
             </Tooltip>
           </>
@@ -107,9 +119,16 @@ export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
                 aria-label="favorite-outline"
                 onClick={handleCompletion}
               >
-                <CheckBoxOutlineBlankIcon
-                  sx={{ fontSize: "2.5rem" }}
-                ></CheckBoxOutlineBlankIcon>
+                <BrowserView>
+                  <CheckBoxOutlineBlankIcon
+                    sx={{ fontSize: "2.5rem", fill: "white" }}
+                  ></CheckBoxOutlineBlankIcon>
+                </BrowserView>
+                <MobileView>
+                  <CheckBoxOutlineBlankIcon
+                    sx={{ fontSize: "2.5rem" }}
+                  ></CheckBoxOutlineBlankIcon>
+                </MobileView>
               </IconButton>
             </Tooltip>
           </>

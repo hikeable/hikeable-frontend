@@ -1,7 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { Trail } from "../global";
-// import { Likes, CompletedTrails } from "../components";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/joy";
 import Card from "@mui/joy/Card";
@@ -75,21 +74,6 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
           startDecorator={<LocationOn />}
         >
           {_.capitalize(prefecture)}
-
-          {/* <Link
-            href={{
-              pathname: "/singletrail",
-              query: { trail: JSON.stringify(trail) },
-            }}
-            as={`/singletrail/${id}`}
-            passHref
-          >
-            <MuiLink
-              overlay
-              underline="none"
-              sx={{ color: "text.tertiary" }}
-            ></MuiLink>
-          </Link> */}
         </Typography>
         <Typography
           fontSize="lg"
@@ -120,7 +104,13 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
             variant="soft"
             size="lg"
             aria-label={`View ${name} trail`}
-            sx={{ fontWeight: 600, backgroundColor: "pink" }}
+            sx={{
+              fontWeight: 600,
+              background: "#304b35",
+              "&:hover": {
+                background: "#64801a",
+              },
+            }}
             component="a"
           >
             View this trail

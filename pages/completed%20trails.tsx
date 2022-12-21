@@ -45,7 +45,7 @@ const Completedtrails = () => {
 
     const getCompleted = async () => {
 
-        const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`;
         await axios.get(url).then( (response) => {
             const result = response.data.filter((completions) => completions.user === userId)  
             setCompleted(result); 
@@ -58,7 +58,7 @@ const Completedtrails = () => {
 
             const response = await axios ({
                 method: "get",
-                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.trail_id}`
+                url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${singleCompletedTrail.trail_id}`
             })
 
             const trail = response.data;
@@ -93,37 +93,36 @@ const Completedtrails = () => {
 
     
     return (
-        
         <>
-        <Typography>You have completed the following trails: !</Typography><div className={styles.completed_trails}>
-            {usersCompletedTrails.map((trail: dummy) => {
-                return (
-                    <>
+        <Typography>You have completed the following trails: !</Typography>
+            <div className={styles.completed_trails}>
+                {usersCompletedTrails.map((trail: dummy) => {
+                    return (
+                        <>
+                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
 
-                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                <Button
+                                    variant='outlined'
 
-                            <Button
-                                variant='outlined'
-
-                                component={NextLinkComposed}
-                                to={{
-                                    pathname: "/singletrail",
-                                    query: { trail: JSON.stringify(trail) },
-                                }}
-                                linkAs={`/singletrail/${trail.id}`}
-                            >
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                        {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
-                                    </Typography>
-                                </CardContent>
-                            </Button>
-                        </Box>
-                    </>
-
-                );
-            })}
-        </div></> 
+                                    component={NextLinkComposed}
+                                    to={{
+                                        pathname: "/singletrail",
+                                        query: { trail: JSON.stringify(trail) },
+                                    }}
+                                    linkAs={`/singletrail/${trail.id}`}
+                                >
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                        </Typography>
+                                    </CardContent>
+                                </Button>
+                            </Box>
+                        </>
+                    );
+                })}
+            </div>
+        </> 
 
     );
 }

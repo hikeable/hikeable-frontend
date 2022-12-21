@@ -4,7 +4,6 @@ export * from "./Filter";
 export * from "./Likes";
 export * from "./TrailCard";
 export * from "./Navbar";
-export * from "./login";
 export * from "./Landing";
 export * from "./Logo";
 export * from "./TrailCardMobile";
@@ -14,7 +13,7 @@ export * from "./Weather";
 export * from "./photoGallery";
 export * from "./PhotoPageBreadcrumbs";
 export * from "./CommentsComponent";
-
+export * from "./LandingLogo";
 
 import dynamic from "next/dynamic";
 

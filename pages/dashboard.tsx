@@ -1,25 +1,15 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '../components/context/UseAuthContext';
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, Paper, Typography } from "@mui/material";
-import {  Link as MuiLink } from "@mui/joy"
-import Link, { NextLinkComposed } from "../src/Link"
+import { Box, Button, Card, CardContent, Paper, Typography } from "@mui/material";
+import { NextLinkComposed } from "../src/Link"
 import { Trail , trailCompletionObject} from '../global';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { LocationOn } from "@mui/icons-material";
 import styles from "../styles/dashboard.module.css"
 import axios from 'axios';
 import { LineChart } from '../components/LineChart';
 import { returnUniqueObjects, getValues } from '../src/ObjectFunctions';
+
 import * as React from 'react';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 
 type Anchor = 'left' ;
@@ -41,12 +31,21 @@ type dummy = {
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: 'center',
+    fontSize: '1 rem',
     color: theme.palette.text.secondary,
     height: 60,
-    maxWidth: '20rem',
+    maxWidth: '32rem',
     minWidth: '15rem',
     lineHeight: '60px',
+    padding: '4px',
+    
   }));
+
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat",
+    },
+  });
 
 const Dashboard  = () => {
 
@@ -56,11 +55,11 @@ const Dashboard  = () => {
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
     const [data, setData] = useState<{date: string, length: number}[]>([]);
 
-    const [state, setState] = React.useState({left: false });
+    const [state, setState] = React.useState({Menu: false });
 
     const getCompleted = async () => {
 
-        const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`;
         await axios.get(url).then( (response) => {
             const result = response.data.filter((completions) => completions.user === userId)  
             setCompleted(result); 
@@ -73,7 +72,7 @@ const Dashboard  = () => {
 
             const response = await axios ({
                 method: "get",
-                url: `https://hikeable-backend.herokuapp.com/api/trails/${singleCompletedTrail.trail_id}`
+                url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${singleCompletedTrail.trail_id}`
             })
 
             const trail = response.data;
@@ -97,7 +96,7 @@ const Dashboard  = () => {
 
         let trailUserCompletions = returnUniqueObjects(usersCompletedTrails);
         let tupleArray = getValues(completedTrails, trailUserCompletions );
-        setData([...data,...tupleArray]);
+        setData([...tupleArray]);
 
         let hikedDistance =  trailUserCompletions.reduce( (total, trail) => {  
             return   total + parseFloat(`${trail.length}`)}, 0.0);
@@ -105,127 +104,74 @@ const Dashboard  = () => {
 
     },[usersCompletedTrails])
 
-
-    const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event &&
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return;
-      }
-
-      setState({ ...state, [anchor]: open });
-    };
-
-  const list = (anchor: Anchor) => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {['Achievements', 'Completed Trails'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton
-                 href={"/" + text.toLowerCase()} 
-            >
-                
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Box>
-  );
-
     return (
-        
         <>
+            <ThemeProvider theme={theme}>
+                <Box
+                sx={{
+                    flexDirection: "column",
+                }}
+                >
+                    <div className= {styles.page_header}>
+                    <Typography fontSize={'3rem'}
+                        
+                    >Hi {user?.displayName} !</Typography>
+                    
+                        {/* <Item key={7} elevation={1} > */}
+                        <Typography fontSize={'1.5rem'}>
+                            {`You've hiked a total of ${hiked} km` }
 
-            <div>
-                {(['left'] as const).map((anchor) => (
-                    <React.Fragment key={anchor}>
-                    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-                    <SwipeableDrawer
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                        onOpen={toggleDrawer(anchor, true)}
-                    >
-                        {list(anchor)}
-                    </SwipeableDrawer>
-                    </React.Fragment>
-                ))}
-            </div>
-            <Box
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-                <div className= {styles.page_header}>
+                        </Typography>
+                        {/* </Item> */}
+                    </div>
 
+                </Box>
+                <Box sx={{ paddingLeft: '2em', paddingRight: '2em', paddingBottom: '1em'}}>
 
-                <Typography>Hi {user?.displayName} !</Typography>
-                  
-                    <Item key={7} elevation={7} >
-                        {`You've hiked a distance of ${hiked} km` }
-                    </Item>
-                </div>
-
-                {/* <Typography>You favourite trails are  !</Typography> */}
-                {/* <Typography>You favourite trails are  !</Typography> */}
-
-            </Box>
-             {data.length >= 0 ?(
-                <LineChart dataSet={data}></LineChart>
-                ): <>Loading...</>
-             }   
-
-            <Typography>You have completed the following trails: !</Typography>
-
-             <div className={styles.completed_trails}>
-                {
-                    usersCompletedTrails.map((trail: dummy) => {
-                    return (  
-                        <>
-
-                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-       
-                                <Button
-                                    variant='outlined'
-                                    
-                                    component={NextLinkComposed}
-                                    to={{
-                                        pathname: "/singletrail",
-                                        query: { trail: JSON.stringify(trail) },
-                                    }}
-                                    linkAs = {`/singletrail/${trail.id}`}
-                                >
-                                    <CardContent>
-                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                            {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty} 
-                                        </Typography>
-                                    </CardContent>
-                                </Button>
-                            </Box>
-                        </>
-                     
-                     )
-                    })
-                } 
-             </div> 
+                {data.length >= 0 ?(
+                    <LineChart dataSet={data}></LineChart>
+                    ): <>Loading...</>
+                }   
 
 
-            
+                </Box>
+
+               
+                {/***** PLEASE DO NOT DELETE   *******/
+                
+                /* <Typography>
+                    You have completed the following trails: !
+                </Typography>
+
+                <div className={styles.completed_trails}>
+                    {usersCompletedTrails.map((trail: dummy) => {
+                        return (
+                            <>
+                                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+
+                                    <Button
+                                        variant='outlined'
+
+                                        component={NextLinkComposed}
+                                        to={{
+                                            pathname: "/singletrail",
+                                            query: { trail: JSON.stringify(trail) },
+                                        }}
+                                        linkAs={`/singletrail/${trail.id}`}
+                                    >
+                                        <CardContent>
+                                            <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                                {trail.name}  {trail.prefecture}  Difficulty: {trail.difficulty}
+                                            </Typography>
+                                        </CardContent>
+                                    </Button>
+                                </Box>
+                            </>
+                        );
+                    })}
+                </div> */}
+
+            </ThemeProvider>
         </>
     );
 }
