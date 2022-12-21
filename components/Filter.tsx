@@ -93,6 +93,7 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
             label="Keyword"
             onChange={handleLocChange}
             sx={{ mb: 2 }}
+            color="success"
           />
 
           <Divider />
