@@ -98,7 +98,15 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
           <Divider />
 
           <FormControl sx={{ mt: 1, mb: 1 }}>
-            <FormLabel id="demo-radio-buttons-group-label">
+            <FormLabel
+              id="demo-radio-buttons-group-label"
+              sx={{
+                color: "#00000099",
+                "&.Mui-checked": {
+                  color: "success",
+                },
+              }}
+            >
               Difficulty
             </FormLabel>
             <RadioGroup
