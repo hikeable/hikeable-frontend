@@ -10,13 +10,10 @@ import Head from "next/head";
 export default function App({ Component, pageProps, router }: AppProps) {
   const { user } = useAuthContext();
 
-  console.log(user);
-
   const [navActive, setNavStatus] = useState(true);
   const [isLoggedIn, setLoggedStatus] = useState(false);
 
   if (router.pathname === "/") {
-    console.log("path--", router.pathname);
     return (
       <>
         <Head>
