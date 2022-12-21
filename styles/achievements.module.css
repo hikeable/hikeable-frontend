@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-right: 2rem;
-  margin-left: 2rem;
   border-radius: 1rem;
 }
 .txt_wrapper .achievements_title {
