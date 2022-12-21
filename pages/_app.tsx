@@ -20,46 +20,60 @@ export default function App({ Component, pageProps, router }: AppProps) {
     return (
       <>
         <Head>
-        <title>Hikeable</title>
-        <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
-        <meta name="keywords" content="hiking, japan, advice"/>
-        <link rel="icon" href="/boots.png" />
-        </Head>
-      <AuthProvider>
-        <Navbar
-          navActive={false}
-          isLoggedIn={false}
-          setLoggedStatus={setLoggedStatus}
-          userName={""}
-          logOff={setLoggedStatus}
+          <title>Hikeable</title>
+          <meta
+            name="description"
+            content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail"
           />
-        <Component {...pageProps} />
-        <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
-      </AuthProvider>
-          </>
+          <meta name="keywords" content="hiking, japan, advice" />
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,shrink-to-fit=yes"
+          />
+          <link rel="icon" href="/boots.png" />
+        </Head>
+        <AuthProvider>
+          <Navbar
+            navActive={false}
+            isLoggedIn={false}
+            setLoggedStatus={setLoggedStatus}
+            userName={""}
+            logOff={setLoggedStatus}
+          />
+          <Component {...pageProps} />
+          <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+        </AuthProvider>
+      </>
     );
   }
   return (
     <>
-    <Head>
+      <Head>
         <title>Hikeable</title>
-        <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
-        <meta name="keywords" content="hiking, japan, advice"/>
+        <meta
+          name="description"
+          content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail"
+        />
+        <meta name="keywords" content="hiking, japan, advice" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,shrink-to-fit=yes"
+        />
         <link rel="icon" href="/boots.png" />
-    </Head>
-    <>
-      <AuthProvider>
-        <Navbar
-          navActive={true}
-          isLoggedIn={false}
-          setLoggedStatus={setLoggedStatus}
-          userName={""}
-          logOff={setLoggedStatus}
+      </Head>
+      <>
+        <AuthProvider>
+          <Navbar
+            navActive={true}
+            isLoggedIn={false}
+            setLoggedStatus={setLoggedStatus}
+            userName={""}
+            logOff={setLoggedStatus}
           />
-        <Component {...pageProps} />
-        <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
-      </AuthProvider>
-          </>
+          <Component {...pageProps} />
+          <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
+        </AuthProvider>
+      </>
     </>
   );
 }
