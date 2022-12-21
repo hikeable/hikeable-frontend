@@ -12,6 +12,7 @@ export default function Document() {
           type="text/css"
         />
         <title>Hikeable</title>
+        <meta name="google-site-verification" content="nWR98aBPDqC_SSWMxT9iPYnqArKAhflslbq52Ko3LPE" />
         <link rel="icon" href="/boots.png" /> 
 
       </Head>

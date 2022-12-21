@@ -21,6 +21,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <>
         <Head>
         <title>Hikeable</title>
+        <meta name="google-site-verification" content="nWR98aBPDqC_SSWMxT9iPYnqArKAhflslbq52Ko3LPE" />
         <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
         <meta name="keywords" content="hiking, japan, advice"/>
         <link rel="icon" href="/boots.png" />
@@ -43,6 +44,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <>
     <Head>
         <title>Hikeable</title>
+        <meta name="google-site-verification" content="nWR98aBPDqC_SSWMxT9iPYnqArKAhflslbq52Ko3LPE" />
         <meta name="description" content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail" />
         <meta name="keywords" content="hiking, japan, advice"/>
         <link rel="icon" href="/boots.png" />
