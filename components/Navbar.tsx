@@ -139,7 +139,7 @@ export const Navbar: React.FC<INavbar> = ({
               variant="contained"
               href="/about"
             >
-              About Us
+              About
             </Button>
 
             {user ? (

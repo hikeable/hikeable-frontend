@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardContent, CardHeader, Chip, createTheme, ThemeProvider, Tooltip, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, CardHeader, Chip, Container, createTheme, ThemeProvider, Tooltip, Typography } from "@mui/material";
 import axios, { Axios, AxiosError } from "axios";
 import Image from 'next/image'
 import styles from "../styles/achievements.module.css"
@@ -75,6 +75,8 @@ const Achievements = () => {
 
     return (
         <>
+
+        <Container sx={{display: "flex", padding: 0 }}>
             <ThemeProvider theme={theme}>
 
 
@@ -577,6 +579,7 @@ const Achievements = () => {
                 
                 </div>
             </ThemeProvider>
+            </Container>
 
         </>
         
