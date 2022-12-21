@@ -20,7 +20,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
           <title>Hikeable</title>
           <meta
             name="description"
-            content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail"
+            content="Hikeable is a user-driven app for planning hikes in Japan. Members can share helpful information via comments, leave geolocated messages on the trail map, and upload photos of their journey."
           />
           <meta name="keywords" content="hiking, japan, advice" />
           <meta
