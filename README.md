@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# What is Hikeable?
 
-## Getting Started
+[With 80% of its landmass occupied by mountains](https://spice.fsi.stanford.edu/docs/geography_of_japan), Japan is one of the most coveted destinations for nature lovers. Although the country is known for being a popular international tourist destination, the number of available English resources for hikers, trailblazers, and outdoors enthusiasts is scarce.
 
-First, run the development server:
+Hikeable is an English web app built to enhance the hiking experience for new and experienced hikers in Japan. Users can search for trails by prefecture, see photos uploaded by previous visitors, and keep track of their completion data via their dashboard. After launching the interactive map, users can leave geolocated messages, allowing them to interact with others on the trail.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+# About Hikeable
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Front End
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Hikeable utilizes [Next.js](https://nextjs.org/) for its server-side rendering and employs [Material UI](https://mui.com/) and [SASS](https://sass-lang.com/) for styling purposes.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Secure authentication is made possible by [Google Firebase](https://firebase.google.com/). [OpenStreetMap](http://openstreetmap.org) provides all mapping data and maps.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Additional Required Libraries:
 
-## Learn More
+- [Leaflet](https://leafletjs.com/)
+- [React Leaflet](https://react-leaflet.js.org/)
+- [Visual Crossing Weather](https://www.visualcrossing.com/weather-data)
+- [Chart.js](https://www.chartjs.org/)
 
-To learn more about Next.js, take a look at the following resources:
+## Back End
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Built with [Django](https://www.djangoproject.com/) and deployed separately via [Heroku](https://www.heroku.com/), Hikeable's backend enables CRUD operations on an attached [PostgreSQL](https://www.postgresql.org/) database.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Installation
 
-## Deploy on Vercel
+Important: Hikeable requires `npm` for installation.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository to your local machine.
+2. Navigate to the project folder using Terminal or Command Prompt.
+3. Run `npm install` to install the required dependencies.
+4. Run `npm build` to build the application before use.
+5. Finally, run `npm start` to run the server on your local machine.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To successfully run `npm build`, please note that the following environment variables/API keys are required in a `.env` file:
+
+```NEXT_PUBLIC_APIKEY= Google Firebase
+NEXT_PUBLIC_AUTHDOMAIN= Google Firebase
+NEXT_PUBLIC_PROJECTID= Google Firebase
+NEXT_PUBLIC_STORAGEBUCKET= Google Firebase
+NEXT_PUBLIC_MESSAGINSENDERID= Google Firebase
+NEXT_PUBLIC_APPID= Google Firebase
+NEXT_PUBLIC_MEASSURMENTID= Google Firebase
+NEXT_PUBLIC_WEATHERAPI= Visual Crossing
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME= Cloudinary
+NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET= Cloudinary
+NEXT_PUBLIC_MAP_API= OpenStreetMap
+
+NEXT_PUBLIC_BACKEND_URL= Django Backend
+
+# Contributing
+
+As an open-source project, Hikeable is built and maintained by volunteers living in Japan. If you are interested in contributing to Hikeable, please feel free to fork either of its repositories, open a new issue, or submit a pull request.
