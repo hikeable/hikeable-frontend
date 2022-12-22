@@ -113,7 +113,7 @@ export const Navbar: React.FC<INavbar> = ({
                   ml: "auto",
                   mr: 0,
                   fontFamily: "Montserrat",
-                  display: { xs: "none", sm: "block" },
+
                   backgroundColor: "#304b35",
                   "&:hover": {
                     background: "#64801a",
@@ -122,13 +122,13 @@ export const Navbar: React.FC<INavbar> = ({
                 variant="contained"
                 href="/prefectures"
               >
-                Explore
+                Map
               </Button>
 
               <Button
                 sx={{
-                  ml: "auto",
-                  // mr: 0,
+                  ml: 3,
+                  mr: 0,
                   fontFamily: "Montserrat",
                   backgroundColor: "#304b35",
                   "&:hover": {
@@ -213,7 +213,7 @@ export const Navbar: React.FC<INavbar> = ({
                   }}
                   onClick={() => loginWithGoogle()}
                 >
-                  Log In
+                  Login
                 </Button>
               )}
             </Toolbar>
