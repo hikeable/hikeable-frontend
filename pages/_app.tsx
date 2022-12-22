@@ -55,10 +55,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
           content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail"
         />
         <meta name="keywords" content="hiking, japan, advice" />
-        <meta
+        {/* <meta
           name="viewport"
           content="width=device-width,initial-scale=1,shrink-to-fit=yes"
-        />
+        /> */}
         <link rel="icon" href="/boots.png" />
       </Head>
       <>
