@@ -33,6 +33,22 @@ Important: Hikeable requires `npm` for installation.
 4. Run `npm build` to build the application before use.
 5. Finally, run `npm start` to run the server on your local machine.
 
+To successfully run `npm build`, please note that the following environment variables/API keys are required in a `.env` file:
+
+```NEXT_PUBLIC_APIKEY= Google Firebase
+NEXT_PUBLIC_AUTHDOMAIN= Google Firebase
+NEXT_PUBLIC_PROJECTID= Google Firebase
+NEXT_PUBLIC_STORAGEBUCKET= Google Firebase
+NEXT_PUBLIC_MESSAGINSENDERID= Google Firebase
+NEXT_PUBLIC_APPID= Google Firebase
+NEXT_PUBLIC_MEASSURMENTID= Google Firebase
+NEXT_PUBLIC_WEATHERAPI= Visual Crossing
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME= Cloudinary
+NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET= Cloudinary
+NEXT_PUBLIC_MAP_API= OpenStreetMap
+
+NEXT_PUBLIC_BACKEND_URL= Django Backend
+
 # Contributing
 
 As an open-source project, Hikeable is built and maintained by volunteers living in Japan. If you are interested in contributing to Hikeable, please feel free to fork either of its repositories, open a new issue, or submit a pull request.
