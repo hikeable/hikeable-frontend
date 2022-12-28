@@ -14,6 +14,7 @@ export * from "./photoGallery";
 export * from "./PhotoPageBreadcrumbs";
 export * from "./CommentsComponent";
 export * from "./LandingLogo";
+export * from "./AddTrail"
 
 import dynamic from "next/dynamic";
 
