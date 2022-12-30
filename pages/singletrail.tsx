@@ -395,7 +395,11 @@ const SingleTrail = () => {
               }}
             >
               <Likes userID={userId} trailID={trail.id} />
-              <Typography>I like this trail</Typography>
+              {userId !== undefined ? (
+                <Typography>I like this trail</Typography>
+              ) : (
+                <></>
+              )}
             </Box>
             <Box
               sx={{
@@ -405,7 +409,11 @@ const SingleTrail = () => {
               }}
             >
               <CompletedTrails userID={userId} trailID={trail.id} />
-              <Typography>Completed</Typography>
+              {userId !== undefined ? (
+                <Typography>Completed</Typography>
+              ) : (
+                <></>
+              )}
             </Box>
           </Box>
         </MobileView>
