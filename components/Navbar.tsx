@@ -36,6 +36,8 @@ export const Navbar: React.FC<INavbar> = ({
 }) => {
   const { user, userId, loginWithGoogle, logout, auth } = useAuthContext();
   userName = user?.displayName;
+  // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
+  // console.log("usecontext", navActive, useAuthContext())
 
   React.useEffect(() => {
     setLoggedStatus(true);
@@ -66,10 +68,13 @@ export const Navbar: React.FC<INavbar> = ({
 
   const updateState = (changeSetting: string) => {
     if (changeSetting === "Logout") {
+      console.log("inside logout if");
       logout(auth);
       logOff(false);
     }
   };
+
+  console.log(userId);
 
   return navActive == true ? (
     <>
@@ -108,6 +113,7 @@ export const Navbar: React.FC<INavbar> = ({
                   ml: "auto",
                   mr: 0,
                   fontFamily: "Montserrat",
+
                   backgroundColor: "#304b35",
                   "&:hover": {
                     background: "#64801a",
@@ -116,7 +122,7 @@ export const Navbar: React.FC<INavbar> = ({
                 variant="contained"
                 href="/prefectures"
               >
-                Explore
+                Map
               </Button>
 
               <Button
@@ -207,7 +213,7 @@ export const Navbar: React.FC<INavbar> = ({
                   }}
                   onClick={() => loginWithGoogle()}
                 >
-                  Log In
+                  Login
                 </Button>
               )}
             </Toolbar>
