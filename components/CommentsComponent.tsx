@@ -331,24 +331,28 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
       </Paper>
 
       <MobileView>
-        <Button
-          variant="outlined"
-          sx={{
-            borderRadius: "8px",
-            fontWeight: 600,
-            fontFamily: "Montserrat",
-            color: "white",
-            textTransform: "none",
-            width: "100%",
-            background: "#304b35",
-            "&:hover": {
-              background: "#64801a",
-            },
-          }}
-          onClick={handleModalOpen}
-        >
-          Write comment
-        </Button>
+        {userId !== undefined ? (
+          <Button
+            variant="outlined"
+            sx={{
+              borderRadius: "8px",
+              fontWeight: 600,
+              fontFamily: "Montserrat",
+              color: "white",
+              textTransform: "none",
+              width: "100%",
+              background: "#304b35",
+              "&:hover": {
+                background: "#64801a",
+              },
+            }}
+            onClick={handleModalOpen}
+          >
+            Write comment
+          </Button>
+        ) : (
+          <></>
+        )}
       </MobileView>
     </>
   );
