@@ -19,7 +19,7 @@ export default function Home() {
     <div>
       <Head>
          <title>Hikeable</title>
-         <link rel="icon" href="/boots.png" /> 
+         <link rel="icon" href="/greenboots.png" /> 
       </Head>
       <Landing/>
       {

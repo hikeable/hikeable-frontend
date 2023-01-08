@@ -12,7 +12,7 @@ export default function Document() {
           type="text/css"
         />
         <title>Hikeable</title>
-        <link rel="icon" href="/boots.png" /> 
+        <link rel="icon" href="/greenboots.png" /> 
 
       </Head>
       <body>

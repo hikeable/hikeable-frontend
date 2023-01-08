@@ -10,27 +10,24 @@ import Head from "next/head";
 export default function App({ Component, pageProps, router }: AppProps) {
   const { user } = useAuthContext();
 
-  console.log(user);
-
   const [navActive, setNavStatus] = useState(true);
   const [isLoggedIn, setLoggedStatus] = useState(false);
 
   if (router.pathname === "/") {
-    console.log("path--", router.pathname);
     return (
       <>
         <Head>
           <title>Hikeable</title>
           <meta
             name="description"
-            content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail"
+            content="Hikeable is a user-driven app for hiking in Japan. Share helpful comments, leave geolocated messages on the map, and upload photos of your journey."
           />
           <meta name="keywords" content="hiking, japan, advice" />
           <meta
             name="viewport"
             content="width=device-width,initial-scale=1,shrink-to-fit=yes"
           />
-          <link rel="icon" href="/boots.png" />
+          <link rel="icon" href="/greenboots.png" />
         </Head>
         <AuthProvider>
           <Navbar
@@ -52,14 +49,14 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <title>Hikeable</title>
         <meta
           name="description"
-          content="Hikeable is a user driven app for planning hikes in japan and share useful information as comments, messages embedded in a map and photos for each trail"
+          content="Hikeable is a user-driven app for hiking in Japan. Share helpful comments, leave geolocated messages on the map, and upload photos of your journey."
         />
         <meta name="keywords" content="hiking, japan, advice" />
         {/* <meta
           name="viewport"
           content="width=device-width,initial-scale=1,shrink-to-fit=yes"
         /> */}
-        <link rel="icon" href="/boots.png" />
+        <link rel="icon" href="/greenboots.png" />
       </Head>
       <>
         <AuthProvider>
