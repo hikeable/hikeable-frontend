@@ -69,10 +69,11 @@ const prefectures = () => {
         element: "#my-map-container",
         uniformly: true,
         uniformColor: "#00984F",
-        width: "auto",
+        // width: "auto",
         height: "calc(100vh - 120px)",
         regionality: true,
         type: "deform",
+        width: "100vw",
         regions: [
           {
             id: 1,
@@ -176,6 +177,7 @@ const prefectures = () => {
             />
           </div>
         </BrowserView>
+
         <div id="my-map-container"></div>
       </div>
     </Container>

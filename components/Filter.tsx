@@ -93,12 +93,13 @@ export const Filter: React.FC<filterProps> = ({ trails, setTrail }) => {
             label="Keyword"
             onChange={handleLocChange}
             sx={{ mb: 2 }}
+            color="success"
           />
 
           <Divider />
 
           <FormControl sx={{ mt: 1, mb: 1 }}>
-            <FormLabel id="demo-radio-buttons-group-label">
+            <FormLabel id="demo-radio-buttons-group-label" color="success">
               Difficulty
             </FormLabel>
             <RadioGroup

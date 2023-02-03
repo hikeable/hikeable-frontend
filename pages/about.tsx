@@ -67,7 +67,7 @@ const About = () => {
     <>
       <ThemeProvider theme={theme}>
         <Box
-          sx={{ width: "100vw", height: "65vh", minHeight: "300px",mt:8.5 }}
+          sx={{ width: "100vw", minHeight: "300px",mt:8.5 }}
           bgcolor={"white"}
           display={"flex"}
           flexDirection={"column"}
@@ -105,8 +105,9 @@ const About = () => {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
+          sx={{mt:4}}
         >
-          <Typography variant="subtitle2">
+          <Typography variant="subtitle2" sx={{mt:2}}>
             <strong>Hikeable</strong> is built using:
           </Typography>
         </Box>
@@ -144,7 +145,7 @@ const About = () => {
               Our Team
             </Typography>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{justifyContent: "space-around"}}>
               {staffCardInfo.map((staff) => (
                 <Grid
                   item
@@ -183,7 +184,7 @@ const About = () => {
           </Box>
         </Container>
         <Box
-          sx={{ width: "100vw", height: "65vh", minHeight: "300px" }}
+          sx={{ width: "100vw", minHeight: "300px" }}
           bgcolor={"white"}
           p={4}
           display={"flex"}
@@ -193,7 +194,7 @@ const About = () => {
           marginTop={"30px"}
           
         >
-          <Typography variant="h4" my={2}>
+          <Typography variant="h4" my={2} >
             Contact
           </Typography>
           <Typography variant="subtitle1" my={2}>
