@@ -1,19 +1,21 @@
 import * as React from "react";
-import { Trail } from "../global";
+
 import Link from "next/link";
+import Image from "next/image";
+
 import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+
 import styles from "../styles/trailcardmobile.module.css";
+import { ITrailCard } from "../global";
+
+const placeholderImage = "/placeholder.avif";
 
 const _ = require("lodash");
-
-interface TrailCardProps {
-  trail: Trail;
-}
 
 const difficultyObj = {
   1: "Easy",
@@ -21,8 +23,10 @@ const difficultyObj = {
   3: "Hard",
 };
 
-export const TrailCardMobile = ({ trail }: TrailCardProps) => {
+export const TrailCardMobile = ({ trail }: ITrailCard) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
+  const trailCardMobileImage = photo_url || placeholderImage;
+
   return (
     <Card
       variant="outlined"
@@ -45,11 +49,12 @@ export const TrailCardMobile = ({ trail }: TrailCardProps) => {
         {_.capitalize(prefecture)}
       </Typography>
       <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
-        <img
-          src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-          srcSet={photo_url}
+        <Image
+          src={trailCardMobileImage}
+          width="100"
+          height="100"
           loading="lazy"
-          alt=""
+          alt={`Photo of ${name}`}
         />
       </AspectRatio>
       <Box sx={{ display: "flex" }}>

@@ -43,6 +43,10 @@ export interface trailCompletionObject {
   date: string;
 };
 
+export interface ITrailCard {
+  trail: Trail;
+}
+
 declare module "react-open-weather";
 declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";

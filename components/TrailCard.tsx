@@ -1,24 +1,21 @@
 import * as React from "react";
-import { Trail } from "../global";
 
 import Link from "next/link";
 import Image from "next/image";
 
-import { LocationOn, Straighten, Speed } from "@mui/icons-material";
-import { Button } from "@mui/joy";
 import AspectRatio from "@mui/joy/AspectRatio";
+import { Button } from "@mui/joy";
 import Card from "@mui/joy/Card";
+import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import Typography from "@mui/joy/Typography";
 
 import styles from "../styles/trailcard.module.css";
 
+import { ITrailCard } from "../global";
+
 const placeholderImage = "/placeholder.avif";
 
 const _ = require("lodash");
-
-interface TrailCardProps {
-  trail: Trail;
-}
 
 const difficultyObj = {
   1: "Easy",
@@ -26,9 +23,9 @@ const difficultyObj = {
   3: "Hard",
 };
 
-export const TrailCard = ({ trail }: TrailCardProps) => {
+export const TrailCard = ({ trail }: ITrailCard) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
-  const trailImage = photo_url || placeholderImage;
+  const trailCardImage = photo_url || placeholderImage;
 
   return (
     <Card
@@ -56,7 +53,7 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
       >
         <div>
           <Image
-            src={trailImage}
+            src={trailCardImage}
             width="100"
             height="100"
             loading="lazy"
