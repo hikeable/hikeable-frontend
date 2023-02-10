@@ -1,12 +1,18 @@
 import * as React from "react";
-import Link from "next/link";
 import { Trail } from "../global";
-import AspectRatio from "@mui/joy/AspectRatio";
+
+import Link from "next/link";
+import Image from "next/image";
+
+import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 import { Button } from "@mui/joy";
+import AspectRatio from "@mui/joy/AspectRatio";
 import Card from "@mui/joy/Card";
 import Typography from "@mui/joy/Typography";
-import { LocationOn, Straighten, Speed } from "@mui/icons-material";
+
 import styles from "../styles/trailcard.module.css";
+
+const placeholderImage = "/placeholder.avif";
 
 const _ = require("lodash");
 
@@ -22,6 +28,7 @@ const difficultyObj = {
 
 export const TrailCard = ({ trail }: TrailCardProps) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
+  const trailImage = photo_url || placeholderImage;
 
   return (
     <Card
@@ -48,11 +55,12 @@ export const TrailCard = ({ trail }: TrailCardProps) => {
         }}
       >
         <div>
-          <img
-            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-            srcSet={photo_url}
+          <Image
+            src={trailImage}
+            width="100"
+            height="100"
             loading="lazy"
-            alt={`${name} photo`}
+            alt={`Photo of ${name}`}
           />
         </div>
       </AspectRatio>

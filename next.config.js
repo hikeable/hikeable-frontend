@@ -26,6 +26,7 @@ const nextConfig = {
   },
   images: {
     disableStaticImages: true,
+    domains: ["res.cloudinary.com"],
   },
   trailingSlash: true,
 };
