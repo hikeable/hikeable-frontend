@@ -5,11 +5,7 @@ import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
-
-interface LikesProps {
-  trailID: number;
-  userID: number | undefined;
-}
+import { IMetrics } from "../global";
 
 type trailLikeObject = {
   id: number;
@@ -18,11 +14,23 @@ type trailLikeObject = {
   like: boolean;
 };
 
-export const Likes = ({ userID, trailID }: LikesProps) => {
+export const Likes = ({ trailID }: IMetrics) => {
+  const { userId } = useAuthContext();
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailLikeObject[]>([]);
+
+  useEffect(() => {
+    for (let object of data) {
+      if (object.user === userId) {
+        setRecordExists(true);
+        setRecordID(object.id);
+
+        if (object.like === true) setFavorited(true);
+      }
+    }
+  }, [data, userId]);
 
   const handleFavorite = async () => {
     if (!recordExists) {
@@ -30,7 +38,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
         method: "post",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes`,
         data: {
-          user: userID,
+          user: userId,
           trail_id: trailID,
           like: true,
         },
@@ -42,7 +50,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
         data: {
-          user: userID,
+          user: userId,
           trail_id: trailID,
           like: false,
         },
@@ -53,7 +61,7 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
         data: {
-          user: userID,
+          user: userId,
           trail_id: trailID,
           like: true,
         },
@@ -69,24 +77,11 @@ export const Likes = ({ userID, trailID }: LikesProps) => {
     setData(fetchedLikeData.data);
   };
 
-  useEffect(() => {
-    fetchLikeData();
-  }, []);
-
-  useEffect(() => {
-    for (let object of data) {
-      if (object.user === userID) {
-        setRecordExists(true);
-        setRecordID(object.id);
-
-        if (object.like === true) setFavorited(true);
-      }
-    }
-  }, [data, userID]);
+  fetchLikeData();
 
   return (
     <>
-      {userID !== undefined ? (
+      {userId !== undefined ? (
         favorited === true ? (
           <>
             <Tooltip title="Unlike">

@@ -161,8 +161,8 @@ const SingleTrail = () => {
                         justifyContent: "flex-end",
                       }}
                     >
-                      <Likes userID={userId} trailID={trail.id} />
-                      <CompletedTrails userID={userId} trailID={trail.id} />
+                      <Likes trailID={trail.id} />
+                      <CompletedTrails trailID={trail.id} />
                     </Box>
                   </Box>
                 </Box>
@@ -394,7 +394,7 @@ const SingleTrail = () => {
                 alignItems: "center",
               }}
             >
-              <Likes userID={userId} trailID={trail.id} />
+              <Likes trailID={trail.id} />
               {userId !== undefined ? (
                 <Typography>I like this trail</Typography>
               ) : (
@@ -408,7 +408,7 @@ const SingleTrail = () => {
                 alignItems: "center",
               }}
             >
-              <CompletedTrails userID={userId} trailID={trail.id} />
+              <CompletedTrails trailID={trail.id} />
               {userId !== undefined ? (
                 <Typography>Completed</Typography>
               ) : (

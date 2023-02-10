@@ -41,10 +41,14 @@ export interface trailCompletionObject {
   trail_id: number;
   completion: true;
   date: string;
-};
+}
 
 export interface ITrailCard {
   trail: Trail;
+}
+
+interface IMetrics {
+  trailID: number;
 }
 
 declare module "react-open-weather";
