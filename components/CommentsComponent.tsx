@@ -96,10 +96,6 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
     handleModalClose();
   };
 
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
   const fetchComments = async () => {
     const fetchedCommentsData = await axios.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/comments`
@@ -110,6 +106,8 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
       setComments([...fetchedCommentsData.data]);
     }
   };
+
+  fetchComments();
 
   const SubmitButton = () => {
     return (

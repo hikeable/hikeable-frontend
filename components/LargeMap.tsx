@@ -55,6 +55,10 @@ const LargeMap = ({
     popupAnchor: [2, -40],
   });
 
+  useEffect(() => {
+    fetchMessageData();
+  }, [isSubmitted]);
+
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/messages`
@@ -66,6 +70,8 @@ const LargeMap = ({
     }
     setIsSubmitted(false);
   };
+
+  fetchMessageData();
 
   const LocationMarker = () => {
     const map = useMapEvents({
@@ -84,12 +90,6 @@ const LargeMap = ({
       </Marker>
     );
   };
-
-  fetchMessageData();
-
-  useEffect(() => {
-    fetchMessageData();
-  }, [isSubmitted]);
 
   return (
     <MapContainer
