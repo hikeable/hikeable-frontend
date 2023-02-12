@@ -2,7 +2,7 @@ import { Box, Button, CardContent, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../components/context/UseAuthContext";
-import { Trail, trailCompletionObject } from "../global";
+import { Trail, TTrailCompletion } from "../global";
 import { NextLinkComposed } from "../src/Link";
 import { getValues, returnUniqueObjects } from "../src/ObjectFunctions";
 import styles from "../styles/dashboard.module.css"
@@ -38,7 +38,7 @@ const Completedtrails = () => {
 
     const {user, userId} = useAuthContext()
     const [hiked, setHiked] = useState(0);
-    const [completedTrails, setCompleted] = useState<trailCompletionObject[] >([]);
+    const [completedTrails, setCompleted] = useState<TTrailCompletion[] >([]);
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
     const [data, setData] = useState<{date: string, length: number}[]>([]);
 

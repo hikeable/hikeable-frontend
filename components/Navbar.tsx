@@ -36,8 +36,6 @@ export const Navbar: React.FC<INavbar> = ({
 }) => {
   const { user, userId, loginWithGoogle, logout, auth } = useAuthContext();
   userName = user?.displayName;
-  // console.log ("user is =",user,"usernanme is =", userName, "displayname =",user?.displayName, "UID = ", user?.uid,  "🍒🍒🍒");
-  // console.log("usecontext", navActive, useAuthContext())
 
   React.useEffect(() => {
     setLoggedStatus(true);
@@ -68,13 +66,10 @@ export const Navbar: React.FC<INavbar> = ({
 
   const updateState = (changeSetting: string) => {
     if (changeSetting === "Logout") {
-      console.log("inside logout if");
       logout(auth);
       logOff(false);
     }
   };
-
-  console.log(userId);
 
   return navActive == true ? (
     <>

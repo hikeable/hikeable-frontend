@@ -5,21 +5,14 @@ import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
-import { IMetrics } from "../global";
+import { TMetricsProp, TTrailLike } from "../global";
 
-type trailLikeObject = {
-  id: number;
-  user: number;
-  trail_id: number;
-  like: boolean;
-};
-
-export const Likes = ({ trailID }: IMetrics) => {
+export const Likes = ({ trailID }: TMetricsProp) => {
   const { userId } = useAuthContext();
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
-  const [data, setData] = useState<trailLikeObject[]>([]);
+  const [data, setData] = useState<TTrailLike[]>([]);
 
   useEffect(() => {
     for (let object of data) {

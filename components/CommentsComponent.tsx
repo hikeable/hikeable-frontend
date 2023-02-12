@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import {
   Paper,
@@ -15,23 +15,11 @@ import {
 import { Typography } from "@mui/joy";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
+import { TMetricsProp, TTrailComment } from "../global";
 
-interface ScrollableTextProps {
-  trailID: number;
-}
-
-type commentsDataObject = {
-  id: number;
-  user: number;
-  userName: string;
-  trail_id: number;
-  comment: string;
-  date: string;
-};
-
-const ScrollableText = ({ trailID }: ScrollableTextProps) => {
+const ScrollableText = ({ trailID }: TMetricsProp) => {
   const [value, setValue] = useState("");
-  const [comments, setComments] = useState<commentsDataObject[]>([]);
+  const [comments, setComments] = useState<TTrailComment[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const { user, userId } = useAuthContext();
 

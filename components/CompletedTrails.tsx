@@ -9,15 +9,15 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { IconButton, Tooltip } from "@mui/material";
 
-import { trailCompletionObject, IMetrics } from "../global";
+import { TMetricsProp, TTrailCompletion } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
 
-export const CompletedTrails = ({ trailID }: IMetrics) => {
+export const CompletedTrails = ({ trailID }: TMetricsProp) => {
   const { userId } = useAuthContext();
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
-  const [data, setData] = useState<trailCompletionObject[]>([]);
+  const [data, setData] = useState<TTrailCompletion[]>([]);
 
   useEffect(() => {
     for (let object of data) {

@@ -11,7 +11,7 @@ import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
 import MessageIcon from "./MessageIcon";
-import { TLargeMap } from "../global";
+import { TLargeMapProps } from "../global";
 
 type MessageDataObject = {
   id: number;
@@ -32,7 +32,7 @@ const LargeMap = ({
   currentPosition,
   setCurrentPosition,
   setMessageDetails,
-}: TLargeMap) => {
+}: TLargeMapProps) => {
   let latNumber = 0;
   if (lat !== null) latNumber = parseFloat(lat);
 
@@ -55,9 +55,9 @@ const LargeMap = ({
     popupAnchor: [2, -40],
   });
 
-  useEffect(() => {
-    fetchMessageData();
-  }, [isSubmitted]);
+  // useEffect(() => {
+  //   fetchMessageData();
+  // }, [isSubmitted]);
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(

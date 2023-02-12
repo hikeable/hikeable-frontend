@@ -33,39 +33,55 @@ export type Trail = {
   name: string;
   photo_url: string;
   prefecture: string;
-}
+};
 
-export interface trailCompletionObject {
+export type TTrailCard = {
+  trail: Trail;
+};
+
+export type TTrailCompletion = {
   id: number;
   user: number;
   trail_id: number;
   completion: true;
   date: string;
-}
+};
 
-export type TTrailCard = {
-  trail: Trail;
-}
+export type TTrailLike = {
+  id: number;
+  user: number;
+  trail_id: number;
+  like: boolean;
+};
 
-export interface IMetrics {
+export type TTrailComment = {
+  id: number;
+  user: number;
+  userName: string;
+  trail_id: number;
+  comment: string;
+  date: string;
+};
+
+export type TMetricsProp = {
   trailID: number;
-}
+};
 
 export type TLatLng = {
   lat: number | null;
   lng: number | null;
 };
 
-export type TLargeMap = {
-  lat: string | null,
-  lon: string | null,
-  trailID: number,
-  isSubmitted: boolean,
-  setIsSubmitted: function,
-  currentPosition: array,
-  setCurrentPosition: function,
-  setMessageDetails: function
-}
+export type TLargeMapProps = {
+  lat: string | null;
+  lon: string | null;
+  trailID: number;
+  isSubmitted: boolean;
+  setIsSubmitted: function;
+  currentPosition: array;
+  setCurrentPosition: function;
+  setMessageDetails: function;
+};
 
 declare module "react-open-weather";
 declare module "leaflet";
