@@ -11,6 +11,7 @@ import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
 import MessageIcon from "./MessageIcon";
+import { TLargeMap } from "../global";
 
 type MessageDataObject = {
   id: number;
@@ -31,9 +32,13 @@ const LargeMap = ({
   currentPosition,
   setCurrentPosition,
   setMessageDetails,
-}) => {
-  const latNumber = parseFloat(lat);
-  const lonNumber = parseFloat(lon);
+}: TLargeMap) => {
+  let latNumber = 0;
+  if (lat !== null) latNumber = parseFloat(lat);
+
+  let lonNumber = 0;
+  if (lon !== null) lonNumber = parseFloat(lon);
+
   const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
   const messageIcon = L.icon({
     iconUrl: "/messageMarker.png",
@@ -80,9 +85,7 @@ const LargeMap = ({
     );
   };
 
-  useEffect(() => {
-    fetchMessageData();
-  }, []);
+  fetchMessageData();
 
   useEffect(() => {
     fetchMessageData();

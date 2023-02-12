@@ -40,7 +40,6 @@ export const Landing = ({}) => {
           src="/splash.avif"
           alt="Background Image of Mt. Fuji and Shrine"
           fill
-          objectFit="cover"
           style={{ objectPosition: "top" }}
         />
       </div>

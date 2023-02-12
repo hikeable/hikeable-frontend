@@ -23,7 +23,7 @@ declare function svgJapan(options: {
   regions: RegionType[];
 }): HTMLCollection;
 
-export interface Trail {
+export type Trail = {
   id: number;
   difficulty: 1 | 2 | 3;
   latitude: string;
@@ -43,12 +43,28 @@ export interface trailCompletionObject {
   date: string;
 }
 
-export interface ITrailCard {
+export type TTrailCard = {
   trail: Trail;
 }
 
-interface IMetrics {
+export interface IMetrics {
   trailID: number;
+}
+
+export type TLatLng = {
+  lat: number | null;
+  lng: number | null;
+};
+
+export type TLargeMap = {
+  lat: string | null,
+  lon: string | null,
+  trailID: number,
+  isSubmitted: boolean,
+  setIsSubmitted: function,
+  currentPosition: array,
+  setCurrentPosition: function,
+  setMessageDetails: function
 }
 
 declare module "react-open-weather";

@@ -11,7 +11,7 @@ import Typography from "@mui/joy/Typography";
 import { LocationOn, Straighten, Speed } from "@mui/icons-material";
 
 import styles from "../styles/trailcardmobile.module.css";
-import { ITrailCard } from "../global";
+import { TTrailCard } from "../global";
 
 const placeholderImage = "/placeholder.avif";
 
@@ -23,7 +23,7 @@ const difficultyObj = {
   3: "Hard",
 };
 
-export const TrailCardMobile = ({ trail }: ITrailCard) => {
+export const TrailCardMobile = ({ trail }: TTrailCard) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
   const trailCardMobileImage = photo_url || placeholderImage;
 

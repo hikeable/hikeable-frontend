@@ -11,7 +11,7 @@ import Typography from "@mui/joy/Typography";
 
 import styles from "../styles/trailcard.module.css";
 
-import { ITrailCard } from "../global";
+import { TTrailCard } from "../global";
 
 const placeholderImage = "/placeholder.avif";
 
@@ -23,7 +23,7 @@ const difficultyObj = {
   3: "Hard",
 };
 
-export const TrailCard = ({ trail }: ITrailCard) => {
+export const TrailCard = ({ trail }: TTrailCard) => {
   const { id, length, name, prefecture, difficulty, photo_url } = trail;
   const trailCardImage = photo_url || placeholderImage;
 
