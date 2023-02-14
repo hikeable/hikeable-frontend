@@ -181,16 +181,16 @@ const SingleTrail = () => {
                     uploadPreset={
                       process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                     }
-                    onUpload={function (error, result, widget) {
-                      console.log(
-                        "error =",
-                        error,
-                        "result =",
-                        result,
-                        "widget =",
-                        widget
-                      );
-                    }}
+                    // onUpload={function (error, result, widget) {
+                    //   console.log(
+                    //     "error =",
+                    //     error,
+                    //     "result =",
+                    //     result,
+                    //     "widget =",
+                    //     widget
+                    //   );
+                    // }}
                     options={{
                       folder: trail.name,
                       tags: [trail.id],
@@ -290,16 +290,16 @@ const SingleTrail = () => {
                   uploadPreset={
                     process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                   }
-                  onUpload={function (error, result, widget) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
-                  }}
+                  // onUpload={function (error, result, widget) {
+                  //   console.log(
+                  //     "error =",
+                  //     error,
+                  //     "result =",
+                  //     result,
+                  //     "widget =",
+                  //     widget
+                  //   );
+                  // }}
                   options={{
                     folder: trail.name,
                     tags: [trail.id],

@@ -74,7 +74,7 @@ export const options = {
 };
 
 
-export function LineChart( {dataSet}) {
+export function LineChart(dataSet: any) {
 
     const [period, setPeriod] = React.useState<number>(30);
     const [label, setLabel] = useState<string>(`Last ${period} days`)

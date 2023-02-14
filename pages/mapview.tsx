@@ -52,10 +52,11 @@ const MapView = () => {
     },
   });
 
-  const successCallback = (position: object) => {
+  const successCallback = (position: any) => {
+    const crd = position.coords;
     setCurrentPosition({
-      lat: position["coords"]["latitude"],
-      lng: position["coords"]["longitude"],
+      lat: crd.latitude,
+      lng: crd.longitude,
     });
   };
 
