@@ -47,7 +47,7 @@ const Completedtrails = () => {
 
         const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`;
         await axios.get(url).then( (response) => {
-            const result = response.data.filter((completions) => completions.user === userId)  
+            const result = response.data.filter(completions => completions.user === userId)  
             setCompleted(result); 
         });
    }

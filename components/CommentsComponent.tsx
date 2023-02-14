@@ -11,7 +11,6 @@ import {
   ListItemText,
   Avatar,
 } from "@mui/material";
-
 import { Typography } from "@mui/joy";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
@@ -21,13 +20,14 @@ const ScrollableText = ({ trailID }: TMetricsProp) => {
   const [value, setValue] = useState("");
   const [comments, setComments] = useState<TTrailComment[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
   const { user, userId } = useAuthContext();
 
   const userNameTag = user?.displayName;
-  let firstName;
+
   if (userNameTag) {
     const split = userNameTag.split(" ");
-    firstName = split[0];
+    setFirstName(split[0]);
   }
 
   const style = {
@@ -110,7 +110,6 @@ const ScrollableText = ({ trailID }: TMetricsProp) => {
         onClick={() => {
           handleSubmit();
           fetchComments();
-          fetchComments();
         }}
         onTouchStart={handleSubmit}
         sx={{
@@ -174,7 +173,7 @@ const ScrollableText = ({ trailID }: TMetricsProp) => {
         }}
       >
         <BrowserView>
-          {userId !== undefined ? (
+          {userId !== undefined && (
             <Box
               sx={{
                 display: "flex",
@@ -198,8 +197,6 @@ const ScrollableText = ({ trailID }: TMetricsProp) => {
                 Write comment
               </Button>
             </Box>
-          ) : (
-            <></>
           )}
           <List>
             {comments.map((comment) => (
@@ -317,7 +314,7 @@ const ScrollableText = ({ trailID }: TMetricsProp) => {
       </Paper>
 
       <MobileView>
-        {userId !== undefined ? (
+        {userId !== undefined && (
           <Button
             variant="outlined"
             sx={{
@@ -336,8 +333,6 @@ const ScrollableText = ({ trailID }: TMetricsProp) => {
           >
             Write comment
           </Button>
-        ) : (
-          <></>
         )}
       </MobileView>
     </>
