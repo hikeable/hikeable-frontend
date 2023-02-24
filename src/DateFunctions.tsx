@@ -35,8 +35,7 @@ function compareDate(input: string, a: string): boolean {
   let aDate = moment(a, 'YYYY-MM-DD');
 
 
-  // console.log("🥹 ", aDate);
-  // console.log("🥹 ", inputDate);
+ 
   if (inputDate.year() === aDate.year() &&
       inputDate.month() === aDate.month() &&
       inputDate.date() === aDate.date()) {

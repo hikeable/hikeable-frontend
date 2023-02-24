@@ -54,12 +54,12 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
         const token = credential?.accessToken;
         const user = result.user;
 
-        console.log("google auth sucesss", {result, user})
+       
     }) .catch(error => {
         const erroCode = error.code;
         const errMessage = error.message;
 
-        console.log("google auth error", erroCode, errMessage);
+        
     } )
   };
 
@@ -70,28 +70,28 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
  
   const postUid = async () => {
-    // console.log("🌍🌍🌍", user?.uid);
+    
     const payload = {firebase_uid:user?.uid}
-    // console.log(payload,"✳️✳️✳️")
+    
     try {
         const resp = await axios.post("https://hikeable-backend.herokuapp.com/api/users", payload);
-        // console.log (resp,"🙄🙄🙄")
+        
     } catch (err) {
         console.error(err);
     }
 
     try {
       const resp = await axios.get("https://hikeable-backend.herokuapp.com/api/users");
-      // console.log (resp,"😅😅😅")
+      
       resp.data.map((account) => {
-        // console.log (account)
+       
         if (account.firebase_uid === user?.uid){
           setUserId(account.id)
-          // console.log (userId)
+       
         }
         // if (account.includes(user?.uid)){
         //   userId=account.id
-        //   console.log(userId,account)
+     
         // }
       })
       

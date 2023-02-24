@@ -26,7 +26,7 @@ function GetTrailData() {
 const ResultList = () => {
   const router = useRouter();
   const { pref } = router.query;
-  console.log(pref);
+  
   const allTrails = GetTrailData() || [];
 
   const capitalizePref = _.capitalize(pref);

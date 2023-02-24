@@ -14,8 +14,7 @@ const getBadges = async (userId: number | undefined) => {
 
 const addBadge =  async (userId: number | undefined, badge: string) => {
     const current = new Date();
-    console.log("😇 adding a new badge");
-
+   
     await axios ({
         method: "post",
         url: `https://hikeable-backend.herokuapp.com/api/users/${userId}/badges`,
@@ -35,16 +34,14 @@ const updateBadgeStreak = async (userId: number | undefined) => {
     const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
     const result = await axios.get(url);
     const fetchCompletionData = result.data.filter((completions) => completions.user === userId)  
-    console.log("🐓 completionsData");
-    console.log(fetchCompletionData);
+  
 
     const numberOfCompletions = fetchCompletionData.length;
 
     //first check if the badge already exists...
     const listOfBadges = await getBadges(userId)
 
-    console.log("👻trying before the cases");
-    console.log("number Of completions are : " , numberOfCompletions);
+   
 
     switch (true){
 
@@ -86,8 +83,7 @@ const updateBadgeLength = async (userId: number | undefined) => {
     const listOfBadges =  await getBadges(userId);
 
 
-    console.log("🐓trying before the cases");
-    console.log("total length is " , totalLength);
+
 
     switch (true){
 
