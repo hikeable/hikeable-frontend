@@ -53,7 +53,7 @@ const Dashboard  = () => {
     const [hiked, setHiked] = useState(0);
     const [completedTrails, setCompleted] = useState<trailCompletionObject[] >([]);
     const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[] >([]);
-    const [data, setData] = useState<{date: string, length: number}[]>([]);
+    const [data, setData] = useState<[]>([]);
 
     const [state, setState] = React.useState({Menu: false });
 

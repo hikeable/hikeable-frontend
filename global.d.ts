@@ -40,6 +40,11 @@ export type TTrailMetrics = {
   userID: number | undefined;
 };
 
+export type TDataSet = {
+  date: string;
+  length: string;
+};
+
 export interface trailCompletionObject {
   id: number;
   user: number;
