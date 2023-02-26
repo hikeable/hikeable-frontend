@@ -36,7 +36,7 @@ const ScrollableText = ({ trailID }: ScrollableTextProps) => {
   const { user, userId } = useAuthContext();
 
   const userNameTag = user?.displayName;
-  let firstName;
+  let firstName = "";
   if (userNameTag) {
     const split = userNameTag.split(" ");
     firstName = split[0];
