@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
     try {
       const resp = await axios.post(
-        `{process.env.NEXT_PUBLIC_BACKEND_URL}api/users`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users`,
         payload
       );
     } catch (err) {
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
     try {
       const resp = await axios.get(
-        `{process.env.NEXT_PUBLIC_BACKEND_URL}api/users`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users`
       );
 
       resp.data.map((account: TAccount) => {
