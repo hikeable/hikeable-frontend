@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
+
 import {
   Paper,
   Button,
@@ -12,7 +13,9 @@ import {
   Avatar,
 } from "@mui/material";
 import { Typography } from "@mui/joy";
+
 import axios from "axios";
+
 import { useAuthContext } from "./context/UseAuthContext";
 import { TMetricsProp, TTrailComment } from "../global";
 

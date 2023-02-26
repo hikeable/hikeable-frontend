@@ -1,6 +1,10 @@
+import React, { useState } from "react";
+
 import { Box, TextField, Button, Typography } from "@mui/material";
-import { useState } from "react";
+
 import axios from "axios";
+
+import { TContactForm } from "../global";
 
 const style = {
   "& .MuiOutlinedInput-root": {
@@ -11,30 +15,32 @@ const style = {
 };
 
 const ContactForm = () => {
-  const [toSend, setToSend] = useState<Object>({
-    from_name: "",
-    from_email: "",
-    message: "",
+  const [toSend, setToSend] = useState<TContactForm>({
+    from_name: null,
+    from_email: null,
+    message: null,
   });
   const [sent, setSent] = useState<Boolean>(false);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (event: React.FormEvent<EventTarget>) => {
+    event.preventDefault();
+
     await axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/feedback`,
       data: {
-        from_name: toSend["from_name"],
-        from_email: toSend["from_email"],
-        message: toSend["message"],
+        from_name: toSend.from_name,
+        from_email: toSend.from_email,
+        message: toSend.message,
       },
     });
+
     setSent(true);
     window.location.reload();
   };
 
-  const handleChange = (e) => {
-    setToSend({ ...toSend, [e.target.name]: e.target.value });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setToSend({ ...toSend, [event.target.name]: event.target.value });
   };
 
   return (
@@ -84,14 +90,12 @@ const ContactForm = () => {
         Submit
       </Button>
 
-      {sent === true ? (
+      {sent === true && (
         <Box textAlign={"center"}>
           <Typography color="green">
             Your message was sent successfully!
           </Typography>
         </Box>
-      ) : (
-        <></>
       )}
     </>
   );

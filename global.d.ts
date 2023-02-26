@@ -83,6 +83,12 @@ export type TLargeMapProps = {
   setMessageDetails: function;
 };
 
+export type TContactForm = {
+  from_name: string | null;
+  from_email: string | null;
+  message: string | null;
+}
+
 declare module "react-open-weather";
 declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";
