@@ -59,6 +59,14 @@ export type TMessageDetailsProps = {
   setMessageDetails: Function;
 };
 
+export type TMessageFormProps = {
+  trailID: number;
+  currentPosition: TLatLng;
+  formOpen: boolean;
+  setFormOpen: Function;
+  setIsSubmitted: Function;
+};
+
 export interface trailCompletionObject {
   id: number;
   user: number;
