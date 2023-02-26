@@ -7,19 +7,15 @@ import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
 import { trailCompletionObject } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
+import { TTrailMetrics } from "../global";
 
-interface CompletedTrailsProps {
-  trailID: number;
-  userID: number | undefined;
-}
-
-export const CompletedTrails = ({ userID, trailID }: CompletedTrailsProps) => {
+export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<trailCompletionObject[]>([]);
 
-  const { user, userId } = useAuthContext();
+  const { userId } = useAuthContext();
 
   const handleCompletion = async () => {
     const current = new Date();

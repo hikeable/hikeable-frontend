@@ -35,13 +35,18 @@ export interface Trail {
   prefecture: string;
 }
 
+export type TTrailMetrics = {
+  trailID: number;
+  userID: number | undefined;
+};
+
 export interface trailCompletionObject {
   id: number;
   user: number;
   trail_id: number;
   completion: true;
   date: string;
-};
+}
 
 declare module "react-open-weather";
 declare module "leaflet";
