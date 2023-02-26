@@ -136,9 +136,16 @@ export type TContactForm = {
 };
 
 export type TAccount = {
-  id: number,
-  firebase_uid: string
-}
+  id: number;
+  firebase_uid: string;
+};
+
+export type TBadges = {
+  id: number;
+  user: number;
+  badges: string;
+  date: string;
+};
 
 declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";
