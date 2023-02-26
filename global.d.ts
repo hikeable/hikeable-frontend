@@ -45,6 +45,20 @@ export type TDataSet = {
   length: string;
 };
 
+export type TMessageLike = {
+  id: number;
+  user: number;
+  message_id: number;
+  value: number;
+  create_date: string;
+  update_date: string | null;
+};
+
+export type TMessageDetailsProps = {
+  messageDetails: TMessageDetails;
+  setMessageDetails: Function;
+};
+
 export interface trailCompletionObject {
   id: number;
   user: number;
