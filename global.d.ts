@@ -112,9 +112,14 @@ export type TMessageDetails = {
 };
 
 export type TMessageDetailsProps = {
-    messageDetails: TMessageDetails;
-    setMessageDetails: Function;
-}
+  messageDetails: TMessageDetails;
+  setMessageDetails: Function;
+};
+
+export type TMessageIconProps = {
+  message: TMessageData;
+  setMessageDetails: Function;
+};
 
 export type TMessageFormProps = {
   trailID: number;
@@ -122,7 +127,7 @@ export type TMessageFormProps = {
   formOpen: boolean;
   setFormOpen: Function;
   setIsSubmitted: Function;
-}
+};
 
 export type TContactForm = {
   from_name: string | null;

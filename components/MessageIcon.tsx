@@ -1,19 +1,15 @@
 import { IconButton } from "@mui/material";
 import MoreIcon from "@mui/icons-material/More";
+import { TMessageIconProps } from "../global";
 
-interface MessageIconProps {
-  message: Object;
-  setMessageDetails: Function;
-}
-
-const MessageIcon = ({ message, setMessageDetails }: MessageIconProps) => {
+const MessageIcon = ({ message, setMessageDetails }: TMessageIconProps) => {
   const handleMessageDetails = () => {
     setMessageDetails({
       selected: true,
       data: {
-        id: message["id"],
-        message: message["message"],
-        date: message["date"],
+        id: message.id,
+        message: message.message,
+        date: message.date,
       },
     });
   };

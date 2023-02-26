@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
-import { TMessageLike, TMessageDetails, TMessageDetailsProps } from "../global";
+import { TMessageLike, TMessageDetailsProps } from "../global";
 
 const theme = createTheme({
   typography: {
@@ -47,7 +47,7 @@ const MessageDetails = ({
 
   const handleClose = () => {
     setMessageDetails({
-      selected: "false",
+      selected: false,
       data: {
         id: null,
         message: null,
