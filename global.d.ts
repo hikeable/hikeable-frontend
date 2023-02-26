@@ -135,13 +135,16 @@ export type TContactForm = {
   message: string | null;
 };
 
-declare module "react-open-weather";
+export type TAccount = {
+  id: number,
+  firebase_uid: string
+}
+
 declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";
 declare module "leaflet-geosearch";
 declare module "react-leaflet";
 declare module "react-leaflet-locate-control";
-declare module "next-cloudinary";
 declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
