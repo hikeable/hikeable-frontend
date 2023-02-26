@@ -18,18 +18,13 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import MessageDetails from "../components/MessageDetails";
-import { TMessageDetails } from "../global";
+import { TMessageDetails, TLatLng } from "../global";
 
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat",
   },
 });
-
-type LatLngObject = {
-  lat: number | null;
-  lng: number | null;
-};
 
 const MapView = () => {
   const searchParams = useSearchParams();
@@ -38,7 +33,7 @@ const MapView = () => {
   const lon = searchParams.get("lon");
   const trailID = Number(searchParams.get("trailID"));
   const [agree, setAgree] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState<LatLngObject>({
+  const [currentPosition, setCurrentPosition] = useState<TLatLng>({
     lat: null,
     lng: null,
   });

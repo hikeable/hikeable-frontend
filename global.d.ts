@@ -116,6 +116,14 @@ export type TMessageDetailsProps = {
     setMessageDetails: Function;
 }
 
+export type TMessageFormProps = {
+  trailID: number;
+  currentPosition: TLatLng;
+  formOpen: boolean;
+  setFormOpen: Function;
+  setIsSubmitted: Function;
+}
+
 export type TContactForm = {
   from_name: string | null;
   from_email: string | null;
