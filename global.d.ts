@@ -67,6 +67,11 @@ export type TMessageFormProps = {
   setIsSubmitted: Function;
 };
 
+export type TMessageIconProps = {
+  message: TMessageData;
+  setMessageDetails: Function;
+};
+
 export interface trailCompletionObject {
   id: number;
   user: number;

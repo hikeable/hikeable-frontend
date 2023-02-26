@@ -16,11 +16,11 @@ import { Typography } from "@mui/joy";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
 
-interface ScrollableTextProps {
+type TScrollableTextProps = {
   trailID: number;
-}
+};
 
-type commentsDataObject = {
+type TComments = {
   id: number;
   user: number;
   userName: string;
@@ -29,9 +29,9 @@ type commentsDataObject = {
   date: string;
 };
 
-const ScrollableText = ({ trailID }: ScrollableTextProps) => {
+const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   const [value, setValue] = useState("");
-  const [comments, setComments] = useState<commentsDataObject[]>([]);
+  const [comments, setComments] = useState<TComments[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const { user, userId } = useAuthContext();
 
