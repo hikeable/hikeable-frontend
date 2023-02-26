@@ -6,22 +6,12 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
 import MessageIcon from "./MessageIcon";
-import { TLargeMapProps } from "../global";
-
-type MessageDataObject = {
-  id: number;
-  user: number;
-  trail_id: number;
-  latitude: string;
-  longitude: string;
-  message: string;
-  date: string;
-};
+import { TLargeMapProps, TMessageData } from "../global";
 
 const LargeMap = ({
   lat,
@@ -39,7 +29,7 @@ const LargeMap = ({
   let lonNumber = 0;
   if (lon !== null) lonNumber = parseFloat(lon);
 
-  const [messageData, setMessageData] = useState<MessageDataObject[]>([]);
+  const [messageData, setMessageData] = useState<TMessageData[]>([]);
   const messageIcon = L.icon({
     iconUrl: "/messageMarker.png",
     iconSize: [25, 41],
@@ -55,9 +45,9 @@ const LargeMap = ({
     popupAnchor: [2, -40],
   });
 
-  // useEffect(() => {
-  //   fetchMessageData();
-  // }, [isSubmitted]);
+  useEffect(() => {
+    fetchMessageData();
+  }, [isSubmitted]);
 
   const fetchMessageData = async () => {
     const fetchedMessageData = await axios.get(

@@ -18,6 +18,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { LargeMap } from "../components";
 import MessageForm from "../components/MessageForm";
 import MessageDetails from "../components/MessageDetails";
+import { TMessageDetails } from "../global";
 
 const theme = createTheme({
   typography: {
@@ -43,7 +44,7 @@ const MapView = () => {
   });
   const [formOpen, setFormOpen] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [messageDetails, setMessageDetails] = useState<Object>({
+  const [messageDetails, setMessageDetails] = useState<TMessageDetails>({
     selected: false,
     data: {
       id: null,

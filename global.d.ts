@@ -83,11 +83,44 @@ export type TLargeMapProps = {
   setMessageDetails: function;
 };
 
+export type TMessageData = {
+  id: number;
+  user: number;
+  trail_id: number;
+  latitude: string;
+  longitude: string;
+  message: string;
+  date: string;
+};
+
+export type TMessageLike = {
+  id: number;
+  user: number;
+  message_id: number;
+  value: number;
+  create_date: string;
+  update_date: string | null;
+};
+
+export type TMessageDetails = {
+  selected: boolean;
+  data: {
+    id: number | null;
+    message: string | null;
+    date: string | null;
+  };
+};
+
+export type TMessageDetailsProps = {
+    messageDetails: TMessageDetails;
+    setMessageDetails: Function;
+}
+
 export type TContactForm = {
   from_name: string | null;
   from_email: string | null;
   message: string | null;
-}
+};
 
 declare module "react-open-weather";
 declare module "leaflet";
