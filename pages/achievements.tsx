@@ -54,6 +54,13 @@ const theme = createTheme({
   },
 });
 
+type TBadges = {
+  id: number;
+  user: number;
+  badges: string;
+  date: string;
+};
+
 const Achievements = () => {
   const { user, userId } = useAuthContext();
 
@@ -70,7 +77,7 @@ const Achievements = () => {
     await axios
       .get(url)
       .then((response) => {
-        const badges = response.data.map((entry) => entry.badges);
+        const badges = response.data.map((entry: TBadges) => entry.badges);
         setBadges(badges);
       })
       .catch((e: Error | AxiosError) => {
@@ -150,8 +157,8 @@ const Achievements = () => {
                         <Avatar
                           alt="Registered"
                           src={
-                            userBadges.includes("A New Beginnings")
-                              ? badgeDict["A New Beginnings"]
+                            userBadges.includes("A New Beginning")
+                              ? badgeDict["A New Beginning"]
                               : badgeDict["Incomplete"]
                           }
                           sx={{ width: 92, height: 92, margin: 0 }}
@@ -161,7 +168,7 @@ const Achievements = () => {
                     </Tooltip>
                   </Box>
 
-                  <Box className={styles.individual_badge}>
+                  {/* <Box className={styles.individual_badge}>
                     <Tooltip title="Connect with other users">
                       <Box
                         sx={{
@@ -184,7 +191,7 @@ const Achievements = () => {
                         <Chip label="On a roll" />
                       </Box>
                     </Tooltip>
-                  </Box>
+                  </Box> */}
                 </Box>
               </CardContent>
             </Card>
@@ -281,7 +288,7 @@ const Achievements = () => {
                   </Tooltip>
                 </Box>
 
-                <Box className={styles.individual_badge}>
+                {/* <Box className={styles.individual_badge}>
                   <Tooltip title="Complete your seventh hike">
                     <Box
                       sx={{
@@ -303,7 +310,7 @@ const Achievements = () => {
                       <Chip label="Lucky Number 7" />
                     </Box>
                   </Tooltip>
-                </Box>
+                </Box> */}
               </Box>
 
               {/* </CardContent> */}
