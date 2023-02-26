@@ -43,9 +43,14 @@ export type TTrailCompletion = {
   id: number;
   user: number;
   trail_id: number;
-  completion: true;
+  completion: boolean;
   date: string;
 };
+
+export type TTrailCompletionLength = {
+  date: string;
+  length: number;
+}
 
 export type TTrailLike = {
   id: number;

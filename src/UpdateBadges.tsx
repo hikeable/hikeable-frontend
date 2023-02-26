@@ -1,11 +1,11 @@
 import axios from "axios";
-import { CompletedTrails } from "../components";
+import { TBadges, TTrailCompletion, TTrailCompletionLength } from "../global";
 
 const getBadges = async (userId: number | undefined) => {
   const badgeObjects = await axios.get(
-    `https://hikeable-backend.herokuapp.com/api/users/${userId}/badges`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users/${userId}/badges`
   );
-  const listOfBadges = badgeObjects.data.map((obj) => obj.badges);
+  const listOfBadges = badgeObjects.data.map((obj: TBadges) => obj.badges);
 
   return listOfBadges;
 };
@@ -15,7 +15,7 @@ const addBadge = async (userId: number | undefined, badge: string) => {
 
   await axios({
     method: "post",
-    url: `https://hikeable-backend.herokuapp.com/api/users/${userId}/badges`,
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users/${userId}/badges`,
     data: {
       user: userId,
       badges: badge,
@@ -27,19 +27,14 @@ const addBadge = async (userId: number | undefined, badge: string) => {
 };
 
 const updateBadgeStreak = async (userId: number | undefined) => {
-  // const fetchCompletionData = await axios.get(
-  //     `https://hikeable-backend.herokuapp.com/api/users/${userId}/completedTrails`
-  // );
-
-  const url = "https://hikeable-backend.herokuapp.com/api/trails/completions";
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`;
   const result = await axios.get(url);
   const fetchCompletionData = result.data.filter(
-    (completions) => completions.user === userId
+    (completions: TTrailCompletion) => completions.user === userId
   );
 
   const numberOfCompletions = fetchCompletionData.length;
 
-  //first check if the badge already exists...
   const listOfBadges = await getBadges(userId);
 
   switch (true) {
@@ -67,9 +62,9 @@ const updateBadgeStreak = async (userId: number | undefined) => {
 };
 
 const updateBadgeLength = async (userId: number | undefined) => {
-  const url = `https://hikeable-backend.herokuapp.com/api/users/${userId}/completion-lengths`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users/${userId}/completion-lengths`;
   const result = await axios.get(url);
-  const totalLength = result.data.reduce((total, completion) => {
+  const totalLength = result.data.reduce((total: number, completion: TTrailCompletionLength) => {
     return total + completion.length;
   }, 0);
 
@@ -129,7 +124,7 @@ const userLoggedBadge = async (userId: number | undefined) => {
 const userParticipationBadge = async (userId: number | undefined) => {
   const listOfBadges = await getBadges(userId);
 
-  const url = `https://hikeable-backend.herokuapp.com/api/users/${userId}/messages`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users/${userId}/messages`;
   const result = await axios.get(url);
 
   const messageNum = result.data.length;
