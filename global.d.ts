@@ -35,12 +35,54 @@ export interface Trail {
   prefecture: string;
 }
 
-export interface trailCompletionObject {
+export type TTrailMetrics = {
+  trailID: number;
+  userID: number | undefined;
+};
+
+export type TDataSet = {
+  date: string;
+  length: number;
+};
+
+export type TMessageLike = {
+  id: number;
+  user: number;
+  message_id: number;
+  value: number;
+  create_date: string;
+  update_date: string | null;
+};
+
+export type TTrailCompletion = {
   id: number;
   user: number;
   trail_id: number;
-  completion: true;
+  completion: boolean;
   date: string;
+};
+
+export type TMessageDetailsProps = {
+  messageDetails: TMessageDetails;
+  setMessageDetails: Function;
+};
+
+export type TMessageFormProps = {
+  trailID: number;
+  currentPosition: TLatLng;
+  formOpen: boolean;
+  setFormOpen: Function;
+  setIsSubmitted: Function;
+};
+
+export type TMessageIconProps = {
+  message: TMessageData;
+  setMessageDetails: Function;
+};
+
+export type TLatLng = {
+  lat: number;
+  lng: number;
 };
 
 declare module "react-open-weather";

@@ -11,20 +11,13 @@ import {
 } from "@mui/material";
 import { useAuthContext } from "./context/UseAuthContext";
 import { userParticipationBadge } from "../src/UpdateBadges";
+import { TMessageFormProps } from "../global";
 
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat",
   },
 });
-
-interface MessageFormProps {
-  trailID: number;
-  currentPosition: Object;
-  formOpen: boolean;
-  setFormOpen: Function;
-  setIsSubmitted: Function;
-}
 
 const style = {
   position: "absolute" as "absolute",
@@ -58,7 +51,7 @@ const MessageForm = ({
   formOpen,
   setFormOpen,
   setIsSubmitted,
-}: MessageFormProps) => {
+}: TMessageFormProps) => {
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const { userId } = useAuthContext();

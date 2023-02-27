@@ -4,7 +4,6 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Typography } from "@mui/material";
 import styles from "../styles/landing.module.css";
-import { Container } from "@mui/system";
 import { LandingLogo } from "../components";
 
 const Theme = createTheme({
@@ -13,7 +12,6 @@ const Theme = createTheme({
       shortest: 150,
       shorter: 200,
       short: 250,
-      // most basic recommended timing
       standard: 300,
     },
   },

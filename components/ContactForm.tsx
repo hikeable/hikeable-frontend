@@ -10,15 +10,21 @@ const style = {
   },
 };
 
+type TContact = {
+  from_name: string;
+  from_email: string;
+  message: string;
+};
+
 const ContactForm = () => {
-  const [toSend, setToSend] = useState<Object>({
+  const [toSend, setToSend] = useState<TContact>({
     from_name: "",
     from_email: "",
     message: "",
   });
   const [sent, setSent] = useState<Boolean>(false);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     await axios({
       method: "post",
@@ -33,7 +39,7 @@ const ContactForm = () => {
     window.location.reload();
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToSend({ ...toSend, [e.target.name]: e.target.value });
   };
 

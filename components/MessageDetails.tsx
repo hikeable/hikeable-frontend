@@ -9,26 +9,13 @@ import {
 import axios from "axios";
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
+import { TMessageLike, TMessageDetailsProps } from "../global";
 
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat",
   },
 });
-
-interface MessageRatingProps {
-  messageDetails: Object;
-  setMessageDetails: Function;
-}
-
-type messageLikeObject = {
-  id: number;
-  user: number;
-  message_id: number;
-  value: number;
-  create_date: string;
-  update_date: string | null;
-};
 
 const style = {
   position: "absolute" as "absolute",
@@ -49,8 +36,8 @@ const style = {
 const MessageDetails = ({
   messageDetails,
   setMessageDetails,
-}: MessageRatingProps) => {
-  const [data, setData] = useState<messageLikeObject[]>([]);
+}: TMessageDetailsProps) => {
+  const [data, setData] = useState<TMessageLike[]>([]);
   const [messageID, setMessageID] = useState<number | null>(null);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
