@@ -35,7 +35,7 @@ export const Landing = ({}) => {
     <>
       <div className={styles.landing__background}>
         <Image
-          src="/david-edelstein-N4DbvTUDikw-unsplash.jpg"
+          src="/img/landing.avif"
           alt="Background Image of Mt. Fuji and shrine"
           fill
           objectFit="cover"
