@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import styles from "../../styles/preflist_mobile.module.css";
+import styles from "../styles/preflist_mobile.module.css";
 
 const regionsAndPrefectures = [
   {

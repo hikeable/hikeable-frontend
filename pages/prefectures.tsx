@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Link from "next/link";
 import Image from "next/image";
-import { PrefList as MobilePrefList } from "./mobile/PrefList";
-import { PrefList as BrowserPrefList } from "./desktop/PrefList";
+import { PrefList as MobilePrefList } from "../components/MobilePrefList";
+import { PrefList as BrowserPrefList } from "../components/BrowserPrefList";
 import { Container, Box } from "@mui/material";
 import { BrowserView, MobileView } from "react-device-detect";
 import styles from "../styles/prefectures.module.css";
