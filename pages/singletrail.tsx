@@ -182,14 +182,7 @@ const SingleTrail = () => {
                       process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                     }
                     onUpload={function (error: any, result: any, widget: any) {
-                      console.log(
-                        "error =",
-                        error,
-                        "result =",
-                        result,
-                        "widget =",
-                        widget
-                      );
+                      console.log(error, result, widget);
                     }}
                     options={{
                       folder: trail.name,
@@ -291,14 +284,7 @@ const SingleTrail = () => {
                     process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                   }
                   onUpload={function (error: any, result: any, widget: any) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
+                    console.log(error, result, widget);
                   }}
                   options={{
                     folder: trail.name,

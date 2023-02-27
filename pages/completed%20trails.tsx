@@ -19,18 +19,8 @@ type dummy = {
   map_url: string;
 };
 
-// const Item = styled(Paper)(({ theme }) => ({
-//     ...theme.typography.body2,
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//     height: 60,
-//     maxWidth: '20rem',
-//     minWidth: '15rem',
-//     lineHeight: '60px',
-//   }));
-
 const Completedtrails = () => {
-  const { user, userId } = useAuthContext();
+  const { userId } = useAuthContext();
   const [hiked, setHiked] = useState(0);
   const [completedTrails, setCompleted] = useState<TTrailCompletion[]>([]);
   const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[]>([]);

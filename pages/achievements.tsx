@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
   Chip,
   Container,
   createTheme,
@@ -11,13 +10,10 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import axios, { Axios, AxiosError } from "axios";
-import Image from "next/image";
+import axios, { AxiosError } from "axios";
 import styles from "../styles/achievements.module.css";
-// import styles from "../styles/achievements.module.css";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { useEffect, useState } from "react";
-import { padding } from "@mui/system";
 
 const badgeDict = {
   Incomplete: "/badges/Incomplete.png",
@@ -62,10 +58,8 @@ type TBadges = {
 };
 
 const Achievements = () => {
-  const { user, userId } = useAuthContext();
-
+  const { userId } = useAuthContext();
   const [userBadges, setBadges] = useState<string[]>([]);
-  const [loadBadges, setLoadBadges] = useState<Boolean>(false);
 
   useEffect(() => {
     getBadges(userId);
@@ -82,7 +76,7 @@ const Achievements = () => {
       })
       .catch((e: Error | AxiosError) => {
         if (axios.isAxiosError(e) && e.response && e.response.status === 404)
-          console.error("This user has no badges");
+          console.error(e);
       });
   };
 
@@ -192,6 +186,7 @@ const Achievements = () => {
                       </Box>
                     </Tooltip>
                   </Box> */}
+                  
                 </Box>
               </CardContent>
             </Card>
