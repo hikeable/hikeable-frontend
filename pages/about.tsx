@@ -19,17 +19,16 @@ const theme = createTheme({
   typography: {
     fontFamily: "Montserrat",
   },
-
 });
 
 const About = () => {
   const techStackPictures = [
-    "/about/nextjs.svg",
-    "/about/typescript.svg",
-    "/about/mui.svg",
-    "/about/reactleaflet.svg",
-    "/about/django.svg",
-    "/about/firebase.svg",
+    "/img/about/nextjs.svg",
+    "/img/about/typescript.svg",
+    "/img/about/mui.svg",
+    "/img/about/reactleaflet.svg",
+    "/img/about/django.svg",
+    "/img/about/firebase.svg",
   ];
 
   const staffCardInfo = [
@@ -38,28 +37,28 @@ const About = () => {
       title: "Product Owner",
       github: "https://github.com/Loose37",
       linkedin: "https://www.linkedin.com/in/cristian-armbruster",
-      picture: "/about/cris.jpg",
+      picture: "/img/about/staff/0.avif",
     },
     {
       name: "Kamil B.",
       title: "Tech Lead",
       github: "https://github.com/Tricole",
       linkedin: "https://www.linkedin.com/in/kamil-bayri",
-      picture: "/about/kamil.jpg",
+      picture: "/img/about/staff/1.avif",
     },
     {
       name: "Haruna K.",
       title: "Full-Stack Engineer",
       github: "https://github.com/harunakawakami",
       linkedin: "https://www.linkedin.com/in/haruna-kawakami-9a2330228/",
-      picture: "/about/haruna.jpg",
+      picture: "/img/about/staff/2.avif",
     },
     {
       name: "Chad G.",
       title: "Full-Stack Engineer",
       github: "https://github.com/chadgrover",
       linkedin: "https://www.linkedin.com/in/chadgrover/",
-      picture: "/about/chad.jpg",
+      picture: "/img/about/staff/3.avif",
     },
   ];
 
@@ -67,36 +66,42 @@ const About = () => {
     <>
       <ThemeProvider theme={theme}>
         <Box
-          sx={{ width: "100vw", minHeight: "300px",mt:8.5 }}
+          sx={{ width: "100vw", minHeight: "300px", mt: 8.5 }}
           bgcolor={"white"}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Container sx={{display:"flex",flexDirection:"column", alignItems:"center", }}>
-          <Typography variant="caption">About us</Typography>
-          <Typography variant="h4" my={2}>
-            Built by <strong>adventurers</strong>, for{" "}
-            <strong>adventurers</strong>
-          </Typography>
-          <Typography variant="subtitle1" my={2}>
-            In a country where 80% of its landmass is mountainous, our mission
-            is to provide a platform for both new and experienced hikers in
-            Japan.
-          </Typography>
-          <Typography variant="subtitle1" my={2}>
-            Find trails in each prefecture tailored to your experience level,
-            read reviews, and view photos from previous travelers.
-          </Typography>
-          <Typography variant="subtitle1" my={2}>
-            When you arrive at the trailhead, launch the{" "}
-            <strong>interactive map</strong> from your mobile device to see and
-            interact with geolocated messages left by other users.
-          </Typography>
-          <Typography variant="subtitle1" mt={2} mb={4}>
-            Hiking in Japan. Simplified.
-          </Typography>
+          <Container
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="caption">About us</Typography>
+            <Typography variant="h4" my={2}>
+              Built by <strong>adventurers</strong>, for{" "}
+              <strong>adventurers</strong>
+            </Typography>
+            <Typography variant="subtitle1" my={2}>
+              In a country where 80% of its landmass is mountainous, our mission
+              is to provide a platform for both new and experienced hikers in
+              Japan.
+            </Typography>
+            <Typography variant="subtitle1" my={2}>
+              Find trails in each prefecture tailored to your experience level,
+              read reviews, and view photos from previous travelers.
+            </Typography>
+            <Typography variant="subtitle1" my={2}>
+              When you arrive at the trailhead, launch the{" "}
+              <strong>interactive map</strong> from your mobile device to see
+              and interact with geolocated messages left by other users.
+            </Typography>
+            <Typography variant="subtitle1" mt={2} mb={4}>
+              Hiking in Japan. Simplified.
+            </Typography>
           </Container>
         </Box>
         <Box
@@ -105,9 +110,9 @@ const About = () => {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          sx={{mt:4}}
+          sx={{ mt: 4 }}
         >
-          <Typography variant="subtitle2" sx={{mt:2}}>
+          <Typography variant="subtitle2" sx={{ mt: 2 }}>
             <strong>Hikeable</strong> is built using:
           </Typography>
         </Box>
@@ -118,7 +123,6 @@ const About = () => {
           alignItems={"center"}
           justifyContent={"center"}
           textAlign={"center"}
-
         >
           <Grid container rowSpacing={1} columnSpacing={4}>
             {techStackPictures.map((picture) => (
@@ -145,7 +149,7 @@ const About = () => {
               Our Team
             </Typography>
 
-            <Grid container spacing={2} sx={{justifyContent: "space-around"}}>
+            <Grid container spacing={2} sx={{ justifyContent: "space-around" }}>
               {staffCardInfo.map((staff) => (
                 <Grid
                   item
@@ -153,7 +157,7 @@ const About = () => {
                   sx={{ textAlign: "center" }}
                   key={staffCardInfo.indexOf(staff)}
                 >
-                  <Card variant="outlined" sx={{borderRadius:'1rem'}}>
+                  <Card variant="outlined" sx={{ borderRadius: "1rem" }}>
                     <CardMedia
                       sx={{
                         height: "24vh",
@@ -192,9 +196,8 @@ const About = () => {
           justifyContent={"center"}
           alignItems={"center"}
           marginTop={"30px"}
-          
         >
-          <Typography variant="h4" my={2} >
+          <Typography variant="h4" my={2}>
             Contact
           </Typography>
           <Typography variant="subtitle1" my={2}>
