@@ -54,6 +54,14 @@ export type TMessageLike = {
   update_date: string | null;
 };
 
+export type TTrailCompletion = {
+  id: number;
+  user: number;
+  trail_id: number;
+  completion: boolean;
+  date: string;
+};
+
 export type TMessageDetailsProps = {
   messageDetails: TMessageDetails;
   setMessageDetails: Function;
@@ -71,14 +79,6 @@ export type TMessageIconProps = {
   message: TMessageData;
   setMessageDetails: Function;
 };
-
-export interface trailCompletionObject {
-  id: number;
-  user: number;
-  trail_id: number;
-  completion: true;
-  date: string;
-}
 
 declare module "react-open-weather";
 declare module "leaflet";

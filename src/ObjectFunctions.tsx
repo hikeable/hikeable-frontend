@@ -1,4 +1,4 @@
-import { trailCompletionObject, Trail } from "../global";
+import { TTrailCompletion, Trail } from "../global";
 
 function returnUniqueObjects(arr: Trail[]) {
     const uniqueObjects: Trail[] = [];
@@ -15,7 +15,7 @@ function returnUniqueObjects(arr: Trail[]) {
 
 //compares the trailCompletion array with Trails array to get
 //an array of objects with trail length traversed for each date
-function getValues(a: trailCompletionObject[], b: Trail[]) {
+function getValues(a: TTrailCompletion[], b: Trail[]) {
     let result: 
         {date: string, length: number}[] = [];
 

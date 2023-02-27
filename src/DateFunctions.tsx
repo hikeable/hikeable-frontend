@@ -1,6 +1,6 @@
 import moment from "moment";
 
- function getLastNDays(num) {
+ function getLastNDays(num: number) {
     let dates : string[] = [];
     let today = new Date();
     let day = today.getDate();

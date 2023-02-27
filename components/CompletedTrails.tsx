@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
-import { trailCompletionObject } from "../global";
+import { TTrailCompletion } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
 import { TTrailMetrics } from "../global";
 
@@ -13,7 +13,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
-  const [data, setData] = useState<trailCompletionObject[]>([]);
+  const [data, setData] = useState<TTrailCompletion[]>([]);
 
   const { userId } = useAuthContext();
 
