@@ -101,7 +101,7 @@ export function LineChart({ dataSet }: TLineChartProps) {
     else res[i] = res[i - 1];
     for (let j = 0; j < dataSet.length; j++) {
       if (compareDate(lastFullDays[i], dataSet[j].date)) {
-        res[i] += parseFloat(dataSet[j].length);
+        res[i] += dataSet[j].length;
       }
     }
   }

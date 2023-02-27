@@ -42,7 +42,7 @@ export type TTrailMetrics = {
 
 export type TDataSet = {
   date: string;
-  length: string;
+  length: number;
 };
 
 export type TMessageLike = {
