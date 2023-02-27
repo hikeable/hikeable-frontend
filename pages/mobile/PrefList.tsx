@@ -94,37 +94,32 @@ const theme = createTheme({
 });
 
 export function PrefList() {
-  const accordions = regionsAndPrefectures.map((regionObj) => (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography sx={{ fontWeight: "bold" }}>
-              {regionObj.region}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <ul className={styles.pref_list}>
-              {regionObj.prefectures.map((prefecture) => (
-                <li className={styles.pref_list_li}>
-                  <Link
-                    key={prefecture}
-                    href={`/trails/${prefecture.toLowerCase()}`}
-                  >
-                    {prefecture}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    </ThemeProvider>
+  const accordions = regionsAndPrefectures.map((regionObj, index) => (
+    <Accordion key={index} sx={{ mb: 2 }}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography sx={{ fontWeight: "bold" }}>{regionObj.region}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <ul className={styles.pref_list}>
+          {regionObj.prefectures.map((prefecture) => (
+            <li key={prefecture} className={styles.pref_list_li}>
+              <Link href={`/trails/${prefecture.toLowerCase()}`}>
+                {prefecture}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </AccordionDetails>
+    </Accordion>
   ));
 
-  return <>{accordions}</>;
+  return (
+    <>
+      <ThemeProvider theme={theme}>{accordions}</ThemeProvider>
+    </>
+  );
 }
