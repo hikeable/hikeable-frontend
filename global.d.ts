@@ -80,6 +80,11 @@ export type TMessageIconProps = {
   setMessageDetails: Function;
 };
 
+export type TLatLng = {
+  lat: number;
+  lng: number;
+};
+
 declare module "react-open-weather";
 declare module "leaflet";
 declare module "leaflet-defaulticon-compatibility";

@@ -11,6 +11,7 @@ import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
 import MessageIcon from "./MessageIcon";
+import { TLatLng } from "../global";
 
 type MessageDataObject = {
   id: number;
@@ -28,7 +29,7 @@ type TLargeMapProps = {
   trailID: number;
   isSubmitted: boolean;
   setIsSubmitted: Function;
-  currentPosition: L.LatLngExpression;
+  currentPosition: TLatLng;
   setCurrentPosition: Function;
   setMessageDetails: Function;
 };
