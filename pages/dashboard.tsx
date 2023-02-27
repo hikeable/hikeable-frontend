@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { NextLinkComposed } from "../src/Link";
-import { Trail, TTrailCompletion } from "../global";
+import { Trail, TTrailCompletion, TDataSet } from "../global";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import styles from "../styles/dashboard.module.css";
 import axios from "axios";
@@ -55,7 +55,7 @@ const Dashboard = () => {
   const [hiked, setHiked] = useState(0);
   const [completedTrails, setCompleted] = useState<TTrailCompletion[]>([]);
   const [usersCompletedTrails, setUsersCompletedTrails] = useState<Trail[]>([]);
-  const [data, setData] = useState<[]>([]);
+  const [data, setData] = useState<TDataSet[]>([]);
 
   const [state, setState] = React.useState({ Menu: false });
 

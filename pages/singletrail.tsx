@@ -33,7 +33,7 @@ const SingleTrail = () => {
   const { user, userId } = useAuthContext();
   const userNameTag = user?.displayName;
 
-  let firstName;
+  let firstName = "";
   if (userNameTag) {
     const split = userNameTag.split(" ");
     firstName = split[0];
@@ -181,7 +181,7 @@ const SingleTrail = () => {
                     uploadPreset={
                       process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                     }
-                    onUpload={function (error, result, widget) {
+                    onUpload={function (error: any, result: any, widget: any) {
                       console.log(
                         "error =",
                         error,
@@ -290,7 +290,7 @@ const SingleTrail = () => {
                   uploadPreset={
                     process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                   }
-                  onUpload={function (error, result, widget) {
+                  onUpload={function (error: any, result: any, widget: any) {
                     console.log(
                       "error =",
                       error,
