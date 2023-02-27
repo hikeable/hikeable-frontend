@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
   Chip,
   Container,
   createTheme,
@@ -11,13 +10,10 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import axios, { Axios, AxiosError } from "axios";
-import Image from "next/image";
+import axios, { AxiosError } from "axios";
 import styles from "../styles/achievements.module.css";
-// import styles from "../styles/achievements.module.css";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import { useEffect, useState } from "react";
-import { padding } from "@mui/system";
 
 const badgeDict = {
   Incomplete: "/badges/Incomplete.png",
@@ -54,11 +50,16 @@ const theme = createTheme({
   },
 });
 
-const Achievements = () => {
-  const { user, userId } = useAuthContext();
+type TBadges = {
+  id: number;
+  user: number;
+  badges: string;
+  date: string;
+};
 
+const Achievements = () => {
+  const { userId } = useAuthContext();
   const [userBadges, setBadges] = useState<string[]>([]);
-  const [loadBadges, setLoadBadges] = useState<Boolean>(false);
 
   useEffect(() => {
     getBadges(userId);
@@ -70,12 +71,12 @@ const Achievements = () => {
     await axios
       .get(url)
       .then((response) => {
-        const badges = response.data.map((entry) => entry.badges);
+        const badges = response.data.map((entry: TBadges) => entry.badges);
         setBadges(badges);
       })
       .catch((e: Error | AxiosError) => {
         if (axios.isAxiosError(e) && e.response && e.response.status === 404)
-          console.error("This user has no badges");
+          console.error(e);
       });
   };
 
@@ -150,8 +151,8 @@ const Achievements = () => {
                         <Avatar
                           alt="Registered"
                           src={
-                            userBadges.includes("A New Beginnings")
-                              ? badgeDict["A New Beginnings"]
+                            userBadges.includes("A New Beginning")
+                              ? badgeDict["A New Beginning"]
                               : badgeDict["Incomplete"]
                           }
                           sx={{ width: 92, height: 92, margin: 0 }}
@@ -161,7 +162,7 @@ const Achievements = () => {
                     </Tooltip>
                   </Box>
 
-                  <Box className={styles.individual_badge}>
+                  {/* <Box className={styles.individual_badge}>
                     <Tooltip title="Connect with other users">
                       <Box
                         sx={{
@@ -184,7 +185,8 @@ const Achievements = () => {
                         <Chip label="On a roll" />
                       </Box>
                     </Tooltip>
-                  </Box>
+                  </Box> */}
+                  
                 </Box>
               </CardContent>
             </Card>
@@ -281,7 +283,7 @@ const Achievements = () => {
                   </Tooltip>
                 </Box>
 
-                <Box className={styles.individual_badge}>
+                {/* <Box className={styles.individual_badge}>
                   <Tooltip title="Complete your seventh hike">
                     <Box
                       sx={{
@@ -303,7 +305,7 @@ const Achievements = () => {
                       <Chip label="Lucky Number 7" />
                     </Box>
                   </Tooltip>
-                </Box>
+                </Box> */}
               </Box>
 
               {/* </CardContent> */}

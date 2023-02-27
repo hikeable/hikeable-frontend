@@ -33,7 +33,7 @@ const SingleTrail = () => {
   const { user, userId } = useAuthContext();
   const userNameTag = user?.displayName;
 
-  let firstName;
+  let firstName = "";
   if (userNameTag) {
     const split = userNameTag.split(" ");
     firstName = split[0];
@@ -181,15 +181,8 @@ const SingleTrail = () => {
                     uploadPreset={
                       process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                     }
-                    onUpload={function (error, result, widget) {
-                      console.log(
-                        "error =",
-                        error,
-                        "result =",
-                        result,
-                        "widget =",
-                        widget
-                      );
+                    onUpload={function (error: any, result: any, widget: any) {
+                      console.log(error, result, widget);
                     }}
                     options={{
                       folder: trail.name,
@@ -290,15 +283,8 @@ const SingleTrail = () => {
                   uploadPreset={
                     process.env.NEXT_PUBLIC_CLOUDINARY_UPPLOAD_PRESET
                   }
-                  onUpload={function (error, result, widget) {
-                    console.log(
-                      "error =",
-                      error,
-                      "result =",
-                      result,
-                      "widget =",
-                      widget
-                    );
+                  onUpload={function (error: any, result: any, widget: any) {
+                    console.log(error, result, widget);
                   }}
                   options={{
                     folder: trail.name,
