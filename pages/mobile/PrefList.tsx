@@ -111,7 +111,10 @@ export function PrefList() {
             <ul className={styles.pref_list}>
               {regionObj.prefectures.map((prefecture) => (
                 <li className={styles.pref_list_li}>
-                  <Link href={`/trails/${prefecture.toLowerCase()}`}>
+                  <Link
+                    key={prefecture}
+                    href={`/trails/${prefecture.toLowerCase()}`}
+                  >
                     {prefecture}
                   </Link>
                 </li>
