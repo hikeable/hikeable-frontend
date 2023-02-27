@@ -97,9 +97,5 @@ export function PrefList(props) {
     }
   }, []);
 
-  return (
-    <>
-      <div id="my-map-container"></div>
-    </>
-  );
+  return <div id="my-map-container"></div>;
 }
