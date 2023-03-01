@@ -1,21 +1,33 @@
+import { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
+
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { IconButton, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { BrowserView, MobileView } from "react-device-detect";
-import axios from "axios";
-import { useAuthContext } from "./context/UseAuthContext";
-import { TTrailCompletion } from "../global";
-import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
-import { TTrailMetrics } from "../global";
 
-export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
+import axios from "axios";
+
+import { useAuthContext } from "./context/UseAuthContext";
+import { TTrailCompletion, TTrailMetrics } from "../global";
+import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
+
+export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
+  const { userId } = useAuthContext();
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<TTrailCompletion[]>([]);
 
-  const { userId } = useAuthContext();
+  useEffect(() => {
+    for (const object of data) {
+      if (object.user === userId) {
+        setRecordExists(true);
+        setRecordID(object.id);
+
+        if (object.completion === true) setCompleted(true);
+      }
+    }
+  }, [data, userId]);
 
   const handleCompletion = async () => {
     const current = new Date();
@@ -25,7 +37,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
         method: "post",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`,
         data: {
-          user: userID,
+          user: userId,
           trail_id: trailID,
           completion: true,
           date: `${current.getFullYear()}-${
@@ -40,7 +52,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
-          user: userID,
+          user: userId,
           trail_id: trailID,
           completion: false,
           date: `${current.getFullYear()}-${
@@ -54,7 +66,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
-          user: userID,
+          user: userId,
           trail_id: trailID,
           completion: true,
           date: `${current.getFullYear()}-${
@@ -75,25 +87,12 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
     setData(fetchedCompletionData.data);
   };
 
-  useEffect(() => {
-    fetchCompletionData();
-  }, []);
-
-  useEffect(() => {
-    for (let object of data) {
-      if (object.user === userID) {
-        setRecordExists(true);
-        setRecordID(object.id);
-
-        if (object.completion === true) setCompleted(true);
-      }
-    }
-  }, [data, userID]);
+  fetchCompletionData();
 
   return (
     <>
-      {userID !== undefined ? (
-        completed === true ? (
+      {userId !== undefined &&
+        (completed === true ? (
           <>
             <Tooltip title="Mark as incomplete">
               <IconButton aria-label="favorite" onClick={handleCompletion}>
@@ -128,10 +127,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
               </IconButton>
             </Tooltip>
           </>
-        )
-      ) : (
-        <></>
-      )}
+        ))}
     </>
   );
 };
