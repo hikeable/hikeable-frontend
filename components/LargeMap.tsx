@@ -6,7 +6,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
@@ -65,7 +65,7 @@ const LargeMap = ({
     popupAnchor: [2, -40],
   });
 
-  const fetchMessageData = async () => {
+  const fetchMessageData = useCallback(async () => {
     const fetchedMessageData = await axios.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/messages`
     );
@@ -75,7 +75,9 @@ const LargeMap = ({
       setMessageData([...fetchedMessageData.data]);
     }
     setIsSubmitted(false);
-  };
+  }, [isSubmitted]);
+
+  fetchMessageData();
 
   const LocationMarker = () => {
     const map = useMapEvents({
@@ -94,14 +96,6 @@ const LargeMap = ({
       </Marker>
     );
   };
-
-  useEffect(() => {
-    fetchMessageData();
-  }, []);
-
-  useEffect(() => {
-    fetchMessageData();
-  }, [isSubmitted]);
 
   return (
     <MapContainer
