@@ -19,17 +19,17 @@ import { userLoggedBadge } from "../src/UpdateBadges";
 import Mountain from "../public/mountain.svg";
 import styles from "../styles/logo.module.css";
 
-export interface INavbar {
+type INavbarProps = {
   navActive: boolean;
   isLoggedIn: boolean;
   userName: string | null | undefined;
   logOff: (val: boolean) => void;
   setLoggedStatus: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 const settings = ["Achievements", "Dashboard", "Logout"];
 
-export const Navbar: React.FC<INavbar> = ({
+export const Navbar: React.FC<INavbarProps> = ({
   navActive,
   isLoggedIn,
   userName,
@@ -44,7 +44,7 @@ export const Navbar: React.FC<INavbar> = ({
   useEffect(() => {
     setLoggedStatus(true);
     if (userId) userLoggedBadge(userId);
-  }, [userName, setLoggedStatus, userId]);
+  }, [userName]);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

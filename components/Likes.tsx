@@ -8,7 +8,6 @@ import { IconButton, Tooltip } from "@mui/material";
 import axios from "axios";
 
 import { TTrailMetrics } from "../global";
-import { useAuthContext } from "./context/UseAuthContext";
 
 type TLikes = {
   id: number;
@@ -17,8 +16,8 @@ type TLikes = {
   like: boolean;
 };
 
-export const Likes = ({ trailID }: TTrailMetrics) => {
-  const { userId } = useAuthContext();
+export const Likes = ({ userID, trailID }: TTrailMetrics) => {
+  
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
@@ -26,14 +25,14 @@ export const Likes = ({ trailID }: TTrailMetrics) => {
 
   useEffect(() => {
     for (const object of data) {
-      if (object.user === userId) {
+      if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
 
         if (object.like === true) setFavorited(true);
       }
     }
-  }, [data, userId]);
+  }, [data, userID]);
 
   const handleFavorite = async () => {
     if (!recordExists) {
@@ -41,7 +40,7 @@ export const Likes = ({ trailID }: TTrailMetrics) => {
         method: "post",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes`,
         data: {
-          user: userId,
+          user: userID,
           trail_id: trailID,
           like: true,
         },
@@ -53,7 +52,7 @@ export const Likes = ({ trailID }: TTrailMetrics) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
         data: {
-          user: userId,
+          user: userID,
           trail_id: trailID,
           like: false,
         },
@@ -65,7 +64,7 @@ export const Likes = ({ trailID }: TTrailMetrics) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
         data: {
-          user: userId,
+          user: userID,
           trail_id: trailID,
           like: true,
         },
@@ -87,7 +86,7 @@ export const Likes = ({ trailID }: TTrailMetrics) => {
 
   return (
     <>
-      {userId !== undefined &&
+      {userID !== undefined &&
         (favorited === true ? (
           <>
             <Tooltip title="Unlike">

@@ -11,8 +11,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 import { TTrailCompletion, TTrailMetrics } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
 
-export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
-  const { userId } = useAuthContext();
+export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
@@ -20,14 +19,14 @@ export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
 
   useEffect(() => {
     for (const object of data) {
-      if (object.user === userId) {
+      if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
 
         if (object.completion === true) setCompleted(true);
       }
     }
-  }, [data, userId]);
+  }, [data, userID]);
 
   const handleCompletion = async () => {
     const current = new Date();
@@ -37,7 +36,7 @@ export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
         method: "post",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`,
         data: {
-          user: userId,
+          user: userID,
           trail_id: trailID,
           completion: true,
           date: `${current.getFullYear()}-${
@@ -52,7 +51,7 @@ export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
-          user: userId,
+          user: userID,
           trail_id: trailID,
           completion: false,
           date: `${current.getFullYear()}-${
@@ -66,7 +65,7 @@ export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
         method: "put",
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
         data: {
-          user: userId,
+          user: userID,
           trail_id: trailID,
           completion: true,
           date: `${current.getFullYear()}-${
@@ -76,8 +75,8 @@ export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
       });
       setCompleted(true);
     }
-    updateBadgeStreak(userId);
-    updateBadgeLength(userId);
+    updateBadgeStreak(userID);
+    updateBadgeLength(userID);
   };
 
   const fetchCompletionData = async () => {
@@ -91,7 +90,7 @@ export const CompletedTrails = ({ trailID }: TTrailMetrics) => {
 
   return (
     <>
-      {userId !== undefined &&
+      {userID !== undefined &&
         (completed === true ? (
           <>
             <Tooltip title="Mark as incomplete">
