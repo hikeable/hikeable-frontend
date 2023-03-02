@@ -22,6 +22,14 @@ export default async function API(path: string, method: string, data?: object) {
           data: data,
         });
         return res;
+
+      case "put":
+        res = await axios({
+          method: "put",
+          url: url,
+          data: data,
+        });
+        return res;
     }
   } catch (error) {
     console.error(error);
