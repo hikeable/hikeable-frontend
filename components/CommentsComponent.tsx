@@ -88,9 +88,13 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
       }-${current.getDate()}`,
     };
 
-    API("trails/comments", "post", data);
-    setValue("");
-    handleModalClose();
+    try {
+      await API("trails/comments", "post", data);
+      setValue("");
+      handleModalClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -101,9 +105,9 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
     const fetchedCommentsData = await API(`trails/${trailID}/comments`, "get");
 
     if (!comments) {
-      setComments(fetchedCommentsData);
+      setComments(fetchedCommentsData?.data);
     } else {
-      setComments([...fetchedCommentsData]);
+      setComments([...fetchedCommentsData?.data]);
     }
   };
 

@@ -12,7 +12,7 @@ import {
   getAuth,
   signOut,
 } from "firebase/auth";
-import axios from "axios";
+import API from "../../src/API";
 
 type TAccount = {
   id: number;
@@ -77,20 +77,15 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     const payload = { firebase_uid: user?.uid };
 
     try {
-      const resp = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users`,
-        payload
-      );
+      const res = await API("users", "post", payload);
     } catch (error) {
       console.error(error);
     }
 
     try {
-      const resp = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}api/users`
-      );
+      const res = await API("users", "get");
 
-      resp.data.map((account: TAccount) => {
+      res?.data.map((account: TAccount) => {
         if (account.firebase_uid === user?.uid) {
           setUserId(account.id);
         }
@@ -103,10 +98,10 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   postUid();
 
   useEffect(() => {
-    const unsubsrcibe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
-    return unsubsrcibe;
+    return unsubscribe;
   }, []);
 
   const values = {
