@@ -15,6 +15,7 @@ import {
 import { Typography } from "@mui/joy";
 import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
+import API from "../src/API";
 
 type TScrollableTextProps = {
   trailID: number;
@@ -76,22 +77,18 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   };
 
   const handleSubmit = async () => {
-    let current = new Date();
+    const current = new Date();
+    const object = {
+      user: userId,
+      userName: firstName,
+      trail_id: trailID,
+      comment: value,
+      date: `${current.getFullYear()}-${
+        current.getMonth() + 1
+      }-${current.getDate()}`,
+    };
 
-    await axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/comments`,
-      data: {
-        user: userId,
-        userName: firstName,
-        trail_id: trailID,
-        comment: value,
-        date: `${current.getFullYear()}-${
-          current.getMonth() + 1
-        }-${current.getDate()}`,
-      },
-    });
-
+    API("api/trails/comments", "post", object);
     setValue("");
     handleModalClose();
   };
