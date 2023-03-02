@@ -78,7 +78,7 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
 
   const handleSubmit = async () => {
     const current = new Date();
-    const object = {
+    const data = {
       user: userId,
       userName: firstName,
       trail_id: trailID,
@@ -88,7 +88,7 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
       }-${current.getDate()}`,
     };
 
-    API("api/trails/comments", "post", object);
+    API("trails/comments", "post", data);
     setValue("");
     handleModalClose();
   };
@@ -98,13 +98,12 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   }, []);
 
   const fetchComments = async () => {
-    const fetchedCommentsData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/comments`
-    );
+    const fetchedCommentsData = await API(`trails/${trailID}/comments`, "get");
+
     if (!comments) {
-      setComments(fetchedCommentsData.data);
+      setComments(fetchedCommentsData);
     } else {
-      setComments([...fetchedCommentsData.data]);
+      setComments([...fetchedCommentsData]);
     }
   };
 
