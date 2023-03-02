@@ -16,6 +16,10 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [data, setData] = useState<TTrailCompletion[]>([]);
 
   useEffect(() => {
+    fetchCompletionData();
+  }, []);
+
+  useEffect(() => {
     for (const object of data) {
       if (object.user === userID) {
         setRecordExists(true);
@@ -65,8 +69,6 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
     );
     setData(fetchedCompletionData?.data);
   };
-
-  fetchCompletionData();
 
   return (
     <>

@@ -5,9 +5,8 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Tooltip } from "@mui/material";
 
-import axios from "axios";
-
 import { TTrailMetrics } from "../global";
+import API from "../src/API";
 
 type TLikes = {
   id: number;
@@ -17,11 +16,14 @@ type TLikes = {
 };
 
 export const Likes = ({ userID, trailID }: TTrailMetrics) => {
-  
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<TLikes[]>([]);
+
+  useEffect(() => {
+    fetchLikeData();
+  }, []);
 
   useEffect(() => {
     for (const object of data) {
@@ -35,54 +37,36 @@ export const Likes = ({ userID, trailID }: TTrailMetrics) => {
   }, [data, userID]);
 
   const handleFavorite = async () => {
+    const payload = {
+      user: userID,
+      trail_id: trailID,
+      like: true,
+    };
+
     if (!recordExists) {
-      await axios({
-        method: "post",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          like: true,
-        },
-      });
+      await API("trails/likes", "post", payload);
 
       fetchLikeData();
     } else if (favorited && recordExists) {
-      await axios({
-        method: "put",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          like: false,
-        },
-      });
+      payload.like = false;
+
+      await API(`trails/likes/${recordID}`, "put", payload);
 
       setFavorited(false);
     } else if (!favorited && recordExists) {
-      await axios({
-        method: "put",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          like: true,
-        },
-      });
+      payload.like = true;
+
+      await API(`trails/likes/${recordID}`, "put", payload);
 
       setFavorited(true);
     }
   };
 
   const fetchLikeData = async () => {
-    const fetchedLikeData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/likes`
-    );
+    const fetchedLikeData = await API(`trails/${trailID}/likes`, "get");
 
-    setData(fetchedLikeData.data);
+    setData(fetchedLikeData?.data);
   };
-
-  fetchLikeData();
 
   return (
     <>

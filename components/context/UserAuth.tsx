@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     const payload = { firebase_uid: user?.uid };
 
     try {
-      const res = await API("users", "post", payload);
+      await API("users", "post", payload);
     } catch (error) {
       console.error(error);
     }
