@@ -13,9 +13,8 @@ import {
 } from "@mui/material";
 
 import { Typography } from "@mui/joy";
-import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
-import API from "../src/API";
+import { Comment } from "../src/APIFunctions";
 
 type TScrollableTextProps = {
   trailID: number;
@@ -78,18 +77,16 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
 
   const handleSubmit = async () => {
     const current = new Date();
-    const data = {
-      user: userId,
-      userName: firstName,
-      trail_id: trailID,
-      comment: value,
-      date: `${current.getFullYear()}-${
-        current.getMonth() + 1
-      }-${current.getDate()}`,
-    };
+    let newComment: Comment = new Comment(
+      userId,
+      firstName,
+      trailID,
+      value,
+      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`
+    );
 
     try {
-      await API("trails/comments", "post", data);
+      await Comment.post(newComment);
       setValue("");
       handleModalClose();
     } catch (error) {
@@ -102,7 +99,7 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   }, []);
 
   const fetchComments = async () => {
-    const fetchedCommentsData = await API(`trails/${trailID}/comments`, "get");
+    const fetchedCommentsData = await Comment.getAllByID(trailID);
 
     if (!comments) {
       setComments(fetchedCommentsData?.data);

@@ -7,7 +7,7 @@ import { IconButton, Tooltip } from "@mui/material";
 
 import { TTrailCompletion, TTrailMetrics } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
-import API from "../src/API";
+import { backendReq } from "../src/APIFunctions";
 
 export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
@@ -42,19 +42,19 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
     };
 
     if (!recordExists) {
-      await API("trails/completions", "post", payload);
+      await backendReq("trails/completions", "post", payload);
 
       fetchCompletionData();
     } else if (completed && recordExists) {
       payload.completion = false;
 
-      await API(`trails/completions/${recordID}`, "put", payload);
+      await backendReq(`trails/completions/${recordID}`, "put", payload);
 
       setCompleted(false);
     } else if (!completed && recordExists) {
       payload.completion = true;
 
-      await API(`trails/completions/${recordID}`, "put", payload);
+      await backendReq(`trails/completions/${recordID}`, "put", payload);
 
       setCompleted(true);
     }
@@ -63,7 +63,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   };
 
   const fetchCompletionData = async () => {
-    const fetchedCompletionData = await API(
+    const fetchedCompletionData = await backendReq(
       `trails/${trailID}/completions`,
       "get"
     );

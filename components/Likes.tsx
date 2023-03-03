@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Tooltip } from "@mui/material";
 
 import { TTrailMetrics } from "../global";
-import API from "../src/API";
+import { backendReq } from "../src/APIFunctions";
 
 type TLikes = {
   id: number;
@@ -44,26 +44,26 @@ export const Likes = ({ userID, trailID }: TTrailMetrics) => {
     };
 
     if (!recordExists) {
-      await API("trails/likes", "post", payload);
+      await backendReq("trails/likes", "post", payload);
 
       fetchLikeData();
     } else if (favorited && recordExists) {
       payload.like = false;
 
-      await API(`trails/likes/${recordID}`, "put", payload);
+      await backendReq(`trails/likes/${recordID}`, "put", payload);
 
       setFavorited(false);
     } else if (!favorited && recordExists) {
       payload.like = true;
 
-      await API(`trails/likes/${recordID}`, "put", payload);
+      await backendReq(`trails/likes/${recordID}`, "put", payload);
 
       setFavorited(true);
     }
   };
 
   const fetchLikeData = async () => {
-    const fetchedLikeData = await API(`trails/${trailID}/likes`, "get");
+    const fetchedLikeData = await backendReq(`trails/${trailID}/likes`, "get");
 
     setData(fetchedLikeData?.data);
   };

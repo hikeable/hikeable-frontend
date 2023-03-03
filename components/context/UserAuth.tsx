@@ -12,7 +12,7 @@ import {
   getAuth,
   signOut,
 } from "firebase/auth";
-import API from "../../src/API";
+import { backendReq } from "../../src/APIFunctions";
 
 type TAccount = {
   id: number;
@@ -77,13 +77,13 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     const payload = { firebase_uid: user?.uid };
 
     try {
-      await API("users", "post", payload);
+      await backendReq("users", "post", payload);
     } catch (error) {
       console.error(error);
     }
 
     try {
-      const res = await API("users", "get");
+      const res = await backendReq("users", "get");
 
       res?.data.map((account: TAccount) => {
         if (account.firebase_uid === user?.uid) {
