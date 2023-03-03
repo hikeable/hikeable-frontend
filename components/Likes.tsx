@@ -4,25 +4,20 @@ import { IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
-import { useAuthContext } from "./context/UseAuthContext";
+import { TTrailMetrics } from "../global";
 
-interface LikesProps {
-  trailID: number;
-  userID: number | undefined;
-}
-
-type trailLikeObject = {
+type TLikes = {
   id: number;
   user: number;
   trail_id: number;
   like: boolean;
 };
 
-export const Likes = ({ userID, trailID }: LikesProps) => {
+export const Likes = ({ userID, trailID }: TTrailMetrics) => {
   const [favorited, setFavorited] = useState<boolean>(false);
   const [recordExists, setRecordExists] = useState<boolean>(false);
   const [recordID, setRecordID] = useState<number>(0);
-  const [data, setData] = useState<trailLikeObject[]>([]);
+  const [data, setData] = useState<TLikes[]>([]);
 
   const handleFavorite = async () => {
     if (!recordExists) {
