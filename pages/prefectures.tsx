@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { Container, Box } from "@mui/material";
 import { BrowserView, MobileView } from "react-device-detect";
+import { Footer } from "../components/Footer";
 import styles from "../styles/prefectures.module.css";
+
 
 const engPrefNames = {
   北海道: "Hokkaido",
@@ -181,6 +183,7 @@ const prefectures = () => {
         <div id="my-map-container"></div>
       </div>
     </Container>
+
   );
 };
 

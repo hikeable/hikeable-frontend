@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import Head from "next/head";
+import { Footer } from "../components/Footer";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const { user } = useAuthContext();
@@ -68,6 +69,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
             logOff={setLoggedStatus}
           />
           <Component {...pageProps} />
+          <Footer/>
           <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
         </AuthProvider>
       </>
