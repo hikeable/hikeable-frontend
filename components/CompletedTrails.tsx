@@ -8,6 +8,7 @@ import { useAuthContext } from "./context/UseAuthContext";
 import { TTrailCompletion } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
 import { TTrailMetrics } from "../global";
+import React from "react";
 
 export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
