@@ -1,37 +1,21 @@
-import Head from 'next/head'
-import { Landing, Navbar} from '../components'
-import { useEffect, useRef, useState } from 'react'
+"use client";
 
-
+import Head from "next/head";
+import { Landing } from "../components";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-
   const [navActive, setNavStatus] = useState("true");
-  const [userName, setName] = useState("");
 
-  useEffect(() => {
-
-  }, [navActive])
-
-
+  useEffect(() => {}, [navActive]);
 
   return (
     <div>
       <Head>
-         <title>Hikeable</title>
-         <link rel="icon" href="/greenboots.png" /> 
+        <title>Hikeable</title>
+        <link rel="icon" href="/greenboots.png" />
       </Head>
-      <Landing/>
-      {
-        // Boolean(navActive) === true? (
-        //     <Navbar navActive={true} isLoggedIn={false} userName={userName} logOff={()=>{}}/>
-        // ): <Navbar navActive={false} isLoggedIn={false} userName={''} logOff={()=>{}}/>
-      }
-
-
-
+      <Landing />
     </div>
-
-  )
+  );
 }
-
