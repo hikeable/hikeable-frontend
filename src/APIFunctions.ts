@@ -59,6 +59,10 @@ export class Like {
   }
 }
 
+// Completed Trails
+
+export class CompletedTrail {
+
 // API Call Wrapper
 
 export async function backendReq(path: string, method: string, data?: object) {
