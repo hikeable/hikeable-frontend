@@ -2,7 +2,3 @@
   for = "*.avif"
     [headers.values]
     Content-Type = "image/avif"
-
-  for = \"/fonts/*\"
-    [headers.values]
-    Cache-Control = \"public, max-age=31536000\"
