@@ -62,6 +62,39 @@ export class Like {
 // Completed Trails
 
 export class CompletedTrail {
+  user: number | undefined;
+  trail_id: number;
+  completion: boolean;
+  date: string;
+
+  constructor(
+    user: number | undefined,
+    trailID: number,
+    completion: boolean,
+    date: string
+  ) {
+    this.user = user;
+    this.trail_id = trailID;
+    this.completion = completion;
+    this.date = date;
+  }
+
+  static async getAllByID(trailID: number) {
+    return await backendReq(`trails/${trailID}/completions`, "get");
+  }
+
+  static async post(newCompletedTrail: CompletedTrail) {
+    return await backendReq("trails/completions", "post", newCompletedTrail);
+  }
+
+  static async put(updatedCompletedTrail: CompletedTrail, recordID: number) {
+    return await backendReq(
+      `trails/completions/${recordID}`,
+      "put",
+      updatedCompletedTrail
+    );
+  }
+}
 
 // API Call Wrapper
 

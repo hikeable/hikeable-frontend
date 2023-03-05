@@ -7,7 +7,7 @@ import { IconButton, Tooltip } from "@mui/material";
 
 import { TTrailCompletion, TTrailMetrics } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
-import { backendReq } from "../src/APIFunctions";
+import { CompletedTrail, backendReq } from "../src/APIFunctions";
 
 export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
@@ -32,29 +32,28 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
 
   const handleCompletion = async () => {
     const current = new Date();
-    const payload = {
-      user: userID,
-      trail_id: trailID,
-      completion: true,
-      date: `${current.getFullYear()}-${
-        current.getMonth() + 1
-      }-${current.getDate()}`,
-    };
+    let newCompletedTrail: CompletedTrail = new CompletedTrail(
+      userID,
+      trailID,
+      true,
+      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`
+    );
+    let updatedCompletion = newCompletedTrail;
 
     if (!recordExists) {
-      await backendReq("trails/completions", "post", payload);
+      await CompletedTrail.post(newCompletedTrail);
 
       fetchCompletionData();
     } else if (completed && recordExists) {
-      payload.completion = false;
+      updatedCompletion.completion = false;
 
-      await backendReq(`trails/completions/${recordID}`, "put", payload);
+      await CompletedTrail.put(updatedCompletion, recordID);
 
       setCompleted(false);
     } else if (!completed && recordExists) {
-      payload.completion = true;
+      updatedCompletion.completion = true;
 
-      await backendReq(`trails/completions/${recordID}`, "put", payload);
+      await CompletedTrail.put(updatedCompletion, recordID);
 
       setCompleted(true);
     }
@@ -63,10 +62,8 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   };
 
   const fetchCompletionData = async () => {
-    const fetchedCompletionData = await backendReq(
-      `trails/${trailID}/completions`,
-      "get"
-    );
+    const fetchedCompletionData = await CompletedTrail.getAllByID(trailID);
+
     setData(fetchedCompletionData?.data);
   };
 
