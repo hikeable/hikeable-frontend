@@ -35,7 +35,7 @@ export const Landing = ({}) => {
     <>
       <div className={styles.landing__background}>
         <Image
-          src="/img/landing.avif"
+          src="/img/landing_webp.webp"
           alt="Background Image of Mt. Fuji and shrine"
           fill
           objectFit="cover"
