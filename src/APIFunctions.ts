@@ -26,8 +26,8 @@ export class Comment {
     return await backendReq(`trails/${trailID}/comments`, "get");
   }
 
-  static async post(payload: Comment) {
-    return await backendReq("trails/comments", "post", payload);
+  static async post(newComment: Comment) {
+    return await backendReq("trails/comments", "post", newComment);
   }
 }
 
