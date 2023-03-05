@@ -10,6 +10,8 @@ import {
   Divider,
   ListItemText,
   Avatar,
+  createTheme,
+  ThemeProvider,
 } from "@mui/material";
 
 import { Typography } from "@mui/joy";
@@ -41,6 +43,12 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
     const split = userNameTag.split(" ");
     firstName = split[0];
   }
+
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat",
+    },
+  });
 
   const style = {
     position: "absolute" as "absolute",
@@ -140,7 +148,7 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Modal
         keepMounted
         open={modalOpen}
@@ -354,7 +362,7 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
           <></>
         )}
       </MobileView>
-    </>
+    </ThemeProvider>
   );
 };
 
