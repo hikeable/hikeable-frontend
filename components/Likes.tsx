@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Tooltip } from "@mui/material";
 
 import { TTrailMetrics } from "../global";
-import { backendReq } from "../src/APIFunctions";
+import { Like, backendReq } from "../src/APIFunctions";
 
 type TLikes = {
   id: number;
@@ -37,33 +37,30 @@ export const Likes = ({ userID, trailID }: TTrailMetrics) => {
   }, [data, userID]);
 
   const handleFavorite = async () => {
-    const payload = {
-      user: userID,
-      trail_id: trailID,
-      like: true,
-    };
+    let newLike: Like = new Like(userID, trailID, true);
+    let updatedLike = newLike;
 
     if (!recordExists) {
-      await backendReq("trails/likes", "post", payload);
+      await Like.post(newLike);
 
       fetchLikeData();
     } else if (favorited && recordExists) {
-      payload.like = false;
+      updatedLike.like = false;
 
-      await backendReq(`trails/likes/${recordID}`, "put", payload);
+      await Like.put(updatedLike, recordID);
 
       setFavorited(false);
     } else if (!favorited && recordExists) {
-      payload.like = true;
+      updatedLike.like = true;
 
-      await backendReq(`trails/likes/${recordID}`, "put", payload);
+      await Like.put(updatedLike, recordID);
 
       setFavorited(true);
     }
   };
 
   const fetchLikeData = async () => {
-    const fetchedLikeData = await backendReq(`trails/${trailID}/likes`, "get");
+    const fetchedLikeData = await Like.getAllByID(trailID);
 
     setData(fetchedLikeData?.data);
   };

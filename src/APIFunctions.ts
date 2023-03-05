@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 const backend = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+// Comments
+
 export class Comment {
   user: number | undefined;
   userName: string;
@@ -11,13 +13,13 @@ export class Comment {
   constructor(
     user: number | undefined,
     userName: string,
-    trail_id: number,
+    trailID: number,
     comment: string,
     date: string
   ) {
     this.user = user;
     this.userName = userName;
-    this.trail_id = trail_id;
+    this.trail_id = trailID;
     this.comment = comment;
     this.date = date;
   }
@@ -30,6 +32,34 @@ export class Comment {
     return await backendReq("trails/comments", "post", newComment);
   }
 }
+
+// Likes
+
+export class Like {
+  user: number | undefined;
+  trail_id: number;
+  like: boolean;
+
+  constructor(user: number | undefined, trailID: number, like: boolean) {
+    this.user = user;
+    this.trail_id = trailID;
+    this.like = like;
+  }
+
+  static async getAllByID(trailID: number) {
+    return await backendReq(`trails/${trailID}/likes`, "get");
+  }
+
+  static async post(newLike: Like) {
+    return await backendReq("trails/likes", "post", newLike);
+  }
+
+  static async put(updatedLike: Like, recordID: number) {
+    return await backendReq(`trails/likes/${recordID}`, "put", updatedLike);
+  }
+}
+
+// API Call Wrapper
 
 export async function backendReq(path: string, method: string, data?: object) {
   const url = `${backend}api/${path}`;
