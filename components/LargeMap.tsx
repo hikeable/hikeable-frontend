@@ -6,12 +6,13 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import L from "leaflet";
 import styles from "../styles/mapview.module.css";
 import MessageIcon from "./MessageIcon";
 import { TLatLng } from "../global";
+import { GeolocationMessage } from "../src/APIFunctions";
 
 type MessageDataObject = {
   id: number;
@@ -66,13 +67,11 @@ const LargeMap = ({
   });
 
   const fetchMessageData = useCallback(async () => {
-    const fetchedMessageData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/messages`
-    );
+    const fetchedMessageData = await GeolocationMessage.getAllByID(trailID);
     if (!messageData) {
-      setMessageData(fetchedMessageData.data);
+      setMessageData(fetchedMessageData?.data);
     } else {
-      setMessageData([...fetchedMessageData.data]);
+      setMessageData([...fetchedMessageData?.data]);
     }
     setIsSubmitted(false);
   }, [isSubmitted]);
