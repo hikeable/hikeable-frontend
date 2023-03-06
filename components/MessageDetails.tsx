@@ -8,10 +8,10 @@ import {
   Button,
 } from "@mui/material";
 import MessageThumbUp from "./MessageThumbUp";
-import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
 import { TMessageLike, TMessageDetailsProps } from "../global";
 import emailjs from "@emailjs/browser";
+import { GeolocationMessageLike } from "../src/APIFunctions";
 
 const theme = createTheme({
   typography: {
@@ -53,10 +53,10 @@ const MessageDetails = ({
 
   useEffect(() => {
     const fetchMessageLikeData = async () => {
-      const fetchedMessageLikeData = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages/${messageID}/likes`
+      const fetchedMessageLikeData = await GeolocationMessageLike.getAllByID(
+        messageID
       );
-      setData(fetchedMessageLikeData.data);
+      setData(fetchedMessageLikeData?.data);
     };
 
     if (messageID !== null) fetchMessageLikeData();
@@ -103,21 +103,23 @@ const MessageDetails = ({
   const handleReport = () => {
     const templateParameters = {
       from_user: userId,
-      message_id: messageDetails.id,
-      message: messageDetails.message,
-      date: messageDetails.date,
+      message_id: messageDetails.data.id,
+      message: messageDetails.data.message,
+      date: messageDetails.data.date,
     };
 
-    emailjs.send(
-      process.env.NEXT_PUBLIC_SERVICE_ID,
-      process.env.NEXT_PUBLIC_TEMPLATE_ID,
-      templateParameters,
-      process.env.NEXT_PUBLIC_KEY
-    ).then((response) => {
-      console.log(response.status, response.text)
-    }, (err) => {
-      console.error(err);
-    });
+    const serviceID: string = process.env.NEXT_PUBLIC_SERVICE_ID!;
+    const templateID: string = process.env.NEXT_PUBLIC_TEMPLATE_ID!;
+    const publicKey: string = process.env.NEXT_PUBLIC_KEY!;
+
+    emailjs.send(serviceID, templateID, templateParameters, publicKey).then(
+      (response) => {
+        console.log(response.status, response.text);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   };
 
   return (

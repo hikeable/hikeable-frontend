@@ -154,7 +154,7 @@ export class GeolocationMessageLike {
     this.update_date = update_date;
   }
 
-  static async getAllByID(messageID: number) {
+  static async getAllByID(messageID: number | null) {
     return await backendReq(`trails/messages/${messageID}/likes`, "get");
   }
 
