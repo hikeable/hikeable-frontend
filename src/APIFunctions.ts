@@ -168,7 +168,7 @@ export class GeolocationMessageLike {
 
   static async put(
     updatedGeolocationMessageLike: GeolocationMessageLike,
-    recordID: number
+    recordID: number | null
   ) {
     return await backendReq(
       `trails/messages/likes/${recordID}`,
