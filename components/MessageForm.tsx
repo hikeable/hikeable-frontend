@@ -12,6 +12,7 @@ import {
 import { useAuthContext } from "./context/UseAuthContext";
 import { userParticipationBadge } from "../src/UpdateBadges";
 import { TMessageFormProps } from "../global";
+import { GeolocationMessage } from "../src/APIFunctions";
 
 const theme = createTheme({
   typography: {
@@ -72,20 +73,17 @@ const MessageForm = ({
     }
 
     let current = new Date();
-    await axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages`,
-      data: {
-        user: userId,
-        trail_id: trailID,
-        latitude: currentPosition["lat"],
-        longitude: currentPosition["lng"],
-        message: value,
-        date: `${current.getFullYear()}-${
-          current.getMonth() + 1
-        }-${current.getDate()}`,
-      },
-    });
+    let newGeolocationMessage: GeolocationMessage = new GeolocationMessage(
+      userId,
+      trailID,
+      currentPosition.lat,
+      currentPosition.lng,
+      value,
+      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`
+    );
+
+    await GeolocationMessage.post(newGeolocationMessage);
+
     setIsSubmitted(true);
     setValue("");
     userParticipationBadge(userId);

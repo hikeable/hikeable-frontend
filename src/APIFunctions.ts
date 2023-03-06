@@ -96,6 +96,45 @@ export class CompletedTrail {
   }
 }
 
+// Geolocation Messages
+
+export class GeolocationMessage {
+  user: number | undefined;
+  trail_id: number;
+  latitude: number;
+  longitude: number;
+  message: string;
+  date: string;
+
+  constructor(
+    user: number | undefined,
+    trailID: number,
+    latitude: number,
+    longitude: number,
+    message: string,
+    date: string
+  ) {
+    this.user = user;
+    this.trail_id = trailID;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.message = message;
+    this.date = date;
+  }
+
+  static async getAllByID(trailID: number) {
+    return await backendReq(`trails/${trailID}/messages`, "get");
+  }
+
+  static async post(newGeolocationMessage: GeolocationMessage) {
+    return await backendReq(
+      "trails/messages",
+      "post",
+      newGeolocationMessage
+    );
+  }
+}
+
 // API Call Wrapper
 
 export async function backendReq(path: string, method: string, data?: object) {

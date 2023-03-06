@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Tooltip } from "@mui/material";
 
 import { TTrailMetrics } from "../global";
-import { Like, backendReq } from "../src/APIFunctions";
+import { Like } from "../src/APIFunctions";
 
 type TLikes = {
   id: number;

@@ -7,7 +7,7 @@ import { IconButton, Tooltip } from "@mui/material";
 
 import { TTrailCompletion, TTrailMetrics } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
-import { CompletedTrail, backendReq } from "../src/APIFunctions";
+import { CompletedTrail } from "../src/APIFunctions";
 
 export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
