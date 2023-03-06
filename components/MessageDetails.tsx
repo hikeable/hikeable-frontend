@@ -5,6 +5,7 @@ import {
   Typography,
   createTheme,
   ThemeProvider,
+  Button,
 } from "@mui/material";
 import MessageThumbUp from "./MessageThumbUp";
 
@@ -131,6 +132,7 @@ const MessageDetails = ({
           />
 
           <>{numberOfLikes}</>
+          <Button>Report</Button>
         </Box>
       </Modal>
     </ThemeProvider>
