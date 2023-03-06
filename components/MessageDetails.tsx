@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Modal,
   Box,
@@ -47,6 +47,7 @@ const MessageDetails = ({
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
   const [likeID, setLikeID] = useState<number | null>(null);
   const { userId } = useAuthContext();
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
     setMessageID(messageDetails["data"]["id"]);
@@ -101,6 +102,11 @@ const MessageDetails = ({
     setMessageID(null);
   };
 
+  const handleReport = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Reported");
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Modal
@@ -132,7 +138,7 @@ const MessageDetails = ({
           />
 
           <>{numberOfLikes}</>
-          <Button>Report</Button>
+          <Button onClick={handleReport}>Report</Button>
         </Box>
       </Modal>
     </ThemeProvider>
