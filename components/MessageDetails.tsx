@@ -8,11 +8,10 @@ import {
   Button,
 } from "@mui/material";
 import MessageThumbUp from "./MessageThumbUp";
-
 import axios from "axios";
-
 import { useAuthContext } from "./context/UseAuthContext";
 import { TMessageLike, TMessageDetailsProps } from "../global";
+import emailjs from "@emailjs/browser";
 
 const theme = createTheme({
   typography: {
@@ -47,7 +46,6 @@ const MessageDetails = ({
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
   const [likeID, setLikeID] = useState<number | null>(null);
   const { userId } = useAuthContext();
-  const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
     setMessageID(messageDetails["data"]["id"]);
@@ -102,10 +100,25 @@ const MessageDetails = ({
     setMessageID(null);
   };
 
-  const handleReport = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("Reported");
-  }
+  const handleReport = () => {
+    const templateParameters = {
+      from_user: userId,
+      message_id: messageDetails.id,
+      message: messageDetails.message,
+      date: messageDetails.date,
+    };
+
+    emailjs.send(
+      process.env.NEXT_PUBLIC_SERVICE_ID,
+      process.env.NEXT_PUBLIC_TEMPLATE_ID,
+      templateParameters,
+      process.env.NEXT_PUBLIC_KEY
+    ).then((response) => {
+      console.log(response.status, response.text)
+    }, (err) => {
+      console.error(err);
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
