@@ -127,10 +127,53 @@ export class GeolocationMessage {
   }
 
   static async post(newGeolocationMessage: GeolocationMessage) {
+    return await backendReq("trails/messages", "post", newGeolocationMessage);
+  }
+}
+
+// Geolocation Message Likes
+
+export class GeolocationMessageLike {
+  user: number | undefined;
+  message_id: number | null;
+  value: number;
+  create_date: string;
+  update_date: string | null;
+
+  constructor(
+    user: number | undefined,
+    messageID: number | null,
+    value: number,
+    create_date: string,
+    update_date: string | null
+  ) {
+    this.user = user;
+    this.message_id = messageID;
+    this.value = value;
+    this.create_date = create_date;
+    this.update_date = update_date;
+  }
+
+  static async getAllByID(messageID: number) {
+    return await backendReq(`trails/messages/${messageID}/likes`, "get");
+  }
+
+  static async post(newGeolocationMessageLike: GeolocationMessageLike) {
     return await backendReq(
-      "trails/messages",
+      "trails/messages/likes",
       "post",
-      newGeolocationMessage
+      newGeolocationMessageLike
+    );
+  }
+
+  static async put(
+    updatedGeolocationMessageLike: GeolocationMessageLike,
+    recordID: number
+  ) {
+    return await backendReq(
+      `trails/messages/likes/${recordID}`,
+      "put",
+      updatedGeolocationMessageLike
     );
   }
 }
