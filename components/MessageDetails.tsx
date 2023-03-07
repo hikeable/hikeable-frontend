@@ -4,16 +4,17 @@ import {
   Box,
   Typography,
   createTheme,
-  ThemeProvider,
   Button,
   Select,
   FormControl,
   MenuItem,
+  ThemeProvider,
 } from "@mui/material";
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
 import { TMessageLike, TMessageDetailsProps } from "../global";
 import { GeolocationMessageLike, MessageReport } from "../src/APIFunctions";
+import { green } from "@mui/material/colors";
 
 const theme = createTheme({
   typography: {
@@ -34,13 +35,14 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
-};
-
-const selectFormStyle = {
-  width: 1,
-  mb: 2,
-  "& .MuiOutlinedInput-root": {
-    "&.Mui-focused fieldset": {
+  select: {
+    ".MuiOutlinedInput-notchedOutline": {
+      borderColor: "green",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "green",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
       borderColor: "green",
     },
   },
@@ -161,6 +163,7 @@ const MessageDetails = ({
             "&:hover": {
               background: "#64801a",
             },
+            mt: 2,
           }}
         >
           Submit
@@ -170,7 +173,9 @@ const MessageDetails = ({
 
     return (
       <>
-        <Button onClick={handleChildOpen}>Report Message</Button>
+        <Button sx={{ color: "#5e7119" }} onClick={handleChildOpen}>
+          Report Message
+        </Button>
         <Modal
           open={childOpen}
           onClose={handleChildClose}
@@ -198,6 +203,7 @@ const MessageDetails = ({
             </Typography>
             <FormControl fullWidth>
               <Select
+                sx={style.select}
                 value={selectedReason}
                 onChange={(event) => setSelectedReason(event.target.value)}
               >
@@ -218,6 +224,7 @@ const MessageDetails = ({
   return (
     <ThemeProvider theme={theme}>
       <Modal
+        keepMounted
         open={messageDetails["selected"] === true}
         onClose={handleClose}
         aria-labelledby="keep-mounted-modal-title"
