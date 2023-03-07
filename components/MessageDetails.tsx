@@ -21,13 +21,13 @@ const theme = createTheme({
 
 const style = {
   position: "absolute" as "absolute",
+  borderRadius: "1rem",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
-  borderRadius: "1rem",
   boxShadow: 24,
   pt: 2,
   px: 4,
@@ -167,7 +167,7 @@ const MessageDetails = ({
           onClose={handleClose}
           aria-labelledby="keep-mounted-modal-title"
           aria-describedby="keep-mounted-modal-description"
-          sx={{ borderRadius: "1rem" }}
+          sx={style}
         >
           <Box sx={style}>
             <Typography
@@ -177,7 +177,7 @@ const MessageDetails = ({
             >
               Report Message
             </Typography>
-            <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+            <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
               Please include a brief description of why the message violates our
               guidelines. Any user who abuses the report function needlessly
               will be subject to disciplinary action, including potential
