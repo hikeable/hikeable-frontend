@@ -6,7 +6,9 @@ import {
   createTheme,
   ThemeProvider,
   Button,
-  TextField,
+  Select,
+  FormControl,
+  MenuItem,
 } from "@mui/material";
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
@@ -32,10 +34,9 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
-  cursor: "pointer",
 };
 
-const inputFormStyle = {
+const selectFormStyle = {
   width: 1,
   mb: 2,
   "& .MuiOutlinedInput-root": {
@@ -55,7 +56,6 @@ const MessageDetails = ({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
   const [likeID, setLikeID] = useState<number | null>(null);
-  const [reason, setReason] = useState<string>("");
   const { userId } = useAuthContext();
 
   useEffect(() => {
@@ -112,12 +112,21 @@ const MessageDetails = ({
   };
 
   function ChildModal() {
+    const arrayOfReasons = [
+      { id: 0, value: "Hate Speech" },
+      { id: 1, value: "Harassment" },
+      { id: 2, value: "Spam" },
+      { id: 3, value: "Misleading Information" },
+      { id: 4, value: "Privacy Violation" },
+      { id: 5, value: "Illegal Activity" },
+      { id: 6, value: "Other" },
+    ];
     const [childOpen, setChildOpen] = useState(false);
     const handleChildOpen = () => setChildOpen(true);
     const handleChildClose = () => setChildOpen(false);
-    const handleChildChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setReason(event.target.value);
-    };
+    const [selectedReason, setSelectedReason] = useState<string>(
+      arrayOfReasons[0].value
+    );
 
     const handleChildSubmit = async () => {
       const current = new Date();
@@ -126,7 +135,7 @@ const MessageDetails = ({
       const newMessageReport: MessageReport = new MessageReport(
         userId,
         messageID,
-        reason,
+        selectedReason,
         `${current.getFullYear()}-${
           current.getMonth() + 1
         }-${current.getDate()}`,
@@ -135,7 +144,7 @@ const MessageDetails = ({
       );
 
       await MessageReport.create(newMessageReport);
-      setReason("");
+      setSelectedReason(arrayOfReasons[0].value);
       handleClose();
     };
 
@@ -168,6 +177,7 @@ const MessageDetails = ({
           aria-labelledby="keep-mounted-modal-title"
           aria-describedby="keep-mounted-modal-description"
           sx={{ borderRadius: "1rem" }}
+          keepMounted
         >
           <Box sx={style}>
             <Typography
@@ -181,21 +191,24 @@ const MessageDetails = ({
               id="keep-mounted-modal-description"
               sx={{ mt: 2, mb: 2 }}
             >
-              Please include a brief description of why the message violates our
-              guidelines. Any user who abuses the report function needlessly
-              will be subject to disciplinary action, including potential
-              account suspension or termination.
+              Please select why the message violates our guidelines. Any user
+              who abuses the report function needlessly will be subject to
+              disciplinary action, including potential account suspension or
+              termination.
             </Typography>
-            <TextField
-              sx={inputFormStyle}
-              id="outlined-multiline-static"
-              multiline
-              rows={3}
-              placeholder={"Your reason here"}
-              value={reason}
-              onChange={handleChildChange}
-              InputProps={{ endAdornment: <ChildSubmitButton /> }}
-            />
+            <FormControl fullWidth>
+              <Select
+                value={selectedReason}
+                onChange={(event) => setSelectedReason(event.target.value)}
+              >
+                {arrayOfReasons.map((reason) => (
+                  <MenuItem key={reason.id} value={reason.value}>
+                    {reason.value}
+                  </MenuItem>
+                ))}
+              </Select>
+              <ChildSubmitButton />
+            </FormControl>
           </Box>
         </Modal>
       </>
@@ -205,7 +218,6 @@ const MessageDetails = ({
   return (
     <ThemeProvider theme={theme}>
       <Modal
-        keepMounted
         open={messageDetails["selected"] === true}
         onClose={handleClose}
         aria-labelledby="keep-mounted-modal-title"
@@ -222,18 +234,31 @@ const MessageDetails = ({
           <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
             {messageDetails["data"]["message"]}
           </Typography>
-          <MessageThumbUp
-            recordExists={recordExists}
-            setRecordExists={setRecordExists}
-            isLiked={isLiked}
-            setIsLiked={setIsLiked}
-            userId={userId}
-            likeID={likeID}
-            messageID={messageID}
-          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box>
+              <MessageThumbUp
+                recordExists={recordExists}
+                setRecordExists={setRecordExists}
+                isLiked={isLiked}
+                setIsLiked={setIsLiked}
+                userId={userId}
+                likeID={likeID}
+                messageID={messageID}
+              />
 
-          <>{numberOfLikes}</>
-          <ChildModal />
+              <>{numberOfLikes}</>
+            </Box>
+            <Box>
+              <ChildModal />
+            </Box>
+          </Box>
         </Box>
       </Modal>
     </ThemeProvider>
