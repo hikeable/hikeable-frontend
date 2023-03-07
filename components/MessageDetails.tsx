@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import {
   Modal,
   Box,
@@ -6,6 +6,7 @@ import {
   createTheme,
   ThemeProvider,
   Button,
+  TextField,
 } from "@mui/material";
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
@@ -32,6 +33,16 @@ const style = {
   px: 4,
   pb: 3,
   cursor: "pointer",
+};
+
+const inputFormStyle = {
+  width: 1,
+  mb: 2,
+  "& .MuiOutlinedInput-root": {
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+    },
+  },
 };
 
 const MessageDetails = ({
@@ -100,21 +111,93 @@ const MessageDetails = ({
     setMessageID(null);
   };
 
-  const handleReport = async () => {
-    const current = new Date();
-    const reportedMessage = messageDetails.data.message;
+  function ChildModal() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setReason(event.target.value);
+    };
 
-    const newMessageReport: MessageReport = new MessageReport(
-      userId,
-      messageID,
-      reason,
-      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
-      reportedMessage,
-      false
+    const handleReport = async () => {
+      const current = new Date();
+      const reportedMessage = messageDetails.data.message;
+
+      const newMessageReport: MessageReport = new MessageReport(
+        userId,
+        messageID,
+        reason,
+        `${current.getFullYear()}-${
+          current.getMonth() + 1
+        }-${current.getDate()}`,
+        reportedMessage,
+        false
+      );
+
+      await MessageReport.create(newMessageReport);
+      setReason("");
+      handleClose();
+    };
+
+    const SubmitButton = () => {
+      return (
+        <Button
+          variant="contained"
+          disableElevation
+          style={{ cursor: "pointer", zIndex: 99 }}
+          onClick={handleReport}
+          onTouchStart={handleReport}
+          sx={{
+            background: "#304b35",
+            "&:hover": {
+              background: "#64801a",
+            },
+          }}
+        >
+          Submit
+        </Button>
+      );
+    };
+
+    return (
+      <>
+        <Button onClick={handleOpen}>Report Message</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+          sx={{ borderRadius: "1rem" }}
+        >
+          <Box sx={style}>
+            <Typography
+              id="keep-mounted-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              Report Message
+            </Typography>
+            <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+              Please include a brief description of why the message violates our
+              guidelines. Any user who abuses the report function needlessly
+              will be subject to disciplinary action, including potential
+              account suspension or termination.
+            </Typography>
+            <TextField
+              sx={inputFormStyle}
+              id="outlined-multiline-static"
+              multiline
+              rows={3}
+              placeholder={"Your reason here"}
+              value={reason}
+              onChange={handleChange}
+              InputProps={{ endAdornment: <SubmitButton /> }}
+            />
+          </Box>
+        </Modal>
+      </>
     );
-
-    await MessageReport.create(newMessageReport);
-  };
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -147,7 +230,7 @@ const MessageDetails = ({
           />
 
           <>{numberOfLikes}</>
-          <Button onClick={handleReport}>Report</Button>
+          <ChildModal />
         </Box>
       </Modal>
     </ThemeProvider>
