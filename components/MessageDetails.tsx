@@ -112,14 +112,14 @@ const MessageDetails = ({
   };
 
   function ChildModal() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [childOpen, setChildOpen] = useState(false);
+    const handleChildOpen = () => setChildOpen(true);
+    const handleChildClose = () => setChildOpen(false);
+    const handleChildChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setReason(event.target.value);
     };
 
-    const handleReport = async () => {
+    const handleChildSubmit = async () => {
       const current = new Date();
       const reportedMessage = messageDetails.data.message;
 
@@ -139,14 +139,14 @@ const MessageDetails = ({
       handleClose();
     };
 
-    const SubmitButton = () => {
+    const ChildSubmitButton = () => {
       return (
         <Button
           variant="contained"
           disableElevation
           style={{ cursor: "pointer", zIndex: 99 }}
-          onClick={handleReport}
-          onTouchStart={handleReport}
+          onClick={handleChildSubmit}
+          onTouchStart={handleChildSubmit}
           sx={{
             background: "#304b35",
             "&:hover": {
@@ -161,13 +161,13 @@ const MessageDetails = ({
 
     return (
       <>
-        <Button onClick={handleOpen}>Report Message</Button>
+        <Button onClick={handleChildOpen}>Report Message</Button>
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={childOpen}
+          onClose={handleChildClose}
           aria-labelledby="keep-mounted-modal-title"
           aria-describedby="keep-mounted-modal-description"
-          sx={style}
+          sx={{ borderRadius: "1rem" }}
         >
           <Box sx={style}>
             <Typography
@@ -177,7 +177,10 @@ const MessageDetails = ({
             >
               Report Message
             </Typography>
-            <Typography id="keep-mounted-modal-description" sx={{ mt: 2, mb: 2 }}>
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{ mt: 2, mb: 2 }}
+            >
               Please include a brief description of why the message violates our
               guidelines. Any user who abuses the report function needlessly
               will be subject to disciplinary action, including potential
@@ -190,8 +193,8 @@ const MessageDetails = ({
               rows={3}
               placeholder={"Your reason here"}
               value={reason}
-              onChange={handleChange}
-              InputProps={{ endAdornment: <SubmitButton /> }}
+              onChange={handleChildChange}
+              InputProps={{ endAdornment: <ChildSubmitButton /> }}
             />
           </Box>
         </Modal>
