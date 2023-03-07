@@ -10,8 +10,7 @@ import {
 import MessageThumbUp from "./MessageThumbUp";
 import { useAuthContext } from "./context/UseAuthContext";
 import { TMessageLike, TMessageDetailsProps } from "../global";
-import emailjs from "@emailjs/browser";
-import { GeolocationMessageLike } from "../src/APIFunctions";
+import { GeolocationMessageLike, MessageReport } from "../src/APIFunctions";
 
 const theme = createTheme({
   typography: {
@@ -45,6 +44,7 @@ const MessageDetails = ({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0);
   const [likeID, setLikeID] = useState<number | null>(null);
+  const [reason, setReason] = useState<string>("");
   const { userId } = useAuthContext();
 
   useEffect(() => {
@@ -100,26 +100,20 @@ const MessageDetails = ({
     setMessageID(null);
   };
 
-  const handleReport = () => {
-    const templateParameters = {
-      from_user: userId,
-      message_id: messageDetails.data.id,
-      message: messageDetails.data.message,
-      date: messageDetails.data.date,
-    };
+  const handleReport = async () => {
+    const current = new Date();
+    const reportedMessage = messageDetails.data.message;
 
-    const serviceID: string = process.env.NEXT_PUBLIC_SERVICE_ID!;
-    const templateID: string = process.env.NEXT_PUBLIC_TEMPLATE_ID!;
-    const publicKey: string = process.env.NEXT_PUBLIC_KEY!;
-
-    emailjs.send(serviceID, templateID, templateParameters, publicKey).then(
-      (response) => {
-        console.log(response.status, response.text);
-      },
-      (err) => {
-        console.error(err);
-      }
+    const newMessageReport: MessageReport = new MessageReport(
+      userId,
+      messageID,
+      reason,
+      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`,
+      reportedMessage,
+      false
     );
+
+    await MessageReport.create(newMessageReport);
   };
 
   return (
