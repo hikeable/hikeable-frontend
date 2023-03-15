@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
+
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { BrowserView, MobileView } from "react-device-detect";
-import axios from "axios";
+
 import { TTrailMetrics } from "../global";
+import { Like } from "../src/APIFunctions";
 
 type TLikes = {
   id: number;
@@ -19,57 +21,12 @@ export const Likes = ({ userID, trailID }: TTrailMetrics) => {
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<TLikes[]>([]);
 
-  const handleFavorite = async () => {
-    if (!recordExists) {
-      await axios({
-        method: "post",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          like: true,
-        },
-      });
-
-      fetchLikeData();
-    } else if (favorited && recordExists) {
-      await axios({
-        method: "put",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          like: false,
-        },
-      });
-      setFavorited(false);
-    } else if (!favorited && recordExists) {
-      await axios({
-        method: "put",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/likes/${recordID}`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          like: true,
-        },
-      });
-      setFavorited(true);
-    }
-  };
-
-  const fetchLikeData = async () => {
-    const fetchedLikeData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/likes`
-    );
-    setData(fetchedLikeData.data);
-  };
-
   useEffect(() => {
     fetchLikeData();
   }, []);
 
   useEffect(() => {
-    for (let object of data) {
+    for (const object of data) {
       if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
@@ -79,10 +36,39 @@ export const Likes = ({ userID, trailID }: TTrailMetrics) => {
     }
   }, [data, userID]);
 
+  const handleFavorite = async () => {
+    let newLike: Like = new Like(userID, trailID, true);
+    let updatedLike = newLike;
+
+    if (!recordExists) {
+      await Like.post(newLike);
+
+      fetchLikeData();
+    } else if (favorited && recordExists) {
+      updatedLike.like = false;
+
+      await Like.put(updatedLike, recordID);
+
+      setFavorited(false);
+    } else if (!favorited && recordExists) {
+      updatedLike.like = true;
+
+      await Like.put(updatedLike, recordID);
+
+      setFavorited(true);
+    }
+  };
+
+  const fetchLikeData = async () => {
+    const fetchedLikeData = await Like.getAllByID(trailID);
+
+    setData(fetchedLikeData?.data);
+  };
+
   return (
     <>
-      {userID !== undefined ? (
-        favorited === true ? (
+      {userID !== undefined &&
+        (favorited === true ? (
           <>
             <Tooltip title="Unlike">
               <IconButton aria-label="favorite" onClick={handleFavorite}>
@@ -117,10 +103,7 @@ export const Likes = ({ userID, trailID }: TTrailMetrics) => {
               </IconButton>
             </Tooltip>
           </>
-        )
-      ) : (
-        <></>
-      )}
+        ))}
     </>
   );
 };

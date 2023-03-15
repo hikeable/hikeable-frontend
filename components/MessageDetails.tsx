@@ -6,8 +6,10 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-import axios from "axios";
 import MessageThumbUp from "./MessageThumbUp";
+
+import axios from "axios";
+
 import { useAuthContext } from "./context/UseAuthContext";
 import { TMessageLike, TMessageDetailsProps } from "../global";
 
@@ -45,6 +47,46 @@ const MessageDetails = ({
   const [likeID, setLikeID] = useState<number | null>(null);
   const { userId } = useAuthContext();
 
+  useEffect(() => {
+    setMessageID(messageDetails["data"]["id"]);
+  }, [messageDetails]);
+
+  useEffect(() => {
+    const fetchMessageLikeData = async () => {
+      const fetchedMessageLikeData = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages/${messageID}/likes`
+      );
+      setData(fetchedMessageLikeData.data);
+    };
+
+    if (messageID !== null) fetchMessageLikeData();
+  }, [messageID, isLiked]);
+
+  useEffect(() => {
+    const filterMessageLikeData = () => {
+      let count = 0;
+      if (data.length === 0) {
+        setRecordExists(false);
+        setLikeID(null);
+        setIsLiked(false);
+        setNumberOfLikes(count);
+      } else {
+        return data.map((record) => {
+          if (record["user"] === userId) {
+            setRecordExists(true);
+            setLikeID(record["id"]);
+            if (record["value"] === 1) setIsLiked(true);
+          }
+
+          count += record["value"];
+          setNumberOfLikes(count);
+        });
+      }
+    };
+
+    filterMessageLikeData();
+  }, [data, userId]);
+
   const handleClose = () => {
     setMessageDetails({
       selected: "false",
@@ -57,46 +99,6 @@ const MessageDetails = ({
     setIsLiked(false);
     setMessageID(null);
   };
-
-  const fetchMessageLikeData = async () => {
-    const fetchedMessageLikeData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/messages/${messageID}/likes`
-    );
-    setData(fetchedMessageLikeData.data);
-  };
-
-  const filterMessageLikeData = () => {
-    let count = 0;
-    if (data.length === 0) {
-      setRecordExists(false);
-      setLikeID(null);
-      setIsLiked(false);
-      setNumberOfLikes(count);
-    } else {
-      return data.map((record) => {
-        if (record["user"] === userId) {
-          setRecordExists(true);
-          setLikeID(record["id"]);
-          if (record["value"] === 1) setIsLiked(true);
-        }
-
-        count += record["value"];
-        setNumberOfLikes(count);
-      });
-    }
-  };
-
-  useEffect(() => {
-    setMessageID(messageDetails["data"]["id"]);
-  }, [messageDetails]);
-
-  useEffect(() => {
-    if (messageID !== null) fetchMessageLikeData();
-  }, [messageID, isLiked]);
-
-  useEffect(() => {
-    filterMessageLikeData();
-  }, [data]);
 
   return (
     <ThemeProvider theme={theme}>

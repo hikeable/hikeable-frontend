@@ -1,13 +1,13 @@
+import { useEffect, useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
+
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { IconButton, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { BrowserView, MobileView } from "react-device-detect";
-import axios from "axios";
-import { useAuthContext } from "./context/UseAuthContext";
-import { TTrailCompletion } from "../global";
+
+import { TTrailCompletion, TTrailMetrics } from "../global";
 import { updateBadgeStreak, updateBadgeLength } from "../src/UpdateBadges";
-import { TTrailMetrics } from "../global";
+import { CompletedTrail } from "../src/APIFunctions";
 
 export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [completed, setCompleted] = useState<boolean>(false);
@@ -15,72 +15,12 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
   const [recordID, setRecordID] = useState<number>(0);
   const [data, setData] = useState<TTrailCompletion[]>([]);
 
-  const { userId } = useAuthContext();
-
-  const handleCompletion = async () => {
-    const current = new Date();
-
-    if (!recordExists) {
-      await axios({
-        method: "post",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          completion: true,
-          date: `${current.getFullYear()}-${
-            current.getMonth() + 1
-          }-${current.getDate()}`,
-        },
-      });
-
-      fetchCompletionData();
-    } else if (completed && recordExists) {
-      await axios({
-        method: "put",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          completion: false,
-          date: `${current.getFullYear()}-${
-            current.getMonth() + 1
-          }-${current.getDate()}`,
-        },
-      });
-      setCompleted(false);
-    } else if (!completed && recordExists) {
-      await axios({
-        method: "put",
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/completions/${recordID}`,
-        data: {
-          user: userID,
-          trail_id: trailID,
-          completion: true,
-          date: `${current.getFullYear()}-${
-            current.getMonth() + 1
-          }-${current.getDate()}`,
-        },
-      });
-      setCompleted(true);
-    }
-    updateBadgeStreak(userId);
-    updateBadgeLength(userId);
-  };
-
-  const fetchCompletionData = async () => {
-    const fetchedCompletionData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/completions`
-    );
-    setData(fetchedCompletionData.data);
-  };
-
   useEffect(() => {
     fetchCompletionData();
   }, []);
 
   useEffect(() => {
-    for (let object of data) {
+    for (const object of data) {
       if (object.user === userID) {
         setRecordExists(true);
         setRecordID(object.id);
@@ -90,10 +30,47 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
     }
   }, [data, userID]);
 
+  const handleCompletion = async () => {
+    const current = new Date();
+    let newCompletedTrail: CompletedTrail = new CompletedTrail(
+      userID,
+      trailID,
+      true,
+      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`
+    );
+    let updatedCompletion = newCompletedTrail;
+
+    if (!recordExists) {
+      await CompletedTrail.post(newCompletedTrail);
+
+      fetchCompletionData();
+    } else if (completed && recordExists) {
+      updatedCompletion.completion = false;
+
+      await CompletedTrail.put(updatedCompletion, recordID);
+
+      setCompleted(false);
+    } else if (!completed && recordExists) {
+      updatedCompletion.completion = true;
+
+      await CompletedTrail.put(updatedCompletion, recordID);
+
+      setCompleted(true);
+    }
+    updateBadgeStreak(userID);
+    updateBadgeLength(userID);
+  };
+
+  const fetchCompletionData = async () => {
+    const fetchedCompletionData = await CompletedTrail.getAllByID(trailID);
+
+    setData(fetchedCompletionData?.data);
+  };
+
   return (
     <>
-      {userID !== undefined ? (
-        completed === true ? (
+      {userID !== undefined &&
+        (completed === true ? (
           <>
             <Tooltip title="Mark as incomplete">
               <IconButton aria-label="favorite" onClick={handleCompletion}>
@@ -128,10 +105,7 @@ export const CompletedTrails = ({ userID, trailID }: TTrailMetrics) => {
               </IconButton>
             </Tooltip>
           </>
-        )
-      ) : (
-        <></>
-      )}
+        ))}
     </>
   );
 };

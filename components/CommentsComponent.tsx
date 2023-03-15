@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 
 import { Typography } from "@mui/joy";
-import axios from "axios";
 import { useAuthContext } from "./context/UseAuthContext";
+import { Comment } from "../src/APIFunctions";
 
 type TScrollableTextProps = {
   trailID: number;
@@ -76,24 +76,22 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   };
 
   const handleSubmit = async () => {
-    let current = new Date();
+    const current = new Date();
+    let newComment: Comment = new Comment(
+      userId,
+      firstName,
+      trailID,
+      value,
+      `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`
+    );
 
-    await axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/comments`,
-      data: {
-        user: userId,
-        userName: firstName,
-        trail_id: trailID,
-        comment: value,
-        date: `${current.getFullYear()}-${
-          current.getMonth() + 1
-        }-${current.getDate()}`,
-      },
-    });
-
-    setValue("");
-    handleModalClose();
+    try {
+      await Comment.post(newComment);
+      setValue("");
+      handleModalClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -101,13 +99,12 @@ const ScrollableText = ({ trailID }: TScrollableTextProps) => {
   }, []);
 
   const fetchComments = async () => {
-    const fetchedCommentsData = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/trails/${trailID}/comments`
-    );
+    const fetchedCommentsData = await Comment.getAllByID(trailID);
+
     if (!comments) {
-      setComments(fetchedCommentsData.data);
+      setComments(fetchedCommentsData?.data);
     } else {
-      setComments([...fetchedCommentsData.data]);
+      setComments([...fetchedCommentsData?.data]);
     }
   };
 
