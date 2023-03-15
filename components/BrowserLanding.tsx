@@ -4,7 +4,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Typography } from "@mui/material";
 import styles from "../styles/landing.module.css";
-import { LandingLogo } from "../components";
+import { LandingLogo } from ".";
 
 const Theme = createTheme({
   transitions: {
@@ -30,7 +30,7 @@ transition: ${theme.transitions.create(["letter-spacing", "transform"], {
 `}
 `;
 
-export const Landing = ({}) => {
+export const Landing = () => {
   return (
     <>
       <div className={styles.landing__background}>
@@ -41,6 +41,9 @@ export const Landing = ({}) => {
           objectFit="cover"
           style={{ objectPosition: "top" }}
         />
+      </div>
+      <div className={styles.logo__wrapper}>
+        <LandingLogo />
       </div>
       <Box
         sx={{
@@ -63,9 +66,6 @@ export const Landing = ({}) => {
             zIndex: 1,
           }}
         >
-          <div className={styles.logo__wrapper}>
-            <LandingLogo />
-          </div>
           <BrowserView>
             <Typography
               variant="h1"

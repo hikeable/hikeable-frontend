@@ -4,7 +4,7 @@ export * from "./Filter";
 export * from "./Likes";
 export * from "./TrailCard";
 export * from "./Navbar";
-export * from "./Landing";
+export * from "./BrowserLanding";
 export * from "./Logo";
 export * from "./TrailCardMobile";
 export * from "./SinglePageBreadcrumbs";
