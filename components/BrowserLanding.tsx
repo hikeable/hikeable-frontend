@@ -5,6 +5,7 @@ import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Typography } from "@mui/material";
 import styles from "../styles/landing.module.css";
 import { LandingLogo } from ".";
+import LandingList from "./LandingList";
 
 const Theme = createTheme({
   transitions: {
@@ -38,8 +39,10 @@ export const Landing = () => {
           src="/img/landing.avif"
           alt="Background Image of Mt. Fuji and shrine"
           fill
-          objectFit="cover"
-          style={{ objectPosition: "top" }}
+          style={{
+            objectPosition: "top",
+            filter: "brightness(80%)",
+          }}
         />
       </div>
       <div className={styles.logo__wrapper}>
@@ -47,12 +50,13 @@ export const Landing = () => {
       </div>
       <Box
         sx={{
-          width: "100%",
-          height: "100vh",
+          width: "50vw",
+          height: "50svh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          border: "10px solid red",
         }}
       >
         <Box
@@ -61,18 +65,16 @@ export const Landing = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "end",
-            textAlign: "center",
-            fontFamily: "Montserrat",
             zIndex: 1,
           }}
         >
           <BrowserView>
             <Typography
-              variant="h1"
+              variant="h2"
               sx={{
                 fontFamily: "Montserrat",
-                color: "#5e7119",
-                fontSize: "3vw",
+                color: "whitesmoke",
+                fontSize: "5vh",
                 fontWeight: 600,
               }}
               zIndex="2"
@@ -80,11 +82,11 @@ export const Landing = () => {
               Hiking in Japan.
             </Typography>
             <Typography
-              variant="h1"
+              variant="h2"
               sx={{
                 fontFamily: "Montserrat",
-                color: "#5e7119",
-                fontSize: "3vw",
+                color: "whitesmoke",
+                fontSize: "5vh",
                 fontWeight: 600,
               }}
               zIndex="2"
@@ -119,20 +121,21 @@ export const Landing = () => {
             </Typography>
           </MobileView>
         </Box>
-
-        <div className={styles.btn__wrapper}>
-          <ThemeProvider theme={Theme}>
-            <StyledButton variant="text" sx={{ mr: 2, ml: 1 }}>
-              <Link
-                className={`${styles.txt__btn} ${styles.btn__line}`}
-                href="/prefectures"
-              >
-                Start Walking
-              </Link>
-            </StyledButton>
-          </ThemeProvider>
-        </div>
+        {/* <LandingList /> */}
       </Box>
+
+      <div className={styles.btn__wrapper}>
+        <ThemeProvider theme={Theme}>
+          <StyledButton variant="text" sx={{ mr: 2, ml: 1 }}>
+            <Link
+              className={`${styles.txt__btn} ${styles.btn__line}`}
+              href="/prefectures"
+            >
+              Start Walking
+            </Link>
+          </StyledButton>
+        </ThemeProvider>
+      </div>
     </>
   );
 };
