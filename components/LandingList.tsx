@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -19,29 +18,33 @@ function generate(phrases: string[]) {
   return phrases.map((phrase) => (
     <ListItem>
       <ListItemIcon>
-        <FilterHdrRoundedIcon />
+        <FilterHdrRoundedIcon sx={{ color: "whitesmoke" }} />
       </ListItemIcon>
-      <ListItemText primary={phrase} />
+      <ListItemText
+        primary={phrase}
+        primaryTypographyProps={{
+          color: "whitesmoke",
+          fontFamily: "Montserrat",
+          fontSize: "1.2rem",
+          fontWeight: 500,
+        }}
+      />
     </ListItem>
   ));
 }
 
-const Demo = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
-
 export default function LandingList() {
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            What you can do with Hikeable
-          </Typography>
-          <Demo>
-            <List>{generate(textList)}</List>
-          </Demo>
-        </Grid>
+      <Grid item xs={12} md={6}>
+        <Typography
+          sx={{ mt: 4, mb: 2, color: "whitesmoke", fontFamily: "Montserrat" }}
+          variant="h4"
+          component="div"
+        >
+          What you can do with Hikeable
+        </Typography>
+        <List>{generate(textList)}</List>
       </Grid>
     </Box>
   );

@@ -41,7 +41,7 @@ export const Landing = () => {
           fill
           style={{
             objectPosition: "top",
-            filter: "brightness(80%)",
+            filter: "brightness(75%)",
           }}
         />
       </div>
@@ -61,9 +61,10 @@ export const Landing = () => {
       >
         <Box
           sx={{
+            mt: 6,
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "end",
             zIndex: 1,
           }}
@@ -120,13 +121,13 @@ export const Landing = () => {
               Simplified.
             </Typography>
           </MobileView>
+          <LandingList />
         </Box>
-        {/* <LandingList /> */}
       </Box>
 
       <div className={styles.btn__wrapper}>
         <ThemeProvider theme={Theme}>
-          <StyledButton variant="text" sx={{ mr: 2, ml: 1 }}>
+          <StyledButton variant="text">
             <Link
               className={`${styles.txt__btn} ${styles.btn__line}`}
               href="/prefectures"
