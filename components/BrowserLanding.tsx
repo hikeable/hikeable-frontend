@@ -41,7 +41,7 @@ export const Landing = () => {
           fill
           style={{
             objectPosition: "top",
-            filter: "brightness(75%)",
+            filter: "brightness(65%)",
           }}
         />
       </div>
