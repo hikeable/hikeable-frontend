@@ -6,6 +6,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import styles from "../styles/landing.module.css";
 import { LandingLogo } from ".";
 import LandingList from "./LandingList";
+import { MobileLanding } from "./MobileLanding";
 
 const Theme = createTheme({
   transitions: {
@@ -34,107 +35,84 @@ transition: ${theme.transitions.create(["letter-spacing", "transform"], {
 export const Landing = () => {
   return (
     <>
-      <Box sx={{ mt: 1.5, ml: 1.5 }}>
-        <div className={styles.landing__background}>
-          <Image
-            src="/img/landing.avif"
-            alt="Background Image of Mt. Fuji and shrine"
-            fill
-            style={{
-              objectPosition: "top",
-              filter: "brightness(65%)",
-            }}
-          />
-        </div>
-        <LandingLogo />
-        <Box
-          sx={{
-            ml: 10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "center",
-          }}
-        >
+      <MobileView>
+        <MobileLanding />
+      </MobileView>
+      <BrowserView>
+        <Box sx={{ mt: 1.5, ml: 1.5 }}>
+          <div className={styles.landing__background}>
+            <Image
+              src="/img/landing.avif"
+              alt="Background Image of Mt. Fuji and shrine"
+              fill
+              style={{
+                objectPosition: "top",
+                filter: "brightness(65%)",
+              }}
+            />
+          </div>
+          <LandingLogo />
           <Box
             sx={{
-              mt: 6,
+              ml: 10,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              justifyContent: "end",
-              zIndex: 1,
+              justifyContent: "center",
             }}
           >
-            {/* <BrowserView> */}
-            <Typography
-              variant="h2"
+            <Box
               sx={{
-                fontFamily: "Montserrat",
-                color: "whitesmoke",
-                fontSize: "5vh",
-                fontWeight: 600,
+                mt: 6,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "end",
+                zIndex: 1,
               }}
-              zIndex="2"
             >
-              Hiking in Japan.
-            </Typography>
-            <Typography
-              variant="h2"
-              sx={{
-                fontFamily: "Montserrat",
-                color: "whitesmoke",
-                fontSize: "5vh",
-                fontWeight: 600,
-              }}
-              zIndex="2"
-            >
-              Simplified.
-            </Typography>
-            <LandingList />
-            {/* </BrowserView> */}
-            {/* <MobileView>
               <Typography
-                variant="h1"
+                variant="h2"
                 sx={{
                   fontFamily: "Montserrat",
-                  color: "#5e7119",
-                  fontSize: "2rem",
+                  color: "whitesmoke",
+                  fontSize: "5vh",
                   fontWeight: 600,
-                  mt: 3,
                 }}
+                zIndex="2"
               >
                 Hiking in Japan.
               </Typography>
               <Typography
-                variant="h1"
+                variant="h2"
                 sx={{
                   fontFamily: "Montserrat",
-                  color: "#5e7119",
-                  fontSize: "2rem",
+                  color: "whitesmoke",
+                  fontSize: "5vh",
                   fontWeight: 600,
                 }}
                 zIndex="2"
               >
                 Simplified.
               </Typography>
-            </MobileView> */}
+              <LandingList />
+            </Box>
           </Box>
-        </Box>
 
-        <div className={styles.btn__wrapper}>
-          <ThemeProvider theme={Theme}>
-            <StyledButton variant="text">
-              <Link
-                className={`${styles.txt__btn} ${styles.btn__line}`}
-                href="/prefectures"
-              >
-                Start Walking
-              </Link>
-            </StyledButton>
-          </ThemeProvider>
-        </div>
-      </Box>
+          <div className={styles.btn__wrapper}>
+            <ThemeProvider theme={Theme}>
+              <StyledButton variant="text">
+                <Link
+                  className={`${styles.txt__btn} ${styles.btn__line}`}
+                  href="/prefectures"
+                >
+                  Start Walking
+                </Link>
+              </StyledButton>
+            </ThemeProvider>
+          </div>
+        </Box>
+      </BrowserView>
     </>
   );
 };
