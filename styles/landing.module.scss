@@ -9,11 +9,6 @@
   height: "100vh";
 }
 
-.logo__wrapper {
-  margin-top: 1rem;
-  margin-left: 1rem;
-}
-
 .txt__wrapper {
   display: flex;
   flex-direction: column;
@@ -38,12 +33,8 @@
 }
 
 .btn__line {
-  color: whitesmoke !important;
-  padding: 0.5rem !important;
-  border: solid 2px transparent !important;
+  color: whitesmoke;
+  padding: 0.5rem;
   border-radius: 1rem;
-}
-
-.btn__line:hover {
-  border: solid 2px whitesmoke !important;
+  border: solid 4px whitesmoke;
 }
