@@ -1,7 +1,7 @@
 "use client";
 
 import Head from "next/head";
-import { Landing } from "../components";
+import Landing from "../components/Landing";
 import { useEffect, useState } from "react";
 
 export default function Home() {
