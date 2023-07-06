@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Mountain from "../public/mountain.svg";
+import{ useRouter } from "next/router";
 
 function Landing() {
+  const router = useRouter();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ function Landing() {
           </div>
           <div>
             <button
+              onClick={() => router.push("/prefectures")}
               className={`${
                 isButtonVisible ? "opacity-100" : "opacity-0"
               } xl:text-lg rounded-xl font-semibold drop-shadow-md cursor-pointer bg-slate-100 text-lime-800 px-8 py-2 transition-all duration-300 ease-in-out border-2 hover:bg-lime-800 hover:text-slate-100 hover:border-slate-100`}
