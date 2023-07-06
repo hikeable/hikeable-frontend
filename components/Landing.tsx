@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 function Landing() {
   const router = useRouter();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const buttonTimer = setTimeout(() => {
@@ -57,6 +58,11 @@ function Landing() {
           </nav>
         </div>
       </div>
+      <footer className="w-full py-2 bg-slate-100 bg-gradient-to-b from-slate-200 to-transparent absolute bottom-0 flex justify-center items-center">
+        <span className="text-slate-900">
+          Hikeable &copy; {currentYear} All Rights Reserved.
+        </span>
+      </footer>
     </div>
   );
 }
