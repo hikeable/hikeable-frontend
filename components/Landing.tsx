@@ -26,14 +26,14 @@ function Landing() {
         loop
         muted
       />
-      <div className="absolute grid grid-cols-1 gap-4 lg:gap-0 xl:grid-cols-2 xl:w-1/2 xl:h-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-800 rounded-2xl p-4">
+      <div className="absolute grid grid-cols-1 w-3/4 h-3/4 xl:grid-cols-2 xl:w-1/2 xl:h-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-800 rounded-2xl p-4">
         <div className="flex flex-col justify-center items-center">
-          <Mountain className="w-24 h-24 fill-slate-100 drop-shadow-md" />
-          <span className="text-5xl font-bold text-slate-100 drop-shadow-md">
+          <Mountain className="w-64 h-64 fill-slate-100 drop-shadow-md" />
+          <span className="hidden text-5xl font-bold text-slate-100 drop-shadow-md">
             Hikeable
           </span>
         </div>
-        <div className="flex flex-col gap-4 justify-center items-center text-slate-100">
+        <div className="flex flex-col gap-4 justify-start items-center text-slate-100">
           <header>
             <h1 className="text-xl font-bold">
               &quot;Hiking. Simplified.&quot;
@@ -60,7 +60,7 @@ function Landing() {
       </div>
       <footer className="w-full py-2 bg-slate-100 bg-gradient-to-b from-slate-200 to-transparent absolute bottom-0 flex justify-center items-center">
         <span className="text-slate-900">
-          Hikeable &copy; {currentYear} All Rights Reserved.
+          Hikeable &copy; {currentYear} - All Rights Reserved
         </span>
       </footer>
     </div>
