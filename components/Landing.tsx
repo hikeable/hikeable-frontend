@@ -27,33 +27,41 @@ function Landing() {
         muted
       />
       <div
-        className="absolute grid grid-cols-1
-        w-11/12 h-max gap-4 px-4 py-8
+        className="absolute grid grid-cols-1 xl:grid-cols-2
+        w-11/12 md:w-3/4 lg:w-1/2
+        h-max
+        gap-4 px-4 py-8
        bg-lime-800 rounded-2xl
-      md:w-1/2 xl:grid-cols-2 xl:w-1/2 xl:h-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+       top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
         <div className="flex flex-row gap-2 justify-center items-center">
           <Mountain
             className="
-          w-12 h-12
-          md:w-64 md:h-64
-          xl:w-32 xl:h-32
+          w-24 h-24
+          md:w-32 md:h-32
+          xl:w-24 lg:h-24
+          
           fill-slate-100 drop-shadow-md"
           />
-          <span className="text-4xl
+          <span className="
+          hidden
+          md:inline-block
+          md:text-6xl
+          xl:text-6xl
+
           font-bold text-slate-100 drop-shadow-md tracking-wide">
             Hikeable
           </span>
         </div>
         <div className="flex flex-col gap-6 justify-start xl:justify-center items-center text-slate-100">
           <header>
-            <h1 className="text-base
+            <h1 className="text-base md:text-2xl xl:text-xl
             font-bold tracking-wide">
               &quot;Hiking in Japan. Simplified.&quot;
             </h1>
           </header>
           <section>
-            <p className="text-sm font-medium">
+            <p className="text-sm md:text-lg xl:text-base font-medium">
               Experience Japan&apos;s beauty with <strong>Hikeable</strong> -
               the ultimate hiking app. Connect with fellow adventurers, leave
               trailside messages, and uncover new horizons.
@@ -64,7 +72,7 @@ function Landing() {
               onClick={() => router.push("/prefectures")}
               className={`${
                 isButtonVisible ? "opacity-100" : "opacity-0"
-              } rounded-xl font-semibold drop-shadow-md cursor-pointer bg-slate-100 text-lime-800 px-8 py-4 md:py-2 transition-all duration-300 ease-in-out border-2 hover:bg-lime-800 hover:text-slate-100 hover:border-slate-100`}
+              } rounded-xl font-semibold drop-shadow-md cursor-pointer bg-slate-100 text-lime-800 px-8 py-4 xl:py-2 transition-all duration-300 ease-in-out border-2 hover:bg-lime-800 hover:text-slate-100 hover:border-slate-100`}
             >
               Get Started
             </button>
