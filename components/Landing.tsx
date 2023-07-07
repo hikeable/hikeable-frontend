@@ -29,7 +29,7 @@ function Landing() {
       <div
         className="absolute grid grid-cols-1 lg:grid-cols-2
         w-11/12 md:w-2/3 lg:w-3/4 xl:w-1/2
-        h-max
+        h-auto
         gap-4 px-4 py-8
        bg-lime-800 rounded-2xl
        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-md"
