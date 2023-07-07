@@ -28,29 +28,32 @@ function Landing() {
       />
       <div
         className="absolute grid grid-cols-1
-      gap-0 md:gap-4 xl:gap-0
-      w-80 h-auto p-4 bg-lime-800 rounded-2xl
+        w-11/12 h-max gap-4 px-4 py-8
+       bg-lime-800 rounded-2xl
       md:w-1/2 xl:grid-cols-2 xl:w-1/2 xl:h-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-row gap-2 justify-center items-center">
           <Mountain
             className="
-          w-48 h-48
+          w-12 h-12
           md:w-64 md:h-64
-          xl:w-32 xl:h-32  fill-slate-100 drop-shadow-md"
+          xl:w-32 xl:h-32
+          fill-slate-100 drop-shadow-md"
           />
-          <span className="hidden md:block xl:block text-5xl font-bold text-slate-100 drop-shadow-md">
+          <span className="text-4xl
+          font-bold text-slate-100 drop-shadow-md tracking-wide">
             Hikeable
           </span>
         </div>
-        <div className="flex flex-col gap-4 justify-start xl:justify-center items-center text-slate-100">
+        <div className="flex flex-col gap-6 justify-start xl:justify-center items-center text-slate-100">
           <header>
-            <h1 className="hidden md:block xl:block text-xl font-bold">
+            <h1 className="text-base
+            font-bold tracking-wide">
               &quot;Hiking in Japan. Simplified.&quot;
             </h1>
           </header>
           <section>
-            <p className="xl-text-md font-medium">
+            <p className="text-sm font-medium">
               Experience Japan&apos;s beauty with <strong>Hikeable</strong> -
               the ultimate hiking app. Connect with fellow adventurers, leave
               trailside messages, and uncover new horizons.
@@ -61,7 +64,7 @@ function Landing() {
               onClick={() => router.push("/prefectures")}
               className={`${
                 isButtonVisible ? "opacity-100" : "opacity-0"
-              } rounded-xl font-semibold drop-shadow-md cursor-pointer bg-slate-100 text-lime-800 px-8 py-2 transition-all duration-300 ease-in-out border-2 hover:bg-lime-800 hover:text-slate-100 hover:border-slate-100`}
+              } rounded-xl font-semibold drop-shadow-md cursor-pointer bg-slate-100 text-lime-800 px-8 py-4 md:py-2 transition-all duration-300 ease-in-out border-2 hover:bg-lime-800 hover:text-slate-100 hover:border-slate-100`}
             >
               Get Started
             </button>
