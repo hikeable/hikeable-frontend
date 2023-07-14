@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AuthProvider } from "../components/context/UserAuth";
 import { useAuthContext } from "../components/context/UseAuthContext";
 import Head from "next/head";
+import NewNavbar from "../components/NewNavbar";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const { user } = useAuthContext();
@@ -30,13 +31,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
           <link rel="icon" href="/greenboots.png" />
         </Head>
         <AuthProvider>
-          <Navbar
-            navActive={false}
-            isLoggedIn={false}
-            setLoggedStatus={setLoggedStatus}
-            userName={""}
-            logOff={setLoggedStatus}
-          />
+          <NewNavbar />
           <Component {...pageProps} />
           <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
         </AuthProvider>
@@ -60,13 +55,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       </Head>
       <>
         <AuthProvider>
-          <Navbar
-            navActive={true}
-            isLoggedIn={false}
-            setLoggedStatus={setLoggedStatus}
-            userName={""}
-            logOff={setLoggedStatus}
-          />
+          <NewNavbar />
           <Component {...pageProps} />
           <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js" />
         </AuthProvider>
