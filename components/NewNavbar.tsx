@@ -41,9 +41,9 @@ export default function NewNavbar() {
         <Mountain className="fill-lime-800" />
         <span className="text-lime-800 font-semibold text-4xl">Hikeable</span>
       </section>
-      <nav>
-        <button className="inline md:hidden">
-          <Hamburger isHamburgerOpen={isHamburgerOpen}/>
+      <nav className="flex items-center">
+        <button className="inline md:hidden" onClick={() => handleHamburgerClick()}>
+          <Hamburger isHamburgerOpen={isHamburgerOpen} />
         </button>
         <ul className="flex-row gap-6 hidden md:flex">
           {navLinks.map((link) => {
